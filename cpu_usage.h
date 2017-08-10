@@ -35,5 +35,5 @@ typedef struct Cpu_usage {
 };
 
 int cpu_number();
-void cpu_percentage();
+void cpu_percentage(int);
 #endif //GTKWORLD_CPU_USAGE_H

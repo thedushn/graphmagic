@@ -16,7 +16,7 @@
 #define NUMBER3 3
 #define NUMBER4 4
 struct Memory_usage memory_usage;
-struct Cpu_usage cpu;
+struct Cpu_usage cpu[4];
 gchar *text;
 gchar *memory_usage_text;
 gchar *swap_usage_text;
@@ -31,12 +31,20 @@ GtkWidget *vbox;
 GtkWidget *hbox;
 GtkWidget *hbox1;
 GtkWidget *hbox2;
+GtkWidget *hbox3;
 GtkWidget *label;
 GtkWidget *label1;
 GtkWidget *label2;
+GtkWidget *label3;
+GtkWidget *label4;
+GtkWidget *label5;
+GtkWidget *label6;
+
 GtkWidget *button;
 GtkWidget *button2;
-GArray *history;
+GArray *history[5];
+
+
 
 GtkWidget *vseparator;
 GtkWidget *hseparator;
@@ -59,15 +67,15 @@ gboolean init_timeout(void);
 struct cpu_drawing cpu_drawing1;
 static double cpu1;
 static void do_drawing2(cairo_t *cr);
-static void do_drawing(GtkWidget *widget,cairo_t *cr, double t);
-static  gint  i =500;
+static void do_drawing(GtkWidget *widget,cairo_t *cr, int t);
+  gint  t =500;
 
 void button_clicked(){
 
 
 
-    i+=200;
-    printf("I clicked a button %d", i);
+    t+=200;
+    printf("I clicked a button %d", t);
     init_timeout();
 
 
@@ -85,52 +93,57 @@ void cpu_inc(void){
 }
 static gboolean time_handler(GtkWidget *widget)
 {
-    cpu_drawing1.cpu1 += 0.4;
+    /*cpu_drawing1.cpu1 += 0.4;
     cpu_drawing1.cpu2 +=2;
     cpu_drawing1.cpu3 +=0.2;
     cpu_drawing1.cpu4 +=0.1;
 
     if(cpu_drawing1.cpu2 >50)
-        cpu_drawing1.cpu2=2;
+        cpu_drawing1.cpu2=2;*/
+
+
     gtk_widget_queue_draw(widget);
 
     return TRUE;
 }
 
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data){
-    double t=0.4 ;
+    double t ;
 
-  // int data=user_data;
-    do_drawing(widget,cr,t);
- /*   cpu_inc();
-   switch(data) {
+   int data;
+   data= GPOINTER_TO_INT(user_data);
+
+
+
+    do_drawing(widget,cr,data);
+ /*  switch(data) {
        case 1:
-            t=t*memory_usage.percentage;
+           t=cpu[1].percentage;
+           do_drawing(widget,cr,t);
 
 
        case 2:
-           t+=cpu_drawing1.cpu2;
-
+           t=cpu[2].percentage;
            do_drawing(widget,cr,t);
        case 3:
-           t=t*cpu_drawing1.cpu3;
+           t=cpu[3].percentage;
            do_drawing(widget,cr,t);
        case 4:
-           t=t*cpu_drawing1.cpu4;
+           t=cpu[4].percentage;
            do_drawing(widget,cr,t);
       default:
-           t=t+cpu1;
+
 
            do_drawing(widget,cr,t);
        }
 
-
 */
+
 
 }
 
 
-static void do_drawing(GtkWidget *widget,cairo_t *cr,double t){
+static void do_drawing(GtkWidget *widget,cairo_t *cr,int t){
     int width, height;
    // GtkWidget *win = gtk_widget_get_toplevel(widget);
    // gtk_window_get_size(GTK_WINDOW(win), &width, &height);
@@ -143,7 +156,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,double t){
 
 
     cairo_set_source_rgb(cr,0.2,0.12,0.3);
-    cairo_set_line_width(cr,2);
+    cairo_set_line_width(cr,0.5);
     int i, j;
 
     cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
@@ -154,7 +167,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,double t){
 static int g;
 gfloat *peak;
     g=cpu_drawing1.cpu2;
-    p=cpu.percentage;
+    p=cpu[0].percentage;
     //printf("(%d) sta kaze p \n",p);
   //  g_array
 
@@ -164,12 +177,12 @@ gfloat *peak;
     for(int j =0; j<200;j++){
 
         //g_array_insert_val(history,j,p);
-        peak= &g_array_index(history,gfloat,j);
+        peak= &g_array_index(history[t],gfloat,j);
 
-        printf("peak %f",*peak);
+     //   printf("peak %f",*peak);
         cairo_line_to(cr,0,400 - *peak);
 
-        cairo_translate(cr,j,0);
+        cairo_translate(cr,j/2,0);
 
     }
     cairo_stroke(cr);
@@ -240,31 +253,35 @@ gfloat *peak;
 
 
 
-
-
-
-
-
-
-
 }
 
 
 static gboolean cpu_change(gpointer data){
 
 
-    cpu_percentage();
+   // cpu_percentage(ncpu);
     static int i =0;
-    gfloat j = cpu.percentage;
-    j*=2;
-    cpu_usage_text = g_strdup_printf (("CPU: %d%%"),cpu.percentage);
-    g_array_insert_val(history,i,j);
+
+    cpu_percentage(ncpu);
+
+    for(int s=1; s<=4;s++) {
+        gfloat j = cpu[s].percentage;
+        j *= 3;
+        printf("%f j problems\n",j);
+        g_array_insert_val(history[s], i, j);
+
+    }
+     cpu_usage_text = g_strdup_printf (("CPU: %d%%"),cpu[1].percentage);
+
     if(i<=200)
         i=0;
     i++;
-    j++;
+    //  j++;
     printf("%d i problems\n",i);
-    printf("%f j problems\n",j);
+
+
+
+
     gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
 
 };
@@ -287,11 +304,20 @@ static gboolean swap_change(gpointer data){
     // guint g =i;
    // printf("%d %d \n",i ,g);
 
-    g_timeout_add(i,memory_change,label);
-    g_timeout_add(i,swap_change,label1);
-    g_timeout_add(i,cpu_change,label2);
+    g_timeout_add(t,memory_change,label);
+    g_timeout_add(t,swap_change,label1);
+    g_timeout_add(t,cpu_change,label2);
+    g_timeout_add(t,cpu_change,label3);
+    g_timeout_add(t,cpu_change,label4);
+    g_timeout_add(t,cpu_change,label5);
+    g_timeout_add(t,cpu_change,label6);
 
-    g_timeout_add(i,(GSourceFunc) time_handler,window);
+    g_timeout_add(t,(GSourceFunc) time_handler,window);
+
+
+
+
+ //    g_timeout_add(t,(GSourceFunc) init_timeout,NULL);
 
 
 };
@@ -311,19 +337,18 @@ void restartovanje(gpointer data){
 
 }*/
 
-int main (int argc, char *argv[])
-{
-
+int main (int argc, char *argv[]) {
 
 
     gtk_init(&argc, &argv);
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
- //  ncpu= cpu_number();
-    history = g_array_new(FALSE,TRUE, sizeof(gint));
-    g_array_set_size(history,500);
-
+    ncpu = cpu_number();
+    for (int i = 1; i <= 4; i++) {
+    history[i] = g_array_new(FALSE, TRUE, sizeof(gint));
+    g_array_set_size(history[i], 500);
+}
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
@@ -340,26 +365,48 @@ int main (int argc, char *argv[])
     gtk_widget_set_size_request(graph2,400,400);
     gtk_widget_set_size_request(graph3,400,400);
     gtk_widget_set_size_request(graph4,400,400);
-    label= gtk_label_new(NULL);
-    label1= gtk_label_new(NULL);
-    label2= gtk_label_new(NULL);
+    label= gtk_label_new(NULL);//memory
+    label1= gtk_label_new(NULL);//swap
+    label2= gtk_label_new(NULL);//CPU
+    label3= gtk_label_new(NULL);//cpu1
+    label4= gtk_label_new(NULL);//cpu2
+    label5= gtk_label_new(NULL);//cpu3
+    label6= gtk_label_new(NULL);//cpu4
 
     hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,1,TRUE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
 
-    gtk_box_pack_start(GTK_BOX(vbox),label,1,TRUE,0);
+   // gtk_box_pack_start(GTK_BOX(vbox),label,1,TRUE,0);
 
 
-    gtk_box_pack_start(GTK_BOX(hbox),button,FALSE,FALSE,FALSE);
+    gtk_box_pack_start(GTK_BOX(hbox),button,FALSE,FALSE,FALSE);//expand,fill,padding
    gtk_box_pack_start(GTK_BOX(hbox),button2,0,0,0);
+   gtk_box_pack_start(GTK_BOX(hbox),label,0,0,0);
+    gtk_box_pack_start(GTK_BOX(hbox),label3,0,FALSE,1);
+    gtk_box_pack_start(GTK_BOX(hbox),label4,1,TRUE,0);
+
 
 
     hbox1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
+    hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
+    hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
     gtk_box_pack_start(GTK_BOX(vbox),hbox1,1,TRUE,0);
 
     gtk_box_pack_start(GTK_BOX(hbox1),graph1,1,TRUE,0);
-    gtk_box_pack_start(GTK_BOX(vbox),label1,1,TRUE,0);
+
+
+   // gtk_box_pack_start(GTK_BOX(vbox),label1,0,FALSE,0);
+    hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+    gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(vbox),hbox3,1,TRUE,0);
+    hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+    gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(hbox3),label1,0,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(hbox3),label5,0,FALSE,1);
+    gtk_box_pack_start(GTK_BOX(hbox3),label2,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(hbox3),label6,1,TRUE,0);
+
 
     vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(hbox1),vseparator,1,TRUE,0);
@@ -367,12 +414,13 @@ int main (int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(hbox1),graph2,1,TRUE,0);
     hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
-    gtk_box_pack_start(GTK_BOX(vbox),label2,1,TRUE,0);
+    //gtk_box_pack_start(GTK_BOX(vbox),label2,1,TRUE,0);
 
 
     hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
     gtk_box_pack_start(GTK_BOX(vbox),hbox2,1,TRUE,0);
     gtk_box_pack_start(GTK_BOX(hbox2),graph3,1,TRUE,0);
+   // gtk_box_pack_start(GTK_BOX(hbox3),label4,0,0,0);
 
     vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(hbox2),vseparator,1,TRUE,0);
@@ -388,13 +436,13 @@ int main (int argc, char *argv[])
     g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
     g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked), NULL);
     g_signal_connect(G_OBJECT(graph1), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(on_draw_event),(gpointer)1);
     g_signal_connect(G_OBJECT(graph2), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(on_draw_event),(gpointer)2);
     g_signal_connect(G_OBJECT(graph3), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(on_draw_event),(gpointer)3);
     g_signal_connect(G_OBJECT(graph4), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(on_draw_event),(gpointer)4);
 
 
 
