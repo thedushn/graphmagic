@@ -12,11 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae9a8f5a-838e-4740-bb5d-4f7597028504" name="Default" comment="ispis grafika radi, radi ispis odvojenih cpu">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gktworld.dir/cpu_usage.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gktworld.dir/main.c.o" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1" afterPath="$PROJECT_DIR$/1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cpu_usage.c" afterPath="$PROJECT_DIR$/cpu_usage.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cpu_usage.h" afterPath="$PROJECT_DIR$/cpu_usage.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/gktworld" afterPath="$PROJECT_DIR$/cmake-build-debug/gktworld" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.c" afterPath="$PROJECT_DIR$/main.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -43,11 +41,11 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="355" column="36" lean-forward="false" selection-start-line="355" selection-start-column="36" selection-end-line="355" selection-end-column="36" />
+            <state relative-caret-position="-612">
+              <caret line="70" column="19" lean-forward="false" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#6561#6821#0" expanded="false" />
+                <element signature="e#6890#7150#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -76,7 +74,7 @@
       <file leaf-file-name="cpu_usage.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cpu_usage.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
+            <state relative-caret-position="148">
               <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding>
                 <element signature="e#39#61#0" expanded="true" />
@@ -119,6 +117,7 @@
       <find>Num</find>
       <find>before2</find>
       <find>i problems</find>
+      <find>label</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -442,12 +441,12 @@
       <workItem from="1502180303896" duration="13122000" />
       <workItem from="1502265510668" duration="16164000" />
       <workItem from="1502359250730" duration="8336000" />
-      <workItem from="1502438581878" duration="12074000" />
+      <workItem from="1502438581878" duration="14628000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160988000" />
+    <option name="totallyTimeSpent" value="163542000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -467,7 +466,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30832356" sideWeight="0.49715215" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3361548" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3985932" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3985932" sideWeight="0.49806523" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3985932" sideWeight="0.49806523" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32590857" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -519,7 +518,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.c</url>
-          <line>289</line>
+          <line>271</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -534,11 +533,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.c</url>
-          <line>282</line>
-          <option name="timeStamp" value="97" />
+          <line>295</line>
+          <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.c</url>
+          <line>278</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.c</url>
+          <line>183</line>
+          <option name="timeStamp" value="102" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="98" />
+      <option name="time" value="103" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -570,7 +579,7 @@
           <caret line="95" column="21" lean-forward="false" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="21" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -618,7 +627,7 @@
           <caret line="168" column="40" lean-forward="true" selection-start-line="168" selection-start-column="40" selection-end-line="168" selection-end-column="40" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -651,7 +660,7 @@
           <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -670,7 +679,7 @@
           <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -689,7 +698,7 @@
           <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -708,7 +717,7 @@
           <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -727,33 +736,7 @@
           <caret line="11" column="60" lean-forward="false" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/gtk-3.0/gtk/gtkcssprovider.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1760">
-          <caret line="88" column="6" lean-forward="false" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="60" lean-forward="false" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -779,7 +762,33 @@
           <caret line="11" column="60" lean-forward="false" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtk-3.0/gtk/gtkcssprovider.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1760">
+          <caret line="88" column="6" lean-forward="false" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="60" lean-forward="false" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -812,7 +821,7 @@
           <caret line="11" column="60" lean-forward="false" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -838,7 +847,7 @@
           <caret line="7" column="2" lean-forward="false" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -864,7 +873,7 @@
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -954,7 +963,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cpu_usage.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
+        <state relative-caret-position="148">
           <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding>
             <element signature="e#39#61#0" expanded="true" />
@@ -964,11 +973,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="355" column="36" lean-forward="false" selection-start-line="355" selection-start-column="36" selection-end-line="355" selection-end-column="36" />
+        <state relative-caret-position="-612">
+          <caret line="70" column="19" lean-forward="false" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#6561#6821#0" expanded="false" />
+            <element signature="e#6890#7150#0" expanded="false" />
           </folding>
         </state>
       </provider>

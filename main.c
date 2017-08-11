@@ -68,6 +68,7 @@ struct cpu_drawing cpu_drawing1;
 static double cpu1;
 static void do_drawing2(cairo_t *cr);
 static void do_drawing(GtkWidget *widget,cairo_t *cr, int t);
+void percent_ffs();
   gint  t =500;
 
 void button_clicked(){
@@ -100,7 +101,7 @@ static gboolean time_handler(GtkWidget *widget)
 
     if(cpu_drawing1.cpu2 >50)
         cpu_drawing1.cpu2=2;*/
-
+    cpu_percentage(ncpu);
 
     gtk_widget_queue_draw(widget);
 
@@ -114,7 +115,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data
    data= GPOINTER_TO_INT(user_data);
 
 
-
+    percent_ffs();
     do_drawing(widget,cr,data);
  /*  switch(data) {
        case 1:
@@ -260,34 +261,17 @@ gfloat *peak;
 static gboolean cpu_change(gpointer data){
 
 
-   // cpu_percentage(ncpu);
-    static guint i =0;
+    static int g =0;
 
-    cpu_percentage(ncpu);
-    for(int n =0; n<ncpu; n++){
-    for(int s=1; s<=ncpu;s++) {
-        gfloat j = cpu[s-1].percentage;
-        j *= 5;
-        printf("%f j problems\n",j);
-        g_array_insert_val(history[s], i, j);
+    if(g<=4){
+    cpu_usage_text = g_strdup_printf (("CPU%d: %f%%"),cpu[g].number,cpu[g].percentage);
 
-        gfloat *peak;
-        peak= &g_array_index(history[s],gfloat,i);
-
-        printf("da li prodje? %f\n",*peak);
-    }
-     cpu_usage_text = g_strdup_printf (("CPU%d: %d%%"),cpu[1].number,cpu[n].percentage);
-
-    if(i<=200)
-        i=0;
-    i+=1;
-    //  j++;
-    printf("%d i problems\n",i);
-
-
+    g++;
 
 
     gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+        if (g==4)
+            g=0;
     }
 };
 static gboolean memory_change(gpointer data){
@@ -304,26 +288,60 @@ static gboolean swap_change(gpointer data){
     swap_usage_text = g_strdup_printf(("SWAP: %d%%"),memory_usage.swap_used);
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
 }
+void ninja(){
+
+    g_timeout_add(t,memory_change,label);
+    g_timeout_add(t,swap_change,label1);
+   // g_timeout_add(t,cpu_change,label2);
+    g_timeout_add(t,cpu_change,label3);
+    g_timeout_add(t,cpu_change,label4);
+    g_timeout_add(t,cpu_change,label5);
+    g_timeout_add(t,cpu_change,label6);
+
+}
+void percent_ffs(){
+
+
+
+    static guint i =0;
+
+    cpu_percentage(ncpu);
+    for(int n =0; n<ncpu; n++){
+        for(int s=1; s<=ncpu;s++) {
+            gfloat j = cpu[s-1].percentage;
+            j *= 5;
+            printf("%f j problems\n",j);
+            g_array_insert_val(history[s], i, j);
+
+            gfloat *peak;
+            peak= &g_array_index(history[s],gfloat,i);
+
+            printf("da li prodje? %f\n",*peak);
+        }
+      //  cpu_usage_text = g_strdup_printf (("CPU%d: %f%%"),cpu[1].number,cpu[n].percentage);
+
+        if(i<=200)
+            i=0;
+        i+=1;
+        //  j++;
+        printf("%d i problems\n",i);
+
+    }
+};
  gboolean init_timeout(void){
 
     // guint g =i;
    // printf("%d %d \n",i ,g);
 
      g_timeout_add(t,(GSourceFunc) time_handler,window);
-    g_timeout_add(t,memory_change,label);
-    g_timeout_add(t,swap_change,label1);
-    g_timeout_add(t,cpu_change,label2);
-    g_timeout_add(t,cpu_change,label3);
-    g_timeout_add(t,cpu_change,label4);
-    g_timeout_add(t,cpu_change,label5);
-    g_timeout_add(t,cpu_change,label6);
 
 
 
 
 
+     ninja();
 
- //    g_timeout_add(t,(GSourceFunc) init_timeout,NULL);
+  //  g_timeout_add(t,(GSourceFunc) init_timeout,NULL);
 
 
 };
