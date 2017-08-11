@@ -26,7 +26,8 @@ typedef struct Cpu_usage {
     unsigned short count;
     float user;
     float system;
-    int percentage;
+    float percentage;
+    int number;
 
 
 

@@ -171,6 +171,7 @@ gfloat *peak;
     //printf("(%d) sta kaze p \n",p);
   //  g_array
 
+// kada stavimo da je gpointer 0 desi se segmantation fault
 
     cairo_move_to(cr,0,400);
     cairo_translate(cr,j,0);
@@ -179,7 +180,7 @@ gfloat *peak;
         //g_array_insert_val(history,j,p);
         peak= &g_array_index(history[t],gfloat,j);
 
-     //   printf("peak %f",*peak);
+        printf("peak %f",*peak);
         cairo_line_to(cr,0,400 - *peak);
 
         cairo_translate(cr,j/2,0);
@@ -260,22 +261,26 @@ static gboolean cpu_change(gpointer data){
 
 
    // cpu_percentage(ncpu);
-    static int i =0;
+    static guint i =0;
 
     cpu_percentage(ncpu);
-
-    for(int s=1; s<=4;s++) {
-        gfloat j = cpu[s].percentage;
-        j *= 3;
+    for(int n =0; n<ncpu; n++){
+    for(int s=1; s<=ncpu;s++) {
+        gfloat j = cpu[s-1].percentage;
+        j *= 5;
         printf("%f j problems\n",j);
         g_array_insert_val(history[s], i, j);
 
+        gfloat *peak;
+        peak= &g_array_index(history[s],gfloat,i);
+
+        printf("da li prodje? %f\n",*peak);
     }
-     cpu_usage_text = g_strdup_printf (("CPU: %d%%"),cpu[1].percentage);
+     cpu_usage_text = g_strdup_printf (("CPU%d: %d%%"),cpu[1].number,cpu[n].percentage);
 
     if(i<=200)
         i=0;
-    i++;
+    i+=1;
     //  j++;
     printf("%d i problems\n",i);
 
@@ -283,7 +288,7 @@ static gboolean cpu_change(gpointer data){
 
 
     gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
-
+    }
 };
 static gboolean memory_change(gpointer data){
 
@@ -304,6 +309,7 @@ static gboolean swap_change(gpointer data){
     // guint g =i;
    // printf("%d %d \n",i ,g);
 
+     g_timeout_add(t,(GSourceFunc) time_handler,window);
     g_timeout_add(t,memory_change,label);
     g_timeout_add(t,swap_change,label1);
     g_timeout_add(t,cpu_change,label2);
@@ -312,7 +318,7 @@ static gboolean swap_change(gpointer data){
     g_timeout_add(t,cpu_change,label5);
     g_timeout_add(t,cpu_change,label6);
 
-    g_timeout_add(t,(GSourceFunc) time_handler,window);
+
 
 
 
@@ -346,8 +352,8 @@ int main (int argc, char *argv[]) {
 
     ncpu = cpu_number();
     for (int i = 1; i <= 4; i++) {
-    history[i] = g_array_new(FALSE, TRUE, sizeof(gint));
-    g_array_set_size(history[i], 500);
+    history[i] = g_array_new(FALSE, TRUE, sizeof(int));
+    g_array_set_size(history[i], 201);
 }
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
 
