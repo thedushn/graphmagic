@@ -70,9 +70,9 @@ void cpu_percentage(int cpu_count){
     unsigned  long user_old;
     unsigned  long system_old;
     int cpu_number1[4]={0, 0, 0, 0};
-    static unsigned long jiffies_system [5] = {0, 0, 0, 0,0}, jiffies_total [5] = {0, 0, 0, 0,0};
-    static unsigned long jiffies_user[5] = {0, 0, 0, 0,0};
-    static unsigned long jiffies_user_old [5] = {0,0,0,0,0}, jiffies_system_old [5] = {0,0,0,0,0}, jiffies_total_old [5] = {0,0,0,0,0};
+    static unsigned long jiffies_system [4] = {0, 0, 0, 0}, jiffies_total [4] = {0, 0, 0, 0};
+    static unsigned long jiffies_user[4] = {0, 0, 0, 0};
+    static unsigned long jiffies_user_old [4] = {0,0,0,0}, jiffies_system_old [4] = {0,0,0,0}, jiffies_total_old [4] = {0,0,0,0};
     FILE *file;
     gchar *filename = "/proc/stat";
     gchar buffer[1024];
@@ -82,16 +82,13 @@ void cpu_percentage(int cpu_count){
     //sscanf (buffer, "cpu\t%lu %lu %lu %lu ", &user[0] , &user_nice[0], &system[0], &idle[0] );
     //printf("%lu %lu %lu %lu\n", user[0] , user_nice[0], system[0], idle[0]);
 
-
+    static int j=0;
            printf(" CPU buffer before:%s\n",buffer);
            while (fgets(buffer, 1024, file) != NULL) {
                if (buffer[0] != 'c' && buffer[1] != 'p' && buffer[2] != 'u')
                    break;
-                static int j=0;
-               if (j>=cpu_count){
-                   j=0;
-                   break;
-               }
+
+
                printf(" CPU buffer before2:%s\n",buffer);
                printf(" j %d\n",j);
                  sscanf(buffer,"cpu%4d %lu %lu %lu %lu",&cpu_number1[j],&user[j] , &user_nice[j], &system[j], &idle[j]);
@@ -99,8 +96,13 @@ void cpu_percentage(int cpu_count){
                printf("CPUN:%d USER:%lu USER_NICE:%lu SYSTEM:%lu IDLE:%lu \n",cpu_number1[j],user[j] , user_nice[j], system[j], idle[j]);
                printf(" CPU buffer::%s\n",buffer);
                j++;
+               if (j==cpu_count){
+                   j=0;
+                   break;
+               }
 
            }
+    fclose (file);
     for(int i=0 ; i< cpu_count;i++) {
        cpu[i].number=cpu_number1[i];
         printf("Numbers do you see them %d %d \n",cpu_number1[i],i);
@@ -112,16 +114,20 @@ void cpu_percentage(int cpu_count){
            jiffies_system[i] = system[i];
            jiffies_total[i] = jiffies_user[i] + jiffies_system[i] + idle[i];
 
-           cpu[i].user = cpu[i].system = 0.0;
-           if (jiffies_total[i] > jiffies_total_old[i]) {
+           //cpu[i].user = cpu[i].system = 0.0;
+            user[i]= system[i]= 0.0;
+        if (jiffies_total[i] > jiffies_total_old[i]) {
                jiffies_total_delta[i] = jiffies_total[i] - jiffies_total_old[i];
-               cpu[i].user = (jiffies_user[i] - jiffies_user_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
-               cpu[i].system = (jiffies_system[i] - jiffies_system_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
+              user[i] = (jiffies_user[i] - jiffies_user_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
+               system[i] = (jiffies_system[i] - jiffies_system_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
            }
            //  cpu.count = _cpu_count;
            // printf("cpu count in struct %d",_cpu_count);
-           cpu[i].percentage = cpu[i].user + cpu[i].system;
-            percentage[i]=cpu[i].user + cpu[i].system;
+           //cpu[i].percentage = cpu[i].user + cpu[i].system;
+           percentage[i] =user[i] + system[i];
+
+          //  percentage[i]=cpu[i].user + cpu[i].system;
+        cpu[i].percentage =percentage[i];
            printf("cpu percentage %f \n", cpu[i].percentage);
         float fuck = cpu[i].percentage;
         printf("cpu percentage %f \n", percentage[i]);
@@ -129,7 +135,7 @@ void cpu_percentage(int cpu_count){
 
 
    }
-    fclose (file);
+
 
 
    // printf("%lu %lu %lu %lu\n", &user , &user_nice, &system, &idle);

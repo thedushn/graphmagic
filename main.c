@@ -10,6 +10,7 @@
 #include "memory_usage.h"
 #include <glib.h>
 #include "cpu_usage.h"
+#include "network_bandwith.h"
 //int ncpu;
 #define NUMBER1 1
 #define NUMBER2 2
@@ -21,6 +22,8 @@ gchar *text;
 gchar *memory_usage_text;
 gchar *swap_usage_text;
 gchar *cpu_usage_text;
+gchar *network_usage_received_text;
+gchar *network_usage_transimit_text;
 int float_variable;
 static GtkWidget *window;
 GtkWidget *graph1;
@@ -39,12 +42,13 @@ GtkWidget *label3;
 GtkWidget *label4;
 GtkWidget *label5;
 GtkWidget *label6;
+GtkWidget *label7;
 
 GtkWidget *button;
 GtkWidget *button2;
-GArray *history[5];
+GArray *history[6];
 
-
+gfloat niz[4][200];
 
 GtkWidget *vseparator;
 GtkWidget *hseparator;
@@ -63,13 +67,13 @@ gboolean init_timeout(void);
 
 
 
-
+struct Network net;
 struct cpu_drawing cpu_drawing1;
 static double cpu1;
 static void do_drawing2(cairo_t *cr);
-static void do_drawing(GtkWidget *widget,cairo_t *cr, int t);
+static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
 void percent_ffs();
-  gint  t =500;
+  guint  t =1000;
 
 void button_clicked(){
 
@@ -101,7 +105,9 @@ static gboolean time_handler(GtkWidget *widget)
 
     if(cpu_drawing1.cpu2 >50)
         cpu_drawing1.cpu2=2;*/
-    cpu_percentage(ncpu);
+
+
+  //  cpu_percentage(ncpu);
 
     gtk_widget_queue_draw(widget);
 
@@ -115,7 +121,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data
    data= GPOINTER_TO_INT(user_data);
 
 
-    percent_ffs();
+   // percent_ffs();
     do_drawing(widget,cr,data);
  /*  switch(data) {
        case 1:
@@ -144,7 +150,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data
 }
 
 
-static void do_drawing(GtkWidget *widget,cairo_t *cr,int t){
+static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
     int width, height;
    // GtkWidget *win = gtk_widget_get_toplevel(widget);
    // gtk_window_get_size(GTK_WINDOW(win), &width, &height);
@@ -157,7 +163,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int t){
 
 
     cairo_set_source_rgb(cr,0.2,0.12,0.3);
-    cairo_set_line_width(cr,0.5);
+    cairo_set_line_width(cr,2);
     int i, j;
 
     cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
@@ -172,16 +178,17 @@ gfloat *peak;
     //printf("(%d) sta kaze p \n",p);
   //  g_array
 
-// kada stavimo da je gpointer 0 desi se segmantation fault
+// kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
 
     cairo_move_to(cr,0,400);
-    cairo_translate(cr,j,0);
+    cairo_translate(cr,j/2,0);
     for(int j =0; j<200;j++){
 
         //g_array_insert_val(history,j,p);
-        peak= &g_array_index(history[t],gfloat,j);
-
-        printf("peak %f",*peak);
+        peak= &g_array_index(history[5],gfloat,j);
+      //  peak = &niz[l-1][j];
+      //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
+       // printf("peak1 %.1f\n",*peak);
         cairo_line_to(cr,0,400 - *peak);
 
         cairo_translate(cr,j/2,0);
@@ -257,14 +264,32 @@ gfloat *peak;
 
 }
 
+static gboolean network_change(gpointer data){
 
+
+    received_transfered();
+    float net1= net.received_bytes;
+    float net_kb = net.received_kb;
+    net_kb/=100;
+    static guint i =0;
+    printf("STO NECE: %f",net1);
+    g_array_insert_val(history[5], i, net_kb);
+    i++;
+    net_kb++;
+    if(i>=200)
+        i=0;
+    network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size);
+
+    gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
+}
 static gboolean cpu_change(gpointer data){
 
 
     static int g =0;
-
+    percent_ffs();
+    received_transfered();
     if(g<=4){
-    cpu_usage_text = g_strdup_printf (("CPU%d: %f%%"),cpu[g].number,cpu[g].percentage);
+    cpu_usage_text = g_strdup_printf (("CPU%d: %2.f%%"),cpu[g].number,cpu[g].percentage);
 
     g++;
 
@@ -298,48 +323,73 @@ void ninja(){
     g_timeout_add(t,cpu_change,label5);
     g_timeout_add(t,cpu_change,label6);
 
+
+
 }
 void percent_ffs(){
 
 
+    cpu_percentage(ncpu);
+    static guint i= 0;
+    gfloat j;
+    gfloat *peak;
+    for(int s=1;s<=ncpu;s++) {
 
-    static guint i =0;
+        j = cpu[s - 1].percentage;
+      //  j=i;
+        niz[s-1][i]=j;
+        g_array_insert_val(history[s], i, j);
+        peak=&g_array_index(history[s],gfloat,i);
+
+       // printf("peak problems: %f \n",*peak);
+
+
+    }
+    i++;
+    if(i>=200)
+        i=0;
+/*    static guint i =0;
 
     cpu_percentage(ncpu);
     for(int n =0; n<ncpu; n++){
         for(int s=1; s<=ncpu;s++) {
-            gfloat j = cpu[s-1].percentage;
-            j *= 5;
-            printf("%f j problems\n",j);
-            g_array_insert_val(history[s], i, j);
+            gfloat j = cpu[s - 1].percentage;
+            j *= 3;
+            //test
+
+            niz[i] = j;
+            printf("%f j problems\n", j);
+            g_array_insert_val(history[s], i, j);// ako je s ==0 dolazi do greske
 
             gfloat *peak;
-            peak= &g_array_index(history[s],gfloat,i);
+            peak = &g_array_index(history[s], gfloat, i); // ako je s == 0 dolazi do segmantaion fault
 
-            printf("da li prodje? %f\n",*peak);
-        }
-      //  cpu_usage_text = g_strdup_printf (("CPU%d: %f%%"),cpu[1].number,cpu[n].percentage);
+            printf("da li prodje? %f\n", *peak);
+            //}
+            //  cpu_usage_text = g_strdup_printf (("CPU%d: %f%%"),cpu[1].number,cpu[n].percentage);
 
-        if(i<=200)
-            i=0;
-        i+=1;
-        //  j++;
-        printf("%d i problems\n",i);
+            if (i == 200)//200
+                i = 0;
+            i += 1;
+            //  j++;
+            printf("%d i problems\n", i);
+        }//dodato
 
-    }
+    }*/
 };
  gboolean init_timeout(void){
 
     // guint g =i;
    // printf("%d %d \n",i ,g);
-
+     g_timeout_add(2000,network_change,label7);
+     ninja();
      g_timeout_add(t,(GSourceFunc) time_handler,window);
 
 
 
 
 
-     ninja();
+
 
   //  g_timeout_add(t,(GSourceFunc) init_timeout,NULL);
 
@@ -369,8 +419,8 @@ int main (int argc, char *argv[]) {
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
     ncpu = cpu_number();
-    for (int i = 1; i <= 4; i++) {
-    history[i] = g_array_new(FALSE, TRUE, sizeof(int));
+    for (int i = 1; i <= 5; i++) {
+    history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
     g_array_set_size(history[i], 201);
 }
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
@@ -396,6 +446,8 @@ int main (int argc, char *argv[]) {
     label4= gtk_label_new(NULL);//cpu2
     label5= gtk_label_new(NULL);//cpu3
     label6= gtk_label_new(NULL);//cpu4
+    label7= gtk_label_new(NULL);//network_received for now
+
 
     hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,1,TRUE,0);
@@ -409,6 +461,7 @@ int main (int argc, char *argv[]) {
    gtk_box_pack_start(GTK_BOX(hbox),label,0,0,0);
     gtk_box_pack_start(GTK_BOX(hbox),label3,0,FALSE,1);
     gtk_box_pack_start(GTK_BOX(hbox),label4,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(hbox),label7,1,TRUE,0);
 
 
 
@@ -430,6 +483,8 @@ int main (int argc, char *argv[]) {
     gtk_box_pack_start(GTK_BOX(hbox3),label5,0,FALSE,1);
     gtk_box_pack_start(GTK_BOX(hbox3),label2,1,TRUE,0);
     gtk_box_pack_start(GTK_BOX(hbox3),label6,1,TRUE,0);
+ //   gtk_box_pack_start(GTK_BOX(hbox3),label7,1,TRUE,0);
+
 
 
     vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
