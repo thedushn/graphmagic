@@ -46,7 +46,7 @@ GtkWidget *label7;
 
 GtkWidget *button;
 GtkWidget *button2;
-GArray *history[6];
+GArray *history[8];
 
 gfloat niz[4][200];
 
@@ -181,12 +181,12 @@ gfloat *peak;
 // kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
 
     cairo_move_to(cr,0,400);
-    cairo_translate(cr,j/2,0);
+   // cairo_translate(cr,j/2,0);
     for(int j =0; j<200;j++){
 
         //g_array_insert_val(history,j,p);
-        peak= &g_array_index(history[5],gfloat,j);
-      //  peak = &niz[l-1][j];
+        peak= &g_array_index(history[l],gfloat,j);
+     //   peak = &niz[l-1][j];
       //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
        // printf("peak1 %.1f\n",*peak);
         cairo_line_to(cr,0,400 - *peak);
@@ -274,10 +274,12 @@ static gboolean network_change(gpointer data){
     static guint i =0;
     printf("STO NECE: %f",net1);
     g_array_insert_val(history[5], i, net_kb);
-    i++;
+
     net_kb++;
-    if(i>=200)
+   // if(i>=200)
+        if(i<=200)
         i=0;
+    i++;
     network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size);
 
     gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
@@ -287,7 +289,7 @@ static gboolean cpu_change(gpointer data){
 
     static int g =0;
     percent_ffs();
-    received_transfered();
+
     if(g<=4){
     cpu_usage_text = g_strdup_printf (("CPU%d: %2.f%%"),cpu[g].number,cpu[g].percentage);
 
@@ -303,13 +305,28 @@ static gboolean memory_change(gpointer data){
 
 
     get_memory_usage();
+
+    static int i =0;
+    gfloat  j = memory_usage.percentage;
+
+    g_array_insert_val(history[6], i, j);
+
+
+
     memory_usage_text = g_strdup_printf (("Memory: %d%%"),memory_usage.percentage);
     gtk_label_set_text (GTK_LABEL (data), memory_usage_text);
 }
 static gboolean swap_change(gpointer data){
 
 
+
     get_memory_usage();
+
+
+    static int i =0;
+    gfloat  j = memory_usage.swap_used;
+
+    g_array_insert_val(history[7], i, j);
     swap_usage_text = g_strdup_printf(("SWAP: %d%%"),memory_usage.swap_used);
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
 }
@@ -345,9 +362,9 @@ void percent_ffs(){
 
 
     }
-    i++;
-    if(i>=200)
-        i=0;
+ /*   i++;
+    if(i<=200)
+        i=0; */
 /*    static guint i =0;
 
     cpu_percentage(ncpu);
@@ -396,20 +413,7 @@ void percent_ffs(){
 
 };
 
-/*
-void restartovanje(gpointer data){
 
-
-    float percent ;
-    percent += 0.05;
-    if(percent > 1.0)
-        percent = 0.0;
-    int percent2 = (int) percent;
-    char c[3];
-    sprintf(text, "%d%%",  percent2);
-    gtk_label_set_text(GTK_LABEL(data),c);
-
-}*/
 
 int main (int argc, char *argv[]) {
 
@@ -419,7 +423,7 @@ int main (int argc, char *argv[]) {
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
     ncpu = cpu_number();
-    for (int i = 1; i <= 5; i++) {
+    for (int i = 1; i <= 7; i++) {
     history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
     g_array_set_size(history[i], 201);
 }
@@ -517,11 +521,11 @@ int main (int argc, char *argv[]) {
     g_signal_connect(G_OBJECT(graph1), "draw",
                      G_CALLBACK(on_draw_event),(gpointer)1);
     g_signal_connect(G_OBJECT(graph2), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)2);
+                     G_CALLBACK(on_draw_event),(gpointer)5);
     g_signal_connect(G_OBJECT(graph3), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)3);
+                     G_CALLBACK(on_draw_event),(gpointer)7);
     g_signal_connect(G_OBJECT(graph4), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)4);
+                     G_CALLBACK(on_draw_event),(gpointer)6);
 
 
 
