@@ -29,10 +29,6 @@ typedef struct Cpu_usage {
     float percentage;
     int number;
 
-
-
-
-
 };
 
 int cpu_number();

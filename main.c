@@ -30,6 +30,8 @@ GtkWidget *graph1;
 GtkWidget *graph2;
 GtkWidget *graph3;
 GtkWidget *graph4;
+GtkWidget *graph5;
+GtkWidget *graph6;
 GtkWidget *vbox;
 GtkWidget *hbox;
 GtkWidget *hbox1;
@@ -73,7 +75,7 @@ static double cpu1;
 static void do_drawing2(cairo_t *cr);
 static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
 void percent_ffs();
-  guint  t =1000;
+  guint  t =200;
 
 void button_clicked(){
 
@@ -108,7 +110,9 @@ static gboolean time_handler(GtkWidget *widget)
 
 
   //  cpu_percentage(ncpu);
-
+    percent_ffs();
+    get_memory_usage();
+    received_transfered();
     gtk_widget_queue_draw(widget);
 
     return TRUE;
@@ -162,103 +166,81 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
     //
 
 
-    cairo_set_source_rgb(cr,0.2,0.12,0.3);
-    cairo_set_line_width(cr,2);
-    int i, j;
+   // cairo_set_source_rgb(cr,0.2,0.12,0.3);
+    cairo_set_line_width(cr,1);
+    int j;
 
     cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
     cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
-   cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+   //cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
 
  int p;
-static int g;
+ int g=ncpu;
 gfloat *peak;
-    g=cpu_drawing1.cpu2;
+   // g=cpu_drawing1.cpu2;
     p=cpu[0].percentage;
     //printf("(%d) sta kaze p \n",p);
   //  g_array
 
 // kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
+ int i=3;
+    //i=l;
 
-    cairo_move_to(cr,0,400);
-   // cairo_translate(cr,j/2,0);
-    for(int j =0; j<200;j++){
+
+       cairo_set_source_rgb(cr,0,0,0);
+        cairo_move_to(cr,0,300);
+        cairo_line_to(cr,300,350);
+    cairo_stroke(cr);
+
+    cairo_set_source_rgb(cr,0,0,0);
+    cairo_move_to(cr,0,300);
+    cairo_line_to(cr,300,200);
+
+    cairo_stroke_preserve(cr);
+    //cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
+    cairo_set_source_rgb(cr,0,0,0);
+    cairo_move_to(cr, 0, 400);
+        // cairo_translate(cr,j/2,0);
+        for (int j = 0; j < 200; j++) {
+
+            //g_array_insert_val(history,j,p);
+            peak = &g_array_index(history[6], gfloat, j);
+            //   peak = &niz[l-1][j];
+            //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
+          //  printf("peak1 %.1f\n", *peak);
+            cairo_line_to(cr, 0, 400 - *peak);
+
+            cairo_translate(cr, j / 2, 0);
+
+        }
+        cairo_stroke_preserve(cr);
+
+
+       // i=5;
+   // cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
+    cairo_set_source_rgb(cr,0.5,1,0.5);
+    cairo_set_line_width(cr,5);
+    cairo_move_to(cr,0,300);
+    cairo_line_to(cr,300,100);
+    cairo_stroke_preserve(cr);
+    cairo_move_to(cr, 0, 400);
+    // cairo_translate(cr,j/2,0);
+    for (int j = 0; j < 200; j++) {
 
         //g_array_insert_val(history,j,p);
-        peak= &g_array_index(history[l],gfloat,j);
-     //   peak = &niz[l-1][j];
-      //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
-       // printf("peak1 %.1f\n",*peak);
-        cairo_line_to(cr,0,400 - *peak);
+        peak = &g_array_index(history[3], gfloat, j);
+        //   peak = &niz[l-1][j];
+        //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
+        //  printf("peak1 %.1f\n", *peak);
+        cairo_line_to(cr, 0, 400 - *peak);
 
-        cairo_translate(cr,j/2,0);
+        cairo_translate(cr, j / 2, 0);
 
     }
+    printf("CRTAS LI ME \n");
     cairo_stroke(cr);
-//pomera se linija i izgleda kao grafik ali ne brise kada izadje iz obsega
-   /* cairo_move_to(cr,0,0);
-    cairo_translate(cr,j,0);
-    for(int j =0; j<500;j++){
+    printf("CRTAS LI ME1 \n");
 
-        //g_array_insert_val(history,j,p);
-        peak= &g_array_index(history,gfloat,j);
-
-        printf("peak %f",*peak);
-        cairo_line_to(cr,0,*peak);
-
-        cairo_translate(cr,j,0);
-
-    }
-    cairo_stroke(cr);*/
-
-    //pomera se linija i cuva se predhodne u nizu  ali pravi preveliki razmak izmedju linija
-    /* for(int j =0; j<500;j++){
-
-        //g_array_insert_val(history,j,p);
-        peak= &g_array_index(history,gfloat,j);
-        cairo_move_to(cr,0,0);
-        printf("peak %f",*peak);
-        cairo_line_to(cr,0,*peak);
-
-        cairo_translate(cr,j,0);
-
-    }
-    cairo_stroke(cr); */
-
-   //pomera se linija ali ne cuva predhodnu nacrtanu liniju
-  /*  cairo_move_to(cr,200,0);
-        cairo_translate(cr,2+g,0);
-    cairo_move_to(cr,200,0);
-    cairo_line_to(cr,200,p*3);
-    cairo_stroke(cr);
-*/
-
-
-
-
-
-
-   /* cairo_set_source_rgb(cr,0.42,0.112,0.3);
-    for(int j=0;j<1000;j++) {
-        cairo_move_to(cr, 200, 0);
-        cairo_line_to(cr, 200, j);
-        cairo_translate(cr,-2,0);
-    }
-    cairo_stroke(cr);
-   */
-
-
-
-
-
-
-    //cairo_move_to(cr,300,200);
-    //cairo_line_to(cr,200,100);
-
-   // cairo_translate(cr,-i+10,0);
-
-
-   //}
 
 
 
@@ -267,7 +249,7 @@ gfloat *peak;
 static gboolean network_change(gpointer data){
 
 
-    received_transfered();
+   // received_transfered();
     float net1= net.received_bytes;
     float net_kb = net.received_kb;
     net_kb/=100;
@@ -288,7 +270,7 @@ static gboolean cpu_change(gpointer data){
 
 
     static int g =0;
-    percent_ffs();
+    //percent_ffs();
 
     if(g<=4){
     cpu_usage_text = g_strdup_printf (("CPU%d: %2.f%%"),cpu[g].number,cpu[g].percentage);
@@ -304,7 +286,7 @@ static gboolean cpu_change(gpointer data){
 static gboolean memory_change(gpointer data){
 
 
-    get_memory_usage();
+    //get_memory_usage();
 
     static int i =0;
     gfloat  j = memory_usage.percentage;
@@ -320,7 +302,7 @@ static gboolean swap_change(gpointer data){
 
 
 
-    get_memory_usage();
+    //get_memory_usage();
 
 
     static int i =0;
@@ -331,6 +313,7 @@ static gboolean swap_change(gpointer data){
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
 }
 void ninja(){
+
 
     g_timeout_add(t,memory_change,label);
     g_timeout_add(t,swap_change,label1);
@@ -398,7 +381,8 @@ void percent_ffs(){
 
     // guint g =i;
    // printf("%d %d \n",i ,g);
-     g_timeout_add(2000,network_change,label7);
+
+     g_timeout_add(1000,network_change,label7);
      ninja();
      g_timeout_add(t,(GSourceFunc) time_handler,window);
 
@@ -435,14 +419,16 @@ int main (int argc, char *argv[]) {
     button2 =gtk_button_new_with_label("refresh rate");
 
     graph1 = gtk_drawing_area_new();
-
     graph2 = gtk_drawing_area_new();
     graph3 = gtk_drawing_area_new();
     graph4 = gtk_drawing_area_new();
+
+
     gtk_widget_set_size_request(graph1,400,400);
     gtk_widget_set_size_request(graph2,400,400);
     gtk_widget_set_size_request(graph3,400,400);
     gtk_widget_set_size_request(graph4,400,400);
+
     label= gtk_label_new(NULL);//memory
     label1= gtk_label_new(NULL);//swap
     label2= gtk_label_new(NULL);//CPU

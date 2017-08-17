@@ -98,6 +98,10 @@ void received_transfered(){
         network_size="bytes/s";
 
     }
+    int static i=0;
+    if (i==0)
+        network1=0;
+    i++;
     network1=network1/1024;
 
     printf("NET %lu %lu\n",received_bytes,transmit_bytes);
