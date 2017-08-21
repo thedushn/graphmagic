@@ -23,7 +23,7 @@ gchar *memory_usage_text;
 gchar *swap_usage_text;
 gchar *cpu_usage_text;
 gchar *network_usage_received_text;
-gchar *network_usage_transimit_text;
+gchar *network_usage_transimited_text;
 int float_variable;
 static GtkWidget *window;
 GtkWidget *graph1;
@@ -45,10 +45,11 @@ GtkWidget *label4;
 GtkWidget *label5;
 GtkWidget *label6;
 GtkWidget *label7;
+GtkWidget *label8;
 
 GtkWidget *button;
 GtkWidget *button2;
-GArray *history[8];
+GArray *history[9];
 
 gfloat niz[4][200];
 
@@ -56,7 +57,7 @@ GtkWidget *vseparator;
 GtkWidget *hseparator;
 //int cpu_change(int value);
 
-gboolean init_timeout(void);
+void init_timeout(int);
  struct cpu_drawing{
 
     double cpu1;
@@ -72,10 +73,13 @@ gboolean init_timeout(void);
 struct Network net;
 struct cpu_drawing cpu_drawing1;
 static double cpu1;
-static void do_drawing2(cairo_t *cr);
+//static void do_drawing2(cairo_t *cr);
 static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
+static gboolean network_change_rc(gpointer data);
+static gboolean network_change_ts(gpointer data);
 void percent_ffs();
-  guint  t =200;
+  guint  t =1000;
 
 void button_clicked(){
 
@@ -83,7 +87,7 @@ void button_clicked(){
 
     t+=200;
     printf("I clicked a button %d", t);
-    init_timeout();
+    init_timeout(t);
 
 
 };
@@ -118,7 +122,7 @@ static gboolean time_handler(GtkWidget *widget)
     return TRUE;
 }
 
-static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data){
+static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr1,gpointer *user_data){
     double t ;
 
    int data;
@@ -126,7 +130,8 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data
 
 
    // percent_ffs();
-    do_drawing(widget,cr,data);
+    do_drawing(widget,cr1,data);
+   // do_drawing2(widget,cr,data);
  /*  switch(data) {
        case 1:
            t=cpu[1].percentage;
@@ -154,7 +159,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data
 }
 
 
-static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
+static void do_drawing(GtkWidget *widget,cairo_t *cr1,int l){
     int width, height;
    // GtkWidget *win = gtk_widget_get_toplevel(widget);
    // gtk_window_get_size(GTK_WINDOW(win), &width, &height);
@@ -165,18 +170,19 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
    // cr = cairo_create (graph_surface);
     //
 
-
+    cairo_t *cr = cr1;
    // cairo_set_source_rgb(cr,0.2,0.12,0.3);
     cairo_set_line_width(cr,1);
     int j;
 
-    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+   // cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
     cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
    //cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
 
  int p;
  int g=ncpu;
 gfloat *peak;
+    gfloat *peak1;
    // g=cpu_drawing1.cpu2;
     p=cpu[0].percentage;
     //printf("(%d) sta kaze p \n",p);
@@ -187,7 +193,7 @@ gfloat *peak;
     //i=l;
 
 
-       cairo_set_source_rgb(cr,0,0,0);
+  /*     cairo_set_source_rgb(cr,0,0,0);
         cairo_move_to(cr,0,300);
         cairo_line_to(cr,300,350);
     cairo_stroke(cr);
@@ -198,37 +204,86 @@ gfloat *peak;
 
     cairo_stroke_preserve(cr);
     //cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
-    cairo_set_source_rgb(cr,0,0,0);
+    */
+    //cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr, 0, 400);
         // cairo_translate(cr,j/2,0);
-        for (int j = 0; j < 200; j++) {
+   // for(int y=1 ;y< 3 ; y++) {
+       for (int j = 0; j < 200; j++) {
 
             //g_array_insert_val(history,j,p);
-            peak = &g_array_index(history[6], gfloat, j);
+            peak = &g_array_index(history[l], gfloat, j);
             //   peak = &niz[l-1][j];
             //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
-          //  printf("peak1 %.1f\n", *peak);
+            //  printf("peak1 %.1f\n", *peak);
             cairo_line_to(cr, 0, 400 - *peak);
 
             cairo_translate(cr, j / 2, 0);
 
         }
-        cairo_stroke_preserve(cr);
+
+        cairo_stroke(cr);
+  //  }
 
 
-       // i=5;
-   // cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
-    cairo_set_source_rgb(cr,0.5,1,0.5);
-    cairo_set_line_width(cr,5);
+
+
+
+
+}
+
+static void do_drawing2(GtkWidget *widget,cairo_t *cr,int l){
+    int width, height;
+    // GtkWidget *win = gtk_widget_get_toplevel(widget);
+    // gtk_window_get_size(GTK_WINDOW(win), &width, &height);
+    //
+
+    // cairo_surface_t *graph_surface;
+    // graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 400, 400);
+    // cr = cairo_create (graph_surface);
+    //
+
+
+    // cairo_set_source_rgb(cr,0.2,0.12,0.3);
+    cairo_set_line_width(cr,1);
+    int j;
+
+    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
+    //cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
+    int p;
+    int g=ncpu;
+    gfloat *peak;
+    gfloat *peak1;
+    // g=cpu_drawing1.cpu2;
+    p=cpu[0].percentage;
+    //printf("(%d) sta kaze p \n",p);
+    //  g_array
+
+// kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
+    int i=3;
+    //i=l;
+
+
+    cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr,0,300);
-    cairo_line_to(cr,300,100);
+    cairo_line_to(cr,300,350);
+    cairo_stroke(cr);
+
+    cairo_set_source_rgb(cr,0,0,0);
+    cairo_move_to(cr,0,300);
+    cairo_line_to(cr,300,200);
+
     cairo_stroke_preserve(cr);
+    cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
+    cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr, 0, 400);
     // cairo_translate(cr,j/2,0);
     for (int j = 0; j < 200; j++) {
 
         //g_array_insert_val(history,j,p);
-        peak = &g_array_index(history[3], gfloat, j);
+        peak = &g_array_index(history[7], gfloat, j);
         //   peak = &niz[l-1][j];
         //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
         //  printf("peak1 %.1f\n", *peak);
@@ -237,16 +292,56 @@ gfloat *peak;
         cairo_translate(cr, j / 2, 0);
 
     }
+    cairo_stroke_preserve(cr);
+
+
+    // i=5;
+    // cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
+    /*cairo_set_source_rgb(cr,0.5,1,0.5);
+    cairo_set_line_width(cr,5);
+    cairo_move_to(cr,0,300);
+    cairo_line_to(cr,300,100);
+    cairo_stroke_preserve(cr);*/
+    cairo_move_to(cr, 0, 400);
+    cairo_translate(cr,j/2,0);
+    for (int j = 0; j < 200; j++) {
+
+        //g_array_insert_val(history,j,p);
+        peak1 = &g_array_index(history[5], gfloat, j);
+        //   peak = &niz[l-1][j];
+        //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
+        //  printf("peak1 %.1f\n", *peak);
+        cairo_line_to(cr, 0, 400 - *peak1);
+
+        cairo_translate(cr, j / 2, 0);
+
+    }
     printf("CRTAS LI ME \n");
-    cairo_stroke(cr);
+    cairo_stroke_preserve(cr);
     printf("CRTAS LI ME1 \n");
 
 
 
 
 }
+static gboolean network_change_ts(gpointer data){
 
-static gboolean network_change(gpointer data){
+
+
+    float net1= net.transmited_bytes;
+    float net_kb = net.transmited_kb;
+    static guint i =0;
+    printf("STO NECE: %f",net1);
+    g_array_insert_val(history[6], i, net_kb);
+
+
+
+    network_usage_transimited_text =g_strdup_printf("TRANSMITED: %2.f %s",net.transmited_bytes,net.network_size_ts);
+
+    gtk_label_set_text (GTK_LABEL (data),network_usage_transimited_text);
+
+}
+static gboolean network_change_rc(gpointer data){
 
 
    // received_transfered();
@@ -257,12 +352,9 @@ static gboolean network_change(gpointer data){
     printf("STO NECE: %f",net1);
     g_array_insert_val(history[5], i, net_kb);
 
-    net_kb++;
-   // if(i>=200)
-        if(i<=200)
-        i=0;
-    i++;
-    network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size);
+
+
+    network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size_rc);
 
     gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
 }
@@ -291,7 +383,7 @@ static gboolean memory_change(gpointer data){
     static int i =0;
     gfloat  j = memory_usage.percentage;
 
-    g_array_insert_val(history[6], i, j);
+    g_array_insert_val(history[7], i, j);
 
 
 
@@ -308,7 +400,7 @@ static gboolean swap_change(gpointer data){
     static int i =0;
     gfloat  j = memory_usage.swap_used;
 
-    g_array_insert_val(history[7], i, j);
+    g_array_insert_val(history[8], i, j);
     swap_usage_text = g_strdup_printf(("SWAP: %d%%"),memory_usage.swap_used);
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
 }
@@ -377,12 +469,13 @@ void percent_ffs(){
 
     }*/
 };
- gboolean init_timeout(void){
+ void init_timeout(int t){
 
     // guint g =i;
    // printf("%d %d \n",i ,g);
 
-     g_timeout_add(1000,network_change,label7);
+     g_timeout_add(1000, network_change_rc, label7);
+     g_timeout_add(1000, network_change_ts, label8);
      ninja();
      g_timeout_add(t,(GSourceFunc) time_handler,window);
 
@@ -407,7 +500,7 @@ int main (int argc, char *argv[]) {
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
     ncpu = cpu_number();
-    for (int i = 1; i <= 7; i++) {
+    for (int i = 1; i <= 8; i++) {
     history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
     g_array_set_size(history[i], 201);
 }
@@ -436,7 +529,9 @@ int main (int argc, char *argv[]) {
     label4= gtk_label_new(NULL);//cpu2
     label5= gtk_label_new(NULL);//cpu3
     label6= gtk_label_new(NULL);//cpu4
-    label7= gtk_label_new(NULL);//network_received for now
+    label7= gtk_label_new(NULL);//network_received
+    label8= gtk_label_new(NULL);//network_transimited
+
 
 
     hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
@@ -451,6 +546,7 @@ int main (int argc, char *argv[]) {
    gtk_box_pack_start(GTK_BOX(hbox),label,0,0,0);
     gtk_box_pack_start(GTK_BOX(hbox),label3,0,FALSE,1);
     gtk_box_pack_start(GTK_BOX(hbox),label4,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(hbox),label8,1,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),label7,1,TRUE,0);
 
 
@@ -505,13 +601,13 @@ int main (int argc, char *argv[]) {
     g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
     g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked), NULL);
     g_signal_connect(G_OBJECT(graph1), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)1);
+                     G_CALLBACK(on_draw_event),(gpointer)7);
     g_signal_connect(G_OBJECT(graph2), "draw",
                      G_CALLBACK(on_draw_event),(gpointer)5);
     g_signal_connect(G_OBJECT(graph3), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)7);
-    g_signal_connect(G_OBJECT(graph4), "draw",
                      G_CALLBACK(on_draw_event),(gpointer)6);
+    g_signal_connect(G_OBJECT(graph4), "draw",
+                     G_CALLBACK(on_draw_event),(gpointer)4);
 
 
 
@@ -519,7 +615,7 @@ int main (int argc, char *argv[]) {
 
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 800, 800);
-    init_timeout();
+    init_timeout(t);
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     gtk_window_set_title(GTK_WINDOW(window), "lines mother do you see it ");

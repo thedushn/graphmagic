@@ -23,9 +23,12 @@
 typedef struct Network{
 
     float received_bytes;
-    unsigned  long transfered_bytes;
-    char *network_size;
+    float transmited_bytes;
+    char *network_size_rc;
+    char *network_size_ts;
     float received_kb;
+    float transmited_kb;
+
 
 };
 

@@ -43,6 +43,7 @@ void received_transfered(){
     fgets (buffer, 1024, file);
     fgets (buffer, 1024, file);
 
+
    // printf("NET buffer :%s",buffer);
    char *j =  strchr(buffer, ch);
     sscanf(buffer," %lu %lu",&received_bytes, &received_packets/*, &received_errors,&received_drop, &received_fifo, &received_frame, &received_compressed, &received_multicast,
@@ -77,38 +78,73 @@ void received_transfered(){
 
     transmit_bytes= (transmit_bytes1- transmit_bytes_old);
     received_bytes= (received_bytes1-received_bytes_old);
-    char *network_size;
-    float network1 = (float)received_bytes;
+    char *network_size_rc;
+    char *network_size_ts;
+
+    float network_rc = (float)received_bytes;
+    float network_ts = (float)transmit_bytes;
+
     float network ;
+    float network2;
 
-    if(network1 >=1048576){
+    if(network_rc >=1048576){
 
-        network=network1/1024/1024;
-        network_size="mb/s";
-
-    }
-    if(network1 >= 1024 && network1 <1048576){
-
-        network = network/1024;
-        network_size ="kb/s";
+        network=network_rc/1024/1024;
+        network_size_rc="mb/s";
 
     }
-    if(network1<1024){
-        network=network1;
-        network_size="bytes/s";
+    if(network_rc >= 1024 && network_rc <1048576){
+
+        network = network_rc/1024;
+        network_size_rc ="kb/s";
 
     }
-    int static i=0;
-    if (i==0)
-        network1=0;
-    i++;
-    network1=network1/1024;
+    if(network_rc<1024){
+        network=network_rc;
+        network_size_rc="bytes/s";
+
+    }
+
+    if(network_ts >=1048576){
+
+        network2=network_ts/1024/1024;
+        network_size_ts="mb/s";
+
+    }
+    if(network_ts >= 1024 && network_ts <1048576){
+
+        network2 = network_ts/1024;
+        network_size_ts="kb/s";
+
+    }
+    if(network_rc<1024){
+        network2=network_ts;
+        network_size_ts="bytes/s";
+
+    }
+
+
+    static gboolean pocetak=FALSE;
+    if (pocetak==FALSE)
+        network_rc=0;
+    pocetak = TRUE;
+    network_rc=network_rc/1024;
+    static gboolean pocetak2=FALSE;
+    if (pocetak2==FALSE)
+        network_ts=0;
+    pocetak2 = TRUE;
+    network_ts=network_ts/1024;
 
     printf("NET %lu %lu\n",received_bytes,transmit_bytes);
     net.received_bytes=network;
-    net.transfered_bytes=transmit_bytes;
-    net.network_size=network_size;
-    net.received_kb=network1;
+    net.transmited_bytes=network2;
+
+    net.network_size_rc=network_size_rc;
+    net.network_size_ts=network_size_ts;
+
+    net.received_kb=network_rc;
+    net.transmited_kb=network_ts;
+
 
 
     }
