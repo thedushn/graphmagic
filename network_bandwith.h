@@ -20,6 +20,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <dirent.h>
 typedef struct Network{
 
     float received_bytes;
@@ -33,5 +34,6 @@ typedef struct Network{
 };
 
 void received_transfered();
+int interface_name();
 
 #endif //GTKWORLD_NETWORK_BANDWITH_H

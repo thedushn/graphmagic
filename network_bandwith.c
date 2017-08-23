@@ -5,6 +5,40 @@
 #include "network_bandwith.h"
 
 struct  Network net;
+static int broj;
+gchar  name_buffer[10];
+int interface_name(){
+
+    int len;
+    int c;
+    char *v="/sys/class/net/";
+    struct dirent *pDirent;
+    DIR *pDir;
+    char buffer[10];
+
+    pDir = opendir (v);
+    if (pDir == NULL) {
+        printf ("Cannot open directory '%s'\n", v);
+        return 1;
+    }
+
+    while ((pDirent = readdir(pDir)) != NULL) {
+        printf ("[%s]\n", pDirent->d_name);
+        if(!strcmp(pDirent->d_name, ".") || !strcmp(pDirent->d_name, "..") || !strcmp(pDirent->d_name, "lo")){
+
+
+        }
+        else
+        sscanf(pDirent->d_name,"%s" ,name_buffer);
+
+    }
+
+    printf("NAME BUFFER : %s \n",name_buffer);
+
+    closedir (pDir);
+    return 0;
+
+}
 
 void received_transfered(){
 
@@ -34,19 +68,53 @@ void received_transfered(){
     FILE *file;
     gchar buffer[1024];
     gchar buffer2[1024];
+    gchar buffer3[10];
+
+    strncpy(buffer3,name_buffer,sizeof(buffer3));
+
+    for(int i= 0;i<sizeof(buffer3);i++ ){
+
+        if (buffer3[i]==NULL)
+        break;
+        else
+            broj++;
+    }
     char *filename = "/proc/net/dev";
-    char ch = ' ';
+
+   char ch =' ';
+    int a=0;
 
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
         exit(1);
+
+    while (fgets (buffer, 1024, file) != NULL){
+
+
+        for(int i=0 ;i<broj;i++){
+
+           if (buffer[i]==buffer3[i])
+               a++;
+        }
+            if (a==broj) {
+                broj=0;
+                break;
+            }
+
+
+
+    }
+
+
      //   printf("NET buffer :%s",buffer);
-    fgets (buffer, 1024, file);
-    fgets (buffer, 1024, file);
+
 
 
    // printf("NET buffer :%s",buffer);
-   char *j =  strchr(buffer, ch);
-    sscanf(buffer," %lu %lu",&received_bytes, &received_packets/*, &received_errors,&received_drop, &received_fifo, &received_frame, &received_compressed, &received_multicast,
+
+    char *j=strchr(buffer,ch);
+
+   /* sscanf(buffer," %lu %lu",&received_bytes, &received_packets
+            , &received_errors,&received_drop, &received_fifo, &received_frame, &received_compressed, &received_multicast,
     &transmit_bytes,
     &transmit_packets,
     &transmit_errors,
@@ -54,7 +122,7 @@ void received_transfered(){
     &transmit_fifo,
     &transmit_frame,
     &transmit_compressed,
-   &transmit_multicast*/);
+   &transmit_multicast);*/
    strncpy ( buffer2, j, sizeof(buffer2) );
     printf("buffer2 %s",buffer2);
     sscanf(buffer2," %lu %lu  %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",&received_bytes, &received_packets, &received_errors,&received_drop, &received_fifo, &received_frame, &received_compressed, &received_multicast,
@@ -125,16 +193,21 @@ void received_transfered(){
 
 
     static gboolean pocetak=FALSE;
-    if (pocetak==FALSE)
+    if (pocetak==FALSE){
         network_rc=0;
+        network=0;
     pocetak = TRUE;
-    network_rc=network_rc/1024;
+    }
+    else{
+    network_rc=network_rc/1024;}
     static gboolean pocetak2=FALSE;
-    if (pocetak2==FALSE)
+    if (pocetak2==FALSE){
         network_ts=0;
-    pocetak2 = TRUE;
+        network2=0;
+    pocetak2 = TRUE;}
+    else{
     network_ts=network_ts/1024;
-
+    }
     printf("NET %lu %lu\n",received_bytes,transmit_bytes);
     net.received_bytes=network;
     net.transmited_bytes=network2;
