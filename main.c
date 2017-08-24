@@ -62,8 +62,8 @@ struct Network net;
 
 static double cpu1;
 //static void do_drawing2(cairo_t *cr);
-static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
-static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing(GtkWidget *widget,cairo_t *cr1, int l);
+static void do_drawing2(GtkWidget *widget,cairo_t *cr1, int l);
 static gboolean network_change_rc(gpointer data);
 static gboolean network_change_ts(gpointer data);
 void percent_ffs();
@@ -71,8 +71,11 @@ void percent_ffs();
 gboolean refresh=0;
 void button_clicked(){
 
+    if(t>=10000){
 
-
+        t=10000;
+    }
+    else
     t+=500;
     printf("I clicked a button %d", t);
     timeout_refresh();
@@ -86,7 +89,27 @@ void button_clicked(){
     */
 
 };
+void button_clicked2(){
 
+
+    if(t<500){
+        t=500;
+        printf("promena refresh rate \n");
+    }
+   else
+        t-=500;
+    printf("I clicked a button2 %d", t);
+    timeout_refresh();
+    //refresh= 0;
+    /*  gint id;
+      // gpointer q=GINT_TO_POINTER(t);
+      id= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
+      g_source_remove (id);
+      t+=500;
+      id= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
+      */
+
+};
 static gboolean time_handler(GtkWidget *widget)
 {
     /*cpu_drawing1.cpu1 += 0.4;
@@ -117,7 +140,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr1,gpointer *user_dat
 
    // percent_ffs();
     do_drawing(widget,cr1,data);
-   // do_drawing2(widget,cr,data);
+    //do_drawing2(widget,cr1,data);
  /*  switch(data) {
        case 1:
            t=cpu[1].percentage;
@@ -157,13 +180,13 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr1,int l){
     //
 
     cairo_t *cr = cr1;
-    cairo_set_source_rgb(cr,1,.05,1);
+ //   cairo_set_source_rgb(cr,1,.05,1);
     cairo_set_line_width(cr,1);
     int j;
 
-   // cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+   cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
     cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
-  // cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+ //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
 
 
 gfloat *peak;
@@ -181,26 +204,99 @@ gfloat *peak;
 
 int r1= 0;
 
-        cairo_move_to(cr, 0, 400);
+    int prev[4]={0};
+    int step =10;
+
+    for (int j = 0; j < 501; j++) {
+
+        //cairo_move_to(cr,0,400);
+        for(int r=1;r<=4;r++) {
+
+//            cairo_translate(cr, step, 0);
+             cairo_move_to(cr,0,prev[r]);
+
+            peak = &g_array_index(history[r], gfloat, j);
+
+             prev[r]= 400 - *peak;
+
+
+            cairo_line_to(cr, step, 400 - *peak);
+
+
+
+            if(r==1)
+                cairo_set_source_rgba(cr,0.5,0.5,0.5,.5);
+            if(r==2)
+                cairo_set_source_rgba(cr,1,.5,1,.5);
+            if(r==3)
+                cairo_set_source_rgba(cr,.4,.5,1,.5);
+            if(r==4)
+                cairo_set_source_rgba(cr,0,0,0,.5);
+            cairo_stroke(cr);
+
+
+        }
+        cairo_translate(cr, step, 0);
+
+    }
+   //it works but the lines go to the buttom of the graph
+  /*  for (int j = 0; j < 500; j++) {
+
+
+        for(int r=1;r<=4;r++) {
+
+            cairo_move_to(cr,0,400);
+
+            peak = &g_array_index(history[r], gfloat, j);
+
+            cairo_line_to(cr, 0, 400 - *peak);
+            // cairo_set_source_rgb(cr,r/4,r/4,r/4);
+
+            cairo_translate(cr, 1, 0);
+            if(r==1)
+                cairo_set_source_rgb(cr,0.5,0.5,0.5);
+            if(r==2)
+                cairo_set_source_rgb(cr,1,.5,1);
+            if(r==3)
+                cairo_set_source_rgb(cr,.4,.5,1);
+            if(r==4)
+                cairo_set_source_rgb(cr,0,0,0);
+            cairo_stroke(cr);
+
+
+        }
+        cairo_translate(cr, -1, 0);
+
+    }*/
+
+
+    /*    cairo_move_to(cr, 0, 400);
         for (int j = 0; j < 500; j++) {
 
-            //g_array_insert_val(history,j,p);
 
-            for(int r=1;r<=2;r++) {
-               // cairo_move_to(cr,0,400);
+            for(int r=6;r<=7;r++) {
+
+                cairo_move_to(cr,0,400);
 
                 peak = &g_array_index(history[r], gfloat, j);
 
                 cairo_line_to(cr, 0, 400 - *peak);
-                cairo_set_source_rgb(cr,r/3,r/3,r/3);
+               // cairo_set_source_rgb(cr,r/4,r/4,r/4);
 
                 cairo_translate(cr, 2, 0);
+                if(r==6)
+                    cairo_set_source_rgb(cr,0.5,0.5,0.5);
+                if(r==7)
+                    cairo_set_source_rgb(cr,1,.5,1);
+
+                cairo_stroke(cr);
 
             }
+            cairo_translate(cr, -2, 0);
+          //  cairo_translate(cr, 2, 0);
+        }*/
 
-        }
 
-        cairo_stroke(cr);
 
 
 
@@ -210,7 +306,7 @@ int r1= 0;
 
 }
 
-/*static void do_drawing2(GtkWidget *widget,cairo_t *cr,int l){
+static void do_drawing2(GtkWidget *widget,cairo_t *cr1,int l){
     int width, height;
     // GtkWidget *win = gtk_widget_get_toplevel(widget);
     // gtk_window_get_size(GTK_WINDOW(win), &width, &height);
@@ -221,87 +317,50 @@ int r1= 0;
     // cr = cairo_create (graph_surface);
     //
 
-
-    // cairo_set_source_rgb(cr,0.2,0.12,0.3);
+    cairo_t *cr = cr1;
+     cairo_set_source_rgb(cr,0.2,0.12,0.3);
     cairo_set_line_width(cr,1);
-    int j;
+
 
     cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
     cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
     //cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
 
-    int p;
-    int g=ncpu;
-    gfloat *peak;
-    gfloat *peak1;
-    // g=cpu_drawing1.cpu2;
-    p=cpu[0].percentage;
-    //printf("(%d) sta kaze p \n",p);
-    //  g_array
+  gfloat *peak;
 
 // kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
-    int i=3;
+
     //i=l;
 
 
-    cairo_set_source_rgb(cr,0,0,0);
-    cairo_move_to(cr,0,300);
-    cairo_line_to(cr,300,350);
-    cairo_stroke(cr);
 
-    cairo_set_source_rgb(cr,0,0,0);
-    cairo_move_to(cr,0,300);
-    cairo_line_to(cr,300,200);
-
-    cairo_stroke_preserve(cr);
-    cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
-    cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr, 0, 400);
     // cairo_translate(cr,j/2,0);
-    for (int j = 0; j < 200; j++) {
+    for (int j = 0; j < 501; j++) {
 
         //g_array_insert_val(history,j,p);
-        peak = &g_array_index(history[7], gfloat, j);
+        peak = &g_array_index(history[l], gfloat, j);
+
         //   peak = &niz[l-1][j];
         //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
         //  printf("peak1 %.1f\n", *peak);
         cairo_line_to(cr, 0, 400 - *peak);
 
-        cairo_translate(cr, j / 2, 0);
+      /*  peak = &g_array_index(history[l], gfloat, j+1);
+
+        cairo_line_to(cr, 0, 400 - *peak);*/
+
+        cairo_translate(cr, 2, 0);
 
     }
     cairo_stroke_preserve(cr);
 
 
-    // i=5;
-    // cairo_set_source_rgb(cr, (0.2 + i) / (i + 1), (0.12 + i) / (i + 1), (0.3 + i) / (i + 1)); //vredosti idu od 0 do 1
-    /*cairo_set_source_rgb(cr,0.5,1,0.5);
-    cairo_set_line_width(cr,5);
-    cairo_move_to(cr,0,300);
-    cairo_line_to(cr,300,100);
-    cairo_stroke_preserve(cr);
-    cairo_move_to(cr, 0, 100);
-    cairo_translate(cr,j/2,0);
-    for (int j = 0; j < 200; j++) {
-
-        //g_array_insert_val(history,j,p);
-        peak1 = &g_array_index(history[5], gfloat, j);
-        //   peak = &niz[l-1][j];
-        //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
-        //  printf("peak1 %.1f\n", *peak);
-        cairo_line_to(cr, 0, 100 - *peak1);
-
-        cairo_translate(cr, j / 2, 0);
-
-    }
-    printf("CRTAS LI ME \n");
-    cairo_stroke_preserve(cr);
-    printf("CRTAS LI ME1 \n");
 
 
 
 
-}*/
+}
 static gboolean network_change_ts(gpointer data){
 
 
@@ -622,7 +681,7 @@ int main (int argc, char *argv[]) {
                      G_CALLBACK(gtk_main_quit), NULL);
 
     g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
-    g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked), NULL);
+    g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked2), NULL);
     g_signal_connect(G_OBJECT(graph1), "draw",
                      G_CALLBACK(on_draw_event),(gpointer)1);
     g_signal_connect(G_OBJECT(graph2), "draw",
@@ -638,9 +697,9 @@ int main (int argc, char *argv[]) {
 
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 1800, 800);
-    gtk_window_get_resizable (window);
+    //gtk_window_get_resizable (window);
     init_timeout();
-    g_timeout_add(1000,init_timeout2,NULL);
+    g_timeout_add(1000,(GSourceFunc)init_timeout2,NULL);
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     gtk_window_set_title(GTK_WINDOW(window), "lines mother do you see it ");

@@ -74,7 +74,7 @@ void received_transfered(){
 
     for(int i= 0;i<sizeof(buffer3);i++ ){
 
-        if (buffer3[i]==NULL)
+        if (buffer3[i]==0)
         break;
         else
             broj++;
@@ -99,6 +99,8 @@ void received_transfered(){
                 broj=0;
                 break;
             }
+
+
 
 
 

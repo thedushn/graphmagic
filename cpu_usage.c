@@ -128,10 +128,10 @@ void cpu_percentage(int cpu_count){
 
           //  percentage[i]=cpu[i].user + cpu[i].system;
         cpu[i].percentage =percentage[i];
-           printf("cpu percentage %f \n", cpu[i].percentage);
-        float fuck = cpu[i].percentage;
-        printf("cpu percentage %f \n", percentage[i]);
-        printf("cpu percentage %f \n", fuck);
+         printf("cpu percentage %f \n", cpu[i].percentage);
+      //  float fuck = cpu[i].percentage;
+     //   printf("cpu percentage %f \n", percentage[i]);
+      //  printf("cpu percentage %f \n", fuck);
 
 
    }
