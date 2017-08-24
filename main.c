@@ -43,6 +43,7 @@ GtkWidget *label8;
 
 GtkWidget *button;
 GtkWidget *button2;
+GtkWidget *button3;
 GArray *history[9];
 
 gfloat niz[4][200];
@@ -54,7 +55,7 @@ GtkWidget *hseparator;
 void init_timeout();
 void init_timeout2();
 void timeout_refresh();
-
+void measurements();
 
 
 
@@ -62,13 +63,31 @@ struct Network net;
 
 static double cpu1;
 //static void do_drawing2(cairo_t *cr);
-static void do_drawing(GtkWidget *widget,cairo_t *cr1, int l);
-static void do_drawing2(GtkWidget *widget,cairo_t *cr1, int l);
+static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing3(GtkWidget *widget,cairo_t *cr, int l);
 static gboolean network_change_rc(gpointer data);
 static gboolean network_change_ts(gpointer data);
 void percent_ffs();
+void button_clicked3();
   guint  t =200;
 gboolean refresh=0;
+int width,height;
+void button_clicked3(){
+
+
+
+
+
+}
+
+void measurements(){
+
+
+    height= gtk_widget_get_allocated_height(graph3);
+    width= gtk_widget_get_allocated_width(graph3);
+
+}
 void button_clicked(){
 
     if(t>=10000){
@@ -131,47 +150,133 @@ static gboolean time_handler(GtkWidget *widget)
     return TRUE;
 }
 
-static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr1,gpointer *user_data){
+static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data){
     double t ;
 
    int data;
    data= GPOINTER_TO_INT(user_data);
 
 
-   // percent_ffs();
-    do_drawing(widget,cr1,data);
-    //do_drawing2(widget,cr1,data);
- /*  switch(data) {
+
+
+
+   switch(data) {
        case 1:
-           t=cpu[1].percentage;
-           do_drawing(widget,cr,t);
+
+           do_drawing2(widget,cr,data);
 
 
        case 2:
-           t=cpu[2].percentage;
-           do_drawing(widget,cr,t);
+
+            do_drawing(widget,cr,data);
        case 3:
-           t=cpu[3].percentage;
-           do_drawing(widget,cr,t);
+
+           do_drawing3(widget,cr,data);
        case 4:
-           t=cpu[4].percentage;
-           do_drawing(widget,cr,t);
+
+           do_drawing(widget,cr,data);
       default:
 
 
            do_drawing(widget,cr,t);
        }
 
-*/
+
 
 
 }
 
+static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
+  /*  int width, height;
 
-static void do_drawing(GtkWidget *widget,cairo_t *cr1,int l){
-    int width, height;
-   GtkWidget *win = gtk_widget_get_toplevel(widget);
-    gtk_window_get_size(GTK_WINDOW(win), &width, &height);
+   height= gtk_widget_get_allocated_height(graph3);
+   width= gtk_widget_get_allocated_width(graph3);*/
+    //
+
+    // cairo_surface_t *graph_surface;
+    // graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 400, 400);
+    // cr = cairo_create (graph_surface);
+    //
+
+    printf("%d width %d height\n",width,height);
+    //   cairo_set_source_rgb(cr,1,.05,1);
+    cairo_set_line_width(cr,1);
+
+
+    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
+    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
+
+    gfloat *peak;
+
+    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
+    cairo_move_to(cr,0,100);
+    cairo_line_to(cr,900,100);
+    cairo_move_to(cr,0,200);
+    cairo_line_to(cr,900,200);
+    cairo_move_to(cr,0,300);
+    cairo_line_to(cr,900,300);
+
+
+// kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
+
+
+
+
+
+
+
+    int r1= 0;
+
+     static   double prev[2]={400};
+    int step =10;
+
+    for (int j = 0; j < 500; j++) {
+
+        //cairo_move_to(cr,0,400);
+        for(int r=1;r<=2;r++) {
+
+//            cairo_translate(cr, step, 0);
+            cairo_move_to(cr,0,prev[r]);
+
+            if(r==1)
+                peak = &g_array_index(history[7], gfloat, j);
+            if(r==2)
+                peak = &g_array_index(history[8], gfloat, j);
+            prev[r]= height - *peak;
+
+
+            cairo_line_to(cr, step, height - *peak);
+
+
+
+            if(r==1)
+                cairo_set_source_rgba(cr,0.5,0.5,0.5,.5);
+            if(r==2)
+                cairo_set_source_rgba(cr,1,.5,1,.5);
+
+            cairo_stroke(cr);
+
+
+        }
+        cairo_translate(cr, step, 0);
+
+    }
+
+
+
+
+
+
+
+
+
+}
+static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
+ /*   int width, height;
+    height= gtk_widget_get_allocated_height(graph3);
+    width= gtk_widget_get_allocated_width(graph3);*/
     //
 
    // cairo_surface_t *graph_surface;
@@ -179,10 +284,10 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr1,int l){
    // cr = cairo_create (graph_surface);
     //
 
-    cairo_t *cr = cr1;
+
  //   cairo_set_source_rgb(cr,1,.05,1);
     cairo_set_line_width(cr,1);
-    int j;
+
 
    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
     cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
@@ -195,7 +300,13 @@ gfloat *peak;
 
 
 // kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
-
+    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
+    cairo_move_to(cr,0,height/4);
+    cairo_line_to(cr,width,height/4);
+    cairo_move_to(cr,0,height/4*2);
+    cairo_line_to(cr,width,height/4*2);
+    cairo_move_to(cr,0,height/4*3);
+    cairo_line_to(cr,width,height/4*3);
 
 
 
@@ -204,23 +315,98 @@ gfloat *peak;
 
 int r1= 0;
 
-    int prev[4]={0};
+   static double prev[2]={400};
     int step =10;
 
-    for (int j = 0; j < 501; j++) {
+    for (int j = 0; j < width; j++) {
+
+        //cairo_move_to(cr,0,400);
+        for(int r=1;r<=2;r++) {
+
+//            cairo_translate(cr, step, 0);
+             cairo_move_to(cr,0,prev[r]);
+
+            if(r==1)
+                peak = &g_array_index(history[5], gfloat, j);
+            if(r==2)
+                peak = &g_array_index(history[6], gfloat, j);
+             prev[r]= height - *peak;
+
+
+            cairo_line_to(cr, step, height- *peak);
+
+
+
+            if(r==1)
+                cairo_set_source_rgba(cr,0.5,0.5,0.5,.5);
+            if(r==2)
+                cairo_set_source_rgba(cr,1,.5,1,.5);
+
+            cairo_stroke(cr);
+
+
+        }
+        cairo_translate(cr, step, 0);
+
+    }
+
+
+
+
+
+
+
+
+
+}
+
+static void do_drawing2(GtkWidget *widget,cairo_t *cr,int l){
+    /*int width, height;
+    height= gtk_widget_get_allocated_height(graph3);
+    width= gtk_widget_get_allocated_width(graph3);*/
+
+    // cairo_surface_t *graph_surface;
+    // graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 400, 400);
+    // cr = cairo_create (graph_surface);
+    //
+
+
+    //   cairo_set_source_rgb(cr,1,.05,1);
+    cairo_set_line_width(cr,1);
+
+
+    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
+    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
+
+    gfloat *peak;
+    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
+    cairo_move_to(cr,0,height/4);
+    cairo_line_to(cr,width,height/4);
+    cairo_move_to(cr,0,height/4*2);
+    cairo_line_to(cr,width,height/4*2);
+    cairo_move_to(cr,0,height/4*3);
+    cairo_line_to(cr,width,height/4*3);
+
+
+    static double prev[4]={400};
+    int step =10;
+
+    for (int j = 0; j < width; j++) {
 
         //cairo_move_to(cr,0,400);
         for(int r=1;r<=4;r++) {
 
 //            cairo_translate(cr, step, 0);
-             cairo_move_to(cr,0,prev[r]);
+            cairo_move_to(cr,0,prev[r]);
 
             peak = &g_array_index(history[r], gfloat, j);
 
-             prev[r]= 400 - *peak;
+            prev[r]= height - *peak;
 
 
-            cairo_line_to(cr, step, 400 - *peak);
+            cairo_line_to(cr, step, height - *peak);
 
 
 
@@ -239,124 +425,6 @@ int r1= 0;
         cairo_translate(cr, step, 0);
 
     }
-   //it works but the lines go to the buttom of the graph
-  /*  for (int j = 0; j < 500; j++) {
-
-
-        for(int r=1;r<=4;r++) {
-
-            cairo_move_to(cr,0,400);
-
-            peak = &g_array_index(history[r], gfloat, j);
-
-            cairo_line_to(cr, 0, 400 - *peak);
-            // cairo_set_source_rgb(cr,r/4,r/4,r/4);
-
-            cairo_translate(cr, 1, 0);
-            if(r==1)
-                cairo_set_source_rgb(cr,0.5,0.5,0.5);
-            if(r==2)
-                cairo_set_source_rgb(cr,1,.5,1);
-            if(r==3)
-                cairo_set_source_rgb(cr,.4,.5,1);
-            if(r==4)
-                cairo_set_source_rgb(cr,0,0,0);
-            cairo_stroke(cr);
-
-
-        }
-        cairo_translate(cr, -1, 0);
-
-    }*/
-
-
-    /*    cairo_move_to(cr, 0, 400);
-        for (int j = 0; j < 500; j++) {
-
-
-            for(int r=6;r<=7;r++) {
-
-                cairo_move_to(cr,0,400);
-
-                peak = &g_array_index(history[r], gfloat, j);
-
-                cairo_line_to(cr, 0, 400 - *peak);
-               // cairo_set_source_rgb(cr,r/4,r/4,r/4);
-
-                cairo_translate(cr, 2, 0);
-                if(r==6)
-                    cairo_set_source_rgb(cr,0.5,0.5,0.5);
-                if(r==7)
-                    cairo_set_source_rgb(cr,1,.5,1);
-
-                cairo_stroke(cr);
-
-            }
-            cairo_translate(cr, -2, 0);
-          //  cairo_translate(cr, 2, 0);
-        }*/
-
-
-
-
-
-
-
-
-
-}
-
-static void do_drawing2(GtkWidget *widget,cairo_t *cr1,int l){
-    int width, height;
-    // GtkWidget *win = gtk_widget_get_toplevel(widget);
-    // gtk_window_get_size(GTK_WINDOW(win), &width, &height);
-    //
-
-    // cairo_surface_t *graph_surface;
-    // graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 400, 400);
-    // cr = cairo_create (graph_surface);
-    //
-
-    cairo_t *cr = cr1;
-     cairo_set_source_rgb(cr,0.2,0.12,0.3);
-    cairo_set_line_width(cr,1);
-
-
-    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
-    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
-    //cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
-
-  gfloat *peak;
-
-// kada stavimo da je gpointer(t) 0 desi se segmantation fault u Garray
-
-    //i=l;
-
-
-
-    cairo_move_to(cr, 0, 400);
-    // cairo_translate(cr,j/2,0);
-    for (int j = 0; j < 501; j++) {
-
-        //g_array_insert_val(history,j,p);
-        peak = &g_array_index(history[l], gfloat, j);
-
-        //   peak = &niz[l-1][j];
-        //  printf("niz : %.1f %d \n ",niz[l-1][j],j);
-        //  printf("peak1 %.1f\n", *peak);
-        cairo_line_to(cr, 0, 400 - *peak);
-
-      /*  peak = &g_array_index(history[l], gfloat, j+1);
-
-        cairo_line_to(cr, 0, 400 - *peak);*/
-
-        cairo_translate(cr, 2, 0);
-
-    }
-    cairo_stroke_preserve(cr);
-
-
-
 
 
 
@@ -473,7 +541,7 @@ void percent_ffs(){
     for(int s=1;s<=ncpu;s++) {
 
         j = cpu[s - 1].percentage;
-      //  j=i;
+        j=4*j;
         niz[s-1][i]=j;
         g_array_insert_val(history[s], i, j);
         peak=&g_array_index(history[s],gfloat,i);
@@ -537,6 +605,7 @@ void init_timeout2(){
    // printf("%d %d \n",i ,g);
      percent_ffs();
      get_memory_usage();
+     measurements();
 
     cpu_change(label1);
     cpu_change(label3);
@@ -582,6 +651,7 @@ int main (int argc, char *argv[]) {
 
     ncpu = cpu_number();
     interface_name();
+
     for (int i = 0; i <= 9; i++) {
     history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
     g_array_set_size(history[i], 900);
@@ -625,6 +695,7 @@ int main (int argc, char *argv[]) {
 
     gtk_box_pack_start(GTK_BOX(hbox),button,FALSE,FALSE,FALSE);//expand,fill,padding
    gtk_box_pack_start(GTK_BOX(hbox),button2,0,0,0);
+   gtk_box_pack_start(GTK_BOX(hbox),button3,0,0,0);
    gtk_box_pack_start(GTK_BOX(hbox),label,0,0,0);
     gtk_box_pack_start(GTK_BOX(hbox),label3,0,FALSE,1);
     gtk_box_pack_start(GTK_BOX(hbox),label4,1,TRUE,0);
@@ -682,14 +753,15 @@ int main (int argc, char *argv[]) {
 
     g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
     g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked2), NULL);
+    g_signal_connect(button3,"clicked", G_CALLBACK(button_clicked3), NULL);
     g_signal_connect(G_OBJECT(graph1), "draw",
                      G_CALLBACK(on_draw_event),(gpointer)1);
     g_signal_connect(G_OBJECT(graph2), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)5);
+                     G_CALLBACK(on_draw_event),(gpointer)2);
     g_signal_connect(G_OBJECT(graph3), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)4);
+                     G_CALLBACK(on_draw_event),(gpointer)3);
     g_signal_connect(G_OBJECT(graph4), "draw",
-                     G_CALLBACK(on_draw_event),(gpointer)6);
+                     G_CALLBACK(on_draw_event),(gpointer)4);
 
 
 

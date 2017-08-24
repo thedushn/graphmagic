@@ -219,6 +219,7 @@ void received_transfered(){
 
     net.received_kb=network_rc;
     net.transmited_kb=network_ts;
+    printf("network_rc %f network_ts %f",network_rc,network_ts);
 
 
 
