@@ -23,9 +23,9 @@ struct Memory_usage {
 
     unsigned long long  memory_used;
     unsigned long long  memory_total;
-    int  swap_used;
+    unsigned long swap_used;
     unsigned long long  swap_total;
-    int percentage ;
+    float percentage ;
 
 };
 

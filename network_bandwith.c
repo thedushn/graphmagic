@@ -127,7 +127,11 @@ void received_transfered(){
    &transmit_multicast);*/
    strncpy ( buffer2, j, sizeof(buffer2) );
     printf("buffer2 %s",buffer2);
-    sscanf(buffer2," %lu %lu  %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",&received_bytes, &received_packets, &received_errors,&received_drop, &received_fifo, &received_frame, &received_compressed, &received_multicast,
+
+    sscanf(buffer2," %lu %lu  %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",&received_bytes, &received_packets,
+    &received_errors,&received_drop, &received_fifo,
+    &received_frame, &received_compressed,
+    &received_multicast,
            &transmit_bytes,
            &transmit_packets,
            &transmit_errors,
