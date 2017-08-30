@@ -21,6 +21,7 @@ gchar *swap_usage_text;
 gchar *cpu_usage_text;
 gchar *network_usage_received_text;
 gchar *network_usage_transimited_text;
+static char *track;
 static GtkWidget *window;
 GtkWidget *graph1;
 GtkWidget *graph2;
@@ -46,7 +47,7 @@ GtkWidget *button2;
 GtkWidget *button3;
 GArray *history[9];
 
-gfloat niz[4][200];
+
 
 GtkWidget *vseparator;
 GtkWidget *hseparator;
@@ -61,8 +62,8 @@ void measurements();
 
 struct Network net;
 
-static double cpu1;
-//static void do_drawing2(cairo_t *cr);
+
+
 static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
 static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
 static void do_drawing3(GtkWidget *widget,cairo_t *cr, int l);
@@ -219,7 +220,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
     gfloat *peak;
 
-    double font_size=12;
+   float font_size=12;
     double step =(width-3*font_size-3*font_size)/60;
 
     cairo_set_font_size(cr, font_size);
@@ -329,7 +330,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
                 cairo_set_source_rgba(cr,1,.5,1,.5);
             }
             gfloat procent =*peak;
-            procent=(height/100)*procent;
+            procent=((height-font_size)/100)*procent;
 
             printf("PEAK: %0.2f\n",*peak);
             // prev[r]= height-font_size - *peak;
@@ -337,7 +338,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
             prev[r]= height-font_size - procent;
 
 
-
+            cairo_line_to(cr, (3 * font_size), height-font_size - procent);
 
             cairo_line_to(cr, step+(3 * font_size), height-font_size - procent);
 
@@ -380,7 +381,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
 
     gfloat *peak;
 
-    double font_size=12;
+    float font_size=width/height*5;
     double step =(width-3*font_size-3*font_size)/60;
 
     cairo_set_font_size(cr, font_size);
@@ -421,21 +422,187 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
 
     //procenti
     char *rec;
-    
-    cairo_move_to(cr, 0,font_size);
+    char *broj;
+    float big_bytes;
+    float rec_bytes;
+
+    char *kb="kb/s";
+    char *mb="mb/s";
+    char *b="b/s";
+      gfloat max_broj=0;
+    gfloat max_broj3=0;
+
+    rec=g_strdup_printf("%s",net.network_size_rc);
+
+    /*if(0==strcmp(rec,mb)){
+
+
+        track=rec;
+    }*/
+
+     float max_broj2;
+   /* for(int i=0;i<bjorg2;i++){
+
+        peak = &g_array_index(history[4], gfloat, i);// kb
+        if(max_broj2>=*peak){
+
+            max_broj2=*peak;
+
+        }
+
+
+    }
+
+    if(max_broj<=max_broj2){
+
+
+       max_broj==max_broj2;
+    }
+*/
+      for(int i=0;i<bjorg2;i++){
+
+        peak = &g_array_index(history[4], gfloat, i);// kb
+        if(max_broj2<=*peak){
+
+            max_broj2=*peak;
+        }
+    }
+
+        if(max_broj<=max_broj2){
+
+            max_broj=max_broj2;
+
+
+            printf("MAX_borj peak : %f\n",*peak);
+            printf("MAX_borj : %f\n",max_broj);
+        }
+
+
+
+    float temp;
     cairo_set_source_rgb(cr,0,0,0);
-    sprintf(rec, "%.2f", net.received_bytes);
-    cairo_show_text(cr,rec);
-    cairo_show_text(cr,net.network_size_rc);
-    cairo_move_to(cr,0,height/4);
-    cairo_show_text(cr,"75%");
-    cairo_move_to(cr,0,height/4*2);
-    cairo_show_text(cr,"50%");
-    cairo_move_to(cr,0,height/4*3);
-    cairo_show_text(cr,"25%");
-    cairo_move_to(cr,0,height-font_size);
-    cairo_show_text(cr,"0%");
-    cairo_stroke(cr);
+
+    if(max_broj>1024){
+
+
+        rec_bytes = max_broj / 1024;//mb
+        rec_bytes += 1;
+        track=mb;
+        max_broj3=max_broj+1024;
+
+    }
+    if(max_broj<=1024 && max_broj >1){
+
+        rec_bytes = max_broj;//kb
+
+        rec_bytes+=100;
+        track=kb;
+        max_broj3=max_broj+100;
+
+
+    }
+    if(max_broj<=1){
+
+        rec_bytes= max_broj*1024;//bytes
+
+        track=rec;
+        track=b;
+        max_broj3=max_broj+1024;
+
+    }
+ /*   if(0==strcmp(rec,mb)) {
+
+
+        rec_bytes = max_broj / 1024;//mb
+
+           rec_bytes += 1;
+
+        track=rec;
+
+    }
+    if(0==strcmp(rec,kb)){
+
+        rec_bytes = max_broj;//kb
+
+        rec_bytes+=100;
+
+        track=rec;
+
+    }
+    if(0==strcmp(rec,b)){
+
+        rec_bytes= max_broj*1024;//kb
+
+        track=rec;
+
+    }*/
+
+        cairo_move_to(cr, 0,font_size);//najveci broj
+        sprintf(broj,"%.2f",rec_bytes);
+        cairo_show_text(cr,broj);
+        cairo_show_text(cr,track);
+        for(int i=1;i<=3;i++){
+
+
+            temp= rec_bytes/4*i;
+
+            cairo_move_to(cr,0,(height-font_size)/4*(4-i));
+            sprintf(broj,"%.2f",temp);
+            cairo_show_text(cr,broj);
+            cairo_show_text(cr,track);
+
+
+        }
+    cairo_move_to(cr,0,(height-font_size));
+    cairo_show_text(cr,"0");
+    cairo_show_text(cr,track);
+
+
+
+    /*if(0==strcmp(rec,kb)){
+        for(int i=1;i<4;i++){
+            cairo_move_to(cr, 0,font_size);
+            cairo_show_text(cr,broj);
+            cairo_show_text(cr,kb);
+            cairo_move_to(cr,0,(height-font_size)/4*i);
+            cairo_show_text(cr,kb);
+
+
+        }
+    }
+    if(0==strcmp(rec,b)){
+        for(int i=1;i<4;i++){
+            cairo_move_to(cr, 0,font_size);
+            cairo_show_text(cr,broj);
+            cairo_show_text(cr,b);
+            cairo_move_to(cr,0,(height-font_size)/4*i);
+            cairo_show_text(cr,b);
+
+
+        }
+    }*/
+
+cairo_stroke(cr);
+      /*  cairo_move_to(cr,0,(height-font_size)/4*2);
+        cairo_show_text(cr,mb);
+        cairo_move_to(cr,0,(height-font_size)/4*3);
+        cairo_show_text(cr,mb);
+        cairo_move_to(cr,0,height-font_size);
+        cairo_show_text(cr,mb);*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //sekunde
     cairo_move_to(cr,3*font_size,height);
     cairo_show_text(cr,"0 sec");
@@ -458,7 +625,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
 
 
 
-
+    gfloat procent=0;
 
 
 
@@ -477,15 +644,15 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
 
             if(r==0){
                 peak = &g_array_index(history[4], gfloat, j);
-
+                // procent = *peak;
             }
             if(r==1){
                 peak = &g_array_index(history[5], gfloat, j);
 
 
             }
-            gfloat procent =*peak;
-            procent=(height/100)*procent;
+          //  procent= *peak;
+            procent=((height-font_size)/max_broj3)* *peak;
 
             printf("PEAK: %0.2f\n",*peak);
             // prev[r]= height-font_size - *peak;
@@ -538,7 +705,7 @@ static void do_drawing2(GtkWidget *widget,cairo_t *cr,int l){
 
     //   cairo_set_source_rgb(cr,1,.05,1);
     cairo_set_line_width(cr,1);
-  double font_size=12;
+  float font_size=12;
     double step =(width-3*font_size-3*font_size)/60;
 
 cairo_set_font_size(cr, font_size);
@@ -641,13 +808,13 @@ cairo_set_font_size(cr, font_size);
 
            // int height_temp=height;
             gfloat procent =*peak;
-            procent=(height/100)*procent;
+            procent=((height-font_size)/100)*procent;
 
-            printf("PEAK: %0.2f\n",*peak);
+        //    printf("PEAK: %0.2f\n",*peak);
            // prev[r]= height-font_size - *peak;
             prev[r]= height-font_size - procent;
             if(procent==height) {
-                procent = height - 5;
+                procent = height - 1;
             }
             cairo_line_to(cr, step+3*font_size, height-font_size - procent);
 
@@ -686,7 +853,7 @@ static gboolean network_change_ts(gpointer data){
 
         bjorg2=60;
     }
-    printf("STO NECE: %f",net1);
+   // printf("STO NECE: %f",net1);
     g_array_insert_val(history[5], i, net_kb);
 
 
@@ -702,7 +869,7 @@ static gboolean network_change_rc(gpointer data){
    // received_transfered();
     float net1= net.received_bytes;
     float net_kb = net.received_kb;
-    net_kb/=100;
+   // net_kb/=100;
     static guint i =0;
     printf("STO NECE: %f",net1);
     g_array_insert_val(history[4], i, net_kb);
@@ -768,10 +935,10 @@ static gboolean swap_change(gpointer data){
     gfloat  j = memory_usage.swap_used;
 
     g_array_insert_val(history[7], i, j);
-    swap_usage_text = g_strdup_printf(("SWAP: %0.2f%%"),memory_usage.swap_used);
+    swap_usage_text = g_strdup_printf(("SWAP: %lu%%"),memory_usage.swap_used);
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
 }
-void ninja(){
+/*void ninja(){
 
 
     g_timeout_add(t,memory_change,label);
@@ -784,7 +951,7 @@ void ninja(){
 
 
 
-}
+}*/
 void percent_ffs(){
 
 
@@ -804,37 +971,7 @@ void percent_ffs(){
 
 
     }
- /*   i++;
-    if(i<=200)
-        i=0; */
-/*    static guint i =0;
 
-    cpu_percentage(ncpu);
-    for(int n =0; n<ncpu; n++){
-        for(int s=1; s<=ncpu;s++) {
-            gfloat j = cpu[s - 1].percentage;
-            j *= 3;
-            //test
-
-            niz[i] = j;
-            printf("%f j problems\n", j);
-            g_array_insert_val(history[s], i, j);// ako je s ==0 dolazi do greske
-
-            gfloat *peak;
-            peak = &g_array_index(history[s], gfloat, i); // ako je s == 0 dolazi do segmantaion fault
-
-            printf("da li prodje? %f\n", *peak);
-            //}
-            //  cpu_usage_text = g_strdup_printf (("CPU%d: %f%%"),cpu[1].number,cpu[n].percentage);
-
-            if (i == 200)//200
-                i = 0;
-            i += 1;
-            //  j++;
-            printf("%d i problems\n", i);
-        }//dodato
-
-    }*/
 };
 void timeout_refresh(){
 
@@ -851,6 +988,9 @@ void init_timeout2(){
     received_transfered();
     network_change_rc( label7);
   network_change_ts (label8);
+    time_handler(graph2);
+    time_handler(graph4);
+
 
 }
  void init_timeout(){
@@ -868,7 +1008,9 @@ void init_timeout2(){
     cpu_change(label6);
      memory_change(label);
      swap_change(label1);
-    time_handler(window);
+    time_handler(graph1);
+    time_handler(graph3);
+
     // ninja();
    //  g_timeout_add(t,(GSourceFunc) time_handler,window);
 
@@ -1023,7 +1165,7 @@ int main (int argc, char *argv[]) {
 
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 1400, 800);
-    //gtk_window_get_resizable (window);
+   // gtk_window_get_resizable (window);
     init_timeout();
     g_timeout_add(1000,(GSourceFunc)init_timeout2,NULL);
     gtk_container_add(GTK_CONTAINER(window), vbox);
