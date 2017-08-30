@@ -71,11 +71,13 @@ static gboolean network_change_rc(gpointer data);
 static gboolean network_change_ts(gpointer data);
 void percent_ffs();
 void button_clicked3();
-  guint  t =200;
-  static  guint bjorg=1;
+static  guint  t =250;
+  static  guint bjorg=1;//prvi ispis
     static guint bjorg2=1;
 gboolean refresh=0;
 int width2,height2;
+
+static int time_step=0;
 void button_clicked3(){
 
 
@@ -98,7 +100,7 @@ void button_clicked(){
         t=10000;
     }
     else
-    t+=500;
+    t+=250;
     printf("I clicked a button %d", t);
     timeout_refresh();
     //refresh= 0;
@@ -119,7 +121,7 @@ void button_clicked2(){
         printf("promena refresh rate \n");
     }
    else
-        t-=500;
+        t-=250;
     printf("I clicked a button2 %d", t);
     timeout_refresh();
     //refresh= 0;
@@ -221,7 +223,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
     gfloat *peak;
 
    float font_size=12;
-    double step =(width-3*font_size-3*font_size)/60;
+    double step =(width-3*font_size-3*font_size)/time_step;
 
     cairo_set_font_size(cr, font_size);
 
@@ -236,11 +238,9 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
     cairo_line_to(cr,width-3*font_size,height/4*3);
     //secund linije
 
-    cairo_move_to(cr,step*10+3*font_size,height);
-    cairo_line_to(cr,step*10+3*font_size,0);
-    for(int i=2 ;i<=5;i++){
-        cairo_move_to(cr,step*10*i+3*font_size,height-font_size);
-        cairo_line_to(cr,step*10*i+3*font_size,0);
+    for(int i =1;i<=5;i++){
+        cairo_move_to(cr,(width-2*3*font_size)/6*i+3*font_size,height-font_size);
+        cairo_line_to(cr,(width-2*3*font_size)/6*i+3*font_size,0);
     }
 
 
@@ -283,15 +283,15 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
     //sekunde
     cairo_move_to(cr,3*font_size,height);
     cairo_show_text(cr,"0 sec");
-    cairo_move_to(cr,width/6,height);
+    cairo_move_to(cr,(width-6*font_size)/6+3*font_size,height);
     cairo_show_text(cr,"10 sec");
-    cairo_move_to(cr,width/6*2,height);
+    cairo_move_to(cr,(width-6*font_size)/6*2+3*font_size,height);
     cairo_show_text(cr,"20 sec");
-    cairo_move_to(cr,width/6*3,height);
+    cairo_move_to(cr,(width-6*font_size)/6*3+3*font_size,height);
     cairo_show_text(cr,"30 sec");
-    cairo_move_to(cr,width/6*4,height);
+    cairo_move_to(cr,(width-6*font_size)/6*4+3*font_size,height);
     cairo_show_text(cr,"40 sec");
-    cairo_move_to(cr,width/6*5,height);
+    cairo_move_to(cr,(width-6*font_size)/6*5+3*font_size,height);
     cairo_show_text(cr,"50 sec");
     cairo_move_to(cr,width-3*font_size,height);
     cairo_show_text(cr,"60 s");
@@ -381,7 +381,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
 
     gfloat *peak;
 
-    float font_size=width/height*5;
+    float font_size=10;
     double step =(width-3*font_size-3*font_size)/60;
 
     cairo_set_font_size(cr, font_size);
@@ -458,16 +458,16 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
 
        max_broj==max_broj2;
     }
-*/
-      for(int i=0;i<bjorg2;i++){
+*/  for(int j=4; j<=5;j++) {
+        for (int i = 0; i < bjorg2; i++) {
 
-        peak = &g_array_index(history[4], gfloat, i);// kb
-        if(max_broj2<=*peak){
+            peak = &g_array_index(history[j], gfloat, i);// kb
+            if (max_broj2 <= *peak) {
 
-            max_broj2=*peak;
+                max_broj2 = *peak;
+            }
         }
     }
-
         if(max_broj<=max_broj2){
 
             max_broj=max_broj2;
@@ -538,7 +538,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
     }*/
 
         cairo_move_to(cr, 0,font_size);//najveci broj
-        sprintf(broj,"%.2f",rec_bytes);
+        sprintf(broj,"%.1f",rec_bytes);
         cairo_show_text(cr,broj);
         cairo_show_text(cr,track);
         for(int i=1;i<=3;i++){
@@ -547,7 +547,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
             temp= rec_bytes/4*i;
 
             cairo_move_to(cr,0,(height-font_size)/4*(4-i));
-            sprintf(broj,"%.2f",temp);
+            sprintf(broj,"%.1f",temp);
             cairo_show_text(cr,broj);
             cairo_show_text(cr,track);
 
@@ -606,15 +606,15 @@ cairo_stroke(cr);
     //sekunde
     cairo_move_to(cr,3*font_size,height);
     cairo_show_text(cr,"0 sec");
-    cairo_move_to(cr,width/6,height);
+    cairo_move_to(cr,(width-6*font_size)/6+3*font_size,height);
     cairo_show_text(cr,"10 sec");
-    cairo_move_to(cr,width/6*2,height);
+    cairo_move_to(cr,(width-6*font_size)/6*2+3*font_size,height);
     cairo_show_text(cr,"20 sec");
-    cairo_move_to(cr,width/6*3,height);
+    cairo_move_to(cr,(width-6*font_size)/6*3+3*font_size,height);
     cairo_show_text(cr,"30 sec");
-    cairo_move_to(cr,width/6*4,height);
+    cairo_move_to(cr,(width-6*font_size)/6*4+3*font_size,height);
     cairo_show_text(cr,"40 sec");
-    cairo_move_to(cr,width/6*5,height);
+    cairo_move_to(cr,(width-6*font_size)/6*5+3*font_size,height);
     cairo_show_text(cr,"50 sec");
     cairo_move_to(cr,width-3*font_size,height);
     cairo_show_text(cr,"60 s");
@@ -706,7 +706,7 @@ static void do_drawing2(GtkWidget *widget,cairo_t *cr,int l){
     //   cairo_set_source_rgb(cr,1,.05,1);
     cairo_set_line_width(cr,1);
   float font_size=12;
-    double step =(width-3*font_size-3*font_size)/60;
+    double step =(width-3*font_size-3*font_size)/time_step;
 
 cairo_set_font_size(cr, font_size);
 
@@ -732,13 +732,21 @@ cairo_set_font_size(cr, font_size);
     cairo_line_to(cr,width-3*font_size,height/4*3);
     //secund linije
 
-    cairo_move_to(cr,step*10+3*font_size,height);
-    cairo_line_to(cr,step*10+3*font_size,0);
-    for(int i=2 ;i<=5;i++){
-        cairo_move_to(cr,step*10*i+3*font_size,height-font_size);
-        cairo_line_to(cr,step*10*i+3*font_size,0);
+    for(int i =1;i<=5;i++){
+    cairo_move_to(cr,(width-2*3*font_size)/6*i+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-2*3*font_size)/6*i+3*font_size,0);
     }
-
+    /*cairo_move_to(cr,(width)/6+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-6*font_size)/5+3*font_size,0);
+    cairo_move_to(cr,(width-6*font_size)/5*2+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-6*font_size)/5*2+3*font_size,0);
+    cairo_move_to(cr,(width-6*font_size)/5*3+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-6*font_size)/5*3+3*font_size,0);*/
+  /*  for(int i=2 ;i<=5;i++){
+        cairo_move_to(cr,(width-6*font_size)/5*i,height-font_size);
+        cairo_line_to(cr,(width-6*font_size)/5*i,height-font_size);
+    }
+*/
 
 
     /* cairo_move_to(cr,(width-3*font_size)/6*3,height);
@@ -779,15 +787,15 @@ cairo_set_font_size(cr, font_size);
     //sekunde
     cairo_move_to(cr,3*font_size,height);
     cairo_show_text(cr,"0 sec");
-    cairo_move_to(cr,width/6,height);
+    cairo_move_to(cr,(width-6*font_size)/6+3*font_size,height);
     cairo_show_text(cr,"10 sec");
-    cairo_move_to(cr,width/6*2,height);
+    cairo_move_to(cr,(width-6*font_size)/6*2+3*font_size,height);
     cairo_show_text(cr,"20 sec");
-    cairo_move_to(cr,width/6*3,height);
+    cairo_move_to(cr,(width-6*font_size)/6*3+3*font_size,height);
     cairo_show_text(cr,"30 sec");
-    cairo_move_to(cr,width/6*4,height);
+    cairo_move_to(cr,(width-6*font_size)/6*4+3*font_size,height);
     cairo_show_text(cr,"40 sec");
-    cairo_move_to(cr,width/6*5,height);
+    cairo_move_to(cr,(width-6*font_size)/6*5+3*font_size,height);
     cairo_show_text(cr,"50 sec");
     cairo_move_to(cr,width-3*font_size,height);
     cairo_show_text(cr,"60 s");
@@ -912,12 +920,14 @@ static gboolean memory_change(gpointer data){
 
     static int i =0;
     gfloat  j = memory_usage.percentage;
-    
+
     g_array_insert_val(history[6], i, j);
     bjorg++;
-    if(bjorg>=60){
+   time_step=60000/t;
+    printf("Time step: %d\n",time_step);
+    if(bjorg>=time_step){
 
-        bjorg=60;
+        bjorg=time_step;
     }
 
 
