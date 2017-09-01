@@ -21,11 +21,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 static int ncpu=1;
-typedef struct Cpu_usage {
+ struct Cpu_usage {
 
-    unsigned short count;
+  /*  unsigned short count;
     float user;
-    float system;
+    float system;*/
     float percentage;
     int number;
 

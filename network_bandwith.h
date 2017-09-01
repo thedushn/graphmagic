@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
-typedef struct Network{
+ struct Network{
 
     float received_bytes;
     float transmited_bytes;
