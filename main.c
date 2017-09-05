@@ -12,11 +12,12 @@
 #include "cpu_usage.h"
 #include "network_bandwith.h"
 #include "interrupts.h"
+#include "task_manager.h"
 
 struct Memory_usage memory_usage;
 struct Cpu_usage cpu[4];
 struct Network net;
-gchar *text;
+//gchar *text;
 gchar *memory_usage_text;
 gchar *swap_usage_text;
 gchar *cpu_usage_text;
@@ -24,6 +25,8 @@ gchar *network_usage_received_text;
 gchar *network_usage_transimited_text;
 static char *track;
 static GtkWidget *window;
+static GtkWidget *swindow1;
+static GtkWidget *window1;
 GtkWidget *graph1;
 GtkWidget *graph2;
 GtkWidget *graph3;
@@ -51,6 +54,12 @@ GtkWidget *frame4;
 GtkWidget *button;
 GtkWidget *button2;
 GtkWidget *button3;
+
+GtkWidget *tree;
+GtkWidget *view;
+GtkTreeModel *model;
+GtkTreeIter *iter;
+
 GArray *history[9];
 
 
@@ -76,21 +85,197 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr, int l);
 static gboolean network_change_rc(gpointer data);
 static gboolean network_change_ts(gpointer data);
 void percent_ffs();
-void button_clicked3();
+void button_clicked3(GtkWidget *widget);
 static  guint  t =250;
   static  guint bjorg=1;//prvi ispis
     static guint bjorg2=1;
-gboolean refresh=0;
+guint refresh=0;
 int width2,height2;
-
+static gboolean more_precision;
 static int time_step=0;
-void button_clicked3(){
+static GtkWidget *
+create_view_and_model (void);
+static GtkTreeModel *
+create_and_fill_model (void);
+#define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
+enum
+{
+    COL_TASK = 0,
+    COL_PID,
+    COL_RSS,
+    COL_CPU,
+    NUM_COLS
+} ;
+static void
+
+model_update_tree_iter (GtkTreeModel *model, GtkTreeIter *iter, Task *task)
+
+{
+    gchar *vsz, *rss, cpu[16];
+    gchar value[14];
+    glong old_timestamp;
+    gchar *old_state;
+    gchar *background, *foreground;
+#ifdef HAVE_WNCK
+    GdkPixbuf *icon;
+#endif
+
+    vsz = g_format_size_full (task->vsz, G_FORMAT_SIZE_IEC_UNITS);
+    rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
+
+    g_snprintf (value, 14, (more_precision) ? "%.2f" : "%.0f", task->cpu_user + task->cpu_system);
+    g_snprintf (cpu, 16, ("%s%%"), value);
 
 
 
 
 
+
+    gtk_list_store_set (GTK_LIST_STORE (model), iter,
+                        COL_TASK, task->name,
+                        COL_PID, task->pid,
+                        COL_RSS, task->rss,
+                        COL_CPU, task->cpu_user,
+                        -1);
+
+
+
+    g_free (vsz);
+    g_free (rss);
 }
+static GtkWidget *create_view_and_model (void)
+{
+    GtkCellRenderer     *renderer;
+   // GtkTreeModel        *model;
+    GtkWidget           *view;
+    GtkTreeViewColumn *column;
+    column = gtk_tree_view_column_new ();
+    view = gtk_tree_view_new ();
+    g_object_set (column, COLUMN_PROPERTIES, NULL);
+    /* --- Column #1 --- */
+
+    renderer = gtk_cell_renderer_text_new ();
+    //gtk_tree_view_insert_column(GTK_TREE_VIEW (view),column,)
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Task",
+                                                 renderer,
+                                                 "text", COL_TASK,
+                                                 NULL);
+
+    /* --- Column #2 --- */
+
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "PID",
+                                                 renderer,
+                                                 "text", COL_PID,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "RSS",
+                                                 renderer,
+                                                 "text", COL_RSS,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "CPU",
+                                                 renderer,
+                                                 "text", COL_CPU,
+                                                 NULL);
+
+
+    model = create_and_fill_model ();
+
+    gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
+
+    /* The tree view has acquired its own reference to the
+     *  model, so we can drop ours. That way the model will
+     *  be freed automatically when the tree view is destroyed */
+
+    g_object_unref (model);
+
+    return view;
+}
+static GtkTreeModel *
+create_and_fill_model (void)
+{
+    GtkListStore  *store;
+ //   GtkTreeIter    iter;
+
+    store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, G_TYPE_UINT,G_TYPE_UINT,G_TYPE_FLOAT);
+gchar *rss;
+    /* Append a row and fill in some data */
+    printf("TASKs-array : len: %d\n",tasks->len);
+   for(int j=0 ;j<tasks->len;j++) {
+       Task *task = &g_array_index(tasks, Task, j);
+       rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
+       gtk_list_store_append(store, &iter);
+       gtk_list_store_set(store, &iter,
+                          COL_TASK, task->name,
+                          COL_PID, task->pid,
+                          COL_RSS, task->rss,
+                          COL_CPU, task->cpu_user,
+
+                          -1);
+
+
+       /* append another row and fill in some data */
+
+       /* ... and a third row */
+
+   }
+    return GTK_TREE_MODEL (store);
+}
+void button_clicked3(GtkWidget *widget){
+
+   // tree= gtk_tree_view_new ();
+    view= create_view_and_model();
+    swindow1=gtk_scrolled_window_new (NULL,
+                                      NULL);
+    window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+    {
+        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+                                       GTK_POLICY_ALWAYS);
+        gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
+        //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
+//    gtk_widget_destroy(vbox);
+        gtk_container_add(GTK_CONTAINER(swindow1), view);
+        gtk_widget_show_all(swindow1);
+
+    } else {
+
+        printf("I TRYYY SO HARD");
+        gtk_widget_destroy(swindow1);
+        gtk_container_remove(GTK_CONTAINER(vbox),swindow1);
+        gtk_container_remove(GTK_CONTAINER(swindow1),view);
+
+        gtk_widget_destroy(view);
+
+    /*    g_signal_connect(G_OBJECT(window), "destroy",
+                         G_CALLBACK(gtk_main_quit), NULL);
+        g_signal_connect(G_OBJECT(view), "destroy",
+                         G_CALLBACK(gtk_main_quit), NULL);*/
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void measurements(){
 
@@ -304,7 +489,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
             gfloat procent =*peak;
             procent=((height-font_size)/100)*procent;
 
-            printf("PEAK: %0.2f\n",*peak);
+          //  printf("PEAK: %0.2f\n",*peak);
             // prev[r]= height-font_size - *peak;
             //prev[r]= height-font_size - procent;
             prev[r]= height-font_size - procent;
@@ -571,7 +756,7 @@ cairo_stroke(cr);
           //  procent= *peak;
             procent=((height-font_size)/max_broj3)* *peak;
 
-            printf("PEAK: %0.2f\n",*peak);
+          //  printf("PEAK: %0.2f\n",*peak);
             // prev[r]= height-font_size - *peak;
             prev[r]= height-font_size - procent;
 
@@ -800,7 +985,7 @@ static gboolean network_change_rc(gpointer data){
     float net_kb = net.received_kb;
    // net_kb/=100;
     static guint i =0;
-    printf("STO NECE: %f",net1);
+   // printf("STO NECE: %f",net1);
     g_array_insert_val(history[4], i, net_kb);
 
 
@@ -854,6 +1039,7 @@ static gboolean memory_change(gpointer data){
 
     memory_usage_text = g_strdup_printf (("Memory: %0.2f%%"),memory_usage.percentage);
     gtk_label_set_text (GTK_LABEL (data), memory_usage_text);
+    return TRUE;
 }
 static gboolean swap_change(gpointer data){
 
@@ -862,41 +1048,28 @@ static gboolean swap_change(gpointer data){
     //get_memory_usage();
 
 
-    static int i =0;
+    static guint i =0;
     gfloat  j = memory_usage.swap_used;
 
     g_array_insert_val(history[7], i, j);
     swap_usage_text = g_strdup_printf(("SWAP: %lu%%"),memory_usage.swap_used);
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
 }
-/*void ninja(){
 
-
-    g_timeout_add(t,memory_change,label);
-    g_timeout_add(t,swap_change,label1);
-   // g_timeout_add(t,cpu_change,label2);
-    g_timeout_add(t,cpu_change,label3);
-    g_timeout_add(t,cpu_change,label4);
-    g_timeout_add(t,cpu_change,label5);
-    g_timeout_add(t,cpu_change,label6);
-
-
-
-}*/
 void percent_ffs(){
 
 
     cpu_percentage(ncpu);
     static guint i= 0;
     gfloat j;
-    gfloat *peak;
+  //  gfloat *peak;
     for(int s=0;s<ncpu;s++) {
 
         j = cpu[s].percentage;
      //   j=4*j;
 
         g_array_insert_val(history[s], i, j);
-        peak=&g_array_index(history[s],gfloat,i);
+       // peak=&g_array_index(history[s],gfloat,i);
 
        // printf("peak problems: %f \n",*peak);
 
@@ -941,7 +1114,9 @@ void init_timeout2(){
      swap_change(label1);
    /* time_handler(graph1);
     time_handler(graph3);*/
+     get_task_list(tasks);
      time_handler(window);
+
 
     // ninja();
    //  g_timeout_add(t,(GSourceFunc) time_handler,window);
@@ -979,6 +1154,9 @@ int main (int argc, char *argv[]) {
 
     ncpu = cpu_number();
     interface_name();
+    array();
+    //test
+
 
     for (int i = 0; i < 8; i++) {
     history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
@@ -990,6 +1168,10 @@ int main (int argc, char *argv[]) {
 
     button =gtk_button_new_with_label("refresh rate");
     button2 =gtk_button_new_with_label("refresh rate");
+   // button3 =gtk_button_new_with_label("process");
+  button3=  gtk_toggle_button_new_with_label( "Process");
+    gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button3),
+                                FALSE);
 
     graph1 = gtk_drawing_area_new();
     graph2 = gtk_drawing_area_new();
@@ -1061,12 +1243,12 @@ int main (int argc, char *argv[]) {
 
 
 
-    hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+   // hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     //gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hseparator,0,0,0);
   //  gtk_box_pack_start(GTK_BOX(vbox),hbox3,1,TRUE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox3,0,FALSE,0);
-    hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+ //   hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     //frame testing
    // gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
     gtk_box_pack_start(GTK_BOX(hbox3),label,0,FALSE,0);
@@ -1077,7 +1259,7 @@ int main (int argc, char *argv[]) {
 
 
 
-    vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+ //   vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
  //testing frames
 
    // gtk_box_pack_start(GTK_BOX(hbox1),vseparator,1,TRUE,0);
@@ -1087,7 +1269,7 @@ int main (int argc, char *argv[]) {
     gtk_box_pack_start(GTK_BOX(hbox1),frame2,1,TRUE,0);
     // gtk_box_pack_start(GTK_BOX(hbox1),graph2,1,TRUE,0);
     //
-    hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  //  hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
 
   //testing
   //  gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
@@ -1103,7 +1285,7 @@ int main (int argc, char *argv[]) {
     gtk_box_pack_start(GTK_BOX(hbox2),frame3,1,TRUE,0);
 
 
-    vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+   // vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
   //testing frames
     //gtk_box_pack_start(GTK_BOX(hbox2),vseparator,1,TRUE,0);
 
@@ -1118,7 +1300,7 @@ int main (int argc, char *argv[]) {
 
     g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
     g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked2), NULL);
-    g_signal_connect(button3,"clicked", G_CALLBACK(button_clicked3), NULL);
+    g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked3), NULL);
     g_signal_connect(G_OBJECT(graph1), "draw",
                      G_CALLBACK(on_draw_event),NULL);
     g_signal_connect(G_OBJECT(graph2), "draw",

@@ -21,11 +21,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 static int ncpu=1;
+static gulong jiffies_total_delta[5] = {0,0,0,0,0};
  struct Cpu_usage {
 
-  /*  unsigned short count;
-    float user;
-    float system;*/
+
     float percentage;
     int number;
 
