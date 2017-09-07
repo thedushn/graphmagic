@@ -50,7 +50,7 @@ void	get_memory_usage(){
    // printf("its all in the memory %llu\n",memory_usage.memory_used);
    float swap_used = swap_total-swap_free;
     memory_usage.swap_used= swap_used/swap_total*100;
-    printf("Swap used %lu\n",memory_usage.swap_used);
+  //  printf("Swap used %lu\n",memory_usage.swap_used);
 
 
     float   percentage = (float)memory_used/(float)memory_total *100 ;

@@ -25,7 +25,7 @@ static gulong jiffies_total_delta[5] = {0,0,0,0,0};
  struct Cpu_usage {
 
 
-    float percentage;
+    gfloat percentage;
     int number;
 
 };

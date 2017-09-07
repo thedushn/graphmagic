@@ -5,6 +5,42 @@
 #include "task_manager.h"
 #include "cpu_usage.h"
 
+
+static void
+
+model_update_tree_iter (GtkTreeModel *model, GtkTreeIter *iter, Task *task)
+
+{
+    gchar *vsz, *rss, cpu[16];
+    gchar value[14];
+    glong old_timestamp;
+    gchar *old_state;
+    gchar *background, *foreground;
+
+
+    vsz = g_format_size_full (task->vsz, G_FORMAT_SIZE_IEC_UNITS);
+    rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
+
+    g_snprintf (value, 14, (more_precision) ? "%.2f" : "%.0f", task->cpu_user + task->cpu_system);
+    g_snprintf (cpu, 16, ("%s%%"), value);
+
+
+
+
+
+
+    gtk_list_store_set (GTK_LIST_STORE (model), iter,
+                        COL_TASK, task->name,
+                        COL_PID, task->pid,
+                        COL_RSS, task->rss,
+                        COL_CPU, task->cpu_user,
+                        -1);
+
+
+
+    g_free (vsz);
+    g_free (rss);
+}
 static void
 get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffies_system, gfloat *cpu_system)
 {
@@ -36,6 +72,7 @@ get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffie
     {
         *cpu_user = *cpu_system = 0;
     }
+
 }
 
 
@@ -56,6 +93,7 @@ static inline int get_pagesize (void)
 
 
 void  array(){
+
     tasks=g_array_new (FALSE, FALSE, sizeof (Task));
 }
 
@@ -176,6 +214,7 @@ get_task_list (GArray *tasks)
     const gchar *name;
     guint pid;
     Task task = { 0 };
+
 
     if ((dir = g_dir_open ("/proc", 0, NULL)) == NULL)
         return FALSE;

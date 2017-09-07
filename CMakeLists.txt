@@ -4,7 +4,7 @@ project(gtkworld)
 set(CMAKE_C_STANDARD 11)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
-set(SOURCE_FILES main.c memory_usage.c memory_usage.h cpu_usage.c cpu_usage.h network_bandwith.c network_bandwith.h interrupts.c interrupts.h task_manager.c task_manager.h
+set(SOURCE_FILES main.c memory_usage.c memory_usage.h cpu_usage.c cpu_usage.h network_bandwith.c task_manager.c interrupts.c network_bandwith.h interrupts.h  task_manager.h
         #process-tree-model.c process-tree-model.h process-tree-view.h
       #  process-tree-view.c task-manager.c task-manager.h settings.c settings.h task-manager-linux.c
         )

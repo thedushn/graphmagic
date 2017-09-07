@@ -23,6 +23,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _Interrupts Interrupts;
+ void interrupt_usage();
+void array_interrupts ();
+GArray *ginterrupts;
 
-void interrupt_usage();
+struct _Interrupts{
+
+    gchar name[3];
+    gint CPU0;
+    gint CPU1;
+    gint CPU2;
+    gint CPU3;
+    gchar ime1;
+    gchar ime2;
+    gchar ime3;
+
+
+
+
+};
 #endif //GTKWORLD_INTERRUPTS_H

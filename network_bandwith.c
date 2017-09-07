@@ -23,7 +23,7 @@ int interface_name(){
     }
 
     while ((pDirent = readdir(pDir)) != NULL) {
-        printf ("[%s]\n", pDirent->d_name);
+       // printf ("[%s]\n", pDirent->d_name);
         if(!strcmp(pDirent->d_name, ".") || !strcmp(pDirent->d_name, "..") || !strcmp(pDirent->d_name, "lo")){
 
 
@@ -33,7 +33,8 @@ int interface_name(){
 
     }
 
-    printf("NAME BUFFER : %s \n",name_buffer);
+ //   printf("NAME BUFFER : %s \n",name_buffer);
+
 
     closedir (pDir);
     return 0;
@@ -71,6 +72,7 @@ void received_transfered(){
     gchar buffer3[10];
 
     strncpy(buffer3,name_buffer,sizeof(buffer3));
+
 
     for(int i= 0;i<sizeof(buffer3);i++ ){
 
@@ -126,7 +128,7 @@ void received_transfered(){
     &transmit_compressed,
    &transmit_multicast);*/
    strncpy ( buffer2, j, sizeof(buffer2) );
-    printf("buffer2 %s",buffer2);
+   // printf("buffer2 %s",buffer2);
 
     sscanf(buffer2," %lu %lu  %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",&received_bytes, &received_packets,
     &received_errors,&received_drop, &received_fifo,
@@ -214,7 +216,7 @@ void received_transfered(){
     else{
     network_ts=network_ts/1024;
     }
-    printf("NET %lu %lu\n",received_bytes,transmit_bytes);
+ //   printf("NET %lu %lu\n",received_bytes,transmit_bytes);
     net.received_bytes=network;
     net.transmited_bytes=network2;
 
@@ -223,7 +225,7 @@ void received_transfered(){
 
     net.received_kb=network_rc;
     net.transmited_kb=network_ts;
-    printf("network_rc %f network_ts %f",network_rc,network_ts);
+ //   printf("network_rc %f network_ts %f",network_rc,network_ts);
 
 
 
