@@ -15,16 +15,20 @@
 #include "task_manager.h"
 
 
+
 struct Memory_usage memory_usage;
 struct Cpu_usage cpu[4];
 struct Network net;
 
 gchar *memory_usage_text;
 gchar *swap_usage_text;
-gchar *cpu_usage_text;
+gchar *cpu0_usage_text;
+gchar *cpu1_usage_text;
+gchar *cpu2_usage_text;
+gchar *cpu3_usage_text;
 gchar *network_usage_received_text;
 gchar *network_usage_transimited_text;
-static char *track;
+/*static*/ gchar *track;
 static GtkWidget *window;
 static GtkWidget *swindow1;
 
@@ -80,7 +84,7 @@ GtkWidget *hseparator;
 static  guint  t =250;
 static  guint bjorg=1;//prvi ispis
 static guint bjorg2=1;
-guint refresh=0;
+guint  refresh=0;
 /*int width2,height2;*/
 
 static guint time_step=0;
@@ -98,11 +102,11 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data
 
 
 
-
-
 static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
 static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
 static void do_drawing3(GtkWidget *widget,cairo_t *cr, int l);
+
+
 static gboolean network_change_rc(gpointer data);
 static gboolean network_change_ts(gpointer data);
 void percent_ffs();
@@ -343,14 +347,29 @@ static gboolean time_handler(GtkWidget *widget)
 
     return TRUE;
 }
+void surface(GtkWidget *widget){
+
+
+    cairo_surface_t *surface;
+    cairo_t *cr ;
+    gpointer data;
+    int height,width;
+    cr = gdk_cairo_create(gtk_widget_get_window(GTK_WIDGET(window)));
+    height= gtk_widget_get_allocated_height(widget);
+    width= gtk_widget_get_allocated_width(widget);
+    surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+    cr = cairo_create (surface);
+    on_draw_event(widget,cr,data);
+};
 
 static gboolean on_draw_event(GtkWidget *widget,cairo_t *cr,gpointer *user_data){
     double t ;
 
    int data;
-   data= GPOINTER_TO_INT(user_data);
+    cairo_t *cr1;
+/*   data= GPOINTER_TO_INT(user_data);
     cairo_surface_t *surface;
-   // cairo_t *cr;
+    cairo_t *cr1 = cr;*/
 /*    int height,width;
     height= gtk_widget_get_allocated_height(widget);
     width= gtk_widget_get_allocated_width(widget);
@@ -358,6 +377,7 @@ static gboolean on_draw_event(GtkWidget *widget,cairo_t *cr,gpointer *user_data)
 
 
     cr = cairo_create (surface);*/
+//    *cr1=surface(widget);
 
     if(widget==graph1){
 
@@ -412,7 +432,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
 
     gfloat *peak;
-
+    double prev[2]={height-font_size};
 
 
     cairo_set_font_size(cr, font_size);
@@ -486,7 +506,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
 
 
-    double prev[2]={height-font_size};
+
 
     for (int j = 0; j < bjorg; j++) {
 
@@ -537,8 +557,8 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 }
 static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
     float width, height;
-    char *rec;
-    char *broj;
+    gchar *rec;
+    char broj[5];
     float big_bytes;
     float rec_bytes=0;
 
@@ -681,6 +701,7 @@ height= height2;*/
         sprintf(broj,"%.1f",rec_bytes);
 
         cairo_show_text(cr,broj);
+
         cairo_show_text(cr,track);
         for(int i=1;i<=3;i++){
 
@@ -697,6 +718,9 @@ height= height2;*/
     cairo_move_to(cr,0,(height-font_size));
     cairo_show_text(cr,"0");
     cairo_show_text(cr,track);
+
+   // g_free(track);
+    g_free(rec);
 
 
 cairo_stroke(cr);
@@ -910,6 +934,8 @@ cairo_set_font_size(cr, font_size);
 
 
 
+
+
 }
 static gboolean network_change_ts(gpointer data){
 
@@ -956,10 +982,28 @@ static gboolean network_change_rc(gpointer data){
     network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size_rc);
 
     gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
+    g_free(network_usage_received_text);
+    return TRUE;
 }
-static gboolean cpu_change(gpointer data){
+//static gboolean cpu_change(gpointer data){
+static gboolean  cpu_change(){
 
-    if(data== label3) {
+    cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
+    cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
+    cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
+    cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
+
+    gtk_label_set_text (GTK_LABEL (label3),cpu0_usage_text);
+    gtk_label_set_text (GTK_LABEL (label4),cpu1_usage_text);
+    gtk_label_set_text (GTK_LABEL (label5),cpu2_usage_text);
+    gtk_label_set_text (GTK_LABEL (label6),cpu3_usage_text);
+
+    g_free(cpu0_usage_text);
+    g_free(cpu1_usage_text);
+    g_free(cpu2_usage_text);
+    g_free(cpu3_usage_text);
+
+    /*if(data== label3) {
 
         cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
         gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
@@ -979,8 +1023,9 @@ static gboolean cpu_change(gpointer data){
         cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
         gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
     }
+*/
 
-
+    return TRUE;
 };
 void memory_change(gpointer data){
 
@@ -1012,6 +1057,7 @@ void memory_change(gpointer data){
 
     memory_usage_text = g_strdup_printf (("Memory: %0.2f%%"),memory_usage.percentage);
     gtk_label_set_text (GTK_LABEL (data), memory_usage_text);
+    g_free(memory_usage_text);
     //return TRUE;
 }
 static gboolean swap_change(gpointer data){
@@ -1027,6 +1073,7 @@ static gboolean swap_change(gpointer data){
     g_array_insert_val(history[7], i, j);
     swap_usage_text = g_strdup_printf(("SWAP: %lu%%"),memory_usage.swap_used);
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
+  //  g_free(swap_usage_text);
 
 }
 
@@ -1034,7 +1081,7 @@ void percent_ffs(){
 
 
     cpu_percentage(ncpu);
-    static guint i= 0;
+  //  static guint i= 0;
     gfloat j;
   //  gfloat *peak;
     for(int s=0;s<ncpu;s++) {
@@ -1077,15 +1124,17 @@ void init_timeout2(){
 //     measurements();
      percent_ffs();
      get_memory_usage();
-
+    array_interrupts();
      interrupt_usage();
 
 
-    cpu_change(label1);
+   /* cpu_change(label1);
     cpu_change(label3);
     cpu_change(label4);
     cpu_change(label5);
-    cpu_change(label6);
+    cpu_change(label6);*/
+
+     cpu_change();
      memory_change(label);
      swap_change(label1);
 

@@ -27,14 +27,16 @@ typedef struct _Interrupts Interrupts;
  void interrupt_usage();
 void array_interrupts ();
 GArray *ginterrupts;
-
+GArray *ginterrupts_temp;
+GArray *ginterrupts_main;
+void printanje(GArray *array);
 struct _Interrupts{
 
     gchar name[3];
-    gint CPU0;
-    gint CPU1;
-    gint CPU2;
-    gint CPU3;
+    unsigned long CPU0;
+    unsigned long CPU1;
+    unsigned long CPU2;
+    unsigned long CPU3;
     gchar ime1;
     gchar ime2;
     gchar ime3;

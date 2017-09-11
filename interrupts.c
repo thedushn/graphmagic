@@ -32,26 +32,53 @@
 #include<stdio.h>
 
 struct _Interrupts interrupts;
+struct _Interrupts interrupts_temp;
 void array_interrupts (){
 
     ginterrupts=g_array_new(FALSE,TRUE,sizeof(Interrupts));
-    g_array_set_size(ginterrupts,30);
+  //  g_array_set_size(ginterrupts,30);
+    ginterrupts_temp=g_array_new(FALSE,TRUE,sizeof(Interrupts));
+    g_array_set_size(ginterrupts_temp,ginterrupts->len);
+    ginterrupts_main=g_array_new(FALSE,TRUE,sizeof(Interrupts));
+    g_array_set_size(ginterrupts_main,ginterrupts->len);
 }
 
-/*void sortiranje(){
 
-    Interrupts interrupts={0};
-    if(interrupt_usage(&interrupts)) {
-        g_array_append_val (ginterrupts, interrupts);
+void printanje(GArray *array) {
+
+//    printf("[%d] lenght\n",array->len);
+    int i=0;
+    for (int j = 0; j < array->len; j++) {
+
+        Interrupts *interrupts1 = &g_array_index(array, Interrupts, j);
+      //  printf("%lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+       Interrupts *interrupts2 = &g_array_index(ginterrupts_temp,Interrupts,i);//uzmemo vrednost
+       // g_array_remove_index(ginterrupts_temp,i);//izbacimo tu vrednost pomerimo sve za jedan
+        Interrupts *interrupts3={0};
+      /*  interrupts2->name[0]=interrupts1->name[0];
+        interrupts2->name[1]=interrupts1->name[1];
+        interrupts2->name[2]=interrupts1->name[2];*/
+/*
+       interrupts3->CPU0= interrupts1->CPU0 - interrupts2->CPU0;
+        interrupts2->CPU0=interrupts1->CPU0;
+        interrupts3->CPU1= interrupts1->CPU1- interrupts2->CPU1;
+        interrupts2->CPU1=interrupts1->CPU1;
+        interrupts3->CPU2= interrupts1->CPU2- interrupts2->CPU2;
+        interrupts2->CPU2=interrupts1->CPU2;
+        interrupts3->CPU3= interrupts1->CPU3- interrupts2->CPU3;
+        interrupts2->CPU3=interrupts1->CPU3;*/
+
+
+
+        g_array_prepend_val(ginterrupts_temp,interrupts2);// dodamo element na kraj niza
+        g_array_append_val(ginterrupts_main,interrupts3);
     }
-}*/
-void printanje() {
+    for(int j = 0; j < array->len; j++){
 
-    printf("[%d] lenght\n",ginterrupts->len);
-    for (int j = 0; j < ginterrupts->len; j++) {
+        Interrupts *interrupts1 = &g_array_index(ginterrupts_main, Interrupts, j);
+  //      printf("%lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
 
-        Interrupts *interrupts1 = &g_array_index(ginterrupts, Interrupts, j);
-        printf("%d %d %d %d  ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+
     }
 }
 void interrupt_usage() {
@@ -62,15 +89,15 @@ void interrupt_usage() {
         FILE *file;
         gchar *filename = "/proc/interrupts";
         gchar buffer[1024];
-        gchar buffer2[1024];
-        gchar buffer3[1024];
+      /*  gchar buffer2[1024];
+        gchar buffer3[1024];*/
         gchar *temp;
         //  char  *razmak=' ';
-        gchar name[3];
-        int CPU0 = 0;
-        int CPU1 = 0;
-        int CPU2 = 0;
-        int CPU3 = 0;
+        gchar name[4];
+    unsigned long CPU0 = 0;
+    unsigned long CPU1 = 0;
+    unsigned long CPU2 = 0;
+    unsigned long CPU3 = 0;
         static int CPU0_old = 0;
         static int CPU1_old = 0;
         static int CPU2_old = 0;
@@ -97,16 +124,21 @@ void interrupt_usage() {
               CPU1_old=CPU1_oldj;
               CPU2_old=CPU2_oldj;
               CPU3_old=CPU3_oldj;*/
-            sscanf(buffer, "%3s %d %d %d %d %s %s %s", name, &CPU0, &CPU1, &CPU2,
+            sscanf(buffer, "%4s %lu %lu %lu %lu %s %s %s", name, &CPU0, &CPU1, &CPU2,
                    &CPU3,
                    ime1,
                    ime2,
                    ime3);
-            /* CPU0_oldj=CPU0;
-             CPU1_oldj=CPU1;
-             CPU2_oldj=CPU2;
-             CPU3_oldj=CPU3;*/
 
+            if(name[0]=='E' && name[1]=='R' && name[2]=='R'){
+
+                CPU1=0;
+                CPU2=0;
+                CPU3=0;
+
+            }
+
+         //   memset(&buffer[0], 0, sizeof(buffer));
             if(name[0]==':' ){
 
                 //interrupts.name[0]= name[0];
@@ -132,28 +164,43 @@ void interrupt_usage() {
 
             }
 
-            interrupts.CPU0 = CPU0;
-            interrupts.CPU1 = CPU1;
-            interrupts.CPU2 = CPU2;
-            interrupts.CPU3 = CPU3;
 
 
+                interrupts.CPU0 = CPU0;
+                interrupts.CPU1 = CPU1;
+                interrupts.CPU2 = CPU2;
+                interrupts.CPU3 = CPU3;
+
+
+
+
+
+
+
+
+
+            g_array_append_val(ginterrupts,interrupts);
+
+          /*  if (ginterrupts->len > 1)
+                g_array_remove_index (ginterrupts, ginterrupts->len - 1);*/
+/*
             g_array_remove_index(ginterrupts,i);
             g_array_insert_val(ginterrupts,i, interrupts);
-            i++;
+            i++;*/
           /*  if (ginterrupts->len > 1)
                 g_array_remove_index (ginterrupts, ginterrupts->len - 1);*/
 
-        printf("%s :",name);
-        printf("sta on to pise%s\n",interrupts.name);
+      //  printf("%s :",name);
+     //   printf("sta on to pise [%s]\n",interrupts.name);
        //     printf("ime interupta : %s\n", name);
         }
         fclose(file);
-        printf("Koliko interrupta : %d", i);
+       // printf("Koliko interrupta : %d", i);
 
 
 
-        printanje();
+        printanje(ginterrupts);
+
 
 
 
