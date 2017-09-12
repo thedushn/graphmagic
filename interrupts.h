@@ -30,6 +30,8 @@ GArray *ginterrupts;
 GArray *ginterrupts_temp;
 GArray *ginterrupts_main;
 void printanje(GArray *array);
+void upis(GArray *array);
+void poredjenje(GArray *array);
 struct _Interrupts{
 
     gchar name[3];

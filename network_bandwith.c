@@ -193,7 +193,7 @@ void received_transfered(){
         network_size_ts="kb/s";
 
     }
-    if(network_rc<1024){
+    if(network_ts<1024){
         network2=network_ts;
         network_size_ts="bytes/s";
 

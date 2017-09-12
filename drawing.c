@@ -4,7 +4,13 @@
 
 #include "drawing.h"
 
-
+static  guint bjorg=1;//prvi ispis
+static guint bjorg2=1;
+static guint time_step=0;
+static char *track;
+static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing3(GtkWidget *widget,cairo_t *cr, int l);
  void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
     int width, height;
     height= gtk_widget_get_allocated_height(widget);

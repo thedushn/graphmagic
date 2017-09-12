@@ -13,6 +13,7 @@
 #include "network_bandwith.h"
 #include "interrupts.h"
 #include "task_manager.h"
+#include "model.h"
 
 
 
@@ -72,12 +73,18 @@ GtkWidget *box2;
 
 GtkWidget *tree;
 GtkWidget *view;
-GtkTreeModel *model;
-GtkTreeIter iter;
-GtkListStore  *store;
+
+
 GArray *history[9];
 
 GtkWidget *box1;
+GtkTreeModel *model;
+GtkTreeIter iter;
+GtkListStore  *store;
+#define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
+
+
+
 
 
 GtkWidget *hseparator;
@@ -85,7 +92,7 @@ static  guint  t =250;
 static  guint bjorg=1;//prvi ispis
 static guint bjorg2=1;
 guint  refresh=0;
-/*int width2,height2;*/
+
 
 static guint time_step=0;
 
@@ -114,7 +121,7 @@ void button_clicked3(GtkWidget *widget);
 void close_window();
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
-#define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
+
 void close_window(){
 
 
@@ -157,6 +164,15 @@ void button_clicked5(GtkWidget *widget){
     }
 };
 
+
+void refeshing_tree(){
+
+
+
+    view= create_view_and_model();
+
+
+};
 static GtkWidget *create_view_and_model (void)
 {
     GtkCellRenderer     *renderer;
@@ -166,9 +182,9 @@ static GtkWidget *create_view_and_model (void)
     column = gtk_tree_view_column_new ();
     view = gtk_tree_view_new ();
     g_object_set (column, COLUMN_PROPERTIES, NULL);
-    /* --- Column #1 --- */
+
     //test
-    column = gtk_tree_view_column_new ();
+    //  column = gtk_tree_view_column_new ();
     renderer = gtk_cell_renderer_text_new ();
     //gtk_tree_view_insert_column(GTK_TREE_VIEW (view),column,)
     gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
@@ -221,47 +237,44 @@ static GtkWidget *create_view_and_model (void)
     g_object_unref (model);
 
     return view;
-}
-static GtkTreeModel *
-create_and_fill_model (void)
+};
+static GtkTreeModel *create_and_fill_model (void)
 {
 
- //   GtkTreeIter    iter;
+
 
     store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, G_TYPE_UINT,G_TYPE_STRING,G_TYPE_FLOAT,G_TYPE_STRING);
-gchar *rss, *vsz;
+    gchar *rss, *vsz;
+    get_task_list(tasks);
     /* Append a row and fill in some data */
 
-   printf("TASKs-array : len: %d\n",tasks->len);
+    printf("TASKs-array : len: %d\n",tasks->len);
 
-   for(int j=0 ;j<tasks->len;j++) {
-       Task *task = &g_array_index(tasks, Task, j);
-       rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
-       vsz = g_format_size_full (task->vsz, G_FORMAT_SIZE_IEC_UNITS);
-       gtk_list_store_append(store, &iter);
-       gtk_list_store_set(store, &iter,
-                          COL_TASK, task->name,
-                          COL_PID, task->pid,
-                          COL_RSS, rss,
-                          COL_CPU, task->cpu_user,
-                          COL_VSZ, vsz,
+    for(int j=0 ;j<tasks->len;j++) {
+        Task *task = &g_array_index(tasks, Task, j);
+        rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
+        vsz = g_format_size_full (task->vsz, G_FORMAT_SIZE_IEC_UNITS);
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                           COL_TASK, task->name,
+                           COL_PID, task->pid,
+                           COL_RSS, rss,
+                           COL_CPU, task->cpu_user,
+                           COL_VSZ, vsz,
 
-                          -1);
+                           -1);
 
 
-     //  array();
-       /* append another row and fill in some data */
+        //  array();
+        /* append another row and fill in some data */
 
-       /* ... and a third row */
+        /* ... and a third row */
 
-   }
+    }
+       g_array_free(tasks,TRUE);
+    array();
     return GTK_TREE_MODEL (store);
 }
-void refeshing_tree(){
-
-    view= create_view_and_model();
-
-};
 void button_clicked3(GtkWidget *widget){
 
    // tree= gtk_tree_view_new ();
@@ -269,6 +282,7 @@ void button_clicked3(GtkWidget *widget){
    // window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
     {
+        view= create_view_and_model();
         swindow1=gtk_scrolled_window_new (NULL,
                                           NULL);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
@@ -276,8 +290,12 @@ void button_clicked3(GtkWidget *widget){
         gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
         //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
 //    gtk_widget_destroy(vbox);
+       // gtk_container_add(GTK_CONTAINER(swindow1), view);
+
+      //  refeshing_tree();
         gtk_container_add(GTK_CONTAINER(swindow1), view);
         gtk_widget_show_all(swindow1);
+
 
     } else {
 
@@ -291,6 +309,7 @@ void button_clicked3(GtkWidget *widget){
       /*  g_signal_connect(G_OBJECT(window), "destroy",
                          G_CALLBACK(gtk_main_quit), NULL);*/
         gtk_widget_destroy(swindow1);
+      //  g_object_unref(view);
 
         /*g_signal_connect(G_OBJECT(view), "destroy",
                          G_CALLBACK(gtk_main_quit), NULL);*/
@@ -366,7 +385,8 @@ static gboolean on_draw_event(GtkWidget *widget,cairo_t *cr,gpointer *user_data)
     double t ;
 
    int data;
-    cairo_t *cr1;
+    //cairo_t *cr;
+
 /*   data= GPOINTER_TO_INT(user_data);
     cairo_surface_t *surface;
     cairo_t *cr1 = cr;*/
@@ -432,6 +452,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
 
     gfloat *peak;
+    gfloat procent;
     double prev[2]={height-font_size};
 
 
@@ -527,7 +548,8 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
                 cairo_set_source_rgba(cr,1,.5,1,.5);
             }
-            gfloat procent =*peak;
+            procent =*peak;
+
             procent=((height-font_size)/100)*procent;
 
           //  printf("PEAK: %0.2f\n",*peak);
@@ -554,17 +576,22 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
 
 
+
 }
 static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
     float width, height;
     gchar *rec;
-    char broj[5];
-    float big_bytes;
+    gchar broj[5];
+   // float big_bytes;
     float rec_bytes=0;
-
-    char *kb="kb/s";
-    char *mb="mb/s";
-    char *b="b/s";
+/*
+   gchar kb[5]="kb/s";
+    gchar mb[5]="mb/s";
+    gchar b[4]="b/s";*/
+    gchar *kb="kb/s";
+    gchar *mb="mb/s";
+    gchar *b="b/s";
+  /*  gchar *track;*/
     gfloat max_broj=0;
     gfloat max_broj2=0;
     gfloat max_broj3=0;
@@ -721,6 +748,7 @@ height= height2;*/
 
    // g_free(track);
     g_free(rec);
+
 
 
 cairo_stroke(cr);
@@ -1060,20 +1088,20 @@ void memory_change(gpointer data){
     g_free(memory_usage_text);
     //return TRUE;
 }
-static gboolean swap_change(gpointer data){
+void swap_change(gpointer data){
 
 
 
-    //get_memory_usage();
 
-
-    static guint i =0;
+   // static guint i =0;
     gfloat  j = memory_usage.swap_used;
 
-    g_array_insert_val(history[7], i, j);
+    g_array_prepend_val(history[7],  j);
+    if (history[7]->len > 1)
+        g_array_remove_index (history[7], history[7]->len - 1);
     swap_usage_text = g_strdup_printf(("SWAP: %lu%%"),memory_usage.swap_used);
     gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
-  //  g_free(swap_usage_text);
+    g_free(swap_usage_text);
 
 }
 
@@ -1122,9 +1150,9 @@ void init_timeout2(){
  void init_timeout(){
 
 //     measurements();
-     percent_ffs();
-     get_memory_usage();
-    array_interrupts();
+     percent_ffs();//nije ovde
+     get_memory_usage();//nije ovde
+  // array_interrupts();
      interrupt_usage();
 
 
@@ -1134,17 +1162,17 @@ void init_timeout2(){
     cpu_change(label5);
     cpu_change(label6);*/
 
-     cpu_change();
-     memory_change(label);
-     swap_change(label1);
+     cpu_change();//nije ovde
+     memory_change(label);// nije ovde
+     swap_change(label1); // nije ovde
 
-     time_handler(window);
+    time_handler(window);
 //test
-     array();
-     get_task_list(tasks);
-     refeshing_tree();
-
+   // array();
    //  get_task_list(tasks);
+    // refeshing_tree();
+
+ //   get_task_list(tasks);
 
 
     if(refresh==0)
@@ -1168,12 +1196,28 @@ int main (int argc, char *argv[]) {
     interface_name();
    array_interrupts();
     //test
-   // get_task_list(tasks);
+    array();
+ //  get_task_list(tasks);
+
 
     for (int i = 0; i < 8; i++) {
     history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
-    g_array_set_size(history[i], 240);//treba staviti da  history[4] i 5  imaju size 60
+   // g_array_set_size(history[i], 240);//treba staviti da  history[4] i 5  imaju size 60
 }
+    for(int i=0;i<=3;i++){
+
+        g_array_set_size(history[i], 240);
+    }
+    for(int i=4 ;i<=5;i++){
+
+        g_array_set_size(history[i], 60);
+    }
+    for(int i=6 ;i<=7;i++){
+
+
+        g_array_set_size(history[i], 240);
+    }
+
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
@@ -1314,6 +1358,7 @@ int main (int argc, char *argv[]) {
     g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked3), NULL);
     g_signal_connect(button5,"clicked", G_CALLBACK(button_clicked5), NULL);
 
+    //nije ovde memory leak
     g_signal_connect(G_OBJECT(graph1), "draw",
                      G_CALLBACK(on_draw_event),NULL);
     g_signal_connect(G_OBJECT(graph2), "draw",
@@ -1327,12 +1372,13 @@ int main (int argc, char *argv[]) {
 
 
 
+
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 1400, 800);
   //  gtk_window_get_resizable (window);
 //    measurements();
-    init_timeout();
-    g_timeout_add(1000,(GSourceFunc)init_timeout2,NULL);
+   init_timeout();
+    g_timeout_add(1000,(GSourceFunc)init_timeout2,NULL);//memory leak nije ovde
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     gtk_window_set_title(GTK_WINDOW(window), "lines mother do you see it ");
@@ -1343,6 +1389,23 @@ int main (int argc, char *argv[]) {
 
 
     gtk_main();
+
+/*
+    if(refresh> 0){
+        g_source_remove (refresh);
+        g_object_unref (window);
+    }
+*/
+
+/*
+
+    if (timeout > 0)
+        g_source_remove (timeout);
+    g_object_unref (window);
+    g_object_unref (status_icon);
+    g_object_unref (task_manager);
+    g_object_unref (settings);
+*/
 
     return 0;
 }
