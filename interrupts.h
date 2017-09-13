@@ -6,6 +6,7 @@
 #define GTKWORLD_INTERRUPTS_H
 #include <cairo.h>
 #include <gtk/gtk.h>
+#include <glib.h>
 #include <math.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -29,9 +30,12 @@ void array_interrupts ();
 GArray *ginterrupts;
 GArray *ginterrupts_temp;
 GArray *ginterrupts_main;
+GArray *ginterrupts_final;
 void printanje(GArray *array);
 void upis(GArray *array);
 void poredjenje(GArray *array);
+//void sortiranje(GArray *array);
+//struct _Interrupts sortiranje(gconstpointer a, gconstpointer b);
 struct _Interrupts{
 
     gchar name[3];

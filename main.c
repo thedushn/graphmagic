@@ -118,6 +118,7 @@ static gboolean network_change_rc(gpointer data);
 static gboolean network_change_ts(gpointer data);
 void percent_ffs();
 void button_clicked3(GtkWidget *widget);
+void button_clicked4(GtkWidget *widget);
 void close_window();
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
@@ -127,6 +128,11 @@ void close_window(){
 
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button5),
                                   FALSE);
+
+
+};
+void button_clicked4(GtkWidget *widget){
+
 
 
 };
@@ -1156,6 +1162,7 @@ void init_timeout2(){
      interrupt_usage();
 
 
+
    /* cpu_change(label1);
     cpu_change(label3);
     cpu_change(label4);
@@ -1225,6 +1232,7 @@ int main (int argc, char *argv[]) {
     button =gtk_button_new_with_label("refresh rate");
     button2 =gtk_button_new_with_label("refresh rate");
     button3=  gtk_toggle_button_new_with_label( "Process");
+    button4=  gtk_toggle_button_new_with_label( "Dev");
  /*   gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button3),
                                 FALSE);
 */
@@ -1305,6 +1313,7 @@ int main (int argc, char *argv[]) {
  //   hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     //frame testing
    // gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(hbox3),button4,0,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox3),label,0,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox3),label1,0,FALSE,1);
   //  gtk_box_pack_start(GTK_BOX(hbox3),label2,1,TRUE,0);
@@ -1356,7 +1365,9 @@ int main (int argc, char *argv[]) {
     g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
     g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked2), NULL);
     g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked3), NULL);
+    g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked4), NULL);
     g_signal_connect(button5,"clicked", G_CALLBACK(button_clicked5), NULL);
+
 
     //nije ovde memory leak
     g_signal_connect(G_OBJECT(graph1), "draw",
