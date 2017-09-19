@@ -1,8 +1,10 @@
+/*
 //
 // Created by dushn on 12.9.17..
 //
 
 #include "model.h"
+#include "main_header.h"
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
 static GtkWidget *create_view_and_model (void)
@@ -13,8 +15,10 @@ static GtkWidget *create_view_and_model (void)
     GtkTreeViewColumn *column;
     column = gtk_tree_view_column_new ();
     view = gtk_tree_view_new ();
-    g_object_set (column, COLUMN_PROPERTIES, NULL);
-    /* --- Column #1 --- */
+  //  g_object_set (column, COLUMN_PROPERTIES, NULL);
+    */
+/* --- Column #1 --- *//*
+
     //test
     //  column = gtk_tree_view_column_new ();
     renderer = gtk_cell_renderer_text_new ();
@@ -26,7 +30,9 @@ static GtkWidget *create_view_and_model (void)
                                                  "text", COL_TASK,
                                                  NULL);
 
-    /* --- Column #2 --- */
+    */
+/* --- Column #2 --- *//*
+
 
     renderer = gtk_cell_renderer_text_new ();
     gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
@@ -62,9 +68,11 @@ static GtkWidget *create_view_and_model (void)
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
 
-    /* The tree view has acquired its own reference to the
+    */
+/* The tree view has acquired its own reference to the
      *  model, so we can drop ours. That way the model will
-     *  be freed automatically when the tree view is destroyed */
+     *  be freed automatically when the tree view is destroyed *//*
+
 
     g_object_unref (model);
 
@@ -77,7 +85,9 @@ static GtkTreeModel *create_and_fill_model (void)
 
     store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, G_TYPE_UINT,G_TYPE_STRING,G_TYPE_FLOAT,G_TYPE_STRING);
     gchar *rss, *vsz;
-    /* Append a row and fill in some data */
+    */
+/* Append a row and fill in some data *//*
+
 
     printf("TASKs-array : len: %d\n",tasks->len);
 
@@ -97,11 +107,15 @@ static GtkTreeModel *create_and_fill_model (void)
 
 
         //  array();
-        /* append another row and fill in some data */
+        */
+/* append another row and fill in some data *//*
 
-        /* ... and a third row */
+
+        */
+/* ... and a third row *//*
+
 
     }
     //   g_array_free(tasks,TRUE);
     return GTK_TREE_MODEL (store);
-}
+}*/

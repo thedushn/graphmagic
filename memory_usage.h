@@ -14,11 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct cpu_usage{
 
-    int cpu1;
-
-};
 struct Memory_usage {
 
     unsigned long long  memory_used;

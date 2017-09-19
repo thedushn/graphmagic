@@ -13,7 +13,13 @@
 #include "network_bandwith.h"
 #include "interrupts.h"
 #include "task_manager.h"
-#include "model.h"
+//#include "model.h"
+#include "drawing.h"
+#include "main_header.h"
+#include "buttons.h"
+
+GtkWidget *menubar;
+GtkWidget *filemenu;
 
 
 
@@ -21,6 +27,10 @@ struct Memory_usage memory_usage;
 struct Cpu_usage cpu[4];
 struct Network net;
 
+ gboolean CPU0_line;
+ gboolean CPU1_line;
+gboolean CPU2_line;
+ gboolean CPU3_line;
 gchar *memory_usage_text;
 gchar *swap_usage_text;
 gchar *cpu0_usage_text;
@@ -30,65 +40,15 @@ gchar *cpu3_usage_text;
 gchar *network_usage_received_text;
 gchar *network_usage_transimited_text;
 /*static*/ gchar *track;
-static GtkWidget *window;
-static GtkWidget *swindow1;
 
-GtkWidget *graph1;
-GtkWidget *graph2;
-GtkWidget *graph3;
-GtkWidget *graph4;
-GtkWidget *vbox;
-GtkWidget *hbox;
-GtkWidget *hbox1;
-GtkWidget *hbox2;
-GtkWidget *hbox3;
-GtkWidget *label;
-GtkWidget *label1;
-GtkWidget *label2;
-GtkWidget *label3;
-GtkWidget *label4;
-GtkWidget *label5;
-GtkWidget *label6;
-GtkWidget *label7;
-GtkWidget *label8;
-
-GtkWidget *frame1;
-GtkWidget *frame2;
-GtkWidget *frame3;
-GtkWidget *frame4;
-
-GtkWidget *button;
-GtkWidget *button2;
-GtkWidget *button3;
-GtkWidget *button4;
-GtkWidget * button5;
-GtkWidget * button6;
-GtkWidget * button7;
-GtkWidget * button8;
-GtkWidget * button9;
-GSList *group;
-GtkWidget *window2;
-
-GtkWidget *box2;
-
-GtkWidget *tree;
-GtkWidget *view;
-
-
-GArray *history[9];
-
-GtkWidget *box1;
-GtkTreeModel *model;
-GtkTreeIter iter;
-GtkListStore  *store;
-#define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
-
-
-
+gboolean CPU0_line= TRUE;
+gboolean CPU1_line= TRUE;
+gboolean CPU2_line= TRUE;
+gboolean CPU3_line= TRUE;
 
 
 GtkWidget *hseparator;
-static  guint  t =250;
+static  guint  t =1000;
 static  guint bjorg=1;//prvi ispis
 static guint bjorg2=1;
 guint  refresh=0;
@@ -103,82 +63,190 @@ void init_timeout2();
 void timeout_refresh();
 void measurements();
 //static gboolean on_draw_event(GtkWidget *widget,gpointer *user_data);
-static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data);
+//static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data);
+void closing(){
+
+    GtkWidget *fuck;
+   fuck= create_view_and_model_file_system();
+   // g_object_unref(view2);
+    gtk_container_add(GTK_CONTAINER(swindow1), fuck);
+
+};
+void dev_button_clicked(GtkWidget *widget);
+gchar memory_text[20]="much memory";
 
 
 
-
-
-static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
-static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
-static void do_drawing3(GtkWidget *widget,cairo_t *cr, int l);
 
 
 static gboolean network_change_rc(gpointer data);
 static gboolean network_change_ts(gpointer data);
 void percent_ffs();
-void button_clicked3(GtkWidget *widget);
-void button_clicked4(GtkWidget *widget);
-void close_window();
-static GtkWidget *create_view_and_model (void);
-static GtkTreeModel *create_and_fill_model (void);
 
+//void create_view_and_model_file_system(){
+static GtkWidget *create_view_and_model_file_system(){
+
+
+    GtkCellRenderer     *renderer;
+
+    GtkWidget           *view;
+//    GtkTreeViewColumn *column;
+//    column = gtk_tree_view_column_new ();
+    view = gtk_tree_view_new ();
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Device",
+                                                 renderer,
+                                                 "text", COL_DEV,
+                                                 NULL);
+
+    //   --- Column #2 ---
+
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Directory",
+                                                 renderer,
+                                                 "text", COL_DIR,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Type",
+                                                 renderer,
+                                                 "text", COL_TYPE,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Total",
+                                                 renderer,
+                                                 "text", COL_TOTAL,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Available",
+                                                 renderer,
+                                                 "text", COL_AVAILABLE,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Used",
+                                                 renderer,
+                                                 "text", COL_USED,
+                                                 NULL);
+
+    model = create_and_fill_model_file_system ();
+
+
+    gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
+
+//     The tree view has acquired its own reference to the
+//     *  model, so we can drop ours. That way the model will
+//     *  be freed automatically when the tree view is destroyed
+
+    g_object_unref (model);
+
+
+    return view;
+
+}
+
+static GtkTreeModel *create_and_fill_model_file_system (void){
+
+
+    store = gtk_list_store_new (NUM_COLS_DEV, G_TYPE_FLOAT, G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+   // gchar *rss, *vsz;
+   // get_task_list(tasks);
+    //  Append a row and fill in some data
+
+  //  printf("TASKs-array : len: %d\n",tasks->len);
+
+  //  for(int j=0 ;j<tasks->len;j++) {
+     //   Task *task = &g_array_index(tasks, Task, j);
+     /*   rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
+        vsz = g_format_size_full (task->vsz, G_FORMAT_SIZE_IEC_UNITS);*/
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                           COL_DEV, cpu->percentage,
+                           COL_DIR, cpu->number,
+                           COL_TYPE, "u dont want to know",
+                           COL_TOTAL, "not a lot",
+                           COL_AVAILABLE, "hwo knows",
+                           COL_USED, "even less",
+
+                           -1);
+
+
+
+    return GTK_TREE_MODEL (store);
+
+};
 void close_window(){
 
 
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button5),
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_graph),
                                   FALSE);
 
 
 };
-void button_clicked4(GtkWidget *widget){
 
 
 
-};
+void graph_refresh(GtkWidget *widget,gboolean CPU){
 
-void button_clicked5(GtkWidget *widget){
+    if(widget==button_graph0){
 
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
-    {
-    window2 =gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    button6=gtk_toggle_button_new_with_label("CPu0");
-    button7=gtk_toggle_button_new_with_label("CPu1");
-    button8=gtk_toggle_button_new_with_label("CPu2");
-    button9=gtk_toggle_button_new_with_label("CPu3");
+       CPU0_line=CPU;
 
-    gtk_window_set_title (GTK_WINDOW (window2), "GRAPH buttons");
-    box2=gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
-    gtk_container_add(GTK_CONTAINER(window2),box2);
-    gtk_box_pack_start(GTK_BOX(box2),button6,0,0,0);
-    gtk_box_pack_start(GTK_BOX(box2),button7,0,0,0);
-    gtk_box_pack_start(GTK_BOX(box2),button8,0,0,0);
-    gtk_box_pack_start(GTK_BOX(box2),button9,0,0,0);
 
-    gtk_window_set_position(GTK_WINDOW(window2), GTK_WIN_POS_CENTER);
 
-        g_signal_connect(G_OBJECT(window2), "destroy",
-                         G_CALLBACK(close_window), NULL);
+    }
+    if(widget==button_graph1){
 
-    gtk_widget_show_all(window2);
+
+        CPU1_line=CPU;
+
+
+
+    }
+    if(widget==button_graph2){
+
+
+        CPU2_line=CPU;
+
+
+
+    }
+    if(widget==button_graph3){
+
+
+        CPU3_line=CPU;
+
+
+
     }
 
-    else{
-
-        gtk_widget_destroy(window2);
-    }
-};
-
-
-void refeshing_tree(){
+        if (!g_source_remove (refresh))
+        {
+            g_critical ("Unable to remove source");
+            return;
+        }
+        refresh = 0;
 
 
+        init_timeout ();
 
-    view= create_view_and_model();
 
 
 };
+
+
+
 static GtkWidget *create_view_and_model (void)
 {
     GtkCellRenderer     *renderer;
@@ -200,7 +268,7 @@ static GtkWidget *create_view_and_model (void)
                                                  "text", COL_TASK,
                                                  NULL);
 
-    /* --- Column #2 --- */
+  //   --- Column #2 ---
 
     renderer = gtk_cell_renderer_text_new ();
     gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
@@ -232,18 +300,79 @@ static GtkWidget *create_view_and_model (void)
                                                  NULL);
 
 
+
     model = create_and_fill_model ();
+
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
 
-    /* The tree view has acquired its own reference to the
-     *  model, so we can drop ours. That way the model will
-     *  be freed automatically when the tree view is destroyed */
+//     The tree view has acquired its own reference to the
+//     *  model, so we can drop ours. That way the model will
+//     *  be freed automatically when the tree view is destroyed
 
     g_object_unref (model);
+   
 
     return view;
 };
+void dev_problems(){
+
+ //create_view_and_model_file_system();
+    view2=create_view_and_model_file_system();
+    swindow1=gtk_scrolled_window_new (NULL,
+                                      NULL);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_ALWAYS);
+    gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
+    //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
+//    gtk_widget_destroy(vbox);
+    //gtk_container_add(GTK_CONTAINER(swindow1), view);
+
+    //  refeshing_tree();
+    gtk_container_add(GTK_CONTAINER(swindow1), view2);
+
+
+
+       /*   progressbar=gtk_progress_bar_new();
+          gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar),memory_used);
+          gtk_progress_bar_get_show_text (GTK_PROGRESS_BAR(progressbar));
+          gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progressbar),"text here");
+          gtk_box_pack_start(GTK_BOX(vbox),progressbar,0,TRUE,0);
+          gtk_widget_show_all(progressbar);*/
+
+    //  gtk_container_add(GTK_CONTAINER(swindow1), progressbar);
+
+    gtk_widget_show_all(swindow1);
+}
+void dev_button_clicked(GtkWidget *widget){
+
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+
+
+    dev_problems();
+
+/*
+          progressbar=gtk_progress_bar_new();
+          gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar),memory_used);
+          gtk_progress_bar_get_show_text (GTK_PROGRESS_BAR(progressbar));
+          gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progressbar),"text here");
+          gtk_box_pack_start(GTK_BOX(vbox),progressbar,0,TRUE,0);
+          gtk_widget_show_all(progressbar);*/
+
+      //  gtk_container_add(GTK_CONTAINER(swindow1), progressbar);
+
+        gtk_widget_show_all(swindow1);
+    }
+    else{
+
+        // gtk_widget_destroy(progressbar);
+        gtk_widget_destroy(view2);
+        gtk_widget_destroy(swindow1);
+
+
+    }
+};
+
 static GtkTreeModel *create_and_fill_model (void)
 {
 
@@ -252,7 +381,7 @@ static GtkTreeModel *create_and_fill_model (void)
     store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, G_TYPE_UINT,G_TYPE_STRING,G_TYPE_FLOAT,G_TYPE_STRING);
     gchar *rss, *vsz;
     get_task_list(tasks);
-    /* Append a row and fill in some data */
+   //  Append a row and fill in some data
 
     printf("TASKs-array : len: %d\n",tasks->len);
 
@@ -272,16 +401,18 @@ static GtkTreeModel *create_and_fill_model (void)
 
 
         //  array();
-        /* append another row and fill in some data */
-
-        /* ... and a third row */
+//         append another row and fill in some data
+//
+//         ... and a third row
 
     }
        g_array_free(tasks,TRUE);
     array();
+  //
     return GTK_TREE_MODEL (store);
-}
-void button_clicked3(GtkWidget *widget){
+
+};
+void button_clicked_view_process(GtkWidget *widget){
 
    // tree= gtk_tree_view_new ();
 
@@ -331,7 +462,7 @@ void measurements(){
     width2= gtk_widget_get_allocated_width(hbox2);
 
 }*/
-void button_clicked(){
+void inc_refresh(){
 
     if(t>=10000){
 
@@ -351,7 +482,7 @@ void button_clicked(){
     */
 
 };
-void button_clicked2(){
+void dec_refresh(){
 
 
     if(t<500){
@@ -372,66 +503,81 @@ static gboolean time_handler(GtkWidget *widget)
 
     return TRUE;
 }
-void surface(GtkWidget *widget){
 
-
-    cairo_surface_t *surface;
-    cairo_t *cr ;
-    gpointer data;
-    int height,width;
-    cr = gdk_cairo_create(gtk_widget_get_window(GTK_WIDGET(window)));
+void do_drawing4(GtkWidget *widget,cairo_t *cr){
+    int width, height;
     height= gtk_widget_get_allocated_height(widget);
     width= gtk_widget_get_allocated_width(widget);
-    surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
-    cr = cairo_create (surface);
-    on_draw_event(widget,cr,data);
+    cairo_set_line_width(cr,1);
+    float font_size=10;
+    cairo_set_font_size(cr, font_size);
+    Interrupts *peak;
+    gchar broj[5];
+
+    cr = crtaj_okvir(cr,width,height,font_size,5);
+    cairo_set_source_rgb(cr,0,0,0);
+  //  gchar ime[3];
+    gchar *ime2;
+    long max_broj=0;
+    signed long temp=0;
+  //  gfloat procent=0;
+    for (int i = 0; i <= 9; i++) {
+
+        cairo_move_to(cr, 5 * font_size, height);
+        peak = &g_array_index(ginterrupts_final, Interrupts, i);
+        if(max_broj<=peak->CPU0){
+
+            max_broj=peak->CPU0;
+        }
+        if(max_broj<=peak->CPU1){
+
+            max_broj=peak->CPU1;
+        }
+        if(max_broj<=peak->CPU2){
+
+            max_broj=peak->CPU2;
+        }
+        if(max_broj<=peak->CPU3){
+
+            max_broj=peak->CPU3;
+        }
+
+    }
+    max_broj+=100;
+    cairo_move_to(cr, 0,font_size);
+    sprintf(broj,"%li",max_broj);
+    cairo_show_text(cr,broj);
+    for(int i=1;i<=3;i++){
+
+
+        temp= max_broj/4*i;
+
+        cairo_move_to(cr,0,(height-font_size)/4*(4-i));
+        sprintf(broj,"%li",temp);
+        cairo_show_text(cr,broj);
+        // cairo_show_text(cr,track);
+
+
+    }
+    cairo_move_to(cr,0,height-font_size);
+    cairo_show_text(cr,"0");
+    float duzina= (width-(5*font_size*2))/5/10;
+    for (int i = 0; i <= 9; i++) {
+
+        // cairo_move_to(cr, 5 * font_size, height);
+        peak = &g_array_index(ginterrupts_final, Interrupts, i);
+
+        cairo_move_to(cr, 5 * font_size + 5 * duzina * (i), height);
+        ime2 = g_strdup_printf("%s", peak->name);
+        cairo_set_source_rgb(cr, 0, 0, 0);
+        cairo_show_text(cr, ime2);
+
+        crtaj_interrupte(cr, i, peak, height, font_size, max_broj, duzina);
+    }
+    //  cairo_stroke(cr);
+
 };
-
-static gboolean on_draw_event(GtkWidget *widget,cairo_t *cr,gpointer *user_data){
-    double t ;
-
-   int data;
-    //cairo_t *cr;
-
-/*   data= GPOINTER_TO_INT(user_data);
-    cairo_surface_t *surface;
-    cairo_t *cr1 = cr;*/
-/*    int height,width;
-    height= gtk_widget_get_allocated_height(widget);
-    width= gtk_widget_get_allocated_width(widget);
-    surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
-
-
-    cr = cairo_create (surface);*/
-//    *cr1=surface(widget);
-
-    if(widget==graph1){
-
-
-        do_drawing2(widget,cr,data);
-    }
-    if(widget==graph2){
-
-        do_drawing(widget,cr,data);
-    }
-    if(widget==graph3){
-
-        do_drawing3(widget,cr,data);
-    }
-    if(widget==graph4){
-
-        do_drawing(widget,cr,data);
-    }
-
-
-
-
-
-
-
-}
-
-static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
+void do_drawing3(GtkWidget *widget,cairo_t *cr){
     int width, height;
     height= gtk_widget_get_allocated_height(widget);
     width= gtk_widget_get_allocated_width(widget);
@@ -466,62 +612,26 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
 
     //procent linije
-    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
-    cairo_move_to(cr,0,height/4);//75%
-    cairo_line_to(cr,width-3*font_size,height/4);
-    cairo_move_to(cr,0,height/4*2);//50
-    cairo_line_to(cr,width-3*font_size,height/4*2);
-    cairo_move_to(cr,0,height/4*3);//25
-    cairo_line_to(cr,width-3*font_size,height/4*3);
-    //secund linije
 
+    //secund linije
+    /*cairo_set_source_rgba(cr,.7,.7,.7,0.5);
     for(int i =1;i<=5;i++){
         cairo_move_to(cr,(width-2*3*font_size)/6*i+3*font_size,height-font_size);
         cairo_line_to(cr,(width-2*3*font_size)/6*i+3*font_size,0);
     }
-
+*/
 
 
     cairo_stroke(cr);
     //okvir
-    cairo_move_to(cr,3*font_size,0);
-    cairo_line_to(cr,width-3*font_size,0);
-    cairo_move_to(cr,3*font_size,0);
-    cairo_line_to(cr,3*font_size,height-font_size);
-    //   cairo_move_to(cr,3*font_size,height-font_size);
-    cairo_line_to(cr,width-3*font_size,height-font_size);
-    cairo_move_to(cr,width-3*font_size,height-font_size);
-    cairo_line_to(cr,width-3*font_size,0);
+    cr= crtaj_okvir(cr,width,height,font_size,3);
+
 
     //procenti
-    cairo_move_to(cr, 0,font_size);
-    cairo_set_source_rgb(cr,0,0,0);
-    cairo_show_text(cr,"100%");
-    cairo_move_to(cr,0,height/4);
-    cairo_show_text(cr,"75%");
-    cairo_move_to(cr,0,height/4*2);
-    cairo_show_text(cr,"50%");
-    cairo_move_to(cr,0,height/4*3);
-    cairo_show_text(cr,"25%");
-    cairo_move_to(cr,0,height-font_size);
-    cairo_show_text(cr,"0%");
-    cairo_stroke(cr);
+    crtaj_procente(cr,height,font_size);
+
     //sekunde
-    cairo_move_to(cr,3*font_size,height);
-    cairo_show_text(cr,"0 sec");
-    cairo_move_to(cr,(width-6*font_size)/6+3*font_size,height);
-    cairo_show_text(cr,"10 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*2+3*font_size,height);
-    cairo_show_text(cr,"20 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*3+3*font_size,height);
-    cairo_show_text(cr,"30 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*4+3*font_size,height);
-    cairo_show_text(cr,"40 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*5+3*font_size,height);
-    cairo_show_text(cr,"50 sec");
-    cairo_move_to(cr,width-3*font_size,height);
-    cairo_show_text(cr,"60 s");
-    cairo_stroke(cr);
+    crtaj_sekunde(cr,width,height,font_size,3);
 
 
 
@@ -558,7 +668,7 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
             procent=((height-font_size)/100)*procent;
 
-          //  printf("PEAK: %0.2f\n",*peak);
+            //  printf("PEAK: %0.2f\n",*peak);
             // prev[r]= height-font_size - *peak;
             //prev[r]= height-font_size - procent;
             prev[r]= height-font_size - procent;
@@ -584,20 +694,16 @@ static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
 
 
 }
-static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
+void do_drawing(GtkWidget *widget,cairo_t *cr){
     float width, height;
     gchar *rec;
     gchar broj[5];
-   // float big_bytes;
+
     float rec_bytes=0;
-/*
-   gchar kb[5]="kb/s";
-    gchar mb[5]="mb/s";
-    gchar b[4]="b/s";*/
-    gchar *kb="kb/s";
-    gchar *mb="mb/s";
-    gchar *b="b/s";
-  /*  gchar *track;*/
+
+    gchar *kb="KB/s";
+    gchar *mb="MB/s";
+    gchar *b="bytes/s";
     gfloat max_broj=0;
     gfloat max_broj2=0;
     gfloat max_broj3=0;
@@ -610,7 +716,7 @@ static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
     double prev[2]={height-font_size,height-font_size};
 
     float temp;
-
+    double step =(width-5*font_size-5*font_size)/60;
     /*width=width2/2;
     height=height2/2;*/
 /*width= width2;
@@ -621,8 +727,8 @@ height= height2;*/
     // cr = cairo_create (graph_surface);
     //
 
- //   printf("%f width %f height",width,height);
- //   printf("%d width2 %d height2\n",width2,height2);
+    //   printf("%f width %f height",width,height);
+    //   printf("%d width2 %d height2\n",width2,height2);
     //   cairo_set_source_rgb(cr,1,.05,1);
     cairo_set_line_width(cr,1);
 
@@ -632,51 +738,22 @@ height= height2;*/
     //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
 
 
-
-    double step =(width-5*font_size-5*font_size)/60;
-
     cairo_set_font_size(cr, font_size);
 
 
-    //procent linije
-    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
-    cairo_move_to(cr,5*font_size,height/4);//75%
-    cairo_line_to(cr,width-5*font_size,height/4);
-    cairo_move_to(cr,5*font_size,height/4*2);//50
-    cairo_line_to(cr,width-5*font_size,height/4*2);
-    cairo_move_to(cr,5*font_size,height/4*3);//25
-    cairo_line_to(cr,width-5*font_size,height/4*3);
+    crtaj_okvir(cr,width,height,font_size,5);
     //secund linije
-
-    cairo_move_to(cr,step*10+5*font_size,height);
-    cairo_line_to(cr,step*10+5*font_size,0);
-    for(int i=2 ;i<=5;i++){
-        cairo_move_to(cr,step*10*i+5*font_size,height-font_size);
-        cairo_line_to(cr,step*10*i+5*font_size,0);
-    }
-
-
-
-
-
-
+    //sekunde
+    crtaj_sekunde(cr,width,height,font_size,5);
     cairo_stroke(cr);
     //okvir
-    cairo_move_to(cr,5*font_size,0);
-    cairo_line_to(cr,width-5*font_size,0);
-    cairo_move_to(cr,5*font_size,0);
-    cairo_line_to(cr,5*font_size,height-font_size);
-    //   cairo_move_to(cr,3*font_size,height-font_size);
-    cairo_line_to(cr,width-5*font_size,height-font_size);
-    cairo_move_to(cr,width-5*font_size,height-font_size);
-    cairo_line_to(cr,width-5*font_size,0);
 
-    //procenti
+
 
     rec=g_strdup_printf("%s",net.network_size_rc);
 
 
-  for(int j=4; j<=5;j++) {
+    for(int j=4; j<=5;j++) {
         for (int i = 0; i < bjorg2; i++) {
 
             peak = &g_array_index(history[j], float, i);// kb
@@ -686,30 +763,34 @@ height= height2;*/
             }
         }
     }
-        if(max_broj<=max_broj2){
+    if(max_broj<=max_broj2){
 
-            max_broj=max_broj2;
+        max_broj=max_broj2;
 
 
         //    printf("MAX_borj peak : %f\n",*peak);
         //    printf("MAX_borj : %f\n",max_broj);
-        }
+    }
 
 
 
 
     cairo_set_source_rgb(cr,0,0,0);
 
-    if(max_broj>1024){
+ //   if(max_broj>1024){
+    if(max_broj>1000){
 
 
-        rec_bytes = max_broj / 1024;//mb
+      //  rec_bytes = max_broj / 1024;//mb
+        rec_bytes = max_broj / 1000;//mb
         rec_bytes += 1;
         track=mb;
-        max_broj3=max_broj+1024;
+        max_broj3=max_broj+1000;
+      //  max_broj3=max_broj+1024;
 
     }
-    if(max_broj<=1024 && max_broj >1){
+    if(max_broj<=1000 && max_broj >1){
+    //if(max_broj<=1024 && max_broj >1){
 
         rec_bytes = max_broj;//kb
 
@@ -721,62 +802,41 @@ height= height2;*/
     }
     if(max_broj<=1){
 
-        rec_bytes= max_broj*1024;//bytes
+        rec_bytes= max_broj*1000;//bytes
+       // rec_bytes= max_broj*1024;//bytes
 
         track=rec;
         track=b;
-        max_broj3=max_broj+1024;
+   //     max_broj3=max_broj+1024;
+        max_broj3=max_broj+1000;
 
     }
 
 
-        cairo_move_to(cr, 0,font_size);//najveci broj
-        sprintf(broj,"%.1f",rec_bytes);
+    cairo_move_to(cr, 0,font_size);//najveci broj
+    sprintf(broj,"%.1f",rec_bytes);
 
+    cairo_show_text(cr,broj);
+
+    cairo_show_text(cr,track);
+    for(int i=1;i<=3;i++){
+
+
+        temp= rec_bytes/4*i;
+
+        cairo_move_to(cr,0,(height-font_size)/4*(4-i));
+        sprintf(broj,"%.1f",temp);
         cairo_show_text(cr,broj);
-
         cairo_show_text(cr,track);
-        for(int i=1;i<=3;i++){
 
 
-            temp= rec_bytes/4*i;
-
-            cairo_move_to(cr,0,(height-font_size)/4*(4-i));
-            sprintf(broj,"%.1f",temp);
-            cairo_show_text(cr,broj);
-            cairo_show_text(cr,track);
-
-
-        }
+    }
     cairo_move_to(cr,0,(height-font_size));
     cairo_show_text(cr,"0");
     cairo_show_text(cr,track);
 
-   // g_free(track);
+    // g_free(track);
     g_free(rec);
-
-
-
-cairo_stroke(cr);
-
-    //sekunde
-    cairo_move_to(cr,5*font_size,height);
-    cairo_show_text(cr,"0 sec");
-    cairo_move_to(cr,(width-8*font_size)/6+5*font_size,height);
-    cairo_show_text(cr,"10 sec");
-    cairo_move_to(cr,(width-8*font_size)/6*2+5*font_size,height);
-    cairo_show_text(cr,"20 sec");
-    cairo_move_to(cr,(width-8*font_size)/6*3+5*font_size,height);
-    cairo_show_text(cr,"30 sec");
-    cairo_move_to(cr,(width-8*font_size)/6*4+5*font_size,height);
-    cairo_show_text(cr,"40 sec");
-    cairo_move_to(cr,(width-8*font_size)/6*5+5*font_size,height);
-    cairo_show_text(cr,"50 sec");
-    cairo_move_to(cr,width-5*font_size,height);
-    cairo_show_text(cr,"60 s");
-    cairo_stroke(cr);
-
-
 
 
 
@@ -802,19 +862,19 @@ cairo_stroke(cr);
 
 
             }
-          //  procent= *peak;
+            //  procent= *peak;
             procent=((height-font_size)/max_broj3)* *peak;
 
-          //  printf("PEAK: %0.2f\n",*peak);
+            //  printf("PEAK: %0.2f\n",*peak);
             // prev[r]= height-font_size - *peak;
             prev[r]= height-font_size - procent;
 
-          //  prev[r]= height-font_size - *peak;
+            //  prev[r]= height-font_size - *peak;
 
 //            if(j==0)
 //                cairo_line_to(cr, 3*font_size, height-font_size - *peak);
 
-          //  cairo_line_to(cr, step+3*font_size, height-font_size - procent);
+            //  cairo_line_to(cr, step+3*font_size, height-font_size - procent);
             cairo_line_to(cr, step+5*font_size, height-font_size - procent);
             if(r==0)
                 cairo_set_source_rgb(cr,1,0,0);
@@ -831,153 +891,171 @@ cairo_stroke(cr);
 
 }
 
-static void do_drawing2(GtkWidget *widget,cairo_t *cr,int l){
+void do_drawing2(GtkWidget *widget,cairo_t *cr) {
     int width, height;
-    height= gtk_widget_get_allocated_height(widget);
-    width= gtk_widget_get_allocated_width(widget);
-
-   /* width=width2/2;
-    height=height2/2;*/
-
-   /*  cairo_surface_t *graph_surface;
-     graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height2);
-     cr = cairo_create (graph_surface);*/
-    //
+    height = gtk_widget_get_allocated_height(widget);
+    width = gtk_widget_get_allocated_width(widget);
+    cairo_surface_t *graph_surface;
 
 
-    //   cairo_set_source_rgb(cr,1,.05,1);
-    cairo_set_line_width(cr,1);
-  float font_size=12;
-    double step =(width-3*font_size-3*font_size)/time_step;
-
-cairo_set_font_size(cr, font_size);
-
-    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
-    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
-    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+    /* width=width2/2;
+     height=height2/2;*/
 
 
-    gfloat *peak;
-
-
+  //  cairo_set_line_width(cr, 1);
+    float font_size = 12;
+    double step = (width - 3 * font_size - 3 * font_size) / time_step;
 
     cairo_set_font_size(cr, font_size);
 
+    cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
+    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
+
+    // gfloat *peak;
+
+    cairo_set_font_size(cr, font_size);
 
     //procent linije
-    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
-    cairo_move_to(cr,0,height/4);//75%
-    cairo_line_to(cr,width-3*font_size,height/4);
-    cairo_move_to(cr,0,height/4*2);//50
-    cairo_line_to(cr,width-3*font_size,height/4*2);
-    cairo_move_to(cr,0,height/4*3);//25
-    cairo_line_to(cr,width-3*font_size,height/4*3);
-    //secund linije
-
-    for(int i =1;i<=5;i++){
-    cairo_move_to(cr,(width-2*3*font_size)/6*i+3*font_size,height-font_size);
-    cairo_line_to(cr,(width-2*3*font_size)/6*i+3*font_size,0);
-    }
 
 
+
+    double prev[4] = {height - font_size, height - font_size, height - font_size, height - font_size};
+
+    int r=0;
+      int y= bjorg;
+   /*   for(int r=0;r<=1;r++){
+         //
+          crtanje_cpu(cr, r, y, height, font_size, step);
+      }*/
+    /* int r=0;
+     graph_surface =crtaj(r,height,font_size,step);
+
+     if (graph_surface != NULL)
+     {
+         cairo_set_source_surface (cr, graph_surface, 0.0, 0.0);
+         cairo_paint (cr);
+         cairo_surface_destroy (graph_surface);
+     }*/
+
+
+
+
+
+    graph_surface= crtaj_surface(cr,width,height);
+
+
+
+
+    crtaj_okvir(cr, width, height, font_size, 3);
+    cairo_set_source_rgba(cr, .7, .7, .7, 0.5);
 
 
     cairo_stroke(cr);
     //okvir
-    cairo_move_to(cr,3*font_size,0);
-    cairo_line_to(cr,width-3*font_size,0);
-    cairo_move_to(cr,3*font_size,0);
-    cairo_line_to(cr,3*font_size,height-font_size);
-    //   cairo_move_to(cr,3*font_size,height-font_size);
-    cairo_line_to(cr,width-3*font_size,height-font_size);
-    cairo_move_to(cr,width-3*font_size,height-font_size);
-    cairo_line_to(cr,width-3*font_size,0);
+
 
     //procenti
-    cairo_move_to(cr, 0,font_size);
-    cairo_set_source_rgb(cr,0,0,0);
-    cairo_show_text(cr,"100%");
-    cairo_move_to(cr,0,height/4);
-    cairo_show_text(cr,"75%");
-    cairo_move_to(cr,0,height/4*2);
-    cairo_show_text(cr,"50%");
-    cairo_move_to(cr,0,height/4*3);
-    cairo_show_text(cr,"25%");
-    cairo_move_to(cr,0,height-font_size);
-    cairo_show_text(cr,"0%");
-    cairo_stroke(cr);
-    //sekunde
-    cairo_move_to(cr,3*font_size,height);
-    cairo_show_text(cr,"0 sec");
-    cairo_move_to(cr,(width-6*font_size)/6+3*font_size,height);
-    cairo_show_text(cr,"10 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*2+3*font_size,height);
-    cairo_show_text(cr,"20 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*3+3*font_size,height);
-    cairo_show_text(cr,"30 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*4+3*font_size,height);
-    cairo_show_text(cr,"40 sec");
-    cairo_move_to(cr,(width-6*font_size)/6*5+3*font_size,height);
-    cairo_show_text(cr,"50 sec");
-    cairo_move_to(cr,width-3*font_size,height);
-    cairo_show_text(cr,"60 s");
-    cairo_stroke(cr);
+    crtaj_procente(cr, height, font_size);
+    //sekunde //secund linije
+    crtaj_sekunde(cr, width, height, font_size, 3);
 
+  /*  printf("hocemo li ");
+    printf("CPU0_pre %d\n",CPU0_line);
+    printf("CPU1_pre %d\n",CPU1_line);
+    printf("CPU2_pre %d\n",CPU2_line);
+    printf("CPU3_pre %d\n",CPU3_line);*/
+    if(CPU0_line==TRUE){
+   // if(testiranje==1){
 
-     double prev[4]={height-font_size,height-font_size,height-font_size,height-font_size};
-
-    for (int j = 0; j < bjorg; j++) {
-
-        //cairo_move_to(cr,0,400);
-        for(int r=0;r<=3;r++) {
-
-
-            cairo_move_to(cr,3*font_size,prev[r]);
-
-            peak = &g_array_index(history[r], gfloat, j);
-
-           // int height_temp=height;
-            gfloat procent =*peak;
-            procent=((height-font_size)/100)*procent;
-
-        //    printf("PEAK: %0.2f\n",*peak);
-           // prev[r]= height-font_size - *peak;
-            prev[r]= height-font_size - procent;
-            if(procent==height) {
-                procent = height - 1;
-            }
-            cairo_line_to(cr, step+3*font_size, height-font_size - procent);
-
-
-
-            if(r==0)
-                cairo_set_source_rgb(cr,0,0,1);
-            if(r==1)
-                cairo_set_source_rgb(cr,0,1,0);
-            if(r==2)
-                cairo_set_source_rgb(cr,1,0,0);
-            if(r==3)
-                cairo_set_source_rgb(cr,0,0,0);
-            cairo_stroke(cr);
-
-
-        }
-        cairo_translate(cr, step, 0);
-
+        crtanje_cpu(cr, history[0], 0, y, width, height, font_size, step);
+    }
+    if(CPU1_line==TRUE){
+        crtanje_cpu(cr, history[1], 1, y, width, height, font_size, step);
+    }
+    if(CPU2_line==TRUE){
+        crtanje_cpu(cr, history[2], 2, y, width, height, font_size, step);
+    }
+    if(CPU3_line==TRUE){
+        crtanje_cpu(cr, history[3], 3, y, width, height, font_size, step);
     }
 
 
 
 
 
-}
+   /*     for (int g = 0; g < bjorg; g++) {
+
+            cairo_translate(cr, -step, 0);
+        }*/
+
+
+
+    /* for (int j = 0; j < bjorg; j++) {
+
+        // cairo_translate(cr, -step, 0);
+         int r=0;
+      //   crtanje_cpu(cr, r, j, height, font_size, step);
+       for (int r = 0; r <= 3; r++) {
+
+
+                   cairo_move_to(cr, 3 * font_size, prev[r]);
+                   gfloat *peak;
+                   peak = &g_array_index(history[r], gfloat, j);
+
+                   // int height_temp=height;
+                   gfloat procent;// = *peak;
+                   procent = ((height - font_size) / 100) * *peak;
+
+                   //    printf("PEAK: %0.2f\n",*peak);
+                   // prev[r]= height-font_size - *peak;
+                   prev[r] = height - font_size - procent;
+
+                   if (procent == height) {
+                       procent = height - 1;
+                   }
+
+                       cairo_line_to(cr, step + 3 * font_size, height - font_size - procent);
+
+
+
+
+                   if (r == 0)
+                       cairo_set_source_rgb(cr, 0, 0, 1);
+                   if (r == 1)
+                       cairo_set_source_rgb(cr, 0, 1, 0);
+                   if (r == 2)
+                       cairo_set_source_rgb(cr, 1, 0, 0);
+                   if (r == 3)
+                       cairo_set_source_rgb(cr, 0, 0, 0);
+                   cairo_stroke(cr);
+
+
+               }
+               cairo_translate(cr, step, 0);
+
+
+
+         }
+ */
+
+
+    if (graph_surface != NULL)
+    {
+        cairo_set_source_surface (cr, graph_surface, 0.0, 0.0);
+        cairo_paint (cr);
+        cairo_surface_destroy (graph_surface);
+    }
+};
+
 static gboolean network_change_ts(gpointer data){
 
 
 
    // float net1= net.transmited_bytes;
     float net_kb = net.transmited_kb;
-    static guint i =0;
+   // static guint i =0;
     bjorg2++;
 
     if(bjorg2>=60){
@@ -1005,7 +1083,7 @@ static gboolean network_change_rc(gpointer data){
    // float net1= net.received_bytes;
     float net_kb = net.received_kb;
    // net_kb/=100;
-    static guint i =0;
+
    // printf("STO NECE: %f",net1);
     g_array_prepend_val(history[4], net_kb);
     if (history[4]->len > 1)
@@ -1180,7 +1258,7 @@ void init_timeout2(){
     // refeshing_tree();
 
  //   get_task_list(tasks);
-
+  //  printf("CPU problems %d %d %d %d \n",CPU0_line,CPU1_line,CPU2_line,CPU3_line);
 
     if(refresh==0)
     {
@@ -1191,7 +1269,11 @@ void init_timeout2(){
 };
 
 
-
+static void quit_activated()
+{
+    g_print("File -> Quit activated...bye.\n");
+    gtk_main_quit();
+}
 int main (int argc, char *argv[]) {
 
 
@@ -1229,8 +1311,8 @@ int main (int argc, char *argv[]) {
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
 
-    button =gtk_button_new_with_label("refresh rate");
-    button2 =gtk_button_new_with_label("refresh rate");
+    button =gtk_button_new_with_label("refresh rate +");
+    button2 =gtk_button_new_with_label("refresh rate-");
     button3=  gtk_toggle_button_new_with_label( "Process");
     button4=  gtk_toggle_button_new_with_label( "Dev");
  /*   gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button3),
@@ -1238,9 +1320,28 @@ int main (int argc, char *argv[]) {
 */
 
 
+    menubar = gtk_menu_bar_new();
+    filemenu =gtk_menu_new();
+
+   speed = gtk_menu_item_new_with_label("speed");
+   increase_refresh = gtk_menu_item_new_with_label("+250");
+   decrease_refresh = gtk_menu_item_new_with_label("-250");
+
+    quit = gtk_menu_item_new_with_label("Quit");
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(speed), filemenu);
+    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), increase_refresh);
+    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), decrease_refresh);
+    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quit);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menubar),speed);
+    g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(quit_activated), NULL);
+    g_signal_connect(increase_refresh,"activate", G_CALLBACK(inc_refresh), NULL);
+    g_signal_connect(decrease_refresh,"activate", G_CALLBACK(dec_refresh), NULL);
+   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 
 
-    button5 =gtk_toggle_button_new_with_label("graphs");
+
+
+    button_graph =gtk_toggle_button_new_with_label("graphs");
 
     graph1 = gtk_drawing_area_new();
     graph2 = gtk_drawing_area_new();
@@ -1268,6 +1369,8 @@ int main (int argc, char *argv[]) {
 
 
 
+
+
     hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
   //  gtk_box_pack_start(GTK_BOX(vbox),hbox,1,TRUE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,0,FALSE,0);
@@ -1281,7 +1384,7 @@ int main (int argc, char *argv[]) {
     gtk_box_pack_start(GTK_BOX(hbox),button,FALSE,FALSE,FALSE);//expand,fill,padding
    gtk_box_pack_start(GTK_BOX(hbox),button2,0,0,0);
    gtk_box_pack_start(GTK_BOX(hbox),button3,0,0,0);
-   gtk_box_pack_start(GTK_BOX(hbox),button5,0,0,0);
+   gtk_box_pack_start(GTK_BOX(hbox),button_graph,0,0,0);
    gtk_box_pack_start(GTK_BOX(hbox),label3,0,0,0);
     gtk_box_pack_start(GTK_BOX(hbox),label4,0,FALSE,1);
     gtk_box_pack_start(GTK_BOX(hbox),label5,0,0,0);
@@ -1340,6 +1443,8 @@ int main (int argc, char *argv[]) {
 
     hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
     gtk_box_pack_start(GTK_BOX(vbox),hbox2,1,TRUE,0);
+   // gtk_box_pack_start(GTK_BOX(vbox),progressbar,1,TRUE,0);
+
     //testing frames
     frame3=gtk_frame_new(NULL);
     frame4=gtk_frame_new(NULL);
@@ -1362,22 +1467,22 @@ int main (int argc, char *argv[]) {
     g_signal_connect(G_OBJECT(window), "destroy",
                      G_CALLBACK(gtk_main_quit), NULL);
 
-    g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
-    g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked2), NULL);
-    g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked3), NULL);
-    g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked4), NULL);
-    g_signal_connect(button5,"clicked", G_CALLBACK(button_clicked5), NULL);
+    g_signal_connect(button,"clicked", G_CALLBACK(inc_refresh), NULL);
+    g_signal_connect(button2,"clicked", G_CALLBACK(dec_refresh), NULL);
+    g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked_view_process), NULL);
+    g_signal_connect(button4,"toggled", G_CALLBACK(dev_button_clicked), NULL);
+    g_signal_connect(button_graph,"clicked", G_CALLBACK(graph_button_clicked), NULL);
 
 
-    //nije ovde memory leak
+
     g_signal_connect(G_OBJECT(graph1), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(do_drawing2),NULL);
     g_signal_connect(G_OBJECT(graph2), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(do_drawing),NULL);
     g_signal_connect(G_OBJECT(graph3), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(do_drawing3),NULL);
     g_signal_connect(G_OBJECT(graph4), "draw",
-                     G_CALLBACK(on_draw_event),NULL);
+                     G_CALLBACK(do_drawing4),NULL);
 
 
 
@@ -1389,7 +1494,10 @@ int main (int argc, char *argv[]) {
   //  gtk_window_get_resizable (window);
 //    measurements();
    init_timeout();
-    g_timeout_add(1000,(GSourceFunc)init_timeout2,NULL);//memory leak nije ovde
+    g_timeout_add(1000,(GSourceFunc)init_timeout2,NULL);
+   //g_timeout_add(1000,(GSourceFunc)dev_problems,NULL);
+  //  dev_problems();
+  //  g_timeout_add(1000,(GSourceFunc)closing,NULL);
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     gtk_window_set_title(GTK_WINDOW(window), "lines mother do you see it ");
@@ -1401,22 +1509,16 @@ int main (int argc, char *argv[]) {
 
     gtk_main();
 
-/*
-    if(refresh> 0){
+
+ /*   if(refresh> 0){
         g_source_remove (refresh);
         g_object_unref (window);
     }
 */
 
-/*
 
-    if (timeout > 0)
-        g_source_remove (timeout);
-    g_object_unref (window);
-    g_object_unref (status_icon);
-    g_object_unref (task_manager);
-    g_object_unref (settings);
-*/
+
+
 
     return 0;
 }

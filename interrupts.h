@@ -38,11 +38,11 @@ void poredjenje(GArray *array);
 //struct _Interrupts sortiranje(gconstpointer a, gconstpointer b);
 struct _Interrupts{
 
-    gchar name[3];
-    unsigned long CPU0;
-    unsigned long CPU1;
-    unsigned long CPU2;
-    unsigned long CPU3;
+    gchar name[4];
+    signed long CPU0;
+    signed long CPU1;
+    signed long CPU2;
+    signed long CPU3;
     gchar ime1;
     gchar ime2;
     gchar ime3;

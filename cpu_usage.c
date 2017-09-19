@@ -33,7 +33,7 @@ int cpu_number (){
 
     }
   //  printf("(%d) number of cores \n \n ", c);
-    ncpu = c;
+ //   ncpu = c;
 
     return c;
 }
@@ -41,17 +41,15 @@ void cpu_percentage(int cpu_count){
 
 
 
-    gfloat cpu_user;
-    gfloat cpu_system;
+    gfloat cpu_user[4];
+    gfloat cpu_system[4];
     unsigned  long user[4]= {0, 0, 0, 0};
     unsigned  long user_nice[4]= {0, 0, 0, 0};
     unsigned  long idle[4]={0, 0, 0, 0};
     unsigned  long system[4]={0, 0, 0, 0};
     float percentage[4]={0,0,0,0};
 
-    unsigned  long total_old;
-    unsigned  long user_old;
-    unsigned  long system_old;
+
     int cpu_number1[4]={0, 0, 0, 0};
     static unsigned long jiffies_system [5] = {0, 0, 0, 0,0}, jiffies_total [4] = {0, 0, 0, 0};
     static unsigned long jiffies_user[5] = {0, 0, 0, 0,0};
@@ -97,14 +95,14 @@ void cpu_percentage(int cpu_count){
         jiffies_total[i] = jiffies_user[i] + jiffies_system[i] + idle[i];
 
 
-        user[i]= system[i]= 0.0;
+        cpu_user[i]= cpu_system[i]= 0.0;
         if (jiffies_total[i] > jiffies_total_old[i]) {
             jiffies_total_delta[i] = jiffies_total[i] - jiffies_total_old[i];
-            user[i] = (jiffies_user[i] - jiffies_user_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
-            system[i] = (jiffies_system[i] - jiffies_system_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
+            cpu_user[i] = (jiffies_user[i] - jiffies_user_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
+           cpu_system[i] = (jiffies_system[i] - jiffies_system_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
         }
 
-        percentage[i] =user[i] + system[i];
+        percentage[i] =cpu_user[i] + cpu_system[i];
 
 
         cpu[i].percentage =percentage[i];

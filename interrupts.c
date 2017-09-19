@@ -3,42 +3,19 @@
 //
 
 #include "interrupts.h"
-#include <cairo.h>
-#include <gtk/gtk.h>
-#include <math.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <string.h>
 
 
-#include <math.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdint.h>
-#include <string.h>
-#include <syslog.h>
-#include <ctype.h>
 
-#include<stdio.h>
+
 
 struct _Interrupts interrupts;
-struct _Interrupts interrupts_temp;
+
 
 //struct _Interrupts sortiranje (gpointer *a,gpointer *b){
 gint sortiranje(gconstpointer a,gconstpointer b){
     Interrupts *interrupts1= (Interrupts *)a;
     Interrupts *interrupts2=(Interrupts *)b;
-    Interrupts interrupts3;
+  //  Interrupts interrupts3;
      long CPU0a = 0;
      long CPU1a = 0;
      long CPU2a = 0;
@@ -93,7 +70,7 @@ gint sortiranje(gconstpointer a,gconstpointer b){
 
 };
 void array_interrupts (){
-int j=0;
+
     ginterrupts=g_array_new(FALSE,TRUE,sizeof(Interrupts));
  //   g_array_set_size(ginterrupts,30);
 
@@ -115,6 +92,7 @@ void upis(GArray *array){
         interrupts3.name[0]=interrupts1->name[0];
         interrupts3.name[1]=interrupts1->name[1];
         interrupts3.name[2]=interrupts1->name[2];
+       // interrupts3.name[3]=interrupts1->name[3];
 
         interrupts3.CPU0=interrupts1->CPU0;
         interrupts3.CPU1=interrupts1->CPU1;
@@ -132,10 +110,10 @@ void poredjenje(GArray *array){
     Interrupts *interrupts2;
     Interrupts *interrupts1;
     Interrupts interrupts3;
-    unsigned long CPU0 = 0;
-    unsigned long CPU1 = 0;
-    unsigned long CPU2 = 0;
-    unsigned long CPU3 = 0;
+    signed long CPU0 = 0;
+    signed long CPU1 = 0;
+    signed long CPU2 = 0;
+    signed long CPU3 = 0;
     for (int j = 0; j < array->len; j++) {
         interrupts1=&g_array_index(array,Interrupts,j);
         interrupts2=&g_array_index(ginterrupts_temp,Interrupts,j);
@@ -159,20 +137,21 @@ void poredjenje(GArray *array){
 
 
     }
-    for (int j = 0; j < array->len; j++) {
+    //ispis u terminal
+/*    for (int j = 0; j < array->len; j++) {
 
         interrupts1=&g_array_index(ginterrupts_main,Interrupts,j);
 
       // printf(" PRE %lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
 
-    }
+    }*/
     g_array_sort(ginterrupts_main,(GCompareFunc)sortiranje);
     // sortiranje(ginterrupts_main);
 
     for (int j = 0; j < array->len; j++) {
 
         interrupts1=&g_array_index(ginterrupts_main,Interrupts,j);
-        if(j>=array->len-5 && j<array->len){
+        if(j>=array->len-10 && j<array->len){
             Interrupts interrupts4;
 
             interrupts4.CPU0=interrupts1->CPU0;
@@ -182,23 +161,26 @@ void poredjenje(GArray *array){
             interrupts4.name[0]=interrupts1->name[0];
             interrupts4.name[1]=interrupts1->name[1];
             interrupts4.name[2]=interrupts1->name[2];
-            printf("Posle sortiranja%lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1,
-                   interrupts1->CPU2, interrupts1->CPU3, interrupts1->name);
-        //    printf("Posle sortiranja%lu %lu %lu %lu   ime: %s\n", interrupts4.CPU0, interrupts4.CPU1,
+            interrupts4.name[3]=interrupts1->name[3];
+
+
+         //   printf("Posle sortiranja%lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1,
+         //          interrupts1->CPU2, interrupts1->CPU3, interrupts1->name);
+          //  printf("Posle sortiranja%lu %lu %lu %lu   ime: %s\n", interrupts4.CPU0, interrupts4.CPU1,
            //        interrupts4.CPU2, interrupts4.CPU3, interrupts4.name);
             g_array_append_val(ginterrupts_final,interrupts4);
-            if (ginterrupts_final->len > 5) {
-                g_array_remove_index(ginterrupts_final, ginterrupts_final->len - 6);
+            if (ginterrupts_final->len > 10) {
+                g_array_remove_index(ginterrupts_final, ginterrupts_final->len - 11);
             }
         }
     }
 
     for (int j = 0; j < ginterrupts_final->len; j++) {
         interrupts1=&g_array_index(ginterrupts_final,Interrupts,j);
-        printf("%lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+     //   printf("%lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
     }
-    printf("U poredjenju niz ima ginterupts : [%d] niz ima ginterupts_temp : [%d]niz ima ginterupts_main : [%d] niz ima ginterupts_final: [%d]\n",
-           ginterrupts->len,ginterrupts_temp->len,ginterrupts_main->len,ginterrupts_final->len);
+   // printf("U poredjenju niz ima ginterupts : [%d] niz ima ginterupts_temp : [%d]niz ima ginterupts_main : [%d] niz ima ginterupts_final: [%d]\n",
+    //       ginterrupts->len,ginterrupts_temp->len,ginterrupts_main->len,ginterrupts_final->len);
     g_array_free(ginterrupts_temp,TRUE);
     ginterrupts_temp=g_array_new(FALSE,TRUE,sizeof(Interrupts));
     upis(array);
@@ -211,8 +193,8 @@ void printanje(GArray *array) {
 
    // printf("[%d] lenght\n",array->len);
     int i=0;
-    gchar name[3];
-    gchar name_temp[3];
+//    gchar name[3];
+//    gchar name_temp[3];
    // for (int j = 0; j < array->len; j++) {
 
       //  Interrupts *interrupts1 = &g_array_index(array, Interrupts, j);
@@ -276,26 +258,19 @@ void interrupt_usage() {
         gchar buffer[1024];
       /*  gchar buffer2[1024];
         gchar buffer3[1024];*/
-        gchar *temp;
+      //  gchar *temp;
         //  char  *razmak=' ';
         gchar name[4];
-    unsigned long CPU0 = 0;
-    unsigned long CPU1 = 0;
-    unsigned long CPU2 = 0;
-    unsigned long CPU3 = 0;
-        static int CPU0_old = 0;
-        static int CPU1_old = 0;
-        static int CPU2_old = 0;
-        static int CPU3_old = 0;
-        static int CPU1_oldj = 0;
-        static int CPU2_oldj = 0;
-        static int CPU0_oldj = 0;
-        static int CPU3_oldj = 0;
+    signed long CPU0 = 0;
+    signed long CPU1 = 0;
+    signed long CPU2 = 0;
+    signed long CPU3 = 0;
+
 
         char ime2[30];
         char ime3[30];
         char ime1[30];
-        char prazno[1]="";
+      //  char prazno[1]="";
        guint i = 0;
 
         if ((file = fopen(filename, "r")) == NULL || fgets(buffer, 1024, file) == NULL)
@@ -306,7 +281,7 @@ void interrupt_usage() {
             i++;
 
 
-            sscanf(buffer, "%4s %lu %lu %lu %lu %s %s %s", name, &CPU0, &CPU1, &CPU2,
+            sscanf(buffer, "%s %li %li %li %li %s %s %s", name, &CPU0, &CPU1, &CPU2,
                    &CPU3,
                    ime1,
                    ime2,
@@ -329,21 +304,33 @@ void interrupt_usage() {
             if(name[1]==':'){
 
                 interrupts.name[0]= name[0];
-                interrupts.name[1]=prazno[0];
-                interrupts.name[2]=prazno[0];
+                interrupts.name[1]= '\0';
+                interrupts.name[2]= '\0';
+                interrupts.name[3]= '\0';
+
+
+
+//                interrupts.name[1]=prazno[0];
+//                interrupts.name[2]=prazno[0];
+//                interrupts.name[3]=prazno[0];
             }
             if(name[2]==':'){
 
                 interrupts.name[0]= name[0];
                 interrupts.name[1] = name[1];
-                interrupts.name[2] = prazno[0];
+                interrupts.name[2] ='\0';
+                interrupts.name[3] ='\0';
+               // interrupts.name[2] = prazno[0];
+
 
             }
 
-             if(name[0]!=':' && name[1]!=':' && name[2]!=':' ) {
+             if(/*name[0]!=':' && name[1]!=':' && name[2]!=':'*/name[3]==':' ) {
                 interrupts.name[0]= name[0];
                 interrupts.name[1] = name[1];
                 interrupts.name[2] = name[2];
+                interrupts.name[3] = '\0';
+
 
             }
 
@@ -377,7 +364,7 @@ void interrupt_usage() {
        //     printf("ime interupta : %s\n", name);
         }
         fclose(file);
-        printf("Koliko interrupta : %d\n", i);
+     //   printf("Koliko interrupta : %d\n", i);
 
 
 

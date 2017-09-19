@@ -13,7 +13,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "model.h"
+
 typedef struct _Task Task;
 gboolean	get_task_list		(GArray *task_list);
 static gboolean get_task_details (guint pid, Task *task);

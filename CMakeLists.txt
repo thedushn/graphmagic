@@ -7,9 +7,9 @@ pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 set(SOURCE_FILES main.c memory_usage.c memory_usage.h cpu_usage.c cpu_usage.h network_bandwith.c task_manager.c interrupts.c network_bandwith.h interrupts.h  task_manager.h
         #process-tree-model.c process-tree-model.h process-tree-view.h
       #  process-tree-view.c task-manager.c task-manager.h settings.c settings.h task-manager-linux.c
-      #  drawing.c drawing.h
+        drawing.c drawing.h
        # model.c model.h
-        )
+        main_header.h buttons.c buttons.h)
 
 
 
