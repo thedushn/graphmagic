@@ -26,4 +26,6 @@ struct Memory_usage {
 };
 
 void get_memory_usage();
+void swap_change(gpointer);
+void memory_change(gpointer);
 #endif //GKTWORLD_MEMORY_USAGE_H

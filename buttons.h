@@ -8,6 +8,7 @@
 #include <gtk/gtk.h>
 #include "main_header.h"
 
+static guint refresh = 0;
 static gfloat memory_used=.5;
 void button_clicked_view_process(GtkWidget *widget);
 //void dev_button_clicked(GtkWidget *widget);

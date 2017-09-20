@@ -4,13 +4,14 @@
 
 #include "cpu_usage.h"
 
-
+#include "main_header.h"
 
 struct Cpu_usage cpu[4];
 static gushort _cpu_count = 0;
 
 
 
+//void cpu_number (){
 int cpu_number (){
 
     int c;
@@ -123,3 +124,68 @@ void cpu_percentage(int cpu_count){
 
 
 }
+
+void cpu_percent_change(){
+
+
+    cpu_percentage(ncpu);
+    //  static guint i= 0;
+    gfloat j;
+    //  gfloat *peak;
+    for(int s=0;s<ncpu;s++) {
+
+        j = cpu[s].percentage;
+        //   j=4*j;
+
+        g_array_prepend_val(history[s],  j);
+        if (history[s]->len > 1)
+            g_array_remove_index (history[s], history[s]->len - 1);
+        // peak=&g_array_index(history[s],gfloat,i);
+
+        // printf("peak problems: %f \n",*peak);
+
+
+    }
+
+};
+void  cpu_change(){
+
+    cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
+    cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
+    cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
+    cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
+
+    gtk_label_set_text (GTK_LABEL (label3),cpu0_usage_text);
+    gtk_label_set_text (GTK_LABEL (label4),cpu1_usage_text);
+    gtk_label_set_text (GTK_LABEL (label5),cpu2_usage_text);
+    gtk_label_set_text (GTK_LABEL (label6),cpu3_usage_text);
+
+    g_free(cpu0_usage_text);
+    g_free(cpu1_usage_text);
+    g_free(cpu2_usage_text);
+    g_free(cpu3_usage_text);
+
+    /*if(data== label3) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+    if(data== label4) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+    if(data== label5) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+    if(data== label6) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+*/
+
+   // return TRUE;
+};

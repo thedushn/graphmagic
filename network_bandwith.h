@@ -35,5 +35,9 @@
 
 void received_transfered();
 int interface_name();
+gboolean network_change_rc(gpointer data);
+gboolean network_change_ts(gpointer data);
+
+
 
 #endif //GTKWORLD_NETWORK_BANDWITH_H

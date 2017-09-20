@@ -58,6 +58,9 @@ GtkWidget *decrease_refresh;
 
 
 
+
+
+
 static int testiranje=1;
 GtkWidget *box2;
 
@@ -66,6 +69,14 @@ GtkWidget *view;
 GtkWidget *view2;
 
 
+gchar *memory_usage_text;
+gchar *swap_usage_text;
+gchar *cpu0_usage_text;
+gchar *cpu1_usage_text;
+gchar *cpu2_usage_text;
+gchar *cpu3_usage_text;
+gchar *network_usage_received_text;
+gchar *network_usage_transimited_text;
 GArray *history[9];
 
 void init_timeout();

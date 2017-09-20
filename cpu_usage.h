@@ -20,7 +20,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-static int ncpu=1;
+static int ncpu=4;
 static gulong jiffies_total_delta[5] = {0,0,0,0,0};
  struct Cpu_usage {
 
@@ -32,4 +32,6 @@ static gulong jiffies_total_delta[5] = {0,0,0,0,0};
 
 int cpu_number();
 void cpu_percentage(int);
+void cpu_percent_change();
+void cpu_change();
 #endif //GTKWORLD_CPU_USAGE_H

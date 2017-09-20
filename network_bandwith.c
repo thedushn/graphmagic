@@ -3,7 +3,7 @@
 //
 
 #include "network_bandwith.h"
-
+#include "main_header.h"
 struct  Network net;
 static int broj;
 gchar  name_buffer[10];
@@ -249,3 +249,46 @@ void received_transfered(){
   /*  g_free(network_size_rc);
     g_free(network_size_ts);*/
     }
+
+ gboolean network_change_rc(gpointer data){
+
+
+    // received_transfered();
+    // float net1= net.received_bytes;
+    float net_kb = net.received_kb;
+    // net_kb/=100;
+
+    // printf("STO NECE: %f",net1);
+    g_array_prepend_val(history[4], net_kb);
+    if (history[4]->len > 1)
+        g_array_remove_index (history[4], history[4]->len - 1);
+
+
+
+    network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size_rc);
+
+    gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
+    g_free(network_usage_received_text);
+    return TRUE;
+}
+ gboolean network_change_ts(gpointer data){
+
+
+
+    // float net1= net.transmited_bytes;
+    float net_kb = net.transmited_kb;
+    // static guint i =0;
+
+    // printf("STO NECE: %f",net1);
+    g_array_prepend_val(history[5], net_kb);
+    if (history[5]->len > 1)
+        g_array_remove_index (history[5], history[5]->len - 1);
+
+
+
+    network_usage_transimited_text =g_strdup_printf("TRANSMITED: %2.f %s",net.transmited_bytes,net.network_size_ts);
+
+    gtk_label_set_text (GTK_LABEL (data),network_usage_transimited_text);
+    return TRUE;
+
+}
