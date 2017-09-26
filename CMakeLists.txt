@@ -9,12 +9,13 @@ set(SOURCE_FILES main.c memory_usage.c memory_usage.h cpu_usage.c cpu_usage.h ne
       #  process-tree-view.c task-manager.c task-manager.h settings.c settings.h task-manager-linux.c
         drawing.c drawing.h
        # model.c model.h
-        main_header.h buttons.c buttons.h)
+        main_header.h buttons.c buttons.h devices.c devices.h)
 
 
 
 
 include_directories(${GTK3_INCLUDE_DIRS})
+include_directories(${})
 link_directories(${GTK3_LIBRARY_DIRS})
 link_libraries(${GTK3_LIBRARIES})
-add_executable(gktworld ${SOURCE_FILES})
+add_executable(gtkworld ${SOURCE_FILES})

@@ -79,6 +79,7 @@ gchar *network_usage_received_text;
 gchar *network_usage_transimited_text;
 GArray *history[9];
 
+
 void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
 void close_window();
@@ -87,6 +88,7 @@ static GtkWidget *create_view_and_model_file_system (void);
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
 static GtkTreeModel *create_and_fill_model_file_system (void);
+void dev_problems();
 
 
 enum{

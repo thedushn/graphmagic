@@ -289,6 +289,8 @@ void received_transfered(){
     network_usage_transimited_text =g_strdup_printf("TRANSMITED: %2.f %s",net.transmited_bytes,net.network_size_ts);
 
     gtk_label_set_text (GTK_LABEL (data),network_usage_transimited_text);
+
+     g_free(network_usage_transimited_text);
     return TRUE;
 
 }

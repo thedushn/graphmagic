@@ -321,6 +321,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
 
 
     }
+
     cairo_move_to(cr,0,height-font_size);
     cairo_show_text(cr,"0");
     float duzina= (width-(5*font_size*2))/5/10;

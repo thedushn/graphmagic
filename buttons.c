@@ -202,3 +202,4 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
         cairo_surface_destroy (graph_surface);
     }
 };
+

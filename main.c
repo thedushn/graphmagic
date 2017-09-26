@@ -17,7 +17,21 @@
 #include "drawing.h"
 #include "main_header.h"
 #include "buttons.h"
+#include "devices.h"
+//#include <linux/genhd.h>
+#include <sys/statvfs.h>
 
+
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <sys/statvfs.h>
+#include <stdint.h>
+#include <string.h>
+#include <dirent.h>
+#include <stdlib.h>
 GtkWidget *menubar;
 GtkWidget *filemenu;
 
@@ -55,15 +69,23 @@ void timeout_refresh();
 void measurements();
 
 
+GtkWidget *fuck;
+
+GtkWidget *closing(GtkWidget *widget) {
+
+/*
+    fuck = create_view_and_model();
+    g_object_ref_sink(view);
+    gtk_container_add(GTK_CONTAINER(swindow1), fuck);*/
+    get_task_list(tasks);
+    model =create_and_fill_model() ;
+    g_array_free(tasks, TRUE);
+    array();
 
 
-void closing() {
 
-    GtkWidget *fuck;
-    fuck = create_view_and_model_file_system();
-    // g_object_unref(view2);
-    gtk_container_add(GTK_CONTAINER(swindow1), fuck);
-
+    gtk_tree_view_set_model(GTK_TREE_VIEW (widget), model);
+    return widget;
 };
 
 void dev_button_clicked(GtkWidget *widget);
@@ -301,16 +323,22 @@ static GtkWidget *create_view_and_model(void) {
 
 
   //  g_timeout_add(50, (GSourceFunc) create_and_fill_model(), NULL);
+    /*get_task_list(tasks);
     model =create_and_fill_model() ;
+    g_array_free(tasks, TRUE);
+    array();
 
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW (view), model);
 
+    gtk_tree_view_set_model(GTK_TREE_VIEW (view), model);*/
+
+
+    view= closing(view);
 //     The tree view has acquired its own reference to the
 //     *  model, so we can drop ours. That way the model will
 //     *  be freed automatically when the tree view is destroyed
 
-    g_object_unref(model);
+  //  g_object_unref(model);
 
 
     return view;
@@ -379,7 +407,7 @@ static GtkTreeModel *create_and_fill_model(void) {
 
     store = gtk_list_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_UINT, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING);
     gchar *rss, *vsz;
-    get_task_list(tasks);
+    //get_task_list(tasks);
     //  Append a row and fill in some data
 
     printf("TASKs-array : len: %d\n", tasks->len);
@@ -405,8 +433,8 @@ static GtkTreeModel *create_and_fill_model(void) {
 //         ... and a third row
 
     }
-    g_array_free(tasks, TRUE);
-    array();
+//    g_array_free(tasks, TRUE);
+  //  array();
     //
     return GTK_TREE_MODEL (store);
 
@@ -478,6 +506,8 @@ void inc_refresh() {
       t+=500;
       id= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
       */
+
+
 
 };
 
@@ -552,6 +582,8 @@ void init_timeout() {
     time_handler(window);
     bjorg++;
 
+  //  closing();
+    device();
 
     time_step = 60000 / t;
 
@@ -589,6 +621,7 @@ int main(int argc, char *argv[]) {
     //test
     array();
     //  get_task_list(tasks);
+
 
 
     for (int i = 0; i < 8; i++) {
@@ -722,13 +755,27 @@ int main(int argc, char *argv[]) {
                      G_CALLBACK(on_draw_event), NULL);
     g_signal_connect(G_OBJECT(graph4), "draw",
                      G_CALLBACK(on_draw_event), NULL);
+    //test
+ /*   view = create_view_and_model();
+    swindow1 = gtk_scrolled_window_new(NULL,
+                                       NULL);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_ALWAYS);
+    gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
+    //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
+//    gtk_widget_destroy(vbox);
+    // gtk_container_add(GTK_CONTAINER(swindow1), view);
 
-
+    //  refeshing_tree();
+    gtk_container_add(GTK_CONTAINER(swindow1), view);
+    gtk_widget_show_all(swindow1);*/
+//test
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 1400, 800);
     //  gtk_window_get_resizable (window);
 //    measurements();
     init_timeout();
+
     g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
     //g_timeout_add(1000,(GSourceFunc)dev_problems,NULL);
     //  dev_problems();
