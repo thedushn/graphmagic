@@ -59,9 +59,7 @@ Size in bytes: %d\nTotal Files size: %d\n",
 
     printf("///////\n");
 
-    g_array_append_val(names,devices);
-    //    printf("Device name:%s\n",devices.name);
-    //    printf("%d index \n",names->len);
+
 
 
        devices.total=(long)info.f_blocks*(long)info.f_bsize;
@@ -78,30 +76,11 @@ Size in bytes: %d\nTotal Files size: %d\n",
     return devices;
 
 }
-void get_names(){
 
-    char *filename="/";
-   // char *filename="/dev";
-    static int i=0;
-    GDir *dir;
-    const gchar *name;
-
-
-   readDir(filename);
-
-
-
-
-
-}
 void readDir(char *path) {
     DIR *directory;
     struct dirent *d_file;  // a file in *directory
-
     directory = opendir (path);
-    Devices devices = { 0 };
-    int filesd;
-    struct statvfs info;
 
     while ((d_file = readdir (directory)) != 0)
     {
@@ -113,7 +92,7 @@ void readDir(char *path) {
         strcat(abPath, d_file->d_name);
 
         lstat (abPath, &filestat);
-        //  printf("%s\n",d_file->d_name);
+
         switch (filestat.st_mode & S_IFMT)
         {
 
@@ -121,46 +100,14 @@ void readDir(char *path) {
             {
 
 
-                FILE *file;
-                size_t j=strlen(abPath);
-              //  printf("strlen of abPath %zd \n",j);
-                printf("%llu\n",(unsigned long long ) filestat.st_size);
-//                for(int i=0;i<=j;i++){
-//
-//                    devices.name[i]=*(abPath+i);
-//
-//                }
-//                devices.name[j+1]='\0';
 
-              /*  while(i < 256 - 1 && (c = gets(abPath) != EOF)) //Keep space for the final \0
-                {
-                   devices.name[i++] = c;
-                }
-                devices.name[i] = '\0';
-           */
-                filesd = open (devices.name, O_RDWR);
-                if (file == NULL) {
-                    printf("open failed, errno = %d\n", errno);
-              //      printf("Device name:%s\n",devices.name);
-                }
-//                else {
-//             //      printf("fopen succeeded\n");
-//             //       printf("Device name:%s\n",devices.name);
-//                }
+                size_t j=strlen(abPath);// duzina imena
 
-        /*        fstatvfs(filesd,&info);
-//
-                totalFilesSize+=filestat.st_size;
-                uint64_t usedBytes=(info.f_blocks-info.f_bfree)*info.f_bsize;
-                printf("Total blocks: %d\nFree blocks: %d\nSize of block: %d\n\
-Size in bytes: %d\nTotal Files size: %d\n",
-                       info.f_blocks, info.f_bfree, info.f_bsize, usedBytes, totalFilesSize);*/
 
-                printf("///////\n");
+
+
+
                 mountlist(abPath,j);
-        //        g_array_append_val(names,devices);
-             //   printf("Device name:%s\n",devices.name);
-            //    printf("%d index \n",names->len);
 
                 break;
 
@@ -169,15 +116,6 @@ Size in bytes: %d\nTotal Files size: %d\n",
 
         free(abPath);
     }
-
- /*   for(int i=0;i<names->len;i++){
-
-        Devices *devices1 ;
-              devices1  =&g_array_index(names,Devices,i);
-
-     //   printf("all the devices%s\n",devices1->name);
-
-    }*/
 
 
     closedir (directory);
@@ -192,53 +130,25 @@ void array_devices(){
 void device(){
 
    char *filename="/dev";
-
+ Devices *devices;
     array_devices();
     readDir(filename);
 
 printf("Duzina niza %d\n",names->len);
 
-    struct statvfs info;
+    for(int i=0 ;i<names->len;i++){
 
+        devices =&g_array_index(names,Devices,i);
 
-    int fileds=0;
- //   array_devices();// pravimo niz
-  // statvfs("/", &info);
-  //  get_names();
-  //  testing_files();
-    g_array_free(names,TRUE);
-   // char *filename2= readDir(filename);
-
-/*
-    for(int i=0; i<names->len;i++){
-
-        char *pointer=g_array_index(names,char,i);
-        printf("names %s",pointer);
-
-    }*/
-  //  statvfs(filename2, &info);
-    //sectorSize=info.f_bsize;
-//    if (-1 == (fileds = open(filename,O_RDONLY)))
-//        perror("open() error");
-  //  fstatvfs( fileds,&info1);
-    uint64_t usedBytes=(info.f_blocks-info.f_bfree)*info.f_bsize;
- //   uint64_t usedBytes1=(info1.f_blocks-info1.f_bfree)*info1.f_bsize;
-
-        printf("%s\n",filename);
-
-    printf("Total blocks_main: %d\n\
-Free blocks: %d\n\
-Size of block: %d\n\
-Size in bytes: %d\n"
-                   "Total Files size: "
-                   "%d free inodes %d \n",
-           info.f_blocks
-            , info.f_bfree
-            , info.f_bsize,
-           usedBytes,
-           totalFilesSize,
-           info.f_files);
-    printf("///////\n");
+//        printf(" Final Directory: %s Device: %s used %lu total %lu free %lu type %s available %lu\n",
+//               devices->directory,
+//               devices->name,
+//               devices->used,
+//               devices->total,
+//               devices->free,
+//               devices->type,
+//               devices->avail);
+    }
 
 
 
@@ -250,12 +160,6 @@ Size in bytes: %d\n"
 void mountlist(char *path,size_t j){
 
         Devices devices={0};
-
-
-
-
-
-
     char *filename="/proc/mounts";
    char buffer[1024];
     char name_test[256];
@@ -269,8 +173,7 @@ void mountlist(char *path,size_t j){
     }
     fseek(file, 0, SEEK_SET);
 int g=0;
-  /*  for(int i=0;i<names->len;i++){
-       devices=&g_array_index(array,Devices,i);*/
+
         while( fgets (buffer, 1024, file) != NULL){
 
 
@@ -318,7 +221,6 @@ int g=0;
                             }
                             printf(" type %s\n",type);
                             devices=testing_files(devices);
-                            // testing_files(mounted);
                             g_array_append_val(names,devices);
                         }
 
@@ -338,14 +240,7 @@ int g=0;
 
         }
     // }
-    printf(" Final Directory: %s Device: %s used %lu total %lu free %lu type %s available %lu\n",
-           devices.directory,
-           devices.name,
-           devices.used,
-           devices.total,
-           devices.free,
-           devices.type,
-           devices.avail);
+
 
 
 }

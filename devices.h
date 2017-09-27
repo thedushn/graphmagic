@@ -27,7 +27,7 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include "main_header.h"
-GArray *names;
+
 typedef struct _Devices Devices;
 typedef struct _Memory Memory;
 void try();
@@ -35,7 +35,7 @@ void readDir(char *path);
 void device();
 void get_names();
 void mountlist(char *path,size_t j);
-
+GArray *names;
 
 struct _Devices {
 

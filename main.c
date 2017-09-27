@@ -173,6 +173,13 @@ static GtkWidget *create_view_and_model_file_system() {
                                                 renderer,
                                                 "text", COL_USED,
                                                 NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view),
+                                                -1,
+                                                "Free",
+                                                renderer,
+                                                "text", COL_FREE,
+                                                NULL);
 
     model = create_and_fill_model_file_system();
 
@@ -193,28 +200,51 @@ static GtkWidget *create_view_and_model_file_system() {
 static GtkTreeModel *create_and_fill_model_file_system(void) {
 
 
-    store = gtk_list_store_new(NUM_COLS_DEV, G_TYPE_FLOAT, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
-                               G_TYPE_STRING);
-    // gchar *rss, *vsz;
-    // get_task_list(tasks);
-    //  Append a row and fill in some data
+    store = gtk_list_store_new(NUM_COLS_DEV,  G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+                               G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING);
 
-    //  printf("TASKs-array : len: %d\n",tasks->len);
+gchar *total,*avail,*used,*free;
 
-    //  for(int j=0 ;j<tasks->len;j++) {
-    //   Task *task = &g_array_index(tasks, Task, j);
-    /*   rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
-       vsz = g_format_size_full (task->vsz, G_FORMAT_SIZE_IEC_UNITS);*/
-    gtk_list_store_append(store, &iter);
-    gtk_list_store_set(store, &iter,
-                       COL_DEV, cpu->percentage,
-                       COL_DIR, cpu->number,
-                       COL_TYPE, "u dont want to know",
-                       COL_TOTAL, "not a lot",
-                       COL_AVAILABLE, "hwo knows",
-                       COL_USED, "even less",
+    for (int j = 0; j < names->len; j++) {
+        Devices *devices = &g_array_index(names, Devices, j);
+        used=g_format_size_full((guint64)devices->used, G_FORMAT_SIZE_IEC_UNITS);
+        total=g_format_size_full((guint64)devices->total, G_FORMAT_SIZE_IEC_UNITS);
+        avail=g_format_size_full((guint64)devices->avail, G_FORMAT_SIZE_IEC_UNITS);
+        free=g_format_size_full((guint64)devices->free, G_FORMAT_SIZE_IEC_UNITS);
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                           COL_DEV,devices->name,
+                           COL_DIR, devices->directory,
+                           COL_TYPE, devices->type,
+                           COL_TOTAL, total,
+                           COL_AVAILABLE, avail,
+                           COL_USED, used,
+                           COL_FREE, free,
 
-                       -1);
+
+                           -1);
+
+        printf(" Final Directory: %s Device: %s used %lu total %lu free %lu type %s available %lu\n",
+               devices->directory,
+               devices->name,
+               devices->used,
+               devices->total,
+               devices->free,
+               devices->type,
+               devices->avail);
+
+        g_free(used);
+        g_free(total);
+        g_free(avail);
+        g_free(free);
+
+
+
+    }
+
+
+g_array_free(names,TRUE);
+
 
 
     return GTK_TREE_MODEL (store);
@@ -427,12 +457,11 @@ static GtkTreeModel *create_and_fill_model(void) {
                            -1);
 
 
-        //  array();
-//         append another row and fill in some data
-//
-//         ... and a third row
+    g_free(rss);
+    g_free(vsz);
 
     }
+
 //    g_array_free(tasks, TRUE);
   //  array();
     //
@@ -481,14 +510,7 @@ void button_clicked_view_process(GtkWidget *widget) {
 }
 
 
-/*
-void measurements(){
 
-
-    height2= gtk_widget_get_allocated_height(hbox2);
-    width2= gtk_widget_get_allocated_width(hbox2);
-
-}*/
 void inc_refresh() {
 
     if (t >= 10000) {
@@ -584,6 +606,7 @@ void init_timeout() {
 
   //  closing();
     device();
+
 
     time_step = 60000 / t;
 

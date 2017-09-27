@@ -99,6 +99,7 @@ enum{
     COL_TOTAL,
     COL_AVAILABLE,
     COL_USED,
+    COL_FREE,
     NUM_COLS_DEV
 
 
