@@ -29,22 +29,25 @@
 #include "main_header.h"
 GArray *names;
 typedef struct _Devices Devices;
+typedef struct _Memory Memory;
 void try();
 void readDir(char *path);
 void device();
 void get_names();
-void mountlist(GArray *array);
+void mountlist(char *path,size_t j);
+
 
 struct _Devices {
 
 
     gchar		name[256];
-    guint       available;
+
     gchar       type[256];
     gchar       directory[256];
-    guint       total;
-    guint       free;
-
+    glong used;
+    glong total;
+    glong free;
+    glong avail;
 };
 
 void get_boot(void);
