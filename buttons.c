@@ -15,7 +15,7 @@ void graph_button_clicked(GtkWidget *widget){
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
     {
         window2 =gtk_window_new(GTK_WINDOW_TOPLEVEL);
-        gtk_window_set_default_size(GTK_WINDOW(window2), 200, 200);
+      //  gtk_window_set_default_size(GTK_WINDOW(window2), 200, 200);
 
         button_graph0=gtk_toggle_button_new_with_label("CPu0");
         button_graph1=gtk_toggle_button_new_with_label("CPu1");
@@ -42,10 +42,10 @@ void graph_button_clicked(GtkWidget *widget){
 
         box2=gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
         gtk_container_add(GTK_CONTAINER(window2),box2);
-        gtk_box_pack_start(GTK_BOX(box2),button_graph0,0,0,0);
-        gtk_box_pack_start(GTK_BOX(box2),button_graph1,0,0,0);
-        gtk_box_pack_start(GTK_BOX(box2),button_graph2,0,0,0);
-        gtk_box_pack_start(GTK_BOX(box2),button_graph3,0,0,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_graph0,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_graph1,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_graph2,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_graph3,1,1,0);
         g_signal_connect(button_graph0,"toggled", G_CALLBACK(graph_clicked), NULL);
         g_signal_connect(button_graph1,"toggled", G_CALLBACK(graph_clicked), NULL);
         g_signal_connect(button_graph2,"toggled", G_CALLBACK(graph_clicked), NULL);
@@ -58,11 +58,13 @@ void graph_button_clicked(GtkWidget *widget){
                          G_CALLBACK(close_window), NULL);
 
         gtk_widget_show_all(window2);
+
     }
 
     else{
 
         gtk_widget_destroy(window2);
+
     }
 };
 void graph_clicked(GtkWidget *widget){

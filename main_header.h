@@ -9,6 +9,7 @@
 
 static GtkWidget *window;
 static GtkWidget *swindow1;
+static GtkWidget *swindow2;
 
 GtkWidget *graph1;
 GtkWidget *graph2;

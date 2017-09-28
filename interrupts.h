@@ -43,9 +43,13 @@ struct _Interrupts{
     signed long CPU1;
     signed long CPU2;
     signed long CPU3;
-    gchar ime1;
-    gchar ime2;
-    gchar ime3;
+    gchar ime1[256];
+    gchar ime2[256];
+    gchar ime3[256];
+    gchar ime4[256];
+//    gchar ime1;
+//    gchar ime2;
+//    gchar imee;
 
 
 

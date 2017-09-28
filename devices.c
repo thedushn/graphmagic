@@ -12,65 +12,33 @@
 
 
 #include <errno.h>
-uint64_t totalFilesSize=0;
-uint64_t totalFilesSize1=0;
-unsigned long sectorSize=0;
-//void testing_files( Devices devices){
+
 Devices testing_files( Devices devices){
-//void testing_files(char * mounted){
-
-    FILE *file;
-    struct stat filestat;
 
 
 
-   // lstat ("/", &filestat);
-    lstat (devices.directory, &filestat);
-    //lstat (mounted, &filestat);
-   // Devices devices = { 0 };
-    int filesd;
+
+
+
     struct statvfs info;
 
-    filesd = open (devices.directory, O_RDWR);
-    //filesd = open (mounted, O_RDWR);
-    //filesd = open (devices.name, O_RDWR);
-    if (file == NULL) {
-        printf("open failed, errno = %d\n", errno);
-    //    printf("Device name:%s\n",mounted);
-    }
-    else {
-        printf("fopen succeeded\n");
-      //  printf("Device name:%s\n",mounted);
-    }
-    // fstatvfs(file,&info);
     statvfs(devices.directory,&info);
-//    statvfs(mounted,&info);
 
-    sectorSize=info.f_bsize;
-
-
-
-
-  uint64_t   totalFilesSize1=filestat.st_size;
     uint64_t usedBytes=(info.f_blocks-info.f_bfree)*info.f_bsize;
-    printf("Total blocks_test: %d\nFree blocks: %d\nSize of block: %d\n\
-Size in bytes: %d\nTotal Files size: %d\n",
-           info.f_blocks, info.f_bfree, info.f_bsize, usedBytes, totalFilesSize1);
+   // printf("Total blocks_test: %d\nFree blocks: %d\nSize of block: %d\n\
+Size in bytes: %d\nTotal Files size: %lu\n",
+//           (int)info.f_blocks, (int)info.f_bfree, (int)info.f_bsize,(int) usedBytes, (long)info.f_blocks*(long)info.f_bsize);
 
-    printf("///////\n");
-
-
-
-
+ //   printf("///////\n");
        devices.total=(long)info.f_blocks*(long)info.f_bsize;
        devices.used=(((long)info.f_blocks-(long)info.f_bfree))* (long)info.f_bsize;
         devices.avail=info.f_bavail*info.f_bsize;
         devices.free=info.f_bfree*info.f_bsize;
-       //memory.available=((long)info.f_blocks*(long)info.f_bsize-(long)info.f_blocks*(long)info.f_bavail)/1024;
+/*
         printf("memory_total %lu\n" ,devices.total/1024);
         printf("memory_used   %lu\n" ,devices.used/1024);
         printf("memory_avail   %lu\n" ,devices.avail/1024);
-        printf("memory_free   %lu\n" ,devices.free/1024);
+        printf("memory_free   %lu\n" ,devices.free/1024);*/
 
 
     return devices;
@@ -99,19 +67,15 @@ void readDir(char *path) {
             case  S_IFBLK:
             {
 
-
-
                 size_t j=strlen(abPath);// duzina imena
 
-
-
-
-
-                mountlist(abPath,j);
+                mountlist(abPath,j); //ako su block type proveravamo da li pripadaju u mount list
 
                 break;
 
             }
+            default:
+                break;
         }
 
         free(abPath);
@@ -130,28 +94,8 @@ void array_devices(){
 void device(){
 
    char *filename="/dev";
- Devices *devices;
-    array_devices();
+    array_devices();//napravimo niz
     readDir(filename);
-
-printf("Duzina niza %d\n",names->len);
-
-    for(int i=0 ;i<names->len;i++){
-
-        devices =&g_array_index(names,Devices,i);
-
-//        printf(" Final Directory: %s Device: %s used %lu total %lu free %lu type %s available %lu\n",
-//               devices->directory,
-//               devices->name,
-//               devices->used,
-//               devices->total,
-//               devices->free,
-//               devices->type,
-//               devices->avail);
-    }
-
-
-
 
 }
 
@@ -189,7 +133,7 @@ int g=0;
                     if(g==j){
                         if(name_test[g]=='\0'){
 
-                            printf("path1 %s name_test %s g %d j %d \n",path,name_test,g,j);
+                         //   printf("path1 %s name_test %s g %d j %d \n",path,name_test,g,(int)j);
                             for(int t= 0;t<=j;t++){
 
 
@@ -219,7 +163,7 @@ int g=0;
                                     break;
                                 }
                             }
-                            printf(" type %s\n",type);
+                         //   printf(" type %s\n",type);
                             devices=testing_files(devices);
                             g_array_append_val(names,devices);
                         }
@@ -239,8 +183,6 @@ int g=0;
 
 
         }
-    // }
-
 
 
 }

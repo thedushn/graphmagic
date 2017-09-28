@@ -69,14 +69,12 @@ void timeout_refresh();
 void measurements();
 
 
-GtkWidget *fuck;
+
 
 GtkWidget *closing(GtkWidget *widget) {
 
-/*
-    fuck = create_view_and_model();
-    g_object_ref_sink(view);
-    gtk_container_add(GTK_CONTAINER(swindow1), fuck);*/
+
+
     get_task_list(tasks);
     model =create_and_fill_model() ;
     g_array_free(tasks, TRUE);
@@ -378,17 +376,17 @@ void dev_problems() {
 
     //create_view_and_model_file_system();
     view2 = create_view_and_model_file_system();
-    swindow1 = gtk_scrolled_window_new(NULL,
+    swindow2 = gtk_scrolled_window_new(NULL,
                                        NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow2), GTK_POLICY_AUTOMATIC,
                                    GTK_POLICY_ALWAYS);
-    gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(vbox), swindow2, TRUE, TRUE, 1);
     //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
 //    gtk_widget_destroy(vbox);
     //gtk_container_add(GTK_CONTAINER(swindow1), view);
 
     //  refeshing_tree();
-    gtk_container_add(GTK_CONTAINER(swindow1), view2);
+    gtk_container_add(GTK_CONTAINER(swindow2), view2);
 
 
 
@@ -401,7 +399,7 @@ void dev_problems() {
 
     //  gtk_container_add(GTK_CONTAINER(swindow1), progressbar);
 
-    gtk_widget_show_all(swindow1);
+    gtk_widget_show_all(swindow2);
 }
 
 void dev_button_clicked(GtkWidget *widget) {
@@ -421,12 +419,12 @@ void dev_button_clicked(GtkWidget *widget) {
 
         //  gtk_container_add(GTK_CONTAINER(swindow1), progressbar);
 
-        gtk_widget_show_all(swindow1);
+        gtk_widget_show_all(swindow2);
     } else {
 
         // gtk_widget_destroy(progressbar);
         gtk_widget_destroy(view2);
-        gtk_widget_destroy(swindow1);
+        gtk_widget_destroy(swindow2);
 
 
     }
@@ -649,7 +647,7 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < 8; i++) {
         history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
-        // g_array_set_size(history[i], 240);//treba staviti da  history[4] i 5  imaju size 60
+
     }
     for (int i = 0; i <= 3; i++) {
 
