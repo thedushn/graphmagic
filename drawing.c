@@ -124,10 +124,7 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
                 j-=g;
                 q++;
             }
-            else{
 
-
-            }
             if(q==0){
 
                 gchar text_int[11];
@@ -146,7 +143,7 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
             }
         else {
                 for (int r = 0; r <= q; r++) {
-                    cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size);
+                    cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size+1);
 
                     gchar text_int[11];
                     memset(text_int, 0, 11);
@@ -158,8 +155,9 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
                     text_int[11] = '\0';
                     cairo_show_text(cr, text_int);
 
+
                 }
-                cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + (q + 1) * font_size);
+                cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + (q + 1) * font_size+1);
                 gchar text_int[11];
                 memset(text_int, 0, 11);
                 for (int s = 0; s < j; s++) {
@@ -169,11 +167,13 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
                 }
 
                 cairo_show_text(cr, text_int);
+
             }
 //        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
 //        cairo_show_text(cr,peak->ime3);
-        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size+(q+2)*font_size);
+        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size+(q+2)*font_size+1);
         cairo_show_text(cr,peak->ime4);
+
     }
 
     if(peak->ime4[0]=='\0'){
@@ -239,6 +239,7 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
     cairo_stroke_preserve(cr);
     cairo_set_source_rgb(cr,1,.5,0);
     cairo_fill(cr);
+
     return cr;
 
 }
@@ -379,11 +380,13 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     Interrupts *peak;
     gchar broj[5];
     cairo_surface_t *graph_surface;
-    float font_size=10;
+    //float font_size=10;
+
 
 
     height= gtk_widget_get_allocated_height(widget);
     width= gtk_widget_get_allocated_width(widget);
+    float font_size=(float)width/height*4;
 
     cairo_set_line_width(cr,1);
     cairo_set_font_size(cr, font_size);

@@ -179,6 +179,7 @@ static GtkWidget *create_view_and_model_file_system() {
                                                 "text", COL_FREE,
                                                 NULL);
 
+    device();
     model = create_and_fill_model_file_system();
 
 
@@ -187,6 +188,9 @@ static GtkWidget *create_view_and_model_file_system() {
 //     The tree view has acquired its own reference to the
 //     *  model, so we can drop ours. That way the model will
 //     *  be freed automatically when the tree view is destroyed
+
+   g_array_free(names,TRUE);
+    array_devices();
 
     g_object_unref(model);
 
@@ -241,7 +245,7 @@ gchar *total,*avail,*used,*free;
     }
 
 
-g_array_free(names,TRUE);
+
 
 
 
@@ -350,23 +354,10 @@ static GtkWidget *create_view_and_model(void) {
                                                 NULL);
 
 
-  //  g_timeout_add(50, (GSourceFunc) create_and_fill_model(), NULL);
-    /*get_task_list(tasks);
-    model =create_and_fill_model() ;
-    g_array_free(tasks, TRUE);
-    array();
-
-
-
-    gtk_tree_view_set_model(GTK_TREE_VIEW (view), model);*/
 
 
     view= closing(view);
-//     The tree view has acquired its own reference to the
-//     *  model, so we can drop ours. That way the model will
-//     *  be freed automatically when the tree view is destroyed
 
-  //  g_object_unref(model);
 
 
     return view;
@@ -374,32 +365,21 @@ static GtkWidget *create_view_and_model(void) {
 
 void dev_problems() {
 
-    //create_view_and_model_file_system();
+
     view2 = create_view_and_model_file_system();
     swindow2 = gtk_scrolled_window_new(NULL,
                                        NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow2), GTK_POLICY_AUTOMATIC,
                                    GTK_POLICY_ALWAYS);
     gtk_box_pack_start(GTK_BOX(vbox), swindow2, TRUE, TRUE, 1);
-    //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
-//    gtk_widget_destroy(vbox);
-    //gtk_container_add(GTK_CONTAINER(swindow1), view);
 
-    //  refeshing_tree();
     gtk_container_add(GTK_CONTAINER(swindow2), view2);
 
 
 
-    /*   progressbar=gtk_progress_bar_new();
-       gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar),memory_used);
-       gtk_progress_bar_get_show_text (GTK_PROGRESS_BAR(progressbar));
-       gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progressbar),"text here");
-       gtk_box_pack_start(GTK_BOX(vbox),progressbar,0,TRUE,0);
-       gtk_widget_show_all(progressbar);*/
 
-    //  gtk_container_add(GTK_CONTAINER(swindow1), progressbar);
 
-    gtk_widget_show_all(swindow2);
+
 }
 
 void dev_button_clicked(GtkWidget *widget) {
@@ -603,7 +583,7 @@ void init_timeout() {
     bjorg++;
 
   //  closing();
-    device();
+ //   device();
 
 
     time_step = 60000 / t;
@@ -641,6 +621,7 @@ int main(int argc, char *argv[]) {
     array_interrupts();
     //test
     array();
+array_devices();
     //  get_task_list(tasks);
 
 

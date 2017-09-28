@@ -35,6 +35,7 @@ void readDir(char *path);
 void device();
 void get_names();
 void mountlist(char *path,size_t j);
+void array_devices();
 GArray *names;
 
 struct _Devices {

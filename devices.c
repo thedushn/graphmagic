@@ -7,8 +7,7 @@
 #include <fcntl.h>
 #include <sys/statvfs.h>
 #include <stdio.h>
-#include <glibtop.h>
-#include "glibtop/mountlist.h"
+
 
 
 #include <errno.h>
@@ -87,6 +86,7 @@ void readDir(char *path) {
 }
 void array_devices(){
 
+
     names=g_array_new (FALSE, FALSE, sizeof (Devices));
 
 };
@@ -94,7 +94,7 @@ void array_devices(){
 void device(){
 
    char *filename="/dev";
-    array_devices();//napravimo niz
+   // array_devices();//napravimo niz
     readDir(filename);
 
 }
@@ -165,7 +165,7 @@ int g=0;
                             }
                          //   printf(" type %s\n",type);
                             devices=testing_files(devices);
-                            g_array_append_val(names,devices);
+                            g_array_prepend_val(names,devices);
                         }
 
                     }
