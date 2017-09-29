@@ -89,7 +89,7 @@ static GtkWidget *create_view_and_model_file_system (void);
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
 static GtkTreeModel *create_and_fill_model_file_system (void);
-void dev_problems();
+GtkWidget * dev_problems();
 
 
 enum{

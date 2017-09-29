@@ -1,11 +1,6 @@
 #include <cairo.h>
 #include <gtk/gtk.h>
-#include <math.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
+
 #include <stdlib.h>
 #include "memory_usage.h"
 #include <glib.h>
@@ -18,20 +13,12 @@
 #include "main_header.h"
 #include "buttons.h"
 #include "devices.h"
-//#include <linux/genhd.h>
-#include <sys/statvfs.h>
 
 
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <sys/statvfs.h>
-#include <stdint.h>
-#include <string.h>
-#include <dirent.h>
-#include <stdlib.h>
+
+
+
 GtkWidget *menubar;
 GtkWidget *filemenu;
 
@@ -363,22 +350,22 @@ static GtkWidget *create_view_and_model(void) {
     return view;
 };
 
-void dev_problems() {
+GtkWidget * dev_problems() {
 
 
-    view2 = create_view_and_model_file_system();
-    swindow2 = gtk_scrolled_window_new(NULL,
-                                       NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow2), GTK_POLICY_AUTOMATIC,
-                                   GTK_POLICY_ALWAYS);
+  GtkWidget * view2 = create_view_and_model_file_system();
+//    swindow2 = gtk_scrolled_window_new(NULL,
+//                                       NULL);
+//    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow2), GTK_POLICY_AUTOMATIC,
+//                                   GTK_POLICY_ALWAYS);
     gtk_box_pack_start(GTK_BOX(vbox), swindow2, TRUE, TRUE, 1);
 
     gtk_container_add(GTK_CONTAINER(swindow2), view2);
 
 
 
-
-
+//izbrisati samo treba u dev_button da bude
+    gtk_widget_show_all(swindow2);
 
 }
 
@@ -389,13 +376,13 @@ void dev_button_clicked(GtkWidget *widget) {
 
         dev_problems();
 
-/*
-          progressbar=gtk_progress_bar_new();
-          gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar),memory_used);
-          gtk_progress_bar_get_show_text (GTK_PROGRESS_BAR(progressbar));
-          gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progressbar),"text here");
-          gtk_box_pack_start(GTK_BOX(vbox),progressbar,0,TRUE,0);
-          gtk_widget_show_all(progressbar);*/
+
+//          progressbar=gtk_progress_bar_new();
+//          gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar),memory_used);
+//          gtk_progress_bar_get_show_text (GTK_PROGRESS_BAR(progressbar));
+//          gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progressbar),"text here");
+//          gtk_box_pack_start(GTK_BOX(vbox),progressbar,0,TRUE,0);
+//          gtk_widget_show_all(progressbar);
 
         //  gtk_container_add(GTK_CONTAINER(swindow1), progressbar);
 
@@ -446,7 +433,19 @@ static GtkTreeModel *create_and_fill_model(void) {
     return GTK_TREE_MODEL (store);
 
 };
+void process_tree(){
 
+    view = create_view_and_model();
+//        swindow1 = gtk_scrolled_window_new(NULL,
+//                                           NULL);
+//        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+//                                       GTK_POLICY_ALWAYS);
+    gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
+
+    gtk_container_add(GTK_CONTAINER(swindow1), view);
+    gtk_widget_show_all(swindow1);
+
+}
 void button_clicked_view_process(GtkWidget *widget) {
 
     // tree= gtk_tree_view_new ();
@@ -454,10 +453,10 @@ void button_clicked_view_process(GtkWidget *widget) {
     // window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
         view = create_view_and_model();
-        swindow1 = gtk_scrolled_window_new(NULL,
-                                           NULL);
-        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
-                                       GTK_POLICY_ALWAYS);
+//        swindow1 = gtk_scrolled_window_new(NULL,
+//                                           NULL);
+//        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+//                                       GTK_POLICY_ALWAYS);
         gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
         //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
 //    gtk_widget_destroy(vbox);
@@ -561,7 +560,9 @@ void init_timeout2() {
 
 void init_timeout() {
 
-//     measurements();
+
+    GtkWidget *view2;
+
     cpu_percent_change();//nije ovde
     get_memory_usage();//nije ovde
     // array_interrupts();
@@ -584,6 +585,10 @@ void init_timeout() {
 
   //  closing();
  //   device();
+ //  view2= dev_problems();
+  //  process_tree();
+
+
 
 
     time_step = 60000 / t;
@@ -774,14 +779,21 @@ array_devices();
 //test
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 1400, 800);
+    swindow2 = gtk_scrolled_window_new(NULL,
+                                       NULL);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow2), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_ALWAYS);
+
+    swindow1 = gtk_scrolled_window_new(NULL,
+                                       NULL);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_ALWAYS);
     //  gtk_window_get_resizable (window);
 //    measurements();
     init_timeout();
 
     g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
-    //g_timeout_add(1000,(GSourceFunc)dev_problems,NULL);
-    //  dev_problems();
-    //  g_timeout_add(1000,(GSourceFunc)closing,NULL);
+
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     gtk_window_set_title(GTK_WINDOW(window), "lines mother do you see it ");

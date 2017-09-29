@@ -6,8 +6,164 @@
 
 static gfloat max_broj3=0;
 static char *track;
+cairo_t *ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2){
+
+    size_t j;
+    size_t g=11;//toliko slova moze da stane u jedan red
+    int q=0;//koliko redova
+   j=strlen(ime1);
 
 
+    if(g<j){
+
+        j-=g;
+        q++;
+    }
+    if(q==0){
+
+        gchar text_int[g];
+        memset(text_int, 0, g);
+        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);//pomerimo ga na pocetnu poziciju
+
+        for(int s=0 ;s<j;s++){
+
+            text_int[s]=ime1[s];
+        }
+        //  text_int[11]='\0';
+        cairo_show_text(cr,text_int);
+    }
+    if(q>=1){
+
+        for (int r = 0; r <= q; r++) {
+            //pomeramo ga u zavisnosti od koliko redova nam treba
+            cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size);
+
+            gchar text_int[g];
+            memset(text_int, 0, g);
+            if(r==q){
+                for (int s = 0; s <= j; s++) {
+
+                    int w = s + r *(int)g;
+                    text_int[s] = ime1[w];
+                }
+                // text_int[11] = '\0';
+                cairo_show_text(cr, text_int);
+            }
+            else {
+                for (int s = 0; s < g; s++) {
+
+                    int w = s + r *(int) g;
+                    text_int[s] = ime1[w];
+                }
+                //   text_int[11] = '\0';
+                cairo_show_text(cr, text_int);
+            }
+
+        }
+
+    }
+    int pomeraj=q;
+    q=0;
+    j=strlen(ime2);
+    if(g<j){
+
+        j-=g;
+        q++;
+    }
+    if(q==0){
+
+        gchar text_int[g];
+        memset(text_int, 0, g);
+        //ako ima ime4 ima i ime3
+        cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size+pomeraj*font_size);//pomerimo ga na pocetnu poziciju
+
+        for(int s=0 ;s<j;s++){
+
+            text_int[s]=ime2[s];
+        }
+        //  text_int[11]='\0';
+        cairo_show_text(cr,text_int);
+    }
+    if(q>=1){
+
+        for (int r = 0; r <= q; r++) {
+            //pomeramo ga u zavisnosti od koliko redova nam treba
+            cairo_move_to(cr, 5 * font_size + 5 * duzina * i,2*font_size+pomeraj*font_size+r*font_size);
+
+            gchar text_int[g];
+            memset(text_int, 0, g);
+            if(r==q){
+                for (int s = 0; s <= j; s++) {
+
+                    int w = s + r *(int)g;
+                    text_int[s] = ime2[w];
+                }
+                // text_int[11] = '\0';
+                cairo_show_text(cr, text_int);
+            }
+            else {
+                for (int s = 0; s < g; s++) {
+
+                    int w = s + r * (int)g;
+                    text_int[s] = ime2[w];
+                }
+                //   text_int[11] = '\0';
+                cairo_show_text(cr, text_int);
+            }
+
+        }
+
+    }
+
+
+return cr;
+}
+cairo_t *ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4){
+
+
+
+    if(ime4[0]!='\0'){
+
+       cr= ispis_interrupta2(cr,font_size,duzina,i,ime3,ime4);
+    }
+
+    if(ime4[0]=='\0'){
+
+        if(ime3[0]!='\0'){
+           cr= ispis_interrupta2(cr,font_size,duzina,i ,ime2,ime3);
+
+        }
+
+        if(ime3[0]=='\0'){
+
+            if(ime2[0]!='\0') {
+                ispis_interrupta2(cr, font_size, duzina, i, ime1, ime2);
+
+
+
+            }
+
+
+            if(ime2[0]=='\0'){
+
+                if(ime1[0]!='\0'){
+                        gchar *dummy="";
+                    ispis_interrupta2(cr,font_size,duzina,i,ime1,dummy);
+                }
+
+            }
+        }
+    }
+
+
+
+
+
+
+
+    return cr;
+
+};
 cairo_t * crtaj_sekunde(cairo_t *cr,float width,float height,float font_size,int i){
    cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr,i*font_size,height);
@@ -113,105 +269,104 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
     procent=((height-font_size)/max_broj)* peak->CPU0;
 
 
-
-
-    if(peak->ime4[0]!='\0'){
-        size_t j=strlen(peak->ime3);
-        int g=11;//toliko slova moze da stane u jedan red
-        int q=0;//koliko redova
-            if(g<j){
-
-                j-=g;
-                q++;
-            }
-
-            if(q==0){
-
-                gchar text_int[11];
-                memset(text_int, 0, 11);
-                cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-
-                for(int s=0 ;s<j;s++){
-
-
-
-
-                    text_int[s]=peak->ime3[s];
-                }
-                text_int[11]='\0';
-                cairo_show_text(cr,text_int);
-            }
-        else {
-                for (int r = 0; r <= q; r++) {
-                    cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size+1);
-
-                    gchar text_int[11];
-                    memset(text_int, 0, 11);
-                    for (int s = 0; s < g; s++) {
-
-                        int w = s + r *g;
-                        text_int[s] = peak->ime3[w];
-                    }
-                    text_int[11] = '\0';
-                    cairo_show_text(cr, text_int);
-
-
-                }
-                cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + (q + 1) * font_size+1);
-                gchar text_int[11];
-                memset(text_int, 0, 11);
-                for (int s = 0; s < j; s++) {
-
-
-                    text_int[s] = peak->ime3[s * q];
-                }
-
-                cairo_show_text(cr, text_int);
-
-            }
-//        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-//        cairo_show_text(cr,peak->ime3);
-        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size+(q+2)*font_size+1);
-        cairo_show_text(cr,peak->ime4);
-
-    }
-
-    if(peak->ime4[0]=='\0'){
-
-        if(peak->ime3[0]!='\0'){
-
-            cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-            cairo_show_text(cr,peak->ime2);
-            cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size);
-            cairo_show_text(cr,peak->ime3);
-        }
-        if(peak->ime3[0]=='\0'){
-
-
-            if(peak->ime2[0]!='\0') {
-
-                cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-                cairo_show_text(cr,peak->ime1);
-                cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size);
-                cairo_show_text(cr,peak->ime2);
-                if(peak->ime2[0]=='\0'){
-
-
-                    if(peak->ime1[0]!='\0'){
-
-                        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-                        cairo_show_text(cr,peak->ime1);
-
-                    }
-
-                }
-            }
-
-        }
-
-
-
-    }
+ cr=ispis_interrupta(cr,font_size,duzina,i,peak->ime1,peak->ime2,peak->ime3,peak->ime4);
+//
+//    if(peak->ime4[0]!='\0'){
+//        size_t j=strlen(peak->ime3);
+//        int g=11;//toliko slova moze da stane u jedan red
+//        int q=0;//koliko redova
+//            if(g<j){
+//
+//                j-=g;
+//                q++;
+//            }
+//
+//            if(q==0){
+//
+//                gchar text_int[11];
+//                memset(text_int, 0, 11);
+//                cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
+//
+//                for(int s=0 ;s<j;s++){
+//
+//
+//
+//
+//                    text_int[s]=peak->ime3[s];
+//                }
+//                text_int[11]='\0';
+//                cairo_show_text(cr,text_int);
+//            }
+//        else {
+//                for (int r = 0; r <= q; r++) {
+//                    cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size+1);
+//
+//                    gchar text_int[11];
+//                    memset(text_int, 0, 11);
+//                    for (int s = 0; s < g; s++) {
+//
+//                        int w = s + r *g;
+//                        text_int[s] = peak->ime3[w];
+//                    }
+//                    text_int[11] = '\0';
+//                    cairo_show_text(cr, text_int);
+//
+//
+//                }
+//                cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + (q + 1) * font_size+1);
+//                gchar text_int[11];
+//                memset(text_int, 0, 11);
+//                for (int s = 0; s < j; s++) {
+//
+//
+//                    text_int[s] = peak->ime3[s * q];
+//                }
+//
+//                cairo_show_text(cr, text_int);
+//
+//            }
+//
+//        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size+(q+2)*font_size+1);
+//        cairo_show_text(cr,peak->ime4);
+//
+//    }
+//
+//    if(peak->ime4[0]=='\0'){
+//
+//        if(peak->ime3[0]!='\0'){
+//
+//            cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
+//            cairo_show_text(cr,peak->ime2);
+//            cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size);
+//            cairo_show_text(cr,peak->ime3);
+//        }
+//        if(peak->ime3[0]=='\0'){
+//
+//
+//            if(peak->ime2[0]!='\0') {
+//
+//                cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
+//                cairo_show_text(cr,peak->ime1);
+//                cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size);
+//                cairo_show_text(cr,peak->ime2);
+//                if(peak->ime2[0]=='\0'){
+//
+//
+//                    if(peak->ime1[0]!='\0'){
+//
+//                        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
+//                        cairo_show_text(cr,peak->ime1);
+//
+//                    }
+//
+//                }
+//            }
+//
+//        }
+//
+//
+//
+//    }
 
 
 
@@ -380,13 +535,13 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     Interrupts *peak;
     gchar broj[5];
     cairo_surface_t *graph_surface;
-    //float font_size=10;
+    float font_size=10;
 
 
 
     height= gtk_widget_get_allocated_height(widget);
     width= gtk_widget_get_allocated_width(widget);
-    float font_size=(float)width/height*4;
+  //  float font_size=(float)width/height*4;
 
     cairo_set_line_width(cr,1);
     cairo_set_font_size(cr, font_size);
