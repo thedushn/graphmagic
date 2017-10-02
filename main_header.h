@@ -78,6 +78,7 @@ gchar *cpu2_usage_text;
 gchar *cpu3_usage_text;
 gchar *network_usage_received_text;
 gchar *network_usage_transimited_text;
+
 GArray *history[9];
 
 
