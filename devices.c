@@ -68,7 +68,7 @@ void readDir(char *path) {
 
                 size_t j=strlen(abPath);// duzina imena
 
-                mountlist(abPath,j); //ako su block type proveravamo da li pripadaju u mount list
+                mountlist(abPath,j,FALSE); //ako su block type proveravamo da li pripadaju u mount list
 
                 break;
 
@@ -91,17 +91,25 @@ void array_devices(){
 
 };
 
-void device(){
+void device(gboolean show){
 
    char *filename="/dev";
-   // array_devices();//napravimo niz
-    readDir(filename);
+
+    if(show==TRUE){
+
+        mountlist("",0,TRUE);
+    }
+    else{
+        readDir(filename);
+    }
+
+
 
 }
 
 
 
-void mountlist(char *path,size_t j){
+void mountlist(char *path,size_t j,gboolean mount){
 
         Devices devices={0};
     char *filename="/proc/mounts";
@@ -117,72 +125,115 @@ void mountlist(char *path,size_t j){
     }
     fseek(file, 0, SEEK_SET);
 int g=0;
-
-        while( fgets (buffer, 1024, file) != NULL){
-
-
-            sscanf(buffer,"%255s %255s %255s",name_test,mounted,type);
+        if(mount==TRUE){
+            while( fgets (buffer, 1024, file) != NULL) {
 
 
-
-            for(int i=0 ;i<j;i++){
-
-                if( path[i]==name_test[i]){
-
-                    g++;
-                    if(g==j){
-                        if(name_test[g]=='\0'){
-
-                         //   printf("path1 %s name_test %s g %d j %d \n",path,name_test,g,(int)j);
-                            for(int t= 0;t<=j;t++){
+                sscanf(buffer, "%255s %255s %255s", name_test, mounted, type);
 
 
-                                devices.name[t]=name_test[t];
+                for (int h = 0; h < 256; h++) {
+                    if (name_test[h] != '\0') {
+                        devices.name[h] = name_test[h];
+                    } else {
+                        devices.name[h] = name_test[h];
+
+                        break;
+                    }
+                }
+                for (int h = 0; h < 256; h++) {
+                    if (mounted[h] != '\0') {
+                        devices.directory[h] = mounted[h];
+                    } else {
+                        devices.directory[h] = mounted[h];
+
+                        break;
+                    }
+                }
+                for (int r = 0; r < 256; r++) {
+                    if (type[r] != '\0') {
+                        devices.type[r] = type[r];
+                    } else {
+                        devices.type[r] = type[r];
+
+                        break;
+                    }
+                }
+                devices = testing_files(devices);
+                g_array_prepend_val(names, devices);
+            }
+        }
+        else{
+            while( fgets (buffer, 1024, file) != NULL){
 
 
 
+                sscanf(buffer,"%255s %255s %255s",name_test,mounted,type);
+
+
+
+                for(int i=0 ;i<j;i++){
+
+                    if( path[i]==name_test[i]){
+
+                        g++;
+                        if(g==j){
+                            if(name_test[g]=='\0'){
+
+                                //   printf("path1 %s name_test %s g %d j %d \n",path,name_test,g,(int)j);
+                                for(int t= 0;t<=j;t++){
+
+
+                                    devices.name[t]=name_test[t];
+
+
+
+                                }
+
+                                for(int h=0;h<256;h++){
+                                    if(mounted[h]!='\0') {
+                                        devices.directory[h] = mounted[h];
+                                    }
+                                    else{
+                                        devices.directory[h] = mounted[h];
+
+                                        break;
+                                    }
+                                }
+                                for(int r=0;r<256;r++){
+                                    if(type[r]!='\0') {
+                                        devices.type[r] = type[r];
+                                    }
+                                    else{
+                                        devices.type[r] = type[r];
+
+                                        break;
+                                    }
+                                }
+                                //   printf(" type %s\n",type);
+                                devices=testing_files(devices);
+                                g_array_prepend_val(names,devices);
                             }
 
-                            for(int h=0;h<256;h++){
-                                if(mounted[h]!='\0') {
-                                    devices.directory[h] = mounted[h];
-                                }
-                                else{
-                                    devices.directory[h] = mounted[h];
-
-                                    break;
-                                }
-                            }
-                            for(int r=0;r<256;r++){
-                                if(type[r]!='\0') {
-                                    devices.type[r] = type[r];
-                                }
-                                else{
-                                    devices.type[r] = type[r];
-
-                                    break;
-                                }
-                            }
-                         //   printf(" type %s\n",type);
-                            devices=testing_files(devices);
-                            g_array_prepend_val(names,devices);
                         }
 
                     }
+                    else{
+
+                        g=0;
+                        break;
+                    }
+
 
                 }
-                else{
 
-                    g=0;
-                    break;
-                }
 
 
             }
-
-
-
         }
+
+//fclose(file);
+    printf("DEVICES %d ]\n",names->len);
 
 
 }

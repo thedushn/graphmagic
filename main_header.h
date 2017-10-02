@@ -18,8 +18,8 @@ GtkWidget *graph4;
 GtkWidget *vbox;
 GtkWidget *hbox;
 GtkWidget *hbox1;
-GtkWidget *hbox2;
 GtkWidget *hbox3;
+GtkWidget *hbox2;
 GtkWidget *label;
 GtkWidget *label1;
 GtkWidget *label2;
@@ -39,6 +39,7 @@ GtkWidget *button;
 GtkWidget *button2;
 GtkWidget *button3;
 GtkWidget *button4;
+GtkWidget *button5;
 GtkWidget * button_graph;
 GtkWidget * button_graph0;
 GtkWidget * button_graph1;
@@ -52,9 +53,14 @@ GtkTreeModel *model;
 GtkTreeIter iter;
 GtkListStore  *store;
 GtkWidget *speed;
+GtkWidget *devices_menu;
+GtkWidget *graph_menu;
+GtkWidget *filemenu2;
+GtkWidget *filemenu3;
 GtkWidget *quit;
 GtkWidget *increase_refresh;
 GtkWidget *decrease_refresh;
+GtkWidget *show_all;
 #define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
 
 
@@ -90,7 +96,7 @@ static GtkWidget *create_view_and_model_file_system (void);
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
 static GtkTreeModel *create_and_fill_model_file_system (void);
-GtkWidget * dev_problems();
+GtkWidget * dev_problems(gboolean);
 
 
 enum{

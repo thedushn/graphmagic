@@ -15,7 +15,6 @@ void graph_button_clicked(GtkWidget *widget){
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
     {
         window2 =gtk_window_new(GTK_WINDOW_TOPLEVEL);
-      //  gtk_window_set_default_size(GTK_WINDOW(window2), 200, 200);
 
         button_graph0=gtk_toggle_button_new_with_label("CPu0");
         button_graph1=gtk_toggle_button_new_with_label("CPu1");
@@ -34,10 +33,7 @@ void graph_button_clicked(GtkWidget *widget){
         if(CPU3_line==TRUE){
             gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_graph3),TRUE);
         }
-//
-//        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_graph1),TRUE);
-//        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_graph2),TRUE);
-//        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_graph3),TRUE);
+
         gtk_window_set_title (GTK_WINDOW (window2), "GRAPH buttons");
 
         box2=gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
@@ -183,16 +179,16 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     if(CPU0_line==TRUE){
 
 
-        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size+1, step);
     }
     if(CPU1_line==TRUE){
-        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size+1, step);
     }
     if(CPU2_line==TRUE){
-        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size+1, step);
     }
     if(CPU3_line==TRUE){
-        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size+1, step);
     }
 
 
@@ -205,3 +201,24 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     }
 };
 
+void new_button_clicked(GtkWidget *widget) {
+
+    if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))){
+
+       // gtk_widget_hide(hbox);
+        gtk_widget_hide(hbox1);
+        gtk_widget_hide(hbox3);
+        gtk_widget_hide(hbox2);
+
+    }
+
+    else {
+
+       // gtk_widget_show(hbox);
+        gtk_widget_show(hbox1);
+        gtk_widget_show(hbox3);
+        gtk_widget_show(hbox2);
+    }
+
+
+};

@@ -101,7 +101,7 @@ void cpu_percentage(int cpu_count){
         cpu_user[i]= cpu_system[i]= 0.0;
         if (jiffies_total[i] > jiffies_total_old[i]) {
             jiffies_total_delta[i] = jiffies_total[i] - jiffies_total_old[i];
-            printf("total deltaprvi%lu\n",  jiffies_total_delta[i]);
+          //  printf("total deltaprvi%lu\n",  jiffies_total_delta[i]);
             test+=jiffies_total_delta[i];
             cpu_user[i] = (jiffies_user[i] - jiffies_user_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
            cpu_system[i] = (jiffies_system[i] - jiffies_system_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);

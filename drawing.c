@@ -258,13 +258,13 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
     gchar *ime;
     cairo_set_line_width(cr,1);
 
-    printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",peak->name,
-           peak->CPU0,
-           peak->CPU1,
-           peak->CPU2,
-           peak->CPU3,
-           peak->ime1,peak->ime2,peak->ime3,
-           peak->ime4);
+//  printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",peak->name,
+//           peak->CPU0,
+//           peak->CPU1,
+//           peak->CPU2,
+//           peak->CPU3,
+//           peak->ime1,peak->ime2,peak->ime3,
+//           peak->ime4);
     cairo_set_font_size(cr,9);
     procent=((height-font_size)/max_broj)* peak->CPU0;
 

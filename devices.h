@@ -32,9 +32,9 @@ typedef struct _Devices Devices;
 typedef struct _Memory Memory;
 void try();
 void readDir(char *path);
-void device();
+void device(gboolean show);
 void get_names();
-void mountlist(char *path,size_t j);
+void mountlist(char *path,size_t j,gboolean mount);
 void array_devices();
 GArray *names;
 
