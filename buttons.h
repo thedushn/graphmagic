@@ -14,10 +14,11 @@ void button_clicked_view_process(GtkWidget *widget);
 //void dev_button_clicked(GtkWidget *widget);
 void graph_button_clicked(GtkWidget *widget);
 void graph_clicked(GtkWidget *widget);
-
+void close_window();
 void new_button_clicked(GtkWidget *widget);
 //gboolean graph_clicked(GtkWidget *widget);
+void new_button_clicked2();
 
-
+//void clean_button();
 
 #endif //GTKWORLD_BUTTONS_H

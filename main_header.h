@@ -49,7 +49,7 @@ GSList *group;
 GtkWidget *window2;
 GtkWidget *progressbar;
 GtkWidget *box1;
-GtkTreeModel *model;
+
 GtkTreeIter iter;
 GtkListStore  *store;
 GtkWidget *speed;
@@ -72,7 +72,7 @@ static int testiranje=1;
 GtkWidget *box2;
 
 GtkWidget *tree;
-GtkWidget *view;
+//GtkWidget *view;
 GtkWidget *view2;
 
 

@@ -240,12 +240,13 @@ get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffie
     if (jiffies_user < jiffies_user_old || jiffies_system < jiffies_system_old)
         return;
 
-    //if (_cpu_count > 0 && jiffies_total_delta > 0)
+   // if (_cpu_count > 0 && jiffies_total_delta > 0)
     if (jiffies_total_delta[4] > 0)
     {
-        printf("total  Delta final %lu user %lu user %lu system\n",jiffies_total_delta[4],jiffies_user,jiffies_system);
-        *cpu_user = (jiffies_user - jiffies_user_old) * 100 / (gfloat)jiffies_total_delta[4];
-        *cpu_system = (jiffies_system - jiffies_system_old) * 100 / (gfloat)jiffies_total_delta[4];
+
+        *cpu_user = (jiffies_user - jiffies_user_old) * 100 / (gdouble)jiffies_total_delta[4];
+        *cpu_system = (jiffies_system - jiffies_system_old) * 100 / (gdouble)jiffies_total_delta[4];
+      //  printf("total  Delta final %lu user %f system %f \n",jiffies_total_delta[4],*cpu_user,*cpu_system);
     }
     else
     {
@@ -253,3 +254,47 @@ get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffie
     }
 
 }
+//gboolean cpu_change2(){
+//FILE *file;
+//gchar *filename = "/proc/stat";
+//gchar buffer[1024];
+//static gulong jiffies_user = 0, jiffies_system = 0, jiffies_total = 0;
+//static gulong jiffies_user_old = 0, jiffies_system_old = 0, jiffies_total_old = 0;
+//gulong user = 0, user_nice = 0, system = 0, idle = 0;
+//
+//if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
+//return FALSE;
+//
+//sscanf (buffer, "cpu\t%lu %lu %lu %lu", &user, &user_nice, &system, &idle);
+//
+//if (_cpu_count == 0)
+//{
+//while (fgets (buffer, 1024, file) != NULL)
+//{
+//if (buffer[0] != 'c' && buffer[1] != 'p' && buffer[2] != 'u')
+//break;
+//_cpu_count += 1;
+//}
+//if (_cpu_count == 0)
+//_cpu_count = 1;
+//}
+//
+//fclose (file);
+//
+//jiffies_user_old = jiffies_user;
+//jiffies_system_old = jiffies_system;
+//jiffies_total_old = jiffies_total;
+//
+//jiffies_user = user + user_nice;
+//jiffies_system = system;
+//jiffies_total = jiffies_user + jiffies_system + idle;
+//
+//
+//if (jiffies_total > jiffies_total_old) {
+//    jiffies_total_delta[4] = jiffies_total - jiffies_total_old;
+//}
+//    printf("jiffies_total_delta %lu\n",jiffies_total_delta[4]);
+//
+//
+//return TRUE;
+//}

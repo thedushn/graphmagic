@@ -9,6 +9,14 @@ static gboolean CPU1_line=TRUE;
 static gboolean CPU2_line=TRUE;
 static gboolean CPU3_line=TRUE;
 
+void close_window() {
+
+
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button_graph),
+                                 FALSE);
+
+
+};
 void graph_button_clicked(GtkWidget *widget){
 
 
@@ -179,16 +187,16 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     if(CPU0_line==TRUE){
 
 
-        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size+1, step);
+        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size, step);
     }
     if(CPU1_line==TRUE){
-        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size+1, step);
+        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size, step);
     }
     if(CPU2_line==TRUE){
-        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size+1, step);
+        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size, step);
     }
     if(CPU3_line==TRUE){
-        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size+1, step);
+        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size, step);
     }
 
 
@@ -222,3 +230,10 @@ void new_button_clicked(GtkWidget *widget) {
 
 
 };
+void new_button_clicked2(){
+
+
+    gtk_widget_hide(hbox1);
+    gtk_widget_hide(hbox3);
+    gtk_widget_hide(hbox2);
+}

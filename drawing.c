@@ -270,109 +270,17 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
 
 
  cr=ispis_interrupta(cr,font_size,duzina,i,peak->ime1,peak->ime2,peak->ime3,peak->ime4);
-//
-//    if(peak->ime4[0]!='\0'){
-//        size_t j=strlen(peak->ime3);
-//        int g=11;//toliko slova moze da stane u jedan red
-//        int q=0;//koliko redova
-//            if(g<j){
-//
-//                j-=g;
-//                q++;
-//            }
-//
-//            if(q==0){
-//
-//                gchar text_int[11];
-//                memset(text_int, 0, 11);
-//                cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-//
-//                for(int s=0 ;s<j;s++){
-//
-//
-//
-//
-//                    text_int[s]=peak->ime3[s];
-//                }
-//                text_int[11]='\0';
-//                cairo_show_text(cr,text_int);
-//            }
-//        else {
-//                for (int r = 0; r <= q; r++) {
-//                    cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size+1);
-//
-//                    gchar text_int[11];
-//                    memset(text_int, 0, 11);
-//                    for (int s = 0; s < g; s++) {
-//
-//                        int w = s + r *g;
-//                        text_int[s] = peak->ime3[w];
-//                    }
-//                    text_int[11] = '\0';
-//                    cairo_show_text(cr, text_int);
-//
-//
-//                }
-//                cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + (q + 1) * font_size+1);
-//                gchar text_int[11];
-//                memset(text_int, 0, 11);
-//                for (int s = 0; s < j; s++) {
-//
-//
-//                    text_int[s] = peak->ime3[s * q];
-//                }
-//
-//                cairo_show_text(cr, text_int);
-//
-//            }
-//
-//        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size+(q+2)*font_size+1);
-//        cairo_show_text(cr,peak->ime4);
-//
-//    }
-//
-//    if(peak->ime4[0]=='\0'){
-//
-//        if(peak->ime3[0]!='\0'){
-//
-//            cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-//            cairo_show_text(cr,peak->ime2);
-//            cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size);
-//            cairo_show_text(cr,peak->ime3);
-//        }
-//        if(peak->ime3[0]=='\0'){
-//
-//
-//            if(peak->ime2[0]!='\0') {
-//
-//                cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-//                cairo_show_text(cr,peak->ime1);
-//                cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size);
-//                cairo_show_text(cr,peak->ime2);
-//                if(peak->ime2[0]=='\0'){
-//
-//
-//                    if(peak->ime1[0]!='\0'){
-//
-//                        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);
-//                        cairo_show_text(cr,peak->ime1);
-//
-//                    }
-//
-//                }
-//            }
-//
-//        }
-//
-//
-//
-//    }
+
 
 
 
 
     cairo_rectangle(cr, 5 * font_size+5*duzina*i , height-font_size, duzina-1, -procent);
     cairo_set_source_rgb(cr,0,0,0);
+    cairo_stroke_preserve(cr);
+    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
+    cairo_move_to(cr,5 * font_size+5*duzina*i,height-font_size);
+    cairo_line_to(cr,5 * font_size+5*duzina*i,0);
     cairo_stroke_preserve(cr);
     cairo_set_source_rgb(cr,1,0,0);
     cairo_fill(cr);

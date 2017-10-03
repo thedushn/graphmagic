@@ -32,6 +32,7 @@
 #endif
 #include "process-tree-view.h" /* for the columns of the model */
 #include "settings.h"
+#include "cpu_usage.h"
 
 #define TIMESTAMP_DELTA 4
 
