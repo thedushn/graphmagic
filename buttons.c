@@ -209,14 +209,17 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     }
 };
 
-void new_button_clicked(GtkWidget *widget) {
+void new_button_clicked(GtkWidget *button,GtkWidget *window) {
 
-    if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))){
+
+    if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))!=FALSE){
 
        // gtk_widget_hide(hbox);
         gtk_widget_hide(hbox1);
         gtk_widget_hide(hbox3);
         gtk_widget_hide(hbox2);
+        gtk_widget_show_all(window);
+       
 
     }
 
@@ -226,6 +229,7 @@ void new_button_clicked(GtkWidget *widget) {
         gtk_widget_show(hbox1);
         gtk_widget_show(hbox3);
         gtk_widget_show(hbox2);
+        gtk_widget_hide(window);
     }
 
 

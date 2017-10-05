@@ -233,7 +233,7 @@ int g=0;
         }
 
 //fclose(file);
-    printf("DEVICES %d ]\n",names->len);
+  //  printf("DEVICES %d ]\n",names->len);
 
 
 }

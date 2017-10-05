@@ -325,7 +325,7 @@ cairo_t *crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int he
         cairo_set_source_rgb(cr, 1, .5, 0);
 
   //  printf("size of array %d\n",history->len);
-    for (int j = 0; j < y; j++) {
+    for (int j = 0; j <y; j++) {
 
 
 

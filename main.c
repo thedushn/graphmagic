@@ -200,7 +200,7 @@ static GtkTreeModel *create_and_fill_model_file_system(void) {
 
                            -1);
 
-        printf(" Final Directory: %s Device: %s used %lu total %lu free %lu type %s available %lu\n",
+       printf(" Final Directory: %s Device: %s used %lu total %lu free %lu type %s available %lu\n",
                devices->directory,
                devices->name,
                devices->used,
@@ -221,7 +221,29 @@ static GtkTreeModel *create_and_fill_model_file_system(void) {
     return GTK_TREE_MODEL (store);
 
 };
+void clean_button(){
+   // gtk_widget_unparent(view2);
+  //
+    if(view2==NULL){
 
+
+    }
+    else{
+
+
+        gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+        view2=NULL;
+    }
+   // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+
+   // view2=NULL;
+
+//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (button4))) {
+//
+//        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button4),FALSE);
+//    }
+
+}
 
 
 
@@ -267,11 +289,11 @@ void graph_refresh(GtkWidget *widget, gboolean CPU) {
 static GtkWidget *create_view_and_model(void) {
     GtkCellRenderer *renderer;
 
-    GtkWidget *view;
+  //  GtkWidget *view;
     GtkTreeViewColumn *column;
-    column = gtk_tree_view_column_new();
+    //column = gtk_tree_view_column_new();
     view = gtk_tree_view_new();
-    g_object_set(column, COLUMN_PROPERTIES, NULL);
+   // g_object_set(column, COLUMN_PROPERTIES, NULL);
 
     //test
     //  column = gtk_tree_view_column_new ();
@@ -322,22 +344,57 @@ static GtkWidget *create_view_and_model(void) {
     return view;
 };
 
-GtkWidget *dev_problems(gboolean SHOW) {
+void dev_problems2(gboolean show) {
+    //  view2=NULL;
+    device(show);
+    printf("why timmy\n");
+    if(view2!=NULL){
+        printf("pokusaj remove\n");
+        // gtk_widget_unparent(view2);
+         gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
 
-    device(SHOW);
-    /* GtkWidget **/ view2 = create_view_and_model_file_system();
-//    swindow2 = gtk_scrolled_window_new(NULL,
-//                                       NULL);
-//    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow2), GTK_POLICY_AUTOMATIC,
-//                                   GTK_POLICY_ALWAYS);
-//    gtk_box_pack_start(GTK_BOX(vbox), swindow2, TRUE, TRUE, 1);
+    }
 
-    gtk_container_add(GTK_CONTAINER(swindow2), view2);
+    if(view2==NULL){
+
+        printf("how the fuck ");
+
+    }
+    view2=NULL;
+    view2 = create_view_and_model_file_system();
+
+
+    gtk_container_add(GTK_CONTAINER(dev_swindow), view2);
 
 
 
-//izbrisati samo treba u dev_button da bude
-    gtk_widget_show_all(swindow2);
+    //  return view2;
+
+};
+void dev_problems(gboolean show) {
+  //  view2=NULL;
+    device(show);
+    printf("why timmy\n");
+    if(view2!=NULL){
+        printf("pokusaj remove\n");
+      // gtk_widget_unparent(view2);
+       // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+
+    }
+
+    if(view2==NULL){
+
+        printf("how the fuck ");
+
+    }
+    view2=NULL;
+   view2 = create_view_and_model_file_system();
+
+
+    gtk_container_add(GTK_CONTAINER(dev_swindow), view2);
+
+
+
     //  return view2;
 
 };
@@ -345,7 +402,9 @@ GtkWidget *dev_problems(gboolean SHOW) {
 void devices_change(GtkWidget *widget) {
 
     if(widget==show_all){
+        clean_button();
         dev_problems(TRUE);
+        gtk_widget_show_all(dev_swindow);
     }
 
 };
@@ -354,9 +413,12 @@ void dev_button_clicked(GtkWidget *widget) {
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
 
-        gtk_container_remove(GTK_CONTAINER(swindow2),view2);
+        new_button_clicked(widget,dev_swindow);
+     //   gtk_container_remove(GTK_CONTAINER(swindow2),view2);
+       view2=NULL;
+       // clean_button();
         dev_problems(FALSE);
-        new_button_clicked(widget);
+       // new_button_clicked(widget);
 
 //          progressbar=gtk_progress_bar_new();
 //          gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar),memory_used);
@@ -365,30 +427,26 @@ void dev_button_clicked(GtkWidget *widget) {
 //          gtk_box_pack_start(GTK_BOX(vbox),progressbar,0,TRUE,0);
 //          gtk_widget_show_all(progressbar);
 
-        //  gtk_container_add(GTK_CONTAINER(swindow1), progressbar);
+        //  gtk_container_add(GTK_CONTAINER(process_swindow), progressbar);
 
-        gtk_widget_show_all(swindow2);
+        gtk_widget_show_all(dev_swindow);
     } else {
-        new_button_clicked(widget);
+        new_button_clicked(widget,dev_swindow);
         // gtk_widget_destroy(progressbar);
         //   gtk_widget_unparent(view2);
         //gtk_widget_destroy(swindow2);
         //  gtk_widget_destroy(view2);
-        gtk_widget_hide(swindow2);
-        gtk_container_remove(GTK_CONTAINER(swindow2),view2);
+        //new_button_clicked(widget);
+     //   gtk_widget_hide(dev_swindow);
+        clean_button();
+     //   gtk_container_remove(GTK_CONTAINER(swindow2),view2);
 
 
 
 
     }
 };
-void clean_button(){
-    //gtk_widget_unparent(view);
-   // gtk_container_remove(GTK_CONTAINER(swindow1),view);
-   //  process_tree();
 
-
-}
 
 static GtkTreeModel *create_and_fill_model(void) {
 
@@ -433,52 +491,91 @@ static GtkTreeModel *create_and_fill_model(void) {
     return GTK_TREE_MODEL (store);
 
 };
+//GtkWidget* process_tree() {
+void process_tree() {
+   // GtkWidget *view;
+  //  gtk_container_remove(GTK_CONTAINER(process_swindow), view);
 
-GtkWidget * process_tree() {
-    GtkWidget *view;
-  //  gtk_container_remove(GTK_CONTAINER(swindow1), view);
+    if(view==NULL){
+
+        printf("why the fuck ");
+    }
+    if(view!=NULL){
+
+        gtk_container_remove(GTK_CONTAINER(process_swindow),view);
+    }
     view = create_view_and_model();
 
 
-    gtk_container_add(GTK_CONTAINER(swindow1), view);
-  //  gtk_container_remove(GTK_CONTAINER(swindow1),view);
-    return view;
-}
 
+   // gtk_container_remove(GTK_CONTAINER(process_swindow),view);
+    gtk_container_add(GTK_CONTAINER(process_swindow),view);
+    gtk_widget_show(process_swindow);
+
+//    GtkWidget* child = find_child(vbox, "process_swindow");
+//    if (child == process_swindow) {
+//        g_print("found it!\n");
+//    } else {
+//        g_print("not found it!\n");
+//    }
+  //  gtk_container_remove(GTK_CONTAINER(process_swindow),view);
+
+};
+
+GtkWidget*
+find_child(GtkWidget* parent, const gchar* name)
+{
+    if (g_strcasecmp(gtk_widget_get_name((GtkWidget*)parent), (gchar*)name) == 0) {
+        return parent;
+    }
+
+    if (GTK_IS_BIN(parent)) {
+        GtkWidget *child = gtk_bin_get_child(GTK_BIN(parent));
+        return find_child(child, name);
+    }
+
+    if (GTK_IS_CONTAINER(parent)) {
+        GList *children = gtk_container_get_children(GTK_CONTAINER(parent));
+        while ((children = g_list_next(children)) != NULL) {
+            GtkWidget* widget = find_child(children->data, name);
+            printf("name %s\n",name);
+            if (widget != NULL) {
+                return widget;
+            }
+        }
+    }
+
+    return NULL;
+}
 void button_clicked_view_process(GtkWidget *widget) {
 
 
-static GtkWidget *view3;
+
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
-//        view = create_view_and_model();
-//        swindow1 = gtk_scrolled_window_new(NULL,
-//                                           NULL);
-//        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
-//                                       GTK_POLICY_ALWAYS);
-//        gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
-//
-//        gtk_container_add(GTK_CONTAINER(swin dow1), view);
-        view3=process_tree();
 
-        gtk_widget_show_all(swindow1);
+            new_button_clicked(widget,process_swindow);
+        process_tree();
+
+        gtk_widget_show_all(process_swindow);
 
 
     } else {
 
 
-        /*gtk_widget_destroy(swindow1);
-        gtk_container_remove(GTK_CONTAINER(vbox),swindow1);
-        gtk_container_remove(GTK_CONTAINER(swindow1),view);
+        new_button_clicked(widget,process_swindow);
+        /*gtk_widget_destroy(process_swindow);
+        gtk_container_remove(GTK_CONTAINER(vbox),process_swindow);
+        gtk_container_remove(GTK_CONTAINER(process_swindow),view);
 
         gtk_widget_destroy(view);*/
 
         /*  g_signal_connect(G_OBJECT(window), "destroy",
                            G_CALLBACK(gtk_main_quit), NULL);*/
      //   gtk_widget_destroy(view);
-        gtk_widget_hide(swindow1);
-        gtk_container_remove(GTK_CONTAINER(swindow1),view3);
-
+       // gtk_widget_hide(process_swindow);
+      //  gtk_widget_unparent(testing);
+        //   gtk_container_remove(GTK_CONTAINER(process_swindow),view3);
 
         /*g_signal_connect(G_OBJECT(view), "destroy",
                          G_CALLBACK(gtk_main_quit), NULL);*/
@@ -556,8 +653,8 @@ void init_timeout() {
     // array_interrupts();
     interrupt_usage();
 
-
-
+//dev_problems2(FALSE);
+   // gtk_container_remove(GTK_CONTAINER(swindow2),view2);
     /* cpu_change(label1);
      cpu_change(label3);
      cpu_change(label4);
@@ -575,8 +672,8 @@ void init_timeout() {
     //  closing();
     //   device();
     //  view2= dev_problems();
-      process_tree();
-   // gtk_container_remove(GTK_CONTAINER(swindow1),view);
+   //   process_tree();
+   // gtk_container_remove(GTK_CONTAINER(process_swindow),view);
 
 
 
@@ -630,7 +727,7 @@ int main(int argc, char *argv[]) {
     }
     for (int i = 0; i <= 3; i++) {
 
-        g_array_set_size(history[i], 240);
+        g_array_set_size(history[i], 240);//max steps 
     }
     for (int i = 4; i <= 5; i++) {
 
@@ -731,14 +828,14 @@ int main(int argc, char *argv[]) {
     label6 = gtk_label_new(NULL);//cpu4
     label7 = gtk_label_new(NULL);//network_received
     label8 = gtk_label_new(NULL);//network_transimited
-    swindow2 = gtk_scrolled_window_new(NULL,
+    dev_swindow = gtk_scrolled_window_new(NULL,
                                        NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow2), GTK_POLICY_AUTOMATIC,
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(dev_swindow), GTK_POLICY_AUTOMATIC,
                                    GTK_POLICY_ALWAYS);
 
-    swindow1 = gtk_scrolled_window_new(NULL,
+    process_swindow = gtk_scrolled_window_new(NULL,
                                        NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(process_swindow), GTK_POLICY_AUTOMATIC,
                                    GTK_POLICY_ALWAYS);
 
 
@@ -787,8 +884,8 @@ int main(int argc, char *argv[]) {
     gtk_box_pack_start(GTK_BOX(hbox3), frame3, 1, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(hbox3), frame4, 1, TRUE, 0);
 
-    gtk_box_pack_start(GTK_BOX(vbox), swindow2, TRUE, TRUE, 1);
-    gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(vbox), dev_swindow, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(vbox), process_swindow, TRUE, TRUE, 1);
 
 //process_tree();
 
@@ -829,8 +926,8 @@ int main(int argc, char *argv[]) {
     gtk_widget_show_all(window);
 
 
-    gtk_widget_hide(swindow2);
-  // gtk_widget_hide(swindow1);
+    gtk_widget_hide(dev_swindow);
+   gtk_widget_hide(process_swindow);
 
 
     gtk_main();

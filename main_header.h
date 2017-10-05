@@ -8,8 +8,8 @@
 #include "gtk/gtk.h"
 
 static GtkWidget *window;
-static GtkWidget *swindow1;
-static GtkWidget *swindow2;
+static GtkWidget *process_swindow;
+static GtkWidget *dev_swindow;
 
 GtkWidget *graph1;
 GtkWidget *graph2;
@@ -72,7 +72,7 @@ static int testiranje=1;
 GtkWidget *box2;
 
 GtkWidget *tree;
-//GtkWidget *view;
+GtkWidget *view;
 GtkWidget *view2;
 
 
@@ -96,7 +96,9 @@ static GtkWidget *create_view_and_model_file_system (void);
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
 static GtkTreeModel *create_and_fill_model_file_system (void);
-GtkWidget * dev_problems(gboolean);
+GtkWidget*
+find_child(GtkWidget* parent, const gchar* name);
+void dev_problems(gboolean);
 
 
 enum{
