@@ -109,7 +109,7 @@ get_cpu_usage (gushort *cpu_count, gfloat *cpu_user, gfloat *cpu_system)
         jiffies_total_delta[4] = jiffies_total - jiffies_total_old;
         *cpu_user = (jiffies_user - jiffies_user_old) * 100 / (gdouble)(jiffies_total_delta[4]);
         *cpu_system = (jiffies_system - jiffies_system_old) * 100 / (gdouble)(jiffies_total_delta[4]);
-        printf("cpu_user %f cpU_system %f",*cpu_user, *cpu_system);
+     //   printf("cpu_user %f cpU_system %f",*cpu_user, *cpu_system);
     }
     *cpu_count = _cpu_count;
 
@@ -353,7 +353,7 @@ GArray *get_task_list2(void) {
     }
 
     g_dir_close (dir);
-printf("%d",task_list->len);
+
     return task_list;
 
 

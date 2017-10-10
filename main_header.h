@@ -124,10 +124,10 @@ enum{
 };
 
 
-//GtkTreeStore *list_store;
+GtkTreeStore *list_store;
 GtkWidget *treeview;
 
-
+gboolean show_cached_as_free; /* Show memory used Cache as free memory */
 GtkTreeSelection *selection;
 gboolean full_view;
 

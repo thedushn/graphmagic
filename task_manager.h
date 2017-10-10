@@ -48,6 +48,9 @@ enum
     COL_RSS,
     COL_CPU,
     COL_VSZ,
+    COL_PPID,
+    COL_STATE,
+    COL_UNAME,
     NUM_COLS
 } ;
 #endif //GTKWORLD_TASKS_C_H
