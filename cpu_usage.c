@@ -137,18 +137,16 @@ void cpu_percent_change(int ncpu){
     cpu_percentage(ncpu);
     //  static guint i= 0;
     gfloat j;
-    //  gfloat *peak;
+  //    gfloat *peak;
     for(int s=0;s<ncpu;s++) {
 
         j = cpu[s].percentage;
         //   j=4*j;
 
         g_array_prepend_val(history[s],  j);
+      //  printf("array size %d\n",history[s]->len);
         if (history[s]->len > 1)
             g_array_remove_index (history[s], history[s]->len - 1);
-        // peak=&g_array_index(history[s],gfloat,i);
-
-        // printf("peak problems: %f \n",*peak);
 
 
     }
@@ -246,7 +244,7 @@ get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffie
 
         *cpu_user = (jiffies_user - jiffies_user_old) * 100 / (gdouble)jiffies_total_delta[4];
         *cpu_system = (jiffies_system - jiffies_system_old) * 100 / (gdouble)jiffies_total_delta[4];
-      //  printf("total  Delta final %lu user %f system %f \n",jiffies_total_delta[4],*cpu_user,*cpu_system);
+       // printf("total  Delta final %lu user %f system %f \n",jiffies_total_delta[4],*cpu_user,*cpu_system);
     }
     else
     {

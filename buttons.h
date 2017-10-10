@@ -15,7 +15,7 @@ void button_clicked_view_process(GtkWidget *widget);
 void graph_button_clicked(GtkWidget *widget);
 void graph_clicked(GtkWidget *widget);
 void close_window();
-void new_button_clicked(GtkWidget *button,GtkWidget *window);
+void pokazi_ili_hide(GtkWidget *button, GtkWidget *window);
 //gboolean graph_clicked(GtkWidget *widget);
 void new_button_clicked2();
 

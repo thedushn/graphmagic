@@ -209,7 +209,7 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     }
 };
 
-void new_button_clicked(GtkWidget *button,GtkWidget *window) {
+void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
 
 
     if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))!=FALSE){
@@ -218,8 +218,8 @@ void new_button_clicked(GtkWidget *button,GtkWidget *window) {
         gtk_widget_hide(hbox1);
         gtk_widget_hide(hbox3);
         gtk_widget_hide(hbox2);
-        gtk_widget_show_all(window);
-       
+    //    gtk_widget_show_all(window);
+
 
     }
 

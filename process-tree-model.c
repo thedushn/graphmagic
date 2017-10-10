@@ -70,7 +70,7 @@ static gboolean			xtm_process_tree_model_iter_parent	(GtkTreeModel *model, GtkTr
 
 static void			xtm_process_tree_model_row_changed	(XtmProcessTreeModel *treemodel, GtkTreePath *path, GtkTreeIter *iter, GtkTreeModel *model);
 static void			xtm_process_tree_model_row_inserted	(XtmProcessTreeModel *treemodel, GtkTreePath *path, GtkTreeIter *iter, GtkTreeModel *model);
-//static void			xtm_process_tree_model_row_has_child_toggled	(XtmProcessTreeModel *treemodel, GtkTreePath *path, GtkTreeIter *iter, GtkTreeModel *model);
+static void			xtm_process_tree_model_row_has_child_toggled	(XtmProcessTreeModel *treemodel, GtkTreePath *path, GtkTreeIter *iter, GtkTreeModel *model);
 static void			xtm_process_tree_model_row_deleted	(XtmProcessTreeModel *treemodel, GtkTreePath *path, GtkTreeModel *model);
 static void			xtm_process_tree_model_rows_reordered	(XtmProcessTreeModel *treemodel, GtkTreePath *path, GtkTreeIter *iter, gint *new_order, GtkTreeModel *model);
 

@@ -30,6 +30,7 @@ struct _Task
     guint64		vsz;
     guint64		rss;
     gshort		prio;
+    gboolean checked;
 };
 
 /**
@@ -39,6 +40,7 @@ struct _Task
 gboolean	get_memory_usage	(guint64 *memory_total, guint64 *memory_free, guint64 *memory_cache, guint64 *memory_buffers, guint64 *swap_total, guint64 *swap_free);
 gboolean	get_cpu_usage		(gushort *cpu_count, gfloat *cpu_user, gfloat *cpu_system);
 gboolean	get_task_list		(GArray *task_list);
+GArray *get_task_list2(void);
 gboolean	pid_is_sleeping		(guint pid);
 
 /**

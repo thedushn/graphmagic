@@ -43,29 +43,7 @@ gint sortiranje(gconstpointer a,gconstpointer b){
     printf(" DRUGI %lu %lu %lu %lu   ime: %s\n", interrupts2->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);*/
 
     return CPUa - CPUb;
-    /*if (CPUa >CPUb){
-        interrupts3.name[0]=interrupts1->name[0];
-        interrupts3.name[1]=interrupts1->name[1];
-        interrupts3.name[2]=interrupts1->name[2];
 
-        interrupts3.CPU0=interrupts1->CPU0;
-        interrupts3.CPU1=interrupts1->CPU1;
-        interrupts3.CPU2=interrupts1->CPU2;
-        interrupts3.CPU3=interrupts1->CPU3;
-        return ;
-    }
-    if(CPUb>CPUa){
-
-        interrupts3.name[0]=interrupts2->name[0];
-        interrupts3.name[1]=interrupts2->name[1];
-        interrupts3.name[2]=interrupts2->name[2];
-
-        interrupts3.CPU0=interrupts2->CPU0;
-        interrupts3.CPU1=interrupts2->CPU1;
-        interrupts3.CPU2=interrupts2->CPU2;
-        interrupts3.CPU3=interrupts2->CPU3;
-        return interrupts3;
-    }*/
 
 
 };
@@ -120,7 +98,7 @@ Interrupts upis_imena(Interrupts *interrupts1,Interrupts interrupts3){
 void upis(GArray *array){
 
 
-    for (int r = 0; r < array->len; r++) {
+    for (int r = 0; r <= array->len; r++) {//// staviti samo manje
         Interrupts interrupts3;
         Interrupts *interrupts1;
         interrupts1 = &g_array_index(array, Interrupts, r);

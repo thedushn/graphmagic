@@ -40,6 +40,7 @@ GtkWidget *button2;
 GtkWidget *button3;
 GtkWidget *button4;
 GtkWidget *button5;
+GtkWidget *button_dev;
 GtkWidget * button_graph;
 GtkWidget * button_graph0;
 GtkWidget * button_graph1;
@@ -51,7 +52,7 @@ GtkWidget *progressbar;
 GtkWidget *box1;
 
 GtkTreeIter iter;
-GtkListStore  *store;
+
 GtkWidget *speed;
 GtkWidget *devices_menu;
 GtkWidget *graph_menu;
@@ -74,6 +75,7 @@ GtkWidget *box2;
 GtkWidget *tree;
 GtkWidget *view;
 GtkWidget *view2;
+GtkWidget *view_dev;
 
 
 gchar *memory_usage_text;
@@ -86,6 +88,7 @@ gchar *network_usage_received_text;
 gchar *network_usage_transimited_text;
 
 GArray *history[9];
+GArray *task_array;
 
 
 void init_timeout();
@@ -98,8 +101,13 @@ static GtkTreeModel *create_and_fill_model (void);
 static GtkTreeModel *create_and_fill_model_file_system (void);
 GtkWidget*
 find_child(GtkWidget* parent, const gchar* name);
-void dev_problems(gboolean);
+void dev_problems(gboolean,GtkWidget *window);
+gboolean show_user_tasks;
+gboolean show_root_tasks;
+gboolean show_other_tasks;
+gint own_uid;
 
+gint tasks_num;
 
 enum{
 
@@ -114,4 +122,33 @@ enum{
 
 
 };
+
+
+//GtkTreeStore *list_store;
+GtkWidget *treeview;
+
+
+GtkTreeSelection *selection;
+gboolean full_view;
+
+
+GtkWidget *mainmenu;
+
+GtkWidget *taskpopup;
+GtkWidget *cpu_usage_progress_bar;
+GtkWidget *mem_usage_progress_bar;
+GtkWidget *cpu_usage_progress_bar_box;
+GtkWidget *mem_usage_progress_bar_box;
+GtkTreeViewColumn *column;
+
+#define COLUMN_NAME	0
+#define COLUMN_PID	1
+#define COLUMN_PPID	2
+#define COLUMN_STATE	3
+#define COLUMN_MEM	4
+#define COLUMN_RSS	5
+#define COLUMN_UNAME	6
+#define COLUMN_CPU   7
+#define COLUMN_CPU2   8
+#define COLUMN_TIME	7
 #endif //GTKWORLD_MAIN_HEADER_H

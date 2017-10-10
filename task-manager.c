@@ -1,8 +1,3 @@
-//
-// Created by dushn on 4.9.17..
-//
-
-#include "task-manager.h"
 /*
  * Copyright (c) 2010 Mike Massonnet, <mmassonnet@xfce.org>
  *
@@ -27,12 +22,13 @@
 #include <gtk/gtk.h>
 
 #include "task-manager.h"
+
+
 #ifdef HAVE_WNCK
 #include "app-manager.h"
 #endif
 #include "process-tree-view.h" /* for the columns of the model */
 #include "settings.h"
-#include "cpu_usage.h"
 
 #define TIMESTAMP_DELTA 4
 
