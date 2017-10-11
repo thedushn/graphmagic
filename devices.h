@@ -54,4 +54,6 @@ struct _Devices {
     glong avail;
 };
 
+
+
 void get_boot(void);

@@ -1,32 +1,26 @@
-#include <cairo.h>
-#include <gtk/gtk.h>
-
-#include <stdlib.h>
-//#include "memory_usage.h"
 #include "cpu_usage.h"
 #include "network_bandwith.h"
 #include "interrupts.h"
 #include "task_manager.h"
-//#include "model.h"
-#include "drawing.h"
-#include "devices.h"
 #include "process-tree-view.h"
-#include "task-manager.h"
-
+#include "drawing.h"
 #include "settings.h"
-#include "process-window.h"
-#include "task-manager.h"
+//#include "devices.h"
+//
+//#include "task-manager.h"
+//
+//#include "process-window.h"
 #include "testing_tree.h"
 #include "memory_usage.h"
+#include "window.h"
 
 
-GtkWidget *menubar;
-GtkWidget *filemenu;
 
-static XtmSettings *settings;
-static GtkWidget *window;
-static GtkStatusIcon *status_icon;
-static XtmTaskManager *task_manager;
+
+//static XtmSettings *settings;
+//static GtkWidget *window;
+//static GtkStatusIcon *status_icon;
+//static XtmTaskManager *task_manager;
 
 
 
@@ -36,25 +30,16 @@ struct Cpu_usage cpu[4];
 struct Network net;
 
 
-
-/*static*/ gchar *track;
-void  array(){
-
-    tasks=g_array_new (FALSE, FALSE, sizeof (Task));
-}
 gboolean CPU0_line = TRUE;
 gboolean CPU1_line = TRUE;
 gboolean CPU2_line = TRUE;
 gboolean CPU3_line = TRUE;
 
-
-static guint t = 1000;
-static guint bjorg = 1;//prvi ispis
-static guint bjorg2 = 1;
-
-
-static guint time_step = 0;
-
+gchar *track;
+//void  array(){
+//
+//    tasks=g_array_new (FALSE, FALSE, sizeof (Task));
+//};
 
 
 
@@ -68,23 +53,6 @@ void measurements();
 
 
 
-static void
-status_icon_popup_menu (GtkStatusIcon *_status_icon, guint button, guint activate_time)
-{
-    static GtkWidget *menu = NULL;
-
-    if (menu == NULL)
-    {
-        GtkWidget *mi;
-        menu = gtk_menu_new ();
-        mi = gtk_image_menu_item_new_from_stock (GTK_STOCK_QUIT, NULL);
-        g_signal_connect (mi, "activate", G_CALLBACK (gtk_main_quit), NULL);
-        gtk_container_add (GTK_CONTAINER (menu), mi);
-        gtk_widget_show_all (menu);
-    }
-
-    gtk_menu_popup (GTK_MENU (menu), NULL, NULL, gtk_status_icon_position_menu, _status_icon, button, activate_time);
-}
 
 GtkWidget *closing(GtkWidget *widget) {
 
@@ -93,7 +61,7 @@ GtkWidget *closing(GtkWidget *widget) {
     model = create_and_fill_model();
    // model=  xtm_process_tree_view_get_model(XTM_PROCESS_TREE_VIEW(widget));
     g_array_free(tasks, TRUE);
-    array();
+   // array();
 
 
     gtk_tree_view_set_model(GTK_TREE_VIEW (widget), model);
@@ -101,7 +69,7 @@ GtkWidget *closing(GtkWidget *widget) {
     return widget;
 };
 
-void dev_button_clicked(GtkWidget *widget);
+
 
 gchar memory_text[20] = "much memory";
 
@@ -261,29 +229,7 @@ static GtkTreeModel *create_and_fill_model_file_system(void) {
     return GTK_TREE_MODEL (store);
 
 };
-void clean_button(){
-   // gtk_widget_unparent(view2);
-  //
-    if(view2==NULL){
 
-
-    }
-    else{
-
-
-        gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
-        view2=NULL;
-    }
-   // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
-
-   // view2=NULL;
-
-//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (button4))) {
-//
-//        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button4),FALSE);
-//    }
-
-}
 
 
 
@@ -431,21 +377,21 @@ void dev_problems(gboolean show,GtkWidget *window) {
 //    }
   //  view2=NULL;
     view2=NULL;
-  // view = create_view_and_model_file_system();
-  // view_dev = create_view_and_model_file_system();
+   view = create_view_and_model_file_system();
+   // view_dev = create_view_and_model_file_system();
    // xtm_task_manager_update_model (task_manager);
    
     view_dev=  xtm_process_tree_view_new();
 
 
 //    view_dev= xtm_process_tree_view_new ();
-//    view_dev=closing(view_dev);
+    view_dev=closing(view_dev);
 
 
 
 
 
-   // gtk_container_add(GTK_CONTAINER(dev_swindow), view2);
+//    gtk_container_add(GTK_CONTAINER(dev_swindow), view2);
     gtk_container_add(GTK_CONTAINER(window), view_dev);
 
 
@@ -754,7 +700,9 @@ void init_timeout() {
     // array_interrupts();
     interrupt_usage();
 GArray *new_task_list;
+    GArray *new_device_list;
     new_task_list =  get_task_list2();
+   // device(TRUE);
 
 
 
@@ -835,6 +783,7 @@ GArray *new_task_list;
 //
 //
    g_array_free(new_task_list, TRUE);
+   // g_array_free(names,TRUE);
 //   g_array_free(tasks, FALSE);
 //    array();
 
@@ -882,10 +831,6 @@ GArray *new_task_list;
 };
 
 
-void quit_activated() {
-    g_print("File -> Quit activated...bye.\n");
-    gtk_main_quit();
-}
 
 int main(int argc, char *argv[]) {
 
@@ -894,11 +839,6 @@ gtk_init(&argc, &argv);
 
 
 
-
-
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-    gtk_window_set_default_size(GTK_WINDOW(window), 1400, 800);
     dev_swindow = gtk_scrolled_window_new(NULL,
                                           NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(dev_swindow), GTK_POLICY_AUTOMATIC,
@@ -909,13 +849,17 @@ gtk_init(&argc, &argv);
                                    GTK_POLICY_ALWAYS);
 
 
+
+
     ncpu = cpu_number();
 
     interface_name();
     array_interrupts();
     //test
-    array();
-    array_devices();
+ //   array();
+    tasks=g_array_new (FALSE, FALSE, sizeof (Task));
+  //  array_devices();
+
     //  get_task_list(tasks);
     tasks_num=0;
     task_array=g_array_new (FALSE, FALSE, sizeof (Task));
@@ -923,7 +867,7 @@ gtk_init(&argc, &argv);
    // names_temp=g_array_new (FALSE, TRUE, sizeof (Devices));
     names_temp=g_array_new (FALSE, FALSE, sizeof (Devices));
     // names_temp=g_array_new (TRUE, FALSE, sizeof (Devices));
-
+    device(TRUE);
     for (int i = 0; i < 8; i++) {
         history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
 
@@ -941,172 +885,14 @@ gtk_init(&argc, &argv);
 
         g_array_set_size(history[i], 240);
     }
-
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);//cpu labels
-    hbox1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);//graph1 graph2 frame1 frame2
-    hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);//izmedju graphova
-    hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);//graph3 graph4 frame3 frame4
-
-    button = gtk_button_new_with_label("refresh rate +");
-    button2 = gtk_button_new_with_label("refresh rate-");
-    button3 = gtk_toggle_button_new_with_label("Process");
-    button4 = gtk_toggle_button_new_with_label("Dev");
-    button_dev = gtk_toggle_button_new_with_label("Dev2");
-    button5 = gtk_toggle_button_new_with_label("NEW");
-    button_graph = gtk_toggle_button_new_with_label("graphs");
-
-    menubar = gtk_menu_bar_new();
-    filemenu = gtk_menu_new();
-      filemenu2 = gtk_menu_new();
-      filemenu3 = gtk_menu_new();
-
-    speed = gtk_menu_item_new_with_label("speed");
-    devices_menu = gtk_menu_item_new_with_label("devices");
-    graph_menu = gtk_menu_item_new_with_label("graphs");
-
-    increase_refresh = gtk_menu_item_new_with_label("+250");
-    decrease_refresh = gtk_menu_item_new_with_label("-250");
-    show_all = gtk_menu_item_new_with_label("All_file_systems");
-  //  GtkWidget *graph_window=gtk_menu_item_new_with_label("graphs");
-    GtkWidget *new = gtk_menu_item_new_with_label("return");
-    GtkWidget *test = gtk_menu_item_new_with_label("flush");
-
-
-
-
-    quit = gtk_menu_item_new_with_label("Quit");
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(speed), filemenu);
-    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), increase_refresh);
-    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), decrease_refresh);
-    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quit);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), speed);
-  //  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), graph_menu);
-
-
-   // gtk_menu_item_set_submenu(GTK_MENU_ITEM(graph_menu), filemenu3);
-
-  //  gtk_menu_shell_append(GTK_MENU_SHELL(filemenu3), graph_window);
-
-
-
-
-
-
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(devices_menu), filemenu2);
-      gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), show_all);
-      gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), new);
-      gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), test);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), devices_menu);
-
-
-    g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(quit_activated), NULL);
-    g_signal_connect(increase_refresh, "activate", G_CALLBACK(inc_refresh), NULL);
-    g_signal_connect(decrease_refresh, "activate", G_CALLBACK(dec_refresh), NULL);
-   // g_signal_connect(show_all, "activate", G_CALLBACK(devices_change), NULL);
-    g_signal_connect(new, "activate", G_CALLBACK(new_button_clicked2), NULL);
-    g_signal_connect(test, "activate", G_CALLBACK(clean_button), NULL);
- //   g_signal_connect(graph_window, "activate", G_CALLBACK(graph_button_clicked), NULL);
-
-    treeview = gtk_tree_view_new ();
-  //treeview=  xtm_process_tree_view_new();
-    gtk_widget_show (treeview);
-
-
-
-    GtkTreeStore *list_store =create_list_store();
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-
-    gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
-
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(list_store));
-
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store), 1, GTK_SORT_ASCENDING);
-    gtk_container_add(GTK_CONTAINER(process_swindow),treeview);
-
-    graph1 = gtk_drawing_area_new();
-    graph2 = gtk_drawing_area_new();
-    graph3 = gtk_drawing_area_new();
-    graph4 = gtk_drawing_area_new();
-
-    frame1 = gtk_frame_new(NULL);
-    frame2 = gtk_frame_new(NULL);
-    frame3 = gtk_frame_new(NULL);
-    frame4 = gtk_frame_new(NULL);
-
-
-    label = gtk_label_new(NULL);//memory
-    label1 = gtk_label_new(NULL);//swap
-    label3 = gtk_label_new(NULL);//cpu1
-    label4 = gtk_label_new(NULL);//cpu2
-    label5 = gtk_label_new(NULL);//cpu3
-    label6 = gtk_label_new(NULL);//cpu4
-    label7 = gtk_label_new(NULL);//network_received
-    label8 = gtk_label_new(NULL);//network_transimited
-
-
-
-    gtk_box_pack_start(GTK_BOX(vbox), hbox, 0, FALSE, 0);
-
-    gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, FALSE);//expand,fill,padding
-    gtk_box_pack_start(GTK_BOX(hbox), button2, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button3, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button5, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button4, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button_dev, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button_graph, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label3, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label4, 0, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(hbox), label5, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label6, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label8, 1, 1, 1);
-    gtk_box_pack_start(GTK_BOX(hbox), label7, 1, TRUE, 1);
-
-
-
-    gtk_box_pack_start(GTK_BOX(vbox), hbox1, 1, 1, 0);
-
-
-    gtk_container_add(GTK_CONTAINER(frame1), graph1);
-    gtk_box_pack_start(GTK_BOX(hbox1), frame1, 1, TRUE, 0);
-
-
-    gtk_box_pack_start(GTK_BOX(vbox), hbox2, 0, FALSE, 0);
-
-  //  gtk_box_pack_start(GTK_BOX(hbox2), button4, 0, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(hbox2), label, 0, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(hbox2), label1, 0, FALSE, 1);
-//    gtk_box_pack_start(GTK_BOX(hbox2), label8, 1, 0, 1);
-//    gtk_box_pack_start(GTK_BOX(hbox2), label7, 1, TRUE, 1);
-
-
-
-    gtk_container_add(GTK_CONTAINER(frame2), graph2);
-    gtk_box_pack_start(GTK_BOX(hbox1), frame2, 1, TRUE, 0);
-
-  //  hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
-
-    gtk_box_pack_start(GTK_BOX(vbox), hbox3, 1, TRUE, 0);
-    gtk_container_add(GTK_CONTAINER(frame3), graph3);
-    gtk_container_add(GTK_CONTAINER(frame4), graph4);
-    gtk_box_pack_start(GTK_BOX(hbox3), frame3, 1, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(hbox3), frame4, 1, TRUE, 0);
-
-    gtk_box_pack_start(GTK_BOX(vbox), dev_swindow, TRUE, TRUE, 1);
-    gtk_box_pack_start(GTK_BOX(vbox), process_swindow, TRUE, TRUE, 1);
-
-//process_tree();
-
-    g_signal_connect(G_OBJECT(window), "destroy",
-                     G_CALLBACK(gtk_main_quit), NULL);
-
+    window= main_window(dev_swindow,process_swindow);
     g_signal_connect(button, "clicked", G_CALLBACK(inc_refresh), NULL);
     g_signal_connect(button2, "clicked", G_CALLBACK(dec_refresh), NULL);
     g_signal_connect(button3, "toggled", G_CALLBACK(button_clicked_view_process), NULL);
     g_signal_connect(button4, "toggled", G_CALLBACK(dev_button_clicked), NULL);
     g_signal_connect(button_dev, "toggled", G_CALLBACK(dev_button_clicked2), NULL);
     g_signal_connect(button5, "toggled", G_CALLBACK(pokazi_ili_hide), NULL);
+
     g_signal_connect(button_graph, "clicked", G_CALLBACK(graph_button_clicked), NULL);
     g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
 
@@ -1124,21 +910,16 @@ gtk_init(&argc, &argv);
 
     g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
 
-
-
-    gtk_container_add(GTK_CONTAINER(window), vbox);
-
-    gtk_window_set_title(GTK_WINDOW(window), "lines mother do you see it ");
-
     init_timeout();
+
 
 
 
     gtk_widget_show_all(window);
 
 
-    gtk_widget_hide(dev_swindow);
-   gtk_widget_hide(process_swindow);
+   // gtk_widget_hide(dev_swindow);
+ //  gtk_widget_hide(process_swindow);
 
 
     gtk_main();

@@ -5,7 +5,11 @@
 #ifndef GTKWORLD_MAIN_HEADER_H
 #define GTKWORLD_MAIN_HEADER_H
 
-#include "gtk/gtk.h"
+#include <cairo.h>
+#include <gtk/gtk.h>
+
+#include <stdlib.h>
+
 
 static GtkWidget *window;
 static GtkWidget *process_swindow;
@@ -35,44 +39,27 @@ GtkWidget *frame2;
 GtkWidget *frame3;
 GtkWidget *frame4;
 
-GtkWidget *button;
-GtkWidget *button2;
-GtkWidget *button3;
-GtkWidget *button4;
-GtkWidget *button5;
-GtkWidget *button_dev;
-GtkWidget * button_graph;
-GtkWidget * button_graph0;
-GtkWidget * button_graph1;
-GtkWidget * button_graph2;
-GtkWidget * button_graph3;
-GSList *group;
+
 GtkWidget *window2;
-GtkWidget *progressbar;
-GtkWidget *box1;
-
 GtkTreeIter iter;
-
 GtkWidget *speed;
 GtkWidget *devices_menu;
-GtkWidget *graph_menu;
 GtkWidget *filemenu2;
-GtkWidget *filemenu3;
 GtkWidget *quit;
 GtkWidget *increase_refresh;
 GtkWidget *decrease_refresh;
 GtkWidget *show_all;
-#define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
 
 
 
 
 
 
-static int testiranje=1;
+
+
 GtkWidget *box2;
 
-GtkWidget *tree;
+
 GtkWidget *view;
 GtkWidget *view2;
 GtkWidget *view_dev;
@@ -94,18 +81,19 @@ GArray *task_array;
 void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
 void close_window();
-//void create_view_and_model_file_system (void);
+
 static GtkWidget *create_view_and_model_file_system (void);
 static GtkWidget *create_view_and_model (void);
 static GtkTreeModel *create_and_fill_model (void);
 static GtkTreeModel *create_and_fill_model_file_system (void);
-GtkWidget*
-find_child(GtkWidget* parent, const gchar* name);
 void dev_problems(gboolean,GtkWidget *window);
 gboolean show_user_tasks;
 gboolean show_root_tasks;
 gboolean show_other_tasks;
 gint own_uid;
+void dec_refresh();
+void inc_refresh();
+void dev_button_clicked(GtkWidget *widget);
 
 gint tasks_num;
 
@@ -125,10 +113,10 @@ enum{
 
 
 GtkTreeStore *list_store;
-GtkWidget *treeview;
+
 
 gboolean show_cached_as_free; /* Show memory used Cache as free memory */
-GtkTreeSelection *selection;
+
 gboolean full_view;
 
 
@@ -151,4 +139,14 @@ GtkTreeViewColumn *column;
 #define COLUMN_CPU   7
 #define COLUMN_CPU2   8
 #define COLUMN_TIME	7
+
+
+
+static guint t = 1000;
+static guint bjorg = 1;//prvi ispis
+static guint bjorg2 = 1;
+
+
+static guint time_step = 0;
+
 #endif //GTKWORLD_MAIN_HEADER_H

@@ -3,7 +3,7 @@
 //
 
 #include "network_bandwith.h"
-#include "main_header.h"
+
 struct  Network net;
 static int broj;
 gchar  name_buffer[10];

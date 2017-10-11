@@ -4,7 +4,7 @@
 
 #include "cpu_usage.h"
 
-#include "main_header.h"
+
 
 struct Cpu_usage cpu[4];
 static gushort _cpu_count = 0;

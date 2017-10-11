@@ -3,8 +3,8 @@
 //
 
 #include "testing_tree.h"
-#include "main_header.h"
-#include "task-manager.h"
+
+
 void handle_task_menu(GtkWidget *widget, gchar *signal)
 {
     if(signal != NULL)
@@ -72,91 +72,91 @@ void on_quit(void)
 
     gtk_main_quit();
 }
-GtkWidget* create_main_window (void)
-{
-    GtkWidget *window;
-    GtkWidget *vbox1;
-    GtkWidget *bbox1;
-    GtkWidget *scrolledwindow1;
-    GtkWidget *button1;
-    GtkWidget *button2;
-    GtkWidget *button3;
-
-    GtkWidget *system_info_box;
-
-
-    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW (window), ("xfce4-taskmanager"));
-    gtk_window_set_default_size (GTK_WINDOW (window), 1400, 1400);
-
-    vbox1 = gtk_vbox_new (FALSE, 10);
-    gtk_widget_show (vbox1);
-    gtk_container_add (GTK_CONTAINER (window), vbox1);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox1), 10);
-
-    system_info_box = gtk_hbox_new (FALSE, 10);
-    gtk_widget_show (system_info_box);
-    gtk_box_pack_start (GTK_BOX (vbox1), system_info_box, FALSE, TRUE, 0);
-
-    cpu_usage_progress_bar_box = gtk_event_box_new ();
-    cpu_usage_progress_bar = gtk_progress_bar_new ();
-    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (cpu_usage_progress_bar), ("cpu usage"));
-    gtk_widget_show (cpu_usage_progress_bar);
-    gtk_widget_show (cpu_usage_progress_bar_box);
-    gtk_container_add (GTK_CONTAINER (cpu_usage_progress_bar_box), cpu_usage_progress_bar);
-    gtk_box_pack_start (GTK_BOX (system_info_box), cpu_usage_progress_bar_box, TRUE, TRUE, 0);
-
-    mem_usage_progress_bar_box = gtk_event_box_new ();
-    mem_usage_progress_bar = gtk_progress_bar_new ();
-    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (mem_usage_progress_bar), ("memory usage"));
-    gtk_widget_show (mem_usage_progress_bar);
-    gtk_widget_show (mem_usage_progress_bar_box);
-    gtk_container_add (GTK_CONTAINER (mem_usage_progress_bar_box), mem_usage_progress_bar);
-    gtk_box_pack_start (GTK_BOX (system_info_box), mem_usage_progress_bar_box, TRUE, TRUE, 0);
-
-    scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-    gtk_widget_show (scrolledwindow1);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    gtk_box_pack_start (GTK_BOX (vbox1), scrolledwindow1, TRUE, TRUE, 0);
-    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
-
-    treeview = gtk_tree_view_new ();
-    gtk_widget_show (treeview);
-    gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview);
-
-    create_list_store();
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(list_store));
-
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store), 1, GTK_SORT_ASCENDING);
-
-    bbox1 = gtk_hbutton_box_new();
-    gtk_box_pack_start(GTK_BOX(vbox1), bbox1, FALSE, TRUE, 0);
-    gtk_widget_show (bbox1);
-
-    button2 = gtk_button_new_from_stock ("gtk-preferences");
-    gtk_widget_show (button2);
-    gtk_box_pack_start (GTK_BOX (bbox1), button2, FALSE, FALSE, 0);
-
-    button3 = gtk_toggle_button_new_with_label (("more details"));
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button3), full_view);
-    gtk_widget_show (button3);
-    gtk_box_pack_start (GTK_BOX (bbox1), button3, FALSE, FALSE, 0);
-
-    button1 = gtk_button_new_from_stock ("gtk-quit");
-    gtk_widget_show (button1);
-    gtk_box_pack_start (GTK_BOX (bbox1), button1, FALSE, FALSE, 0);
-
-    g_signal_connect ((gpointer) window, "destroy", G_CALLBACK (on_quit), NULL);
-    g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
-    g_signal_connect ((gpointer) button1, "clicked",  G_CALLBACK (on_quit),  NULL);
-    g_signal_connect ((gpointer) button2, "button_release_event",  G_CALLBACK (on_button1_button_press_event),  NULL);
-    g_signal_connect ((gpointer) button3, "toggled",  G_CALLBACK (on_button3_toggled_event),  NULL);
-
-    return window;
-}
+//GtkWidget* create_main_window (void)
+//{
+//    GtkWidget *window;
+//    GtkWidget *vbox1;
+//    GtkWidget *bbox1;
+//    GtkWidget *scrolledwindow1;
+//    GtkWidget *button1;
+//    GtkWidget *button2;
+//    GtkWidget *button3;
+//
+//    GtkWidget *system_info_box;
+//
+//
+//    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+//    gtk_window_set_title (GTK_WINDOW (window), ("xfce4-taskmanager"));
+//    gtk_window_set_default_size (GTK_WINDOW (window), 1400, 1400);
+//
+//    vbox1 = gtk_vbox_new (FALSE, 10);
+//    gtk_widget_show (vbox1);
+//    gtk_container_add (GTK_CONTAINER (window), vbox1);
+//    gtk_container_set_border_width (GTK_CONTAINER (vbox1), 10);
+//
+//    system_info_box = gtk_hbox_new (FALSE, 10);
+//    gtk_widget_show (system_info_box);
+//    gtk_box_pack_start (GTK_BOX (vbox1), system_info_box, FALSE, TRUE, 0);
+//
+//    cpu_usage_progress_bar_box = gtk_event_box_new ();
+//    cpu_usage_progress_bar = gtk_progress_bar_new ();
+//    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (cpu_usage_progress_bar), ("cpu usage"));
+//    gtk_widget_show (cpu_usage_progress_bar);
+//    gtk_widget_show (cpu_usage_progress_bar_box);
+//    gtk_container_add (GTK_CONTAINER (cpu_usage_progress_bar_box), cpu_usage_progress_bar);
+//    gtk_box_pack_start (GTK_BOX (system_info_box), cpu_usage_progress_bar_box, TRUE, TRUE, 0);
+//
+//    mem_usage_progress_bar_box = gtk_event_box_new ();
+//    mem_usage_progress_bar = gtk_progress_bar_new ();
+//    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (mem_usage_progress_bar), ("memory usage"));
+//    gtk_widget_show (mem_usage_progress_bar);
+//    gtk_widget_show (mem_usage_progress_bar_box);
+//    gtk_container_add (GTK_CONTAINER (mem_usage_progress_bar_box), mem_usage_progress_bar);
+//    gtk_box_pack_start (GTK_BOX (system_info_box), mem_usage_progress_bar_box, TRUE, TRUE, 0);
+//
+//    scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+//    gtk_widget_show (scrolledwindow1);
+//    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+//    gtk_box_pack_start (GTK_BOX (vbox1), scrolledwindow1, TRUE, TRUE, 0);
+//    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
+//
+//    treeview = gtk_tree_view_new ();
+//    gtk_widget_show (treeview);
+//    gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview);
+//
+//    create_list_store();
+//
+//    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+//
+//    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(list_store));
+//
+//    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store), 1, GTK_SORT_ASCENDING);
+//
+//    bbox1 = gtk_hbutton_box_new();
+//    gtk_box_pack_start(GTK_BOX(vbox1), bbox1, FALSE, TRUE, 0);
+//    gtk_widget_show (bbox1);
+//
+//    button2 = gtk_button_new_from_stock ("gtk-preferences");
+//    gtk_widget_show (button2);
+//    gtk_box_pack_start (GTK_BOX (bbox1), button2, FALSE, FALSE, 0);
+//
+//    button3 = gtk_toggle_button_new_with_label (("more details"));
+//    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button3), full_view);
+//    gtk_widget_show (button3);
+//    gtk_box_pack_start (GTK_BOX (bbox1), button3, FALSE, FALSE, 0);
+//
+//    button1 = gtk_button_new_from_stock ("gtk-quit");
+//    gtk_widget_show (button1);
+//    gtk_box_pack_start (GTK_BOX (bbox1), button1, FALSE, FALSE, 0);
+//
+//    g_signal_connect ((gpointer) window, "destroy", G_CALLBACK (on_quit), NULL);
+//    g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
+//    g_signal_connect ((gpointer) button1, "clicked",  G_CALLBACK (on_quit),  NULL);
+//    g_signal_connect ((gpointer) button2, "button_release_event",  G_CALLBACK (on_button1_button_press_event),  NULL);
+//    g_signal_connect ((gpointer) button3, "toggled",  G_CALLBACK (on_button3_toggled_event),  NULL);
+//
+//    return window;
+//}
 
 GtkTreeStore * create_list_store(void)
 {
@@ -219,8 +219,68 @@ GtkTreeStore * create_list_store(void)
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 
 
+
     // change_list_store_view();
     return list_store;
+}
+GtkTreeStore * create_list_store_dev(void)
+{
+    GtkCellRenderer *cell_renderer;
+    GtkTreeViewColumn *column;
+
+    list_store1 = gtk_tree_store_new(NUM_COLS_DEV, G_TYPE_STRING, G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+
+    cell_renderer = gtk_cell_renderer_text_new();
+
+
+    column = gtk_tree_view_column_new_with_attributes(("Devices"), cell_renderer, "text",COL_DEV, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_DEV);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_DEV, compare_string_list_item, (void*)COL_DEV, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    column = gtk_tree_view_column_new_with_attributes(("Available"), cell_renderer, "text",COL_AVAILABLE, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_AVAILABLE);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store1), COL_AVAILABLE, compare_int_list_item_size, (void*)COL_AVAILABLE, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    column = gtk_tree_view_column_new_with_attributes(("Used"), cell_renderer, "text", COL_USED, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_USED);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_USED, compare_int_list_item, (void *)COL_USED, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    column = gtk_tree_view_column_new_with_attributes(("Type"), cell_renderer, "text", COL_TYPE, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_TYPE);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_TYPE, compare_string_list_item, (void *)COL_TYPE, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    column = gtk_tree_view_column_new_with_attributes(("Directory"), cell_renderer, "text", COL_DIR, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_DIR);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_DIR, compare_int_list_item, (void *)COL_DIR, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    column = gtk_tree_view_column_new_with_attributes(("Total"), cell_renderer, "text", COL_TOTAL, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_TOTAL);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_TOTAL, compare_int_list_item,(void *) COL_TOTAL, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    column = gtk_tree_view_column_new_with_attributes(("Free"), cell_renderer, "text", COL_FREE, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_FREE);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_FREE, compare_int_list_item, (void *)COL_FREE, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+
+
+
+
+    // change_list_store_view();
+    return list_store1;
 }
 void add_new_list_item(gint i)
 {
@@ -441,6 +501,59 @@ void fill_list_item(gint i, GtkTreeIter *iter)
 
 
 
+void fill_list_item_dev(gint i, GtkTreeIter *iter)
+{
+
+
+
+
+    gchar *total, *avail, *used, *free,*directory;
+
+    if(iter != NULL)
+    {
+        Devices *devices = &g_array_index(names, Devices, i);
+        gchar *name = g_strdup_printf("%s", devices->name);
+        used = g_format_size_full((guint64) devices->used, G_FORMAT_SIZE_IEC_UNITS);
+        total = g_format_size_full((guint64) devices->total, G_FORMAT_SIZE_IEC_UNITS);
+        avail = g_format_size_full((guint64) devices->avail, G_FORMAT_SIZE_IEC_UNITS);
+        free = g_format_size_full((guint64) devices->free, G_FORMAT_SIZE_IEC_UNITS);
+        directory=g_strdup_printf("%s", devices->directory);
+
+
+        gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_DEV, name, -1);
+       // gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_DEV, name, -1);
+        gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_AVAILABLE, avail, -1);
+        gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_USED, used, -1);
+        gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_FREE, free, -1);
+        gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_TOTAL, total, -1);
+        gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_DIR, directory, -1);
+
+
+
+//        gtk_list_store_set(list_store1, &iter,
+//                           COL_DEV, devices->name,
+//                           COL_DIR, devices->directory,
+//                           COL_TYPE, devices->type,
+//                           COL_TOTAL, total,
+//                           COL_AVAILABLE, avail,
+//                           COL_USED, used,
+//                           COL_FREE, free,
+//
+//
+//                           -1);
+
+
+
+        g_free(name);
+        g_free(used);
+        g_free(total);
+        g_free(avail);
+        g_free(free);
+        g_free(directory);
+
+    }
+}
+//
 
 
 
@@ -479,6 +592,35 @@ gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter 
 
     gint i1 = 0;
     gint i2 = 0;
+
+    if(s1 != NULL)
+        i1 = atoi(s1);
+
+    if(s2 != NULL)
+        i2 = atoi(s2);
+
+    ret = i1 - i2;
+
+    if(s1 != NULL)
+        g_free(s1);
+    if(s2 != NULL)
+        g_free(s2);
+
+    return ret;
+}
+gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column)
+{
+    gchar *s1 = "";
+    gchar *s2 = "";
+
+    gint ret = 0;
+
+    gtk_tree_model_get(model, iter1, column, &s1, -1);
+    gtk_tree_model_get(model, iter2, column, &s2, -1);
+
+    gint i1 = 0;
+    gint i2 = 0;
+    
 
     if(s1 != NULL)
         i1 = atoi(s1);

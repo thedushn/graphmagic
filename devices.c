@@ -97,50 +97,12 @@ void poredjenje_dev(GArray *array){
         printf("comparing worked  %d\n",g);
 
 
-//        devices =
-//
-//        g_array_append_val(ginterrupts_main,devices);
+
 
 
     }
 
-//    g_array_sort(ginterrupts_main,(GCompareFunc)sortiranje);
-//
-//
-//    for (int r = 0; r < array->len; r++) {
-//
-//        devices1=&g_array_index(ginterrupts_main,Interrupts,r);
-//        if(r>=array->len-10 && r<array->len){
-//            Interrupts interrupts4;
-//
-//            interrupts4.used=devices1->used;
-//            interrupts4.total=devices1->total;
-//            interrupts4.free=devices1->free;
-//            interrupts4.avail=devices1->avail;
-//            interrupts4.name[0]=devices1->name[0];
-//            interrupts4.name[1]=devices1->name[1];
-//            interrupts4.name[2]=devices1->name[2];
-//            interrupts4.name[3]=devices1->name[3];
-//
-//            interrupts4 = upis_imena(devices1,interrupts4);
-//
-//
-//            g_array_append_val(ginterrupts_final,interrupts4);
-//            if (ginterrupts_final->len > 10) {
-//                g_array_remove_index(ginterrupts_final, ginterrupts_final->len - 11);
-//            }
-//        }
-//    }
-//
-//
-//    for(int i=0 ;i<ginterrupts_final->len;i++){
-//        Interrupts *interrupts5;
-//        interrupts5=&g_array_index(ginterrupts_final,Interrupts,i);
-//        //    printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts5->name,interrupts5->CPU0,interrupts5->CPU1,interrupts5->CPU2,interrupts5->CPU3,interrupts5->ime1,interrupts5->ime2,interrupts5->ime3,interrupts5->ime4);
-//    }
-//    g_array_free(ginterrupts_temp,TRUE);
-//    ginterrupts_temp=g_array_new(FALSE,TRUE,sizeof(Interrupts));
-//    upis(array);
+
 
 
 }
@@ -245,6 +207,7 @@ void device(gboolean show){
 
    char *filename="/dev";
 
+    names=g_array_new (FALSE, FALSE, sizeof (Devices));
     if(show==TRUE){
 
         mountlist("",0,TRUE);
@@ -254,7 +217,7 @@ void device(gboolean show){
     }
 
     printf("pre slanja u beli svet  %d\n",names->len);
-    printanje_dev(names);
+    //printanje_dev(names);
 
 
 }
@@ -318,11 +281,7 @@ int g=0;
         else{
             while( fgets (buffer, 1024, file) != NULL){
 
-
-
                 sscanf(buffer,"%255s %255s %255s",name_test,mounted,type);
-
-
 
                 for(int i=0 ;i<j;i++){
 
@@ -335,11 +294,7 @@ int g=0;
                                 //   printf("path1 %s name_test %s g %d j %d \n",path,name_test,g,(int)j);
                                 for(int t= 0;t<=j;t++){
 
-
                                     devices.name[t]=name_test[t];
-
-
-
                                 }
 
                                 for(int h=0;h<256;h++){
@@ -376,15 +331,9 @@ int g=0;
                         break;
                     }
 
-
                 }
-
-
 
             }
         }
-
-
-
 
 }

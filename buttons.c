@@ -3,7 +3,7 @@
 //
 
 #include "buttons.h"
-#include "drawing.h"
+
 static gboolean CPU0_line=TRUE;
 static gboolean CPU1_line=TRUE;
 static gboolean CPU2_line=TRUE;
@@ -240,4 +240,27 @@ void new_button_clicked2(){
     gtk_widget_hide(hbox1);
     gtk_widget_hide(hbox3);
     gtk_widget_hide(hbox2);
+}
+void clean_button(){
+    // gtk_widget_unparent(view2);
+    //
+    if(view2==NULL){
+
+
+    }
+    else{
+
+
+        gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+        view2=NULL;
+    }
+    // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+
+    // view2=NULL;
+
+//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (button4))) {
+//
+//        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button4),FALSE);
+//    }
+
 }
