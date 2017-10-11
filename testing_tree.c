@@ -612,16 +612,23 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 {
     gchar *s1 = "";
     gchar *s2 = "";
+    gchar *z ="";
+
 
     gint ret = 0;
 
     gtk_tree_model_get(model, iter1, column, &s1, -1);
     gtk_tree_model_get(model, iter2, column, &s2, -1);
 
+  z=  g_strrstr (s1+1, ",");
+
     gint i1 = 0;
     gint i2 = 0;
-    
-
+    gint i3 = 0;
+static gint i4=0;
+    if(z!=NULL)
+        i3 = atoi(z+1);
+        i4+=i3;
     if(s1 != NULL)
         i1 = atoi(s1);
 
