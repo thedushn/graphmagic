@@ -32,7 +32,7 @@ typedef struct _Devices Devices;
 typedef struct _Memory Memory;
 void try();
 void readDir(char *path);
-void device(gboolean show);
+GArray * device(gboolean show);
 void get_names();
 void mountlist(char *path,size_t j,gboolean mount);
 void array_devices();
@@ -52,6 +52,7 @@ struct _Devices {
     glong total;
     glong free;
     glong avail;
+    gboolean checked;
 };
 
 

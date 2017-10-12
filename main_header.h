@@ -113,6 +113,7 @@ enum{
 
 
 GtkTreeStore *list_store;
+GtkTreeStore *list_store1;
 
 
 gboolean show_cached_as_free; /* Show memory used Cache as free memory */

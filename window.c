@@ -99,33 +99,33 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
     gtk_container_add(GTK_CONTAINER(process_swindow),treeview);
 
 
-   treeview = gtk_tree_view_new ();
+   treeview1 = gtk_tree_view_new ();
 
-    gtk_widget_show (treeview);
+    gtk_widget_show (treeview1);
 
 
 
     list_store1 =create_list_store_dev();
 
-
-     for(int i=0 ;i<names->len;i++){
-      GtkTreeIter iter;
-         printf("%d \n",i);
-         gtk_tree_store_append(GTK_TREE_STORE(list_store1), &iter, NULL);
-         fill_list_item_dev(i, &iter);
-                               }
+//
+//     for(int i=0 ;i<names->len;i++){
+//      GtkTreeIter iter;
+//         printf("%d \n",i);
+//         gtk_tree_store_append(GTK_TREE_STORE(list_store1), &iter, NULL);
+//         fill_list_item_dev(i, &iter);
+//                               }
 //        for(int i=0 ;i<names->len;i++){
 //    printf("i %d",i);
 //    add_new_list_item(i);
 //     }
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview1));
 
 
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(list_store1));
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), GTK_TREE_MODEL(list_store1));
    // g_object_unref(list_store1);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store1), 1, GTK_SORT_ASCENDING);
-   gtk_container_add(GTK_CONTAINER(dev_swindow),treeview);
+   gtk_container_add(GTK_CONTAINER(dev_swindow),treeview1);
 
 
 

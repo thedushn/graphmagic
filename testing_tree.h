@@ -11,13 +11,16 @@
 #include <stdlib.h>
 #include "devices.h"
 #include "main_header.h"
-GtkTreeStore *list_store1;
+//GtkTreeStore *list_store1;
 
 GtkTreeSelection *selection;
 GtkWidget *treeview;
+GtkWidget *treeview1;
+
 gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 
 void fill_list_item(gint i, GtkTreeIter *iter);
+void refresh_list_item_device(gint i);
 void refresh_list_item(gint i);
 gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *event);
 static void

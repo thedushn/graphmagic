@@ -203,11 +203,11 @@ void array_devices(){
 
 };
 
-void device(gboolean show){
+GArray *device(gboolean show){
 
    char *filename="/dev";
 
-    names=g_array_new (FALSE, FALSE, sizeof (Devices));
+ // GArray*  names=g_array_new (FALSE, FALSE, sizeof (Devices));
     if(show==TRUE){
 
         mountlist("",0,TRUE);
@@ -218,7 +218,7 @@ void device(gboolean show){
 
     printf("pre slanja u beli svet  %d\n",names->len);
     //printanje_dev(names);
-
+return names;
 
 }
 
