@@ -76,6 +76,7 @@ gchar *network_usage_transimited_text;
 
 GArray *history[9];
 GArray *task_array;
+GArray *names_array;
 
 
 void init_timeout();
@@ -96,6 +97,7 @@ void inc_refresh();
 void dev_button_clicked(GtkWidget *widget);
 
 gint tasks_num;
+gint dev_num;
 
 enum{
 

@@ -206,8 +206,8 @@ void array_devices(){
 GArray *device(gboolean show){
 
    char *filename="/dev";
-
- // GArray*  names=g_array_new (FALSE, FALSE, sizeof (Devices));
+//GArray *names;
+  names=g_array_new (FALSE, FALSE, sizeof (Devices));
     if(show==TRUE){
 
         mountlist("",0,TRUE);
@@ -216,7 +216,7 @@ GArray *device(gboolean show){
         readDir(filename);
     }
 
-    printf("pre slanja u beli svet  %d\n",names->len);
+    //printf("pre slanja u beli svet  %d\n",names->len);
     //printanje_dev(names);
 return names;
 

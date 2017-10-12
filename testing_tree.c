@@ -269,6 +269,14 @@ void add_new_list_item(gint i)
 
     fill_list_item(i, &iter);
 }
+void add_new_list_item_dev(gint i)
+{
+    GtkTreeIter iter;
+
+    gtk_tree_store_append(GTK_TREE_STORE(list_store1), &iter, NULL);
+
+    fill_list_item_device(i, &iter);
+}
 /* change the task view (user, root, other) */
 void change_task_view(void)
 {
@@ -480,7 +488,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
 
 
 
-void fill_list_item_dev(gint i, GtkTreeIter *iter)
+void fill_list_item_device(gint i, GtkTreeIter *iter)
 {
 
 
@@ -527,17 +535,26 @@ void fill_list_item_dev(gint i, GtkTreeIter *iter)
 void refresh_list_item_device(gint i)
 {
     GtkTreeIter iter;
+    static gint g=0;
     gboolean valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(list_store1), &iter);
     Devices *device = &g_array_index(names, Devices, i);
     while(valid)
     {
         gchar *str_data = "";
-        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 0, &str_data, -1);
+//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data, -1);
+//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 2, &str_data, -1);
+//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 3, &str_data, -1);
+//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 4, &str_data, -1);
+//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 5, &str_data, -1);
+ //      gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 6, &str_data, -1);
 
-        if(device->directory == str_data)
+        if(strcmp(device->name , str_data)==0)
         {
             g_free(str_data);
-            fill_list_item(i, &iter);
+            printf("%d",g);
+            fill_list_item_device(i, &iter);
+            g++;
             break;
         }
 
@@ -654,7 +671,7 @@ gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter 
     gint i2 = 0;
 
     if(s1 != NULL)
-        i1 = atoi(s1);
+        i1= atoi(s1);
 
     if(s2 != NULL)
         i2 = atoi(s2);
@@ -688,8 +705,8 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 
   z=  g_strrstr (s1, ",");
   z1=  g_strrstr (s2, ",");
-  size= g_strstr_len (s1, sizeof(s1)," ") ; //prvi razmak
-  size1=  g_strstr_len (s2, sizeof(s2)," ") ;
+  size= g_strstr_len (s1, strlen(s1)," ") ; //prvi razmak
+  size1=  g_strstr_len (s2, strlen(s2)," ") ;
     size=size+1;//pomerimo za jedan
     size1=size1+1;
     gint i1 = 0;
@@ -797,6 +814,27 @@ void remove_list_item(gint pid)
         gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, 1, &str_data, -1);
 
         if(pid == atoi(str_data))
+        {
+            g_free(str_data);
+            gtk_tree_store_remove(GTK_TREE_STORE(list_store), &iter);
+            break;
+        }
+
+        g_free(str_data);
+        valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(list_store), &iter);
+    }
+}
+void remove_list_item_device(gchar *directory)
+{
+    GtkTreeIter iter;
+    gboolean valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(list_store1), &iter);
+
+    while(valid)
+    {
+        gchar *str_data = "";
+        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data, -1);
+
+        if(directory == (str_data))
         {
             g_free(str_data);
             gtk_tree_store_remove(GTK_TREE_STORE(list_store), &iter);
