@@ -685,11 +685,22 @@ void init_timeout2() {
 
 
 }
+gboolean TESTIRANJE=FALSE;
+void CHANGE(){
+
+
+    //TESTIRANJE=TRUE;
+
+
+
+    TESTIRANJE = !TESTIRANJE;
+    init_timeout();
+}
 
 
 void init_timeout() {
 
-    gint i,j;
+    gint i=0,j=0;
    // gchar *cpu_tooltip, *mem_tooltip;
     gdouble cpu_usage;
     guint num_cpus;
@@ -701,12 +712,12 @@ void init_timeout() {
 GArray *new_task_list;
     GArray *new_device_list;
     new_task_list =  get_task_list2();
-    new_device_list   = device(FALSE);
+    new_device_list   = device(TESTIRANJE);
 
- //   printf("names lenght %d \n",new_device_list->len);
-   // printf("names lenght %d \n",new_device_list->len);
+  //  printf("new lenght %d \n",new_device_list->len);
+  //  printf("names lenght %d \n",names_array->len);
 
-    for(i = 0; i < names_array->len; i++)
+    for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
         Devices *tmp = &g_array_index(names_array, Devices, i);
         tmp->checked = FALSE;
@@ -715,30 +726,34 @@ GArray *new_task_list;
         {
             Devices *new_tmp = &g_array_index(new_device_list, Devices, j);
 
-            if(strcmp(new_tmp->name, tmp->name)==0)
+            if(strcmp(new_tmp->directory, tmp->directory)==0 &&strcmp(new_tmp->name, tmp->name)==0)  //poredimo elemente nizova
             {
+              //  if(strcmp(new_tmp->name, tmp->name)==0) {
 
-                if((gint)tmp->avail != (gint)new_tmp->avail
-                  /* || strcmp(tmp->used,new_tmp->used)*/ ||
-                    strcmp(tmp->type,new_tmp->type)!=0 ||
-                    strcmp(tmp->directory,new_tmp->directory)!=0 ||
-                   (unsigned int)tmp->used != (unsigned int)new_tmp->used ||
-                   (unsigned int)tmp->free != (unsigned int)new_tmp->free ||
-                   (unsigned int)tmp->total != (unsigned int)new_tmp->total) //||
-                    // (unsigned int)tmp->time != (unsigned int)tmp->old_time)
-                {
-                    tmp->avail = new_tmp->avail;
-                    strcpy(tmp->directory, new_tmp->directory);
-                    strcpy(tmp->type, new_tmp->type);
-                    tmp->used = new_tmp->used;
-                    tmp->total = new_tmp->total;
-                    tmp->free = new_tmp->free;
+                    if((gint)tmp->avail != (gint)new_tmp->avail //ako ima razlika
+                       /* || strcmp(tmp->used,new_tmp->used)*/ ||
+                       strcmp(tmp->type,new_tmp->type)!=0 ||
+                     //  strcmp(tmp->name,new_tmp->name)!=0 ||
+                       (unsigned int)tmp->used != (unsigned int)new_tmp->used ||
+                       (unsigned int)tmp->free != (unsigned int)new_tmp->free ||
+                       (unsigned int)tmp->total != (unsigned int)new_tmp->total) //||
+                        // (unsigned int)tmp->time != (unsigned int)tmp->old_time)
+                    {
+                        tmp->avail = new_tmp->avail;
+                        strcpy(tmp->name, new_tmp->name);
+                        strcpy(tmp->type, new_tmp->type);
+                        tmp->used = new_tmp->used;
+                        tmp->total = new_tmp->total;
+                        tmp->free = new_tmp->free;
 
-                    refresh_list_item_device(i);
-                }
-                tmp->checked = TRUE;
-                new_tmp->checked = TRUE;
-                break;
+                        refresh_list_item_device(i);
+                        printf("I %d name %s \n",i,tmp->name);
+                    }
+                    tmp->checked = TRUE; //
+                    new_tmp->checked = TRUE;
+                    break;
+             //   }
+
             }
             else
                 tmp->checked = FALSE;
@@ -751,10 +766,11 @@ GArray *new_task_list;
 
         Devices *tmp = &g_array_index(names_array, Devices, i);
 
-        if(!tmp->checked)
+        if(!tmp->checked)//element niza koji se ne nalazi vise u novom nizu
         {
             remove_list_item_device(tmp->directory);
             g_array_remove_index(names_array, i);
+            printf("we removed a item from the list\n");
             dev_num--;
         }
         else
@@ -774,7 +790,8 @@ GArray *new_task_list;
 
             g_array_append_val(names_array, *new_device);
             //   if(( new_task->uid == own_uid))
-            add_new_list_item_dev(dev_num);
+            add_new_list_item_dev(i);
+            printf("new item added for no reason %d name %s\n",i,new_device->name);
             dev_num++;
         }
     }
@@ -853,7 +870,6 @@ GArray *new_task_list;
         }
     }
 
-////////////
 
 
 //
@@ -907,13 +923,7 @@ GArray *new_task_list;
     }
 
 };
-gboolean TESTIRANJE=TRUE;
-void CHANGE(){
 
-
-    TESTIRANJE=FALSE;
-    init_timeout();
-}
 
 int main(int argc, char *argv[]) {
 
@@ -1007,7 +1017,10 @@ gtk_init(&argc, &argv);
 
 
    // gtk_widget_hide(dev_swindow);
- //  gtk_widget_hide(process_swindow);
+   gtk_widget_hide(process_swindow);
+    gtk_widget_hide(hbox1);
+    gtk_widget_hide(hbox3);
+    gtk_widget_hide(hbox2);
 
 
     gtk_main();
