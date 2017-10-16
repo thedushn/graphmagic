@@ -14,6 +14,8 @@
 //GtkTreeStore *list_store1;
 
 GtkTreeSelection *selection;
+
+GtkTreeSelection *selection1;
 GtkWidget *treeview;
 GtkWidget *treeview1;
 

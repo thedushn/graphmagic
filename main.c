@@ -422,7 +422,7 @@ void dev_button_clicked2(GtkWidget *widget){
 
         pokazi_ili_hide(widget, dev_swindow);
 
-      dev_problems(TRUE,dev_swindow);
+   //   dev_problems(TRUE,dev_swindow);
 
 
         gtk_widget_show_all(dev_swindow);
@@ -430,11 +430,11 @@ void dev_button_clicked2(GtkWidget *widget){
     } else {
         pokazi_ili_hide(widget, dev_swindow);
 
-        GList *children=  gtk_container_get_children(GTK_CONTAINER(dev_swindow));
+      //  GList *children=  gtk_container_get_children(GTK_CONTAINER(dev_swindow));
 
         // gtk_widget_destroy(progressbar);
         //  gtk_widget_unparent(children->data);
-        gtk_container_remove(GTK_CONTAINER(dev_swindow),children->data);
+       // gtk_container_remove(GTK_CONTAINER(dev_swindow),children->data);
         //gtk_widget_destroy(swindow2);
         //    gtk_widget_destroy(dev_swindow);
         //pokazi_ili_hide(widget);
@@ -459,9 +459,9 @@ void dev_button_clicked(GtkWidget *widget) {
 
         pokazi_ili_hide(widget, dev_swindow);
      //   gtk_container_remove(GTK_CONTAINER(swindow2),view2);
-       view2=NULL;
-       // clean_button();
-        dev_problems(FALSE,dev_swindow);
+//       view2=NULL;
+//       // clean_button();
+//        dev_problems(FALSE,dev_swindow);
        // pokazi_ili_hide(widget);
 
 //          progressbar=gtk_progress_bar_new();
@@ -477,11 +477,11 @@ void dev_button_clicked(GtkWidget *widget) {
     } else {
         pokazi_ili_hide(widget, dev_swindow);
 
-        GList *children=  gtk_container_get_children(GTK_CONTAINER(dev_swindow));
-
-        // gtk_widget_destroy(progressbar);
-         //  gtk_widget_unparent(children->data);
-        gtk_container_remove(GTK_CONTAINER(dev_swindow),children->data);
+//        GList *children=  gtk_container_get_children(GTK_CONTAINER(dev_swindow));
+//
+//        // gtk_widget_destroy(progressbar);
+//         //  gtk_widget_unparent(children->data);
+//        gtk_container_remove(GTK_CONTAINER(dev_swindow),children->data);
         //gtk_widget_destroy(swindow2);
       //    gtk_widget_destroy(dev_swindow);
         //pokazi_ili_hide(widget);
@@ -627,10 +627,15 @@ void inc_refresh() {
     if (t >= 10000) {
 
         t = 10000;
-    } else
+    } else{
+
         t += 250;
 
+
+}
+
     timeout_refresh();
+
 
 
 };
@@ -638,13 +643,19 @@ void inc_refresh() {
 void dec_refresh() {
 
 
-    if (t < 500) {
-        t = 500;
+    if (t <= 250) {
+        t = 250;
         //  printf("promena refresh rate \n");
+
     } else
+    {
         t -= 250;
-    //   printf("I clicked a button2 %d", t);
+        //   printf("I clicked a button2 %d", t);
+
+    }
     timeout_refresh();
+
+
 
 
 };
@@ -694,6 +705,7 @@ void CHANGE(){
 
 
     TESTIRANJE = !TESTIRANJE;
+ //   gtk_list_store_clear(GTK_TREE_STORE(list_store1));
     init_timeout();
 }
 
@@ -713,9 +725,8 @@ GArray *new_task_list;
     GArray *new_device_list;
     new_task_list =  get_task_list2();
     new_device_list   = device(TESTIRANJE);
-
-  //  printf("new lenght %d \n",new_device_list->len);
-  //  printf("names lenght %d \n",names_array->len);
+    //  printf("new lenght %d \n",new_device_list->len);
+    printf("names lenght %d \n",names_array->len);
 
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
@@ -726,13 +737,13 @@ GArray *new_task_list;
         {
             Devices *new_tmp = &g_array_index(new_device_list, Devices, j);
 
-            if(strcmp(new_tmp->directory, tmp->directory)==0 &&strcmp(new_tmp->name, tmp->name)==0)  //poredimo elemente nizova
+            if(strcmp(new_tmp->directory, tmp->directory)==0 &&strcmp(new_tmp->name, tmp->name)==0 && strcmp(new_tmp->type, tmp->type)==0)  //poredimo elemente nizova
             {
               //  if(strcmp(new_tmp->name, tmp->name)==0) {
 
                     if((gint)tmp->avail != (gint)new_tmp->avail //ako ima razlika
                        /* || strcmp(tmp->used,new_tmp->used)*/ ||
-                       strcmp(tmp->type,new_tmp->type)!=0 ||
+                   //    strcmp(tmp->type,new_tmp->type)!=0 ||
                      //  strcmp(tmp->name,new_tmp->name)!=0 ||
                        (unsigned int)tmp->used != (unsigned int)new_tmp->used ||
                        (unsigned int)tmp->free != (unsigned int)new_tmp->free ||
@@ -740,14 +751,14 @@ GArray *new_task_list;
                         // (unsigned int)tmp->time != (unsigned int)tmp->old_time)
                     {
                         tmp->avail = new_tmp->avail;
-                        strcpy(tmp->name, new_tmp->name);
-                        strcpy(tmp->type, new_tmp->type);
+                        //strcpy(tmp->name, new_tmp->name);
+                     //   strcpy(tmp->type, new_tmp->type);
                         tmp->used = new_tmp->used;
                         tmp->total = new_tmp->total;
                         tmp->free = new_tmp->free;
 
                         refresh_list_item_device(i);
-                        printf("I %d name %s \n",i,tmp->name);
+                        printf("I %d name %s directory %s size %lu\n",i,tmp->name,tmp->directory,tmp->total);
                     }
                     tmp->checked = TRUE; //
                     new_tmp->checked = TRUE;
@@ -765,12 +776,12 @@ GArray *new_task_list;
     {
 
         Devices *tmp = &g_array_index(names_array, Devices, i);
-
+     //   printf("name %s I %d checked %s \n",tmp->name,i,tmp->checked  ? "TRUE" : "FALSE");
         if(!tmp->checked)//element niza koji se ne nalazi vise u novom nizu
         {
             remove_list_item_device(tmp->directory);
             g_array_remove_index(names_array, i);
-            printf("we removed a item from the list\n");
+            printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
             dev_num--;
         }
         else
@@ -790,16 +801,27 @@ GArray *new_task_list;
 
             g_array_append_val(names_array, *new_device);
             //   if(( new_task->uid == own_uid))
-            add_new_list_item_dev(i);
+            add_new_list_item_dev(dev_num);
             printf("new item added for no reason %d name %s\n",i,new_device->name);
             dev_num++;
         }
     }
 
 ////////////
-
-
-
+//    static broj=0;
+//    gboolean valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(list_store1), &iter);
+//    while(valid) {
+//        gchar *str_data = "";
+//        gchar *str_data1 = "";
+//
+//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 0, &str_data, -1); //COL_DEV
+//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data1, -1); //COL_DIR
+//
+//    broj++;
+//        g_free(str_data);
+//        g_free(str_data1);
+//        valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(list_store1), &iter);
+//    }
     for(i = 0; i < task_array->len; i++)
     {
        Task *tmp = &g_array_index(task_array, Task, i);
@@ -943,8 +965,6 @@ gtk_init(&argc, &argv);
 
 
 
-   int g= strcmp("/fsgs","/");
-
     ncpu = cpu_number();
 
     interface_name();
@@ -1016,7 +1036,7 @@ gtk_init(&argc, &argv);
     gtk_widget_show_all(window);
 
 
-   // gtk_widget_hide(dev_swindow);
+    gtk_widget_hide(dev_swindow);
    gtk_widget_hide(process_swindow);
     gtk_widget_hide(hbox1);
     gtk_widget_hide(hbox3);

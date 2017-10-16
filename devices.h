@@ -45,7 +45,6 @@ struct _Devices {
 
 
     gchar		name[256];
-
     gchar       type[256];
     gchar       directory[256];
     glong used;

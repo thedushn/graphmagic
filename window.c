@@ -118,7 +118,8 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 //    printf("i %d",i);
 //    add_new_list_item(i);
 //     }
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview1));
+
+    selection1 = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview1));
 
 
 

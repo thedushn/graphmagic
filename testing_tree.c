@@ -7,14 +7,17 @@
 
 void handle_task_menu(GtkWidget *widget, gchar *signal)
 {
+    printf("signal %s\n",signal);
     if(signal != NULL)
     {
         gchar *s;
-        printf("signal %s",signal);
-        if (strcmp(signal, "KILL") == 0) s = ("Really kill the task?");
-        else s = ("Really terminate the task?");
 
-        if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 )
+//        if (strcmp(signal, "KILL") == 0)
+//            s = ("Really kill the task?");
+//        else
+//            s = ("Really terminate the task?");
+
+        if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 || strcmp(signal, "KILL") == 0 )
         {
             gchar *task_id = "";
             GtkTreeModel *model;
@@ -31,13 +34,14 @@ void handle_task_menu(GtkWidget *widget, gchar *signal)
 }
 void send_signal_to_task(gchar *task_id, gchar *signal)
 {
+    printf("SIGNAL %s the task with ID %s\n", signal, task_id);
     if(task_id != "" && signal != NULL)
     {
         gchar command[64] = "kill -";
         g_strlcat(command,signal, sizeof command);
         g_strlcat(command," ", sizeof command);
         g_strlcat(command,task_id, sizeof command);
-
+        printf("Task id %s",task_id);
        if(system(command) != 0)
            printf("comand failed\n");
 //            xfce_err("Couldn't %s the task with ID %s", signal, task_id);
@@ -51,91 +55,6 @@ void on_quit(void)
 
     gtk_main_quit();
 }
-//GtkWidget* create_main_window (void)
-//{
-//    GtkWidget *window;
-//    GtkWidget *vbox1;
-//    GtkWidget *bbox1;
-//    GtkWidget *scrolledwindow1;
-//    GtkWidget *button1;
-//    GtkWidget *button2;
-//    GtkWidget *button3;
-//
-//    GtkWidget *system_info_box;
-//
-//
-//    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-//    gtk_window_set_title (GTK_WINDOW (window), ("xfce4-taskmanager"));
-//    gtk_window_set_default_size (GTK_WINDOW (window), 1400, 1400);
-//
-//    vbox1 = gtk_vbox_new (FALSE, 10);
-//    gtk_widget_show (vbox1);
-//    gtk_container_add (GTK_CONTAINER (window), vbox1);
-//    gtk_container_set_border_width (GTK_CONTAINER (vbox1), 10);
-//
-//    system_info_box = gtk_hbox_new (FALSE, 10);
-//    gtk_widget_show (system_info_box);
-//    gtk_box_pack_start (GTK_BOX (vbox1), system_info_box, FALSE, TRUE, 0);
-//
-//    cpu_usage_progress_bar_box = gtk_event_box_new ();
-//    cpu_usage_progress_bar = gtk_progress_bar_new ();
-//    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (cpu_usage_progress_bar), ("cpu usage"));
-//    gtk_widget_show (cpu_usage_progress_bar);
-//    gtk_widget_show (cpu_usage_progress_bar_box);
-//    gtk_container_add (GTK_CONTAINER (cpu_usage_progress_bar_box), cpu_usage_progress_bar);
-//    gtk_box_pack_start (GTK_BOX (system_info_box), cpu_usage_progress_bar_box, TRUE, TRUE, 0);
-//
-//    mem_usage_progress_bar_box = gtk_event_box_new ();
-//    mem_usage_progress_bar = gtk_progress_bar_new ();
-//    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (mem_usage_progress_bar), ("memory usage"));
-//    gtk_widget_show (mem_usage_progress_bar);
-//    gtk_widget_show (mem_usage_progress_bar_box);
-//    gtk_container_add (GTK_CONTAINER (mem_usage_progress_bar_box), mem_usage_progress_bar);
-//    gtk_box_pack_start (GTK_BOX (system_info_box), mem_usage_progress_bar_box, TRUE, TRUE, 0);
-//
-//    scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-//    gtk_widget_show (scrolledwindow1);
-//    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-//    gtk_box_pack_start (GTK_BOX (vbox1), scrolledwindow1, TRUE, TRUE, 0);
-//    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
-//
-//    treeview = gtk_tree_view_new ();
-//    gtk_widget_show (treeview);
-//    gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview);
-//
-//    create_list_store();
-//
-//    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-//
-//    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(list_store));
-//
-//    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store), 1, GTK_SORT_ASCENDING);
-//
-//    bbox1 = gtk_hbutton_box_new();
-//    gtk_box_pack_start(GTK_BOX(vbox1), bbox1, FALSE, TRUE, 0);
-//    gtk_widget_show (bbox1);
-//
-//    button2 = gtk_button_new_from_stock ("gtk-preferences");
-//    gtk_widget_show (button2);
-//    gtk_box_pack_start (GTK_BOX (bbox1), button2, FALSE, FALSE, 0);
-//
-//    button3 = gtk_toggle_button_new_with_label (("more details"));
-//    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button3), full_view);
-//    gtk_widget_show (button3);
-//    gtk_box_pack_start (GTK_BOX (bbox1), button3, FALSE, FALSE, 0);
-//
-//    button1 = gtk_button_new_from_stock ("gtk-quit");
-//    gtk_widget_show (button1);
-//    gtk_box_pack_start (GTK_BOX (bbox1), button1, FALSE, FALSE, 0);
-//
-//    g_signal_connect ((gpointer) window, "destroy", G_CALLBACK (on_quit), NULL);
-//    g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
-//    g_signal_connect ((gpointer) button1, "clicked",  G_CALLBACK (on_quit),  NULL);
-//    g_signal_connect ((gpointer) button2, "button_release_event",  G_CALLBACK (on_button1_button_press_event),  NULL);
-//    g_signal_connect ((gpointer) button3, "toggled",  G_CALLBACK (on_button3_toggled_event),  NULL);
-//
-//    return window;
-//}
 
 GtkTreeStore * create_list_store(void)
 {
@@ -422,9 +341,11 @@ gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *even
     {
         printf("i was here\n");
         GdkEventButton *mouseevent = (GdkEventButton *)event;
+        printf("moseevent button %d\n",mouseevent->button);
         if(taskpopup == NULL)
             taskpopup = create_taskpopup ();
         gtk_menu_popup(GTK_MENU(taskpopup), NULL, NULL, NULL, NULL, mouseevent->button, mouseevent->time);
+
     }
     return FALSE;
 }
@@ -498,7 +419,7 @@ void fill_list_item_device(gint i, GtkTreeIter *iter)
 
     if(iter != NULL)
     {
-        Devices *devices = &g_array_index(names, Devices, i);
+        Devices *devices = &g_array_index(names_array, Devices, i);
         gchar *name = g_strdup_printf("%s", devices->name);
         used = g_format_size_full((guint64) devices->used, G_FORMAT_SIZE_IEC_UNITS);
         total = g_format_size_full((guint64) devices->total, G_FORMAT_SIZE_IEC_UNITS);
@@ -515,6 +436,7 @@ void fill_list_item_device(gint i, GtkTreeIter *iter)
         gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_TOTAL, total, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_DIR, directory, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_TYPE, type, -1);
+
 
 
 
@@ -537,7 +459,7 @@ void refresh_list_item_device(gint i)
     GtkTreeIter iter;
     static gint g=0;
     gboolean valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(list_store1), &iter);
-    Devices *device = &g_array_index(names, Devices, i);
+    Devices *device = &g_array_index(names_array, Devices, i);
     while(valid)
     {
         gchar *str_data = "";
@@ -550,13 +472,14 @@ void refresh_list_item_device(gint i)
 //        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 5, &str_data, -1);
 //       gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 6, &str_data, -1);
 
-        if(strcmp(device->directory , str_data1)==0)
+        if(strcmp(device->name , str_data)==0)
         {
             g_free(str_data);
             g_free(str_data1);
-            printf("Refresh times%d\n",g);
-            printf("NAME OF the device %s\n",str_data1);
-            printf("NAME OF the directory %s\n",device->directory);
+//            printf("Refresh times%d\n",g);
+//            printf("NAME OF the device %s\n",str_data);
+//            printf("NAME OF the device %s\n",device->name);
+//            printf("NAME OF the directory %s\n",device->directory);
             fill_list_item_device(i, &iter);
             g++;
             break;
