@@ -6,7 +6,8 @@
 #include "buttons.h"
 
 static gfloat max_broj3=0;
-static char *track;
+
+
 cairo_t *ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2){
 
     size_t j;
@@ -259,14 +260,8 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
     gchar *ime;
     cairo_set_line_width(cr,1);
 
-//  printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",peak->name,
-//           peak->CPU0,
-//           peak->CPU1,
-//           peak->CPU2,
-//           peak->CPU3,
-//           peak->ime1,peak->ime2,peak->ime3,
-//           peak->ime4);
-    cairo_set_font_size(cr,9);
+
+  //  cairo_set_font_size(cr,9);
     procent=((height-font_size)/max_broj)* peak->CPU0;
 
 
@@ -444,13 +439,36 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     Interrupts *peak;
     gchar broj[5];
     cairo_surface_t *graph_surface;
-    float font_size=10;
+   // float font_size=10;
 
 
 
     height= gtk_widget_get_allocated_height(widget);
     width= gtk_widget_get_allocated_width(widget);
-  //  float font_size=(float)width/height*4;
+    float font_size=10;
+//    if(width>height)  {
+//        font_size=(float)width/height;
+//
+//    }
+//    if(width<height){
+//        font_size=(float)height/width;
+//
+//    }
+//    if(font_size>2){
+//        font_size-=1;
+//        font_size*=5;
+//    } else
+//        font_size*=5;
+
+
+
+
+    if(width>height) {
+        printf("font %f width %d, height  %d ration  %f\n", font_size, width, height, (float) width / height);
+    }
+    if(height>width) {
+        printf("font %f width %d, height  %d ration  %f\n", font_size, width, height, (float) height / width);
+    }
 
     cairo_set_line_width(cr,1);
     cairo_set_font_size(cr, font_size);
@@ -539,13 +557,13 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
     gfloat max_broj=0;
     gfloat max_broj2=0;
 
-    gfloat procent=0;
+
     gfloat *peak=0;
     float font_size=10;
     height= gtk_widget_get_allocated_height(widget);
     width= gtk_widget_get_allocated_width(widget);
 
-   // double prev[2]={height-font_size,height-font_size};
+
 
     float temp;
     double step =(width-5*font_size-5*font_size)/60;
@@ -559,7 +577,7 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
     cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
     cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
-    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
 
 
     cairo_set_font_size(cr, font_size);
@@ -591,9 +609,6 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
         max_broj=max_broj2;
 
-
-        //    printf("MAX_borj peak : %f\n",*peak);
-        //    printf("MAX_borj : %f\n",max_broj);
     }
 
 
@@ -660,6 +675,8 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
     cairo_show_text(cr,track);
 
     g_free(rec);
+
+
 
 
     crtanje_graph(cr,history[4],4,bjorg2,5,height,font_size,step);

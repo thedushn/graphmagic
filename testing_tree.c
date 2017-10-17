@@ -119,7 +119,7 @@ GtkTreeStore * create_list_store(void)
 
 
 
-    // change_list_store_view();
+    // change_list_store_view_devices();
     return list_store;
 }
 GtkTreeStore * create_list_store_dev(void)
@@ -178,7 +178,7 @@ GtkTreeStore * create_list_store_dev(void)
 
 
 
-    // change_list_store_view();
+    // change_list_store_view_devices();
     return list_store1;
 }
 void add_new_list_item(gint i)
@@ -215,7 +215,7 @@ void change_task_view(void)
 
     init_timeout();
 }
-void change_list_store_view(GtkWidget *widget,gboolean makes_sense)
+void change_list_store_view_devices(GtkWidget *widget, gboolean visible)
 {
 //    dev=0
 //            avail=1;
@@ -226,60 +226,72 @@ void change_list_store_view(GtkWidget *widget,gboolean makes_sense)
 //    free=6;.
     if(button_device_devices==widget){
 
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 0), makes_sense);
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 0), visible);
     }
-    if(button_device_avail==widget){
+    else if(button_device_avail==widget){
 
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 1), makes_sense);
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 1), visible);
     }
-    if(button_device_used==widget){
+    else if(button_device_used==widget){
 
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 2), makes_sense);
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 2), visible);
     }
-    if(button_device_type==widget){
+    else if(button_device_type==widget){
 
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 3), makes_sense);
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 3), visible);
     }
-    if(button_device_directory==widget){
+    else if(button_device_directory==widget){
 
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 4), makes_sense);
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 4), visible);
     }
-    if(button_device_total==widget){
+    else if(button_device_total==widget){
 
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 5), makes_sense);
-    }
-
-    if(button_device_free==widget){
-
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 6), makes_sense);
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 5), visible);
     }
 
+    else /*(button_device_free==widget)*/{
 
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 6), visible);
+    }
 
+}
+void change_list_store_view_process(GtkWidget *widget, gboolean visible)
+{
+    //task=0
+    if(button_process_task==widget){
 
-//    if(widget==button_device_devices){
-//
-//       if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
-//
-//           gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 0), TRUE);
-//           printf("ugasimo");
-//       }
-//        else{
-//           gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 0), FALSE);
-//           printf("upalimo");
-//
-//       }
-//
-//    }
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 0), visible);
+    }
+    else if(button_process_user==widget){
 
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 1), visible);
+    }
+    else if(button_process_pid==widget){
 
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 2), visible);
+    }
+    else if(button_process_ppid==widget){
 
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 3), visible);
+    }
+    else if(button_process_state==widget){
 
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 4), visible);
+    }
+    else if(button_process_vm_size==widget){
 
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 5), visible);
+    }
+    else if(button_process_rss==widget){
 
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 6), visible);
+    }
 
-//    gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), COLUMN_MEM), full_view);
-//    gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), COLUMN_RSS), full_view);
+    else /*(button_device_free==widget)*/{
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 7), visible);
+    }
+
 }
 void on_show_tasks_toggled (GtkMenuItem *menuitem, gint uid)
 {

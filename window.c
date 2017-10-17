@@ -33,15 +33,15 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
     filemenu = gtk_menu_new();
     filemenu2 = gtk_menu_new();
    GtkWidget * filemenu3 =gtk_menu_new();
- filemenu3=gtk_menu_item_new_with_label("testingalltheway");
+ //filemenu3=gtk_menu_item_new_with_label("testingalltheway");
     speed = gtk_menu_item_new_with_label("speed");
     devices_menu = gtk_menu_item_new_with_label("devices");
+    GtkWidget *process_menu = gtk_menu_item_new_with_label("Process Manager");
   //  graph_menu = gtk_menu_item_new_with_label("graphs");
-
+    GtkWidget *process_item=gtk_menu_item_new_with_label("Processes");
     increase_refresh = gtk_menu_item_new_with_label("+250");
     decrease_refresh = gtk_menu_item_new_with_label("-250");
     file_system = gtk_menu_item_new_with_label("file_systems");
-//  GtkWidget *graph_window=gtk_menu_item_new_with_label("graphs");
     GtkWidget *new = gtk_menu_item_new_with_label("return");
     GtkWidget *test = gtk_menu_item_new_with_label("flush");
     quit = gtk_menu_item_new_with_label("Quit");
@@ -52,6 +52,7 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), decrease_refresh);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quit);
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), speed);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), process_menu);
 //  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), graph_menu);
 
 
@@ -65,7 +66,9 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(devices_menu), filemenu2);
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(process_menu), filemenu3);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), file_system);
+    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu3), process_item);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), new);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), test);
 
@@ -78,6 +81,7 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
     g_signal_connect(file_system, "activate", G_CALLBACK(device_window), NULL);
     g_signal_connect(new, "activate", G_CALLBACK(new_button_clicked2), NULL);
     g_signal_connect(test, "activate", G_CALLBACK(clean_button), NULL);
+    g_signal_connect(process_item, "activate", G_CALLBACK(process_window), NULL);
 //   g_signal_connect(graph_window, "activate", G_CALLBACK(graph_button_clicked), NULL);
 
     treeview = gtk_tree_view_new ();

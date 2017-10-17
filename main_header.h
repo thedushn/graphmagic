@@ -42,6 +42,7 @@ GtkWidget *frame4;
 
 GtkWidget *window2;
 GtkWidget *dev_window;
+GtkWidget *proc_window;
 GtkTreeIter iter;
 GtkWidget *speed;
 GtkWidget *devices_menu;
@@ -81,6 +82,8 @@ GArray *names_array;
 void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
 void device_refresh(GtkWidget *widget, gboolean );
+void process_refresh(GtkWidget *widget, gboolean BOOL);
+
 void close_window();
 
 static GtkWidget *create_view_and_model_file_system (void);

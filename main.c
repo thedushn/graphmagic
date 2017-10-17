@@ -21,20 +21,90 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
         do_drawing2(widget, cr, bjorg, time_step);
     }
-    if (widget == graph2) {
+    else if (widget == graph2) {
 
         do_drawing(widget, cr, bjorg2);
     }
-    if (widget == graph3) {
+    else if (widget == graph3) {
 
         do_drawing3(widget, cr, bjorg, time_step);
     }
-    if (widget == graph4) {
+    else  /*if (widget == graph4)*/ {
 
         do_drawing4(widget, cr);
     }
 return TRUE;
 
+}
+void process_refresh(GtkWidget *widget, gboolean BOOL){
+
+
+    if (widget == button_process_state) {
+
+
+        process_state = BOOL;
+
+
+    }
+    else if (widget ==button_process_vm_size) {
+
+
+        process_vm_size = BOOL;
+
+
+    }
+    else if (widget == button_process_rss) {
+
+
+        process_rss = BOOL;
+
+
+    }
+    else if (widget == button_process_task) {
+
+
+        process_task = BOOL;
+
+
+    }
+    else if (widget == button_process_pid) {
+
+
+        process_pid = BOOL;
+
+
+    }
+    else if (widget == button_process_ppid) {
+
+
+        process_ppid = BOOL;
+
+
+    }
+    else if (widget == button_process_cpu) {
+
+
+        process_cpu = BOOL;
+
+
+    }
+    else /* (widget == button_device_type)*/ {
+
+
+        process_user = BOOL;
+
+
+    }
+
+
+    if (!g_source_remove(refresh)) {
+        g_critical ("Unable to remove source");
+        return;
+    }
+    refresh = 0;
+
+
+    init_timeout();
 }
 
 void device_refresh(GtkWidget *widget, gboolean BOOL) {
@@ -46,41 +116,42 @@ void device_refresh(GtkWidget *widget, gboolean BOOL) {
 
 
     }
-    if (widget == button_device_directory) {
+    else if (widget == button_device_directory) {
 
 
         device_directory = BOOL;
 
 
     }
-    if (widget == button_device_total) {
+    else if (widget == button_device_total) {
 
 
         device_total = BOOL;
 
 
     }
-    if (widget == button_device_free) {
+    else if (widget == button_device_free) {
 
 
         device_free = BOOL;
 
 
     }
-    if (widget == button_device_used) {
+    else if (widget == button_device_used) {
 
 
         device_used = BOOL;
 
 
-    }  if (widget == button_device_avail) {
+    }
+    else if (widget == button_device_avail) {
 
 
         device_avail = BOOL;
 
 
     }
-    if (widget == button_device_type) {
+    else /* (widget == button_device_type)*/ {
 
 
         device_type = BOOL;
@@ -109,19 +180,19 @@ void graph_refresh(GtkWidget *widget, gboolean CPU) {
 
 
     }
-    if (widget == button_graph1) {
+    else if (widget == button_graph1) {
 
 
         CPU1_line = CPU;
 
 
     }
-    if (widget == button_graph2) {
+    else if (widget == button_graph2) {
 
         CPU2_line = CPU;
 
     }
-    if (widget == button_graph3) {
+    else /* (widget == button_graph3)*/ {
 
         CPU3_line = CPU;
     }
@@ -144,12 +215,11 @@ void inc_refresh() {
     if (t >= 10000) {
 
         t = 10000;
-    } else{
-
+    }
+    else
+    {
         t += 250;
-
-
-}
+    }
 
     timeout_refresh();
 
@@ -164,16 +234,11 @@ void dec_refresh() {
         t = 250;
         //  printf("promena refresh rate \n");
 
-    } else
-    {
+    }
+    else {
         t -= 250;
-        //   printf("I clicked a button2 %d", t);
-
     }
     timeout_refresh();
-
-
-
 
 };
 
@@ -219,7 +284,10 @@ void CHANGE(){
     TESTIRANJE = !TESTIRANJE;
     timeout_refresh();
 }
-
+//void (){
+//
+//timeout
+//}
 
 void init_timeout() {
 
@@ -486,7 +554,7 @@ gtk_init(&argc, &argv);
     g_signal_connect(button, "clicked", G_CALLBACK(inc_refresh), NULL);
     g_signal_connect(button2, "clicked", G_CALLBACK(dec_refresh), NULL);
     g_signal_connect(button3, "toggled", G_CALLBACK(button_clicked_view_process), NULL);
-    g_signal_connect(button4, "toggled", G_CALLBACK(dev_button_clicked), NULL);
+    g_signal_connect(button4, "toggled", G_CALLBACK(CHANGE), NULL);
     g_signal_connect(button_dev, "toggled", G_CALLBACK(dev_button_clicked2), NULL);
     //g_signal_connect(button5, "toggled", G_CALLBACK(pokazi_ili_hide), NULL);
     g_signal_connect(button5, "toggled", G_CALLBACK(CHANGE), NULL);
@@ -516,7 +584,7 @@ gtk_init(&argc, &argv);
     gtk_widget_show_all(window);
 
 
-   // gtk_widget_hide(dev_swindow);
+    gtk_widget_hide(dev_swindow);
    gtk_widget_hide(process_swindow);
 //    gtk_widget_hide(hbox1);
 //    gtk_widget_hide(hbox3);
