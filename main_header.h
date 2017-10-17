@@ -12,8 +12,8 @@
 
 
 static GtkWidget *window;
-static GtkWidget *process_swindow;
-static GtkWidget *dev_swindow;
+ GtkWidget *process_swindow;
+ GtkWidget *dev_swindow;
 
 GtkWidget *graph1;
 GtkWidget *graph2;
@@ -41,6 +41,7 @@ GtkWidget *frame4;
 
 
 GtkWidget *window2;
+GtkWidget *dev_window;
 GtkTreeIter iter;
 GtkWidget *speed;
 GtkWidget *devices_menu;
@@ -48,7 +49,7 @@ GtkWidget *filemenu2;
 GtkWidget *quit;
 GtkWidget *increase_refresh;
 GtkWidget *decrease_refresh;
-GtkWidget *show_all;
+GtkWidget *file_system;
 
 
 
@@ -79,6 +80,7 @@ GArray *names_array;
 
 void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
+void device_refresh(GtkWidget *widget, gboolean );
 void close_window();
 
 static GtkWidget *create_view_and_model_file_system (void);
@@ -93,6 +95,9 @@ gint own_uid;
 void dec_refresh();
 void inc_refresh();
 void dev_button_clicked(GtkWidget *widget);
+
+void init_timeout2();
+void timeout_refresh();
 
 gint tasks_num;
 gint dev_num;

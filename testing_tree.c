@@ -3,6 +3,7 @@
 //
 
 #include "testing_tree.h"
+#include "buttons.h"
 
 
 void handle_task_menu(GtkWidget *widget, gchar *signal)
@@ -214,11 +215,71 @@ void change_task_view(void)
 
     init_timeout();
 }
-void change_list_store_view(void)
+void change_list_store_view(GtkWidget *widget,gboolean makes_sense)
 {
-    gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), COLUMN_PPID), full_view);
-    gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), COLUMN_MEM), full_view);
-    gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), COLUMN_RSS), full_view);
+//    dev=0
+//            avail=1;
+//    used=2;
+//    type=3;
+//    dir=4;
+//    total=5;
+//    free=6;.
+    if(button_device_devices==widget){
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 0), makes_sense);
+    }
+    if(button_device_avail==widget){
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 1), makes_sense);
+    }
+    if(button_device_used==widget){
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 2), makes_sense);
+    }
+    if(button_device_type==widget){
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 3), makes_sense);
+    }
+    if(button_device_directory==widget){
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 4), makes_sense);
+    }
+    if(button_device_total==widget){
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 5), makes_sense);
+    }
+
+    if(button_device_free==widget){
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 6), makes_sense);
+    }
+
+
+
+
+//    if(widget==button_device_devices){
+//
+//       if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+//
+//           gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 0), TRUE);
+//           printf("ugasimo");
+//       }
+//        else{
+//           gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 0), FALSE);
+//           printf("upalimo");
+//
+//       }
+//
+//    }
+
+
+
+
+
+
+
+//    gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), COLUMN_MEM), full_view);
+//    gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), COLUMN_RSS), full_view);
 }
 void on_show_tasks_toggled (GtkMenuItem *menuitem, gint uid)
 {
@@ -232,11 +293,6 @@ void on_show_tasks_toggled (GtkMenuItem *menuitem, gint uid)
     change_task_view();
 }
 
-void on_show_cached_as_free_toggled (GtkMenuItem *menuitem, gint uid)
-{
-    show_cached_as_free = !show_cached_as_free;
-    change_task_view();
-}
 GtkWidget* create_taskpopup (void)
 {
     GtkWidget *taskpopup;
@@ -270,7 +326,7 @@ GtkWidget* create_taskpopup (void)
 GtkWidget* create_mainmenu (void)
 {
     GtkWidget *mainmenu;
-    GtkWidget *info1;
+
     GtkWidget *trennlinie1;
     GtkWidget *show_user_tasks1;
     GtkWidget *show_root_tasks1;
@@ -282,9 +338,6 @@ GtkWidget* create_mainmenu (void)
 
     mainmenu = gtk_menu_new ();
 
-    info1 = gtk_image_menu_item_new_from_stock ("gtk-about", accel_group);
-    gtk_widget_show (info1);
-    gtk_menu_shell_append(GTK_MENU_SHELL(mainmenu), info1);
 
     trennlinie1 = gtk_separator_menu_item_new ();
     gtk_widget_show (trennlinie1);
@@ -311,29 +364,13 @@ GtkWidget* create_mainmenu (void)
     gtk_widget_show (show_cached_as_free1);
     gtk_menu_shell_append(GTK_MENU_SHELL(mainmenu), show_cached_as_free1);
 
-    // g_signal_connect ((gpointer) info1, "activate", G_CALLBACK (on_info1_activate), NULL);
-    g_signal_connect ((gpointer) show_user_tasks1, "toggled", G_CALLBACK (on_show_tasks_toggled), (void *)own_uid);
-    g_signal_connect ((gpointer) show_root_tasks1, "toggled", G_CALLBACK (on_show_tasks_toggled), (void *)0);
-    g_signal_connect ((gpointer) show_other_tasks1, "toggled", G_CALLBACK (on_show_tasks_toggled), (void *)-1);
-    g_signal_connect ((gpointer) show_other_tasks1, "toggled", G_CALLBACK (on_show_cached_as_free_toggled), (void *)0);
+
 
     gtk_menu_set_accel_group (GTK_MENU (mainmenu), accel_group);
 
     return mainmenu;
 }
-void on_button1_button_press_event(GtkButton *button, GdkEventButton *event)
-{
-    GdkEventButton *mouseevent = (GdkEventButton *)event;
-    if(mainmenu == NULL)
-        mainmenu = create_mainmenu ();
-    gtk_menu_popup(GTK_MENU(mainmenu), NULL, NULL, NULL, NULL, mouseevent->button, mouseevent->time);
-}
 
-void on_button3_toggled_event(GtkButton *button, GdkEventButton *event)
-{
-    full_view = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button));
-    change_list_store_view();
-}
 
 gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *event)
 {
@@ -356,31 +393,25 @@ gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *even
 void fill_list_item(gint i, GtkTreeIter *iter)
 {
 
-
-
-
-
-
     if(iter != NULL)
     {
         Task *task = &g_array_index(task_array, Task, i);
         gchar cpu[16], value[14];
-//
         gchar *rss, *vsz;
+
         rss = g_format_size_full(task->rss, G_FORMAT_SIZE_IEC_UNITS);
         vsz = g_format_size_full(task->vsz, G_FORMAT_SIZE_IEC_UNITS);
-//
+
         g_snprintf(value, 14, (more_precision) ? "%.2f" : "%.f", task->cpu_user + task->cpu_system);
-    //    printf("cpu_user %d cpu_system %d \n ",task->cpu_user,task->cpu_system);
+
         g_snprintf(cpu, 16, ("%s%%"), value);
         gchar *pid = g_strdup_printf("%i", task->pid);
         gchar *ppid = g_strdup_printf("%i", task->ppid);
         gchar *state = g_strdup_printf("%s", task->state);
-        //  gchar *size = g_strdup_printf("%i kB", task->vsz);
-        //   gchar *rss = g_strdup_printf("%i kB", task->rss);
+
         gchar *name = g_strdup_printf("%s", task->name);
         gchar *uname = g_strdup_printf("%s", task->uid_name);
-        //  gchar *time = g_strdup_printf("%0d%%", (guint)task->time_percentage);
+
 
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_TASK, name, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_PID, pid, -1);
@@ -389,19 +420,16 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_VSZ, vsz, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_RSS, rss, -1);
 
-        // gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COLUMN_TIME, time, -1);
+
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_CPU, cpu, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_UNAME, uname, -1);
-        //   gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COLUMN_CPU2, cpu, -1);
+
 
         g_free(pid);
         g_free(ppid);
         g_free(state);
-        // g_free(size);
-
         g_free(name);
         g_free(uname);
-        //  g_free(time);
         g_free(rss);
         g_free(vsz);
     }
@@ -439,8 +467,6 @@ void fill_list_item_device(gint i, GtkTreeIter *iter)
 
 
 
-
-
         g_free(name);
         g_free(used);
         g_free(total);
@@ -468,10 +494,7 @@ void refresh_list_item_device(gint i)
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 0, &str_data, -1); //COL_DEV
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data1, -1); //COL_DIR
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 2, &str_data2, -1);  //type
-//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 3, &str_data, -1);
-//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 4, &str_data, -1);
-//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 5, &str_data, -1);
-      // gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 6, &str_data, -1);
+
 
         if(strcmp(device->name , str_data)==0 && strcmp(device->directory , str_data1)  && strcmp(device->type , str_data2))
         {
@@ -572,8 +595,7 @@ gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIt
     gchar *s2 = "";
     gchar *temp = "";
     gchar *temp1 = "";
-    gchar buffer[1024];
-    gint j;
+
     gint ret = 0;
 
     gtk_tree_model_get(model, iter1, GPOINTER_TO_INT(column), &s1, -1);
@@ -599,7 +621,7 @@ gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIt
 
 
         }
-      //  if(temp!=NULL ){
+
 
             if(temp[0]>=65 && temp[0]<=90){
                 temp[0]+=32;
@@ -609,27 +631,15 @@ gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIt
             }
 
             ret = strcmp(temp, temp1);
-     //   }
-
-
-//            if(s1[0]>=65 && s1[0]<=90){
-//                s1[0]+=32;
-//            }
-//            if(s2[0]>=65 && s2[0]<=90){
-//                s2[0]+=32;
-//            }
-//
-//            ret = strcmp(s1, s2);
-
-
-
 
         }
-    else
+    else{
+
+
         ret = 0;
+    }
 
 
-   // printf("%s|| %s \n", temp,temp1);
     if(s1 != NULL)
       //  s1=s1-j;
         g_free(s1);
@@ -776,20 +786,4 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 
     return ret;
 }
-//static void
-//show_hide_status_icon (void)
-//{
-//    gboolean show_status_icon;
-//    g_object_get (settings, "show-status-icon", &show_status_icon, NULL);
-//    gtk_status_icon_set_visible (status_icon, show_status_icon);
-//}
 
-
-static void
-status_icon_activated (void)
-{
-    if (!(gtk_widget_get_visible (window)))
-        gtk_widget_show (window);
-    else
-        gtk_widget_hide (window);
-}

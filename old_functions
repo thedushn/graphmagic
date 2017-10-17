@@ -1,0 +1,383 @@
+
+
+static GtkWidget *create_view_and_model(void) {
+    GtkCellRenderer *renderer;
+
+    GtkWidget *view;
+    GtkTreeViewColumn *column;
+    //column = gtk_tree_view_column_new();
+    view = gtk_tree_view_new();
+   // g_object_set(column, COLUMN_PROPERTIES, NULL);
+
+    //test
+    //  column = gtk_tree_view_column_new ();
+    renderer = gtk_cell_renderer_text_new();
+    //gtk_tree_view_insert_column(GTK_TREE_VIEW (view),column,)
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view),
+                                                -1,
+                                                "Task",
+                                                renderer,
+                                                "text", COL_TASK,
+                                                NULL);
+
+    //   --- Column #2 ---
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view),
+                                                -1,
+                                                "PID",
+                                                renderer,
+                                                "text", COL_PID,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view),
+                                                -1,
+                                                "RSS",
+                                                renderer,
+                                                "text", COL_RSS,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view),
+                                                -1,
+                                                "CPU",
+                                                renderer,
+                                                "text", COL_CPU,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view),
+                                                -1,
+                                                "VSZ",
+                                                renderer,
+                                                "text", COL_VSZ,
+                                                NULL);
+
+
+    view = closing(view);
+
+
+    return view;
+};
+
+//void dev_problems2(gboolean show) {
+//    //  view2=NULL;
+//    device(show);
+//    printf("why timmy\n");
+//    if(view2!=NULL){
+//        printf("pokusaj remove\n");
+//        // gtk_widget_unparent(view2);
+//         gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+//
+//    }
+//
+//    if(view2==NULL){
+//
+//        printf("how the fuck ");
+//
+//    }
+//    view2=NULL;
+//    view2 = create_view_and_model_file_system();
+//
+//
+//    gtk_container_add(GTK_CONTAINER(dev_swindow), view2);
+//
+//
+//
+//    //  return view2;
+//
+//};
+void dev_problems(gboolean show,GtkWidget *window) {
+  //  view2=NULL;
+    GtkWidget *view_dev;
+    GtkTreeModel *model;
+    device(show);
+    printf("why timmy\n");
+//    if(view2!=NULL){
+//        printf("pokusaj remove\n");
+//      // gtk_widget_unparent(view2);
+//       // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+//
+//    }
+//
+//    if(view2==NULL){
+//
+//        printf("how the fuck ");
+//
+//    }
+  //  view2=NULL;
+    view2=NULL;
+   view = create_view_and_model_file_system();
+   // view_dev = create_view_and_model_file_system();
+   // xtm_task_manager_update_model (task_manager);
+
+    view_dev=  xtm_process_tree_view_new();
+
+
+//    view_dev= xtm_process_tree_view_new ();
+    view_dev=closing(view_dev);
+
+
+
+
+
+//    gtk_container_add(GTK_CONTAINER(dev_swindow), view2);
+    gtk_container_add(GTK_CONTAINER(window), view_dev);
+
+
+
+
+
+};
+
+void devices_change(GtkWidget *widget) {
+
+    if(widget==file_system){
+        clean_button();
+     //   dev_problems(TRUE);
+        gtk_widget_show_all(dev_swindow);
+    }
+
+};
+gboolean refresh_dev(){
+
+    device(FALSE);
+
+return TRUE;
+};
+
+//void create_view_and_model_file_system(){
+static GtkWidget *create_view_and_model_file_system() {
+
+
+    GtkCellRenderer *renderer;
+    GtkTreeModel *model;
+  //  GtkWidget *view_dev;
+//    GtkTreeViewColumn *column;
+//    column = gtk_tree_view_column_new ();
+    view_dev = gtk_tree_view_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view_dev),
+                                                -1,
+                                                "Device",
+                                                renderer,
+                                                "text", COL_DEV,
+                                                NULL);
+
+    //   --- Column #2 ---
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view_dev),
+                                                -1,
+                                                "Directory",
+                                                renderer,
+                                                "text", COL_DIR,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view_dev),
+                                                -1,
+                                                "Type",
+                                                renderer,
+                                                "text", COL_TYPE,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view_dev),
+                                                -1,
+                                                "Total",
+                                                renderer,
+                                                "text", COL_TOTAL,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view_dev),
+                                                -1,
+                                                "Available",
+                                                renderer,
+                                                "text", COL_AVAILABLE,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view_dev),
+                                                -1,
+                                                "Used",
+                                                renderer,
+                                                "text", COL_USED,
+                                                NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (view_dev),
+                                                -1,
+                                                "Free",
+                                                renderer,
+                                                "text", COL_FREE,
+                                                NULL);
+
+  //  device();
+    model = create_and_fill_model_file_system();
+
+
+    gtk_tree_view_set_model(GTK_TREE_VIEW (view_dev), model);
+
+//     The tree view has acquired its own reference to the
+//     *  model, so we can drop ours. That way the model will
+//     *  be freed automatically when the tree view is destroyed
+
+    g_array_free(names, TRUE);
+    array_devices();
+
+    g_object_unref(model);
+
+
+    return view_dev;
+
+}
+
+static GtkTreeModel *create_and_fill_model_file_system(void) {
+    GtkListStore  *store;
+
+    store = gtk_list_store_new(NUM_COLS_DEV, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+                               G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+
+    gchar *total, *avail, *used, *free;
+
+    for (int j = 0; j < names->len; j++) {
+        Devices *devices = &g_array_index(names, Devices, j);
+        used = g_format_size_full((guint64) devices->used, G_FORMAT_SIZE_IEC_UNITS);
+        total = g_format_size_full((guint64) devices->total, G_FORMAT_SIZE_IEC_UNITS);
+        avail = g_format_size_full((guint64) devices->avail, G_FORMAT_SIZE_IEC_UNITS);
+        free = g_format_size_full((guint64) devices->free, G_FORMAT_SIZE_IEC_UNITS);
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                           COL_DEV, devices->name,
+                           COL_DIR, devices->directory,
+                           COL_TYPE, devices->type,
+                           COL_TOTAL, total,
+                           COL_AVAILABLE, avail,
+                           COL_USED, used,
+                           COL_FREE, free,
+
+
+                           -1);
+
+       printf(" Final Directory: %s Device: %s used %lu total %lu free %lu type %s available %lu\n",
+               devices->directory,
+               devices->name,
+               devices->used,
+               devices->total,
+               devices->free,
+               devices->type,
+               devices->avail);
+
+        g_free(used);
+        g_free(total);
+        g_free(avail);
+        g_free(free);
+
+
+    }
+
+
+    return GTK_TREE_MODEL (store);
+
+};
+
+
+//GtkWidget* process_tree() {
+void process_tree() {
+   // GtkWidget *view;
+  //  gtk_container_remove(GTK_CONTAINER(process_swindow), view);
+
+    if(view==NULL){
+
+        printf("why the fuck ");
+    }
+    if(view!=NULL){
+
+        gtk_container_remove(GTK_CONTAINER(process_swindow),view);
+    }
+    view = create_view_and_model();
+
+
+
+   // gtk_container_remove(GTK_CONTAINER(process_swindow),view);
+    gtk_container_add(GTK_CONTAINER(process_swindow),view);
+    gtk_widget_show(process_swindow);
+
+  //  gtk_container_remove(GTK_CONTAINER(process_swindow),view);
+
+};
+static GtkTreeModel *create_and_fill_model(void) {
+    GtkListStore  *store;
+
+store=    gtk_list_store_new (XTM_PTV_N_COLUMNS, G_TYPE_STRING, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_STRING, G_TYPE_UINT64,
+                        G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_UINT, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING, G_TYPE_INT,
+                        G_TYPE_STRING, G_TYPE_STRING, G_TYPE_LONG);
+  //  store = gtk_list_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_UINT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+    gchar *rss, *vsz;
+    gchar cpu[16], value[14];
+    //get_task_list(tasks);
+    //  Append a row and fill in some data
+
+//    printf("TASKs-array : len: %d\n", tasks->len);
+
+    for (int j = 0; j < tasks->len; j++) {
+        Task *task = &g_array_index(tasks, Task, j);
+        g_snprintf(value, 14, (more_precision) ? "%.2f" : "%.f", task->cpu_user + task->cpu_system);
+     //   printf("value : %s index %d\n",value,j);
+        g_snprintf(cpu, 16, ("%s%%"), value);
+        rss = g_format_size_full(task->rss, G_FORMAT_SIZE_IEC_UNITS);
+        vsz = g_format_size_full(task->vsz, G_FORMAT_SIZE_IEC_UNITS);
+
+
+        gtk_list_store_append(store, &iter);
+//        gtk_list_store_set(store, &iter,
+//                           COL_TASK, task->name,
+//                           COL_PID, task->pid,
+//                           COL_RSS, rss,
+//                           COL_CPU, cpu,
+//                           COL_VSZ, vsz,
+//
+//                           -1);
+
+        gtk_list_store_set (store, &iter,
+                            XTM_PTV_COLUMN_PRIORITY, task->prio,
+                            XTM_PTV_COLUMN_COMMAND,task->name,
+                            XTM_PTV_COLUMN_PID,task->pid,
+                            XTM_PTV_COLUMN_PPID, task->ppid,
+                            XTM_PTV_COLUMN_STATE, task->state,
+                            XTM_PTV_COLUMN_VSZ, task->vsz,
+                            XTM_PTV_COLUMN_VSZ_STR, vsz,
+                            XTM_PTV_COLUMN_RSS, task->rss,
+                            XTM_PTV_COLUMN_RSS_STR, rss,
+                            XTM_PTV_COLUMN_UID,task->uid,
+
+
+                            XTM_PTV_COLUMN_CPU, task->cpu_user + task->cpu_system,
+                            XTM_PTV_COLUMN_CPU_STR, cpu,
+
+
+                            -1);
+
+
+        g_free(rss);
+        g_free(vsz);
+
+
+    }
+
+//    g_array_free(tasks, TRUE);
+    //  array();
+    //
+    return GTK_TREE_MODEL (store);
+
+};
+
+GtkWidget *closing(GtkWidget *widget) {
+
+    GtkTreeModel *model;
+    get_task_list(tasks);
+    model = create_and_fill_model();
+   // model=  xtm_process_tree_view_get_model(XTM_PROCESS_TREE_VIEW(widget));
+    g_array_free(tasks, TRUE);
+   // array();
+
+
+    gtk_tree_view_set_model(GTK_TREE_VIEW (widget), model);
+    g_object_unref(model);
+    return widget;
+};

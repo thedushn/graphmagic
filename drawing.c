@@ -3,6 +3,7 @@
 //
 
 #include "drawing.h"
+#include "buttons.h"
 
 static gfloat max_broj3=0;
 static char *track;
@@ -528,6 +529,7 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
     int width, height;
     gchar *rec;
     gchar broj[5];
+    gchar *track;
 
     float rec_bytes=0;
 

@@ -5,10 +5,152 @@
 #include "buttons.h"
 //#include "lines.h"
 #include "drawing.h"
+#include "main_header.h"
+#include "window.h"
+#include "testing_tree.h"
 //static gboolean CPU0_line=TRUE;
 //static gboolean CPU1_line=TRUE;
 //static gboolean CPU2_line=TRUE;
 //static gboolean CPU3_line=TRUE;
+
+void device_window(){
+
+
+        dev_window =gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_default_size(GTK_WINDOW(dev_window), 200, 200);
+        button_device_devices=gtk_check_button_new_with_label ("Devices");
+        button_device_directory=gtk_check_button_new_with_label ("Directories");
+        button_device_total=gtk_check_button_new_with_label ("Total size");
+        button_device_avail=gtk_check_button_new_with_label ("available");
+        button_device_type=gtk_check_button_new_with_label ("type");
+        button_device_free=gtk_check_button_new_with_label ("free");
+        button_device_used=gtk_check_button_new_with_label ("used");
+
+    if(device_devices==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_devices),TRUE);
+    }
+    if(device_directory==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_directory),TRUE);
+    }
+    if(device_used==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_used),TRUE);
+    }
+    if(device_free==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_free),TRUE);
+    }
+
+    if(device_total==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_total),TRUE);
+    }
+    if(device_avail==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_avail),TRUE);
+    }
+    if(device_type==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_type),TRUE);
+    }
+
+
+
+
+    gtk_window_set_title (GTK_WINDOW (dev_window), "Device window");
+
+        box2=gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
+        gtk_container_add(GTK_CONTAINER(dev_window),box2);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_devices,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_directory,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_avail,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_total,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_free,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_used,1,1,0);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_type,1,1,0);
+        g_signal_connect(button_device_devices,"toggled", G_CALLBACK(device_clicked), NULL);
+        g_signal_connect(button_device_directory,"toggled", G_CALLBACK(device_clicked), NULL);
+        g_signal_connect(button_device_avail,"toggled", G_CALLBACK(device_clicked), NULL);
+        g_signal_connect(button_device_total,"toggled", G_CALLBACK(device_clicked), NULL);
+        g_signal_connect(button_device_free,"toggled", G_CALLBACK(device_clicked), NULL);
+        g_signal_connect(button_device_used,"toggled", G_CALLBACK(device_clicked), NULL);
+        g_signal_connect(button_device_type,"toggled", G_CALLBACK(device_clicked), NULL);
+
+
+        gtk_window_set_position(GTK_WINDOW(dev_window), GTK_WIN_POS_CENTER);
+
+        g_signal_connect(G_OBJECT(dev_window), "destroy",
+                         G_CALLBACK(close_window), NULL);
+
+        gtk_widget_show_all(dev_window);
+
+
+
+
+}
+void button_clicked_view_process(GtkWidget *widget) {
+
+
+
+
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
+
+        pokazi_ili_hide(widget, process_swindow);
+
+
+        gtk_widget_show_all(process_swindow);
+
+
+    } else {
+
+
+        pokazi_ili_hide(widget, process_swindow);
+
+    }
+}
+void dev_button_clicked2(GtkWidget *widget){
+
+
+
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
+
+        pokazi_ili_hide(widget, dev_swindow);
+
+        //   dev_problems(TRUE,dev_swindow);
+
+
+        gtk_widget_show_all(dev_swindow);
+        // g_timeout_add(1000, (GSourceFunc)refresh_dev(),NULL);
+    } else {
+        pokazi_ili_hide(widget, dev_swindow);
+
+        //  GList *children=  gtk_container_get_children(GTK_CONTAINER(dev_swindow));
+
+        // gtk_widget_destroy(progressbar);
+        //  gtk_widget_unparent(children->data);
+        // gtk_container_remove(GTK_CONTAINER(dev_swindow),children->data);
+        //gtk_widget_destroy(swindow2);
+        //    gtk_widget_destroy(dev_swindow);
+        //pokazi_ili_hide(widget);
+        //   gtk_widget_hide(dev_swindow);
+        //    clean_button();
+        //   gtk_container_remove(GTK_CONTAINER(swindow2),view2);
+
+
+
+
+    }
+
+}
+void dev_button_clicked(GtkWidget *widget) {
+
+
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
+
+        pokazi_ili_hide(widget, dev_swindow);
+
+       // gtk_widget_show(dev_swindow);
+    } else {
+        pokazi_ili_hide(widget, dev_swindow);
+
+    }
+};
+
 
 void close_window() {
 
@@ -71,6 +213,103 @@ void graph_button_clicked(GtkWidget *widget){
         gtk_widget_destroy(window2);
 
     }
+};
+void device_clicked(GtkWidget *widget){
+//void graph_clicked(GtkWidget *widget){
+
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+    {
+        if(widget==button_device_devices){
+
+            device_devices= TRUE;
+            //     testiranje=1;
+            change_list_store_view(widget,device_devices);
+          //  device_refresh(widget,CPU0_line );
+
+            //  return CPU0_line;
+        }
+        if(widget==button_device_directory){
+
+            device_directory= TRUE;
+            change_list_store_view(widget,device_directory);
+            device_refresh(widget,device_directory );
+        }
+        if(widget==button_device_avail){
+
+            device_avail= TRUE;
+            change_list_store_view(widget,device_avail);
+            device_refresh(widget,device_avail );
+        }
+        if(widget==button_device_total){
+            device_total= TRUE;
+            change_list_store_view(widget,device_total);
+            device_refresh(widget,device_total );
+        }
+        if(widget==button_device_used){
+            device_used= TRUE;
+            change_list_store_view(widget,device_used);
+            device_refresh(widget,device_used );
+        }
+        if(widget==button_device_type){
+            device_type= TRUE;
+            change_list_store_view(widget,device_type);
+            device_refresh(widget,device_type );
+        }
+        if(widget==button_device_free){
+            device_free= TRUE;
+            change_list_store_view(widget,device_free);
+            device_refresh(widget,device_free );
+        }
+
+    }
+    else{
+
+        if(widget==button_device_devices){
+
+            device_devices= FALSE;
+
+            // graph_refresh();
+            change_list_store_view(widget,device_devices);
+            device_refresh(widget,device_devices );
+
+        }
+        if(widget==button_device_directory){
+
+            device_directory= FALSE;
+            change_list_store_view(widget,device_directory);
+            device_refresh(widget,device_directory );
+        }
+        if(widget==button_device_avail){
+
+            device_avail= FALSE;
+            change_list_store_view(widget,device_avail);
+            device_refresh(widget,device_avail );
+        }
+        if(widget==button_device_total){
+                device_total= FALSE;
+            change_list_store_view(widget,device_total);
+            device_refresh(widget,device_total );
+        }
+        if(widget==button_device_used){
+            device_used= FALSE;
+            change_list_store_view(widget,device_used);
+            device_refresh(widget,device_used );
+        }
+        if(widget==button_device_type){
+            device_type= FALSE;
+            change_list_store_view(widget,device_type);
+            device_refresh(widget,device_type );
+        }
+        if(widget==button_device_free){
+            device_free= FALSE;
+            change_list_store_view(widget,device_free);
+            device_refresh(widget,device_free );
+        }
+
+
+
+    }
+
 };
 void graph_clicked(GtkWidget *widget){
 //void graph_clicked(GtkWidget *widget){
@@ -156,7 +395,7 @@ void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
         gtk_widget_hide(hbox1);
         gtk_widget_hide(hbox3);
         gtk_widget_hide(hbox2);
-    //    gtk_widget_show_all(window);
+        gtk_widget_show_all(window);
 
 
     }
@@ -266,3 +505,18 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
         cairo_surface_destroy (graph_surface);
     }
 };
+void change_view(GtkWidget *button){
+
+
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))) {
+
+        gtk_widget_show_all(dev_swindow);
+        gtk_widget_show_all(process_swindow);
+
+    }
+    else{
+
+        gtk_widget_hide(process_swindow);
+        gtk_widget_hide(dev_swindow);
+    }
+}

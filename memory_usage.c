@@ -58,12 +58,12 @@ void	get_memory_usage(){
   //  printf("%d",memory_usage.percentage);
  // printf("Percentage %f",percentage);
 
-    memory_total *= 1024;
-    memory_free *= 1024;
-    memory_cache *= 1024;
-    memory_buffers *= 1024;
-    swap_total *= 1024;
-    swap_free *= 1024;
+//    memory_total *= 1024;
+//    memory_free *= 1024;
+//    memory_cache *= 1024;
+//    memory_buffers *= 1024;
+//    swap_total *= 1024;
+//    swap_free *= 1024;
 
 
 

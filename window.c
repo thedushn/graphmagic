@@ -32,24 +32,22 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
     menubar = gtk_menu_bar_new();
     filemenu = gtk_menu_new();
     filemenu2 = gtk_menu_new();
-    //filemenu3 = gtk_menu_new();
-
+   GtkWidget * filemenu3 =gtk_menu_new();
+ filemenu3=gtk_menu_item_new_with_label("testingalltheway");
     speed = gtk_menu_item_new_with_label("speed");
     devices_menu = gtk_menu_item_new_with_label("devices");
   //  graph_menu = gtk_menu_item_new_with_label("graphs");
 
     increase_refresh = gtk_menu_item_new_with_label("+250");
     decrease_refresh = gtk_menu_item_new_with_label("-250");
-    show_all = gtk_menu_item_new_with_label("All_file_systems");
+    file_system = gtk_menu_item_new_with_label("file_systems");
 //  GtkWidget *graph_window=gtk_menu_item_new_with_label("graphs");
     GtkWidget *new = gtk_menu_item_new_with_label("return");
     GtkWidget *test = gtk_menu_item_new_with_label("flush");
-
-
-
-
     quit = gtk_menu_item_new_with_label("Quit");
+
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(speed), filemenu);
+    //gtk_menu_item_set_submenu(GTK_MENU_ITEM(speed), filemenu3);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), increase_refresh);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), decrease_refresh);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quit);
@@ -67,22 +65,23 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(devices_menu), filemenu2);
-    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), show_all);
+    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), file_system);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), new);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), test);
+
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), devices_menu);
 
 
     g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(quit_activated), NULL);
     g_signal_connect(increase_refresh, "activate", G_CALLBACK(inc_refresh), NULL);
     g_signal_connect(decrease_refresh, "activate", G_CALLBACK(dec_refresh), NULL);
-// g_signal_connect(show_all, "activate", G_CALLBACK(devices_change), NULL);
+    g_signal_connect(file_system, "activate", G_CALLBACK(device_window), NULL);
     g_signal_connect(new, "activate", G_CALLBACK(new_button_clicked2), NULL);
     g_signal_connect(test, "activate", G_CALLBACK(clean_button), NULL);
 //   g_signal_connect(graph_window, "activate", G_CALLBACK(graph_button_clicked), NULL);
 
     treeview = gtk_tree_view_new ();
-// treeview=  xtm_process_tree_view_new();
+
     gtk_widget_show (treeview);
 
 
@@ -124,7 +123,7 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
 
     gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), GTK_TREE_MODEL(list_store1));
-   // g_object_unref(list_store1);
+    g_object_unref(list_store1);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store1), 1, GTK_SORT_ASCENDING);
    gtk_container_add(GTK_CONTAINER(dev_swindow),treeview1);
 

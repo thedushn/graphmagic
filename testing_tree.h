@@ -38,7 +38,7 @@ GtkWidget* create_mainmenu (void);
 GtkWidget* create_taskpopup (void);
 void on_show_cached_as_free_toggled (GtkMenuItem *menuitem, gint uid);
 void on_show_tasks_toggled (GtkMenuItem *menuitem, gint uid);
-void change_list_store_view(void);
+void change_list_store_view(GtkWidget *widget,gboolean makes_sense);
 void change_task_view(void);
 void add_new_list_item(gint i);
 void add_new_list_item_dev(gint i);

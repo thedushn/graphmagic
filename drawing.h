@@ -15,7 +15,7 @@
 #include <cairo.h>
 #include "network_bandwith.h"
 #include "interrupts.h"
-#include "buttons.h"
+//#include "buttons.h"
 
 //#include "main_header.h"
 GArray *history[9];
