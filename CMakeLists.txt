@@ -22,7 +22,9 @@ set(SOURCE_FILES main.c memory_usage.c memory_usage.h cpu_usage.c cpu_usage.h ne
         settings-tool-button.c settings-tool-button.h
         settings-dialog.c settings-dialog.h
         settings-dialog-gtk3_ui.h
-        main_header.h buttons.c buttons.h devices.c devices.h process-window.c process-window.h testing_tree.c testing_tree.h window.c window.h)
+        main_header.h buttons.c buttons.h devices.c devices.h process-window.c process-window.h testing_tree.c testing_tree.h window.c window.h
+        #lines.h
+        )
 
 
 

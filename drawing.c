@@ -671,4 +671,67 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
     }
 
 }
-
+//void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
+//    int width, height;
+//    float font_size = 12;
+//    double step;
+//    cairo_surface_t *graph_surface;
+//
+//    height = gtk_widget_get_allocated_height(widget);
+//    width = gtk_widget_get_allocated_width(widget);
+//
+//
+//
+//
+//    //  cairo_set_line_width(cr, 1);
+//
+//    step = (width - 3 * font_size - 3 * font_size) / time_step;
+//
+//    cairo_set_font_size(cr, font_size);
+//
+//    cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
+//    cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
+//
+//
+//    cairo_set_font_size(cr, font_size);
+//
+//
+//    graph_surface= crtaj_surface(cr,width,height);
+//
+//    //okvir
+//    //   crtaj_procent_linije(cr, width,height, font_size, 3);
+//    crtaj_okvir(cr, width, height, font_size, 3);
+//    cairo_set_source_rgba(cr, .7, .7, .7, 0.5);
+//    cairo_stroke(cr);
+//
+//    //procenti
+//    crtaj_procente(cr, height, font_size);
+//    //sekunde //secund linije
+//    crtaj_sekunde(cr, width, height, font_size, 3);
+//
+//
+//
+//    if(CPU0_line==TRUE){
+//
+//
+//        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size, step);
+//    }
+//    if(CPU1_line==TRUE){
+//        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size, step);
+//    }
+//    if(CPU2_line==TRUE){
+//        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size, step);
+//    }
+//    if(CPU3_line==TRUE){
+//        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size, step);
+//    }
+//
+//
+//
+//    if (graph_surface != NULL)
+//    {
+//        cairo_set_source_surface (cr, graph_surface, 0.0, 0.0);
+//        cairo_paint (cr);
+//        cairo_surface_destroy (graph_surface);
+//    }
+//};

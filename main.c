@@ -29,10 +29,10 @@ struct Cpu_usage cpu[4];
 struct Network net;
 
 
-gboolean CPU0_line = TRUE;
-gboolean CPU1_line = TRUE;
-gboolean CPU2_line = TRUE;
-gboolean CPU3_line = TRUE;
+//gboolean CPU0_line = TRUE;
+//gboolean CPU1_line = TRUE;
+//gboolean CPU2_line = TRUE;
+//gboolean CPU3_line = TRUE;
 
 gchar *track;
 //void  array(){
@@ -726,7 +726,7 @@ GArray *new_task_list;
     new_task_list =  get_task_list2();
     new_device_list   = device(TESTIRANJE);
     //  printf("new lenght %d \n",new_device_list->len);
-    printf("names lenght %d \n",names_array->len);
+ //   printf("names lenght %d \n",names_array->len);
 
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
@@ -737,7 +737,9 @@ GArray *new_task_list;
         {
             Devices *new_tmp = &g_array_index(new_device_list, Devices, j);
 
-            if(strcmp(new_tmp->directory, tmp->directory)==0 &&strcmp(new_tmp->name, tmp->name)==0 && strcmp(new_tmp->type, tmp->type)==0)  //poredimo elemente nizova
+            if(strcmp(new_tmp->directory, tmp->directory)==0 &&strcmp(new_tmp->name, tmp->name)==0 && strcmp(new_tmp->type, tmp->type)==0&&
+                        new_tmp->fid==tmp->fid && new_tmp->total ==tmp->total
+                    )  //poredimo elemente nizova
             {
               //  if(strcmp(new_tmp->name, tmp->name)==0) {
 
@@ -779,7 +781,7 @@ GArray *new_task_list;
      //   printf("name %s I %d checked %s \n",tmp->name,i,tmp->checked  ? "TRUE" : "FALSE");
         if(!tmp->checked)//element niza koji se ne nalazi vise u novom nizu
         {
-            remove_list_item_device(tmp->directory);
+            remove_list_item_device(tmp->directory,tmp->name,tmp->type);
             g_array_remove_index(names_array, i);
             printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
             dev_num--;
@@ -1038,9 +1040,9 @@ gtk_init(&argc, &argv);
 
     gtk_widget_hide(dev_swindow);
    gtk_widget_hide(process_swindow);
-    gtk_widget_hide(hbox1);
-    gtk_widget_hide(hbox3);
-    gtk_widget_hide(hbox2);
+//    gtk_widget_hide(hbox1);
+//    gtk_widget_hide(hbox3);
+//    gtk_widget_hide(hbox2);
 
 
     gtk_main();

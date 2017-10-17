@@ -9,6 +9,11 @@
 #include "main_header.h"
 #include "drawing.h"
 
+
+static gboolean CPU0_line=FALSE;
+static gboolean CPU1_line=FALSE;
+static gboolean CPU2_line=TRUE;
+static gboolean CPU3_line=TRUE;
 GtkWidget *button;
 GtkWidget *button2;
 GtkWidget *button3;

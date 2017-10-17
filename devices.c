@@ -138,8 +138,12 @@ Devices testing_files( Devices devices){
    // printf("Total blocks_test: %d\nFree blocks: %d\nSize of block: %d\n\
 Size in bytes: %d\nTotal Files size: %lu\n",
 //           (int)info.f_blocks, (int)info.f_bfree, (int)info.f_bsize,(int) usedBytes, (long)info.f_blocks*(long)info.f_bsize);
+   devices.fid=info.f_flag;
+//    printf("///////\n");
+//    printf("devices %lu , name %s \n",info.f_flag,devices.name);
+//    printf("///////\n");
 
- //   printf("///////\n");
+
        devices.total=(long)info.f_blocks*(long)info.f_bsize;
        devices.used=(((long)info.f_blocks-(long)info.f_bfree))* (long)info.f_bsize;
         devices.avail=info.f_bavail*info.f_bsize;

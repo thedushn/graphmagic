@@ -26,7 +26,7 @@ gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter 
 static void
 status_icon_activated (void);
 void remove_list_item(gint pid);
-void remove_list_item_device(gchar *directory);
+void remove_list_item_device(gchar *directory,gchar *name,gchar *type);
 void refresh_list_item(gint i);
 void refresh_list_item_device(gint i);
 void fill_list_item(gint i, GtkTreeIter *iter);

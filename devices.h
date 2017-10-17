@@ -51,6 +51,7 @@ struct _Devices {
     glong total;
     glong free;
     glong avail;
+    glong fid;
     gboolean checked;
 };
 

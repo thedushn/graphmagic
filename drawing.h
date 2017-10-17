@@ -16,10 +16,15 @@
 #include "network_bandwith.h"
 #include "interrupts.h"
 #include "buttons.h"
+
 //#include "main_header.h"
 GArray *history[9];
 struct Network net;
 
+//gboolean CPU0_line = TRUE;
+//gboolean CPU1_line = TRUE;
+//gboolean CPU2_line = TRUE;
+//gboolean CPU3_line = TRUE;
 
 void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2);
 void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step);

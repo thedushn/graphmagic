@@ -3,11 +3,12 @@
 //
 
 #include "buttons.h"
-
-static gboolean CPU0_line=TRUE;
-static gboolean CPU1_line=TRUE;
-static gboolean CPU2_line=TRUE;
-static gboolean CPU3_line=TRUE;
+//#include "lines.h"
+#include "drawing.h"
+//static gboolean CPU0_line=TRUE;
+//static gboolean CPU1_line=TRUE;
+//static gboolean CPU2_line=TRUE;
+//static gboolean CPU3_line=TRUE;
 
 void close_window() {
 
@@ -144,6 +145,63 @@ void graph_clicked(GtkWidget *widget){
 
 };
 
+
+
+void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
+
+
+    if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))!=FALSE){
+
+       // gtk_widget_hide(hbox);
+        gtk_widget_hide(hbox1);
+        gtk_widget_hide(hbox3);
+        gtk_widget_hide(hbox2);
+    //    gtk_widget_show_all(window);
+
+
+    }
+
+    else {
+
+       // gtk_widget_show(hbox);
+        gtk_widget_show(hbox1);
+        gtk_widget_show(hbox3);
+        gtk_widget_show(hbox2);
+        gtk_widget_hide(window);
+    }
+
+
+};
+void new_button_clicked2(){
+
+
+    gtk_widget_hide(hbox1);
+    gtk_widget_hide(hbox3);
+    gtk_widget_hide(hbox2);
+}
+void clean_button(){
+    // gtk_widget_unparent(view2);
+    //
+    if(view2==NULL){
+
+
+    }
+    else{
+
+
+        gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+        view2=NULL;
+    }
+    // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
+
+    // view2=NULL;
+
+//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (button4))) {
+//
+//        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button4),FALSE);
+//    }
+
+}
 void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     int width, height;
     float font_size = 12;
@@ -208,59 +266,3 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
         cairo_surface_destroy (graph_surface);
     }
 };
-
-void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
-
-
-    if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))!=FALSE){
-
-       // gtk_widget_hide(hbox);
-        gtk_widget_hide(hbox1);
-        gtk_widget_hide(hbox3);
-        gtk_widget_hide(hbox2);
-    //    gtk_widget_show_all(window);
-
-
-    }
-
-    else {
-
-       // gtk_widget_show(hbox);
-        gtk_widget_show(hbox1);
-        gtk_widget_show(hbox3);
-        gtk_widget_show(hbox2);
-        gtk_widget_hide(window);
-    }
-
-
-};
-void new_button_clicked2(){
-
-
-    gtk_widget_hide(hbox1);
-    gtk_widget_hide(hbox3);
-    gtk_widget_hide(hbox2);
-}
-void clean_button(){
-    // gtk_widget_unparent(view2);
-    //
-    if(view2==NULL){
-
-
-    }
-    else{
-
-
-        gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
-        view2=NULL;
-    }
-    // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
-
-    // view2=NULL;
-
-//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (button4))) {
-//
-//        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button4),FALSE);
-//    }
-
-}

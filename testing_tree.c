@@ -464,18 +464,20 @@ void refresh_list_item_device(gint i)
     {
         gchar *str_data = "";
         gchar *str_data1 = "";
+        gchar *str_data2 = "";
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 0, &str_data, -1); //COL_DEV
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data1, -1); //COL_DIR
-//        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 2, &str_data, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 2, &str_data2, -1);  //type
 //        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 3, &str_data, -1);
 //        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 4, &str_data, -1);
 //        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 5, &str_data, -1);
-//       gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 6, &str_data, -1);
+      // gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 6, &str_data, -1);
 
-        if(strcmp(device->name , str_data)==0)
+        if(strcmp(device->name , str_data)==0 && strcmp(device->directory , str_data1)  && strcmp(device->type , str_data2))
         {
             g_free(str_data);
             g_free(str_data1);
+            g_free(str_data2);
 //            printf("Refresh times%d\n",g);
 //            printf("NAME OF the device %s\n",str_data);
 //            printf("NAME OF the device %s\n",device->name);
@@ -487,6 +489,7 @@ void refresh_list_item_device(gint i)
 
         g_free(str_data);
         g_free(str_data1);
+        g_free(str_data2);
         valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(list_store1), &iter);
     }
 }
@@ -533,7 +536,7 @@ void remove_list_item(gint pid)
         valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(list_store), &iter);
     }
 }
-void remove_list_item_device(gchar *directory)
+void remove_list_item_device(gchar *directory,gchar *name,gchar *type)
 {
     GtkTreeIter iter;
     gboolean valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(list_store1), &iter);
@@ -542,19 +545,24 @@ void remove_list_item_device(gchar *directory)
     {
         gchar *str_data = "";
         gchar *str_data1 = "";
+        gchar *str_data2 = "";
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 0, &str_data, -1); //COL_DEV
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data1, -1); //COL_DIR
+        gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data2, -1); //COL_DIR
 
-        if(strcmp(directory,str_data1)==0)
+        if(strcmp(directory,str_data1)==0 && strcmp(name,str_data)==0 && strcmp(directory,str_data2)==0)
         {
             g_free(str_data);
             g_free(str_data1);
+            g_free(str_data2);
+
             gtk_tree_store_remove(GTK_TREE_STORE(list_store1), &iter);
             break;
         }
 
         g_free(str_data);
         g_free(str_data1);
+        g_free(str_data2);
         valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(list_store1), &iter);
     }
 }

@@ -55,8 +55,6 @@ GtkWidget *show_all;
 
 
 
-
-
 GtkWidget *box2;
 
 
