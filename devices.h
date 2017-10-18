@@ -26,7 +26,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <stdlib.h>
-//#include "main_header.h"
+
 
 typedef struct _Devices Devices;
 typedef struct _Memory Memory;

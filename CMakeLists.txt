@@ -6,23 +6,26 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 set(SOURCE_FILES main.c memory_usage.c memory_usage.h cpu_usage.c cpu_usage.h network_bandwith.c
         interrupts.c network_bandwith.h interrupts.h
-        process-tree-model.c process-tree-model.h process-tree-view.h
-        process-tree-view.c
-        task-manager.c task-manager.h
-        settings.c settings.h task-manager-linux.c
+     #   process-tree-model.c process-tree-model.h process-tree-view.h
+      #  process-tree-view.c
+    #    task-manager.c task-manager.h
+        settings.c settings.h
+     #   task-manager-linux.c
         drawing.c drawing.h
        # model.c model.h
-        #task_manager.h task_manager.c
-        process-monitor.h  process-monitor.c
+        task_manager.h task_manager.c
+     #   process-monitor.h  process-monitor.c
 
-        process-window.c
-        process-window-gtk3_ui.h
-        process-statusbar.c process-statusbar.h
-        exec-tool-button.c exec-tool-button.h
-        settings-tool-button.c settings-tool-button.h
-        settings-dialog.c settings-dialog.h
-        settings-dialog-gtk3_ui.h
-        main_header.h buttons.c buttons.h devices.c devices.h process-window.c process-window.h testing_tree.c testing_tree.h window.c window.h
+     #   process-window.c
+      #  process-window-gtk3_ui.h
+      #  process-statusbar.c process-statusbar.h
+      #  exec-tool-button.c exec-tool-button.h
+      #  settings-tool-button.c settings-tool-button.h
+      #  settings-dialog.c settings-dialog.h
+       # settings-dialog-gtk3_ui.h
+        main_header.h buttons.c buttons.h devices.c devices.h
+       # process-window.c process-window.h
+        testing_tree.c testing_tree.h window.c window.h
         #lines.h
         )
 

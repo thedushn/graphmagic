@@ -26,10 +26,6 @@ static inline int get_pagesize (void)
 }
 
 
-void  array(){
-
-    tasks=g_array_new (FALSE, FALSE, sizeof (Task));
-}
 
 static gboolean
 get_task_details (guint pid, Task *task)
@@ -174,6 +170,36 @@ get_task_list (GArray *tasks)
 
     compare_lists(tasks);
     return TRUE;
+}
+GArray *get_task_list2(void) {
+    GDir *dir;
+    struct dirent *dir_entry;
+    guint pid;
+    const gchar *name;
+    GArray *task_list;
+    Task task = {0};
+
+    task_list = g_array_new(FALSE, FALSE, sizeof(Task));
+
+    if ((dir = g_dir_open ("/proc", 0, NULL)) == NULL)
+        return FALSE;
+
+    while ((name = g_dir_read_name(dir)) != NULL)
+    {
+        if ((pid = (guint)g_ascii_strtoull (name, NULL, 0)) > 0)
+        {
+            if (get_task_details (pid, &task))
+            {
+                g_array_append_val (task_list, task);
+            }
+        }
+    }
+
+    g_dir_close (dir);
+
+    return task_list;
+
+
 }
 void compare_lists(GArray *array){
 

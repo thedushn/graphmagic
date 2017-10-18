@@ -12,51 +12,13 @@
 
 #include <glib.h>
 
-#include "task-manager.h"
+
 #include "task_manager.h"
 
 static gushort _cpu_count = 0;
 
 
-//gboolean
-//get_memory_usage (guint64 *memory_total, guint64 *memory_free, guint64 *memory_cache, guint64 *memory_buffers, guint64 *swap_total, guint64 *swap_free)
-//{
-//    FILE *file;
-//    gchar buffer[1024];
-//    gchar *filename = "/proc/meminfo";
-//    gushort found = 0;
-//
-//    if ((file = fopen (filename, "r")) == NULL)
-//        return FALSE;
-//
-//    *memory_total = 0;
-//    *memory_free = 0;
-//    *memory_cache = 0;
-//    *memory_buffers = 0;
-//    *swap_total = 0;
-//    *swap_free = 0;
-//
-//    while (found < 6 && fgets (buffer, 1024, file) != NULL)
-//    {
-//        found += sscanf (buffer, "MemTotal:\t%llu kB", (unsigned long long*)memory_total);
-//        found += sscanf (buffer, "MemFree:\t%llu kB", (unsigned long long*)memory_free);
-//        found += sscanf (buffer, "Cached:\t%llu kB", (unsigned long long*)memory_cache);
-//        found += sscanf (buffer, "Buffers:\t%llu kB", (unsigned long long*)memory_buffers);
-//        found += sscanf (buffer, "SwapTotal:\t%llu kB", (unsigned long long*)swap_total);
-//        found += sscanf (buffer, "SwapFree:\t%llu kB", (unsigned long long*)swap_free);
-//    }
-//    fclose (file);
-//
-//    *memory_total *= 1024;
-//    *memory_free *= 1024;
-//    *memory_cache *= 1024;
-//    *memory_buffers *= 1024;
-//    *swap_total *= 1024;
-//    *swap_free *= 1024;
-//
-//    return TRUE;
-//}
-//
+
 gboolean
 get_cpu_usage (gushort *cpu_count, gfloat *cpu_user, gfloat *cpu_system)
 {
@@ -319,36 +281,7 @@ get_task_list (GArray *task_list)
 
     return TRUE;
 }
-GArray *get_task_list2(void) {
-    GDir *dir;
-    struct dirent *dir_entry;
-    guint pid;
-    const gchar *name;
-    GArray *task_list;
-    Task task = {0};
 
-    task_list = g_array_new(FALSE, FALSE, sizeof(Task));
-
-    if ((dir = g_dir_open ("/proc", 0, NULL)) == NULL)
-        return FALSE;
-
-    while ((name = g_dir_read_name(dir)) != NULL)
-    {
-        if ((pid = (guint)g_ascii_strtoull (name, NULL, 0)) > 0)
-        {
-            if (get_task_details (pid, &task))
-            {
-                g_array_append_val (task_list, task);
-            }
-        }
-    }
-
-    g_dir_close (dir);
-
-    return task_list;
-
-
-}
 
 gboolean
 pid_is_sleeping(guint pid) {

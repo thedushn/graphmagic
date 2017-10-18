@@ -14,14 +14,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _Memory_usage Memory_usage;
 
-
-struct Memory_usage {
+struct _Memory_usage {
 
     unsigned long long  memory_used;
     unsigned long long  memory_total;
-    unsigned long swap_used;
+    float swap_percentage;
     unsigned long long  swap_total;
+    unsigned  long long swap_used;
     float percentage ;
 
 };

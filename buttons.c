@@ -3,15 +3,9 @@
 //
 
 #include "buttons.h"
-//#include "lines.h"
 #include "drawing.h"
-#include "main_header.h"
-#include "window.h"
 #include "testing_tree.h"
-//static gboolean CPU0_line=TRUE;
-//static gboolean CPU1_line=TRUE;
-//static gboolean CPU2_line=TRUE;
-//static gboolean CPU3_line=TRUE;
+
 void process_window(){
     proc_window =gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_default_size(GTK_WINDOW(proc_window), 200, 200);
@@ -95,9 +89,13 @@ void device_window(){
         button_device_type=gtk_check_button_new_with_label ("type");
         button_device_free=gtk_check_button_new_with_label ("free");
         button_device_used=gtk_check_button_new_with_label ("used");
+        button_device_all =gtk_check_button_new_with_label ("Show_all");
 
     if(device_devices==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_devices),TRUE);
+    }
+    if(device_all==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_all),TRUE);
     }
     if(device_directory==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_device_directory),TRUE);
@@ -126,6 +124,7 @@ void device_window(){
 
         box2=gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
         gtk_container_add(GTK_CONTAINER(dev_window),box2);
+        gtk_box_pack_start(GTK_BOX(box2),button_device_all,1,1,0);
         gtk_box_pack_start(GTK_BOX(box2),button_device_devices,1,1,0);
         gtk_box_pack_start(GTK_BOX(box2),button_device_directory,1,1,0);
         gtk_box_pack_start(GTK_BOX(box2),button_device_avail,1,1,0);
@@ -134,6 +133,7 @@ void device_window(){
         gtk_box_pack_start(GTK_BOX(box2),button_device_used,1,1,0);
         gtk_box_pack_start(GTK_BOX(box2),button_device_type,1,1,0);
         g_signal_connect(button_device_devices,"toggled", G_CALLBACK(device_clicked), NULL);
+        g_signal_connect(button_device_all,"toggled", G_CALLBACK(show_all), NULL);
         g_signal_connect(button_device_directory,"toggled", G_CALLBACK(device_clicked), NULL);
         g_signal_connect(button_device_avail,"toggled", G_CALLBACK(device_clicked), NULL);
         g_signal_connect(button_device_total,"toggled", G_CALLBACK(device_clicked), NULL);
@@ -153,6 +153,7 @@ void device_window(){
 
 
 }
+
 void button_clicked_view_process(GtkWidget *widget) {
 
 
@@ -207,19 +208,19 @@ void dev_button_clicked2(GtkWidget *widget){
     }
 
 }
-void dev_button_clicked(GtkWidget *widget) {
-
-
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
-
-        pokazi_ili_hide(widget, dev_swindow);
-
-       // gtk_widget_show(dev_swindow);
-    } else {
-        pokazi_ili_hide(widget, dev_swindow);
-
-    }
-};
+//void dev_button_clicked(GtkWidget *widget) {
+//
+//
+//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
+//
+//        pokazi_ili_hide(widget, dev_swindow);
+//
+//       // gtk_widget_show(dev_swindow);
+//    } else {
+//        pokazi_ili_hide(widget, dev_swindow);
+//
+//    }
+//};
 
 
 void close_window() {
@@ -381,6 +382,7 @@ void device_clicked(GtkWidget *widget){
     }
 
 };
+
 void process_clicked(GtkWidget *widget){
 //void graph_clicked(GtkWidget *widget){
 
@@ -685,18 +687,18 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
         cairo_surface_destroy (graph_surface);
     }
 };
-void change_view(GtkWidget *button){
-
-
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))) {
-
-        gtk_widget_show_all(dev_swindow);
-        gtk_widget_show_all(process_swindow);
-
-    }
-    else{
-
-        gtk_widget_hide(process_swindow);
-        gtk_widget_hide(dev_swindow);
-    }
-}
+//void change_view(GtkWidget *button){
+//
+//
+//    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))) {
+//
+//        gtk_widget_show_all(dev_swindow);
+//        gtk_widget_show_all(process_swindow);
+//
+//    }
+//    else{
+//
+//        gtk_widget_hide(process_swindow);
+//        gtk_widget_hide(dev_swindow);
+//    }
+//}

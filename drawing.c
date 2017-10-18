@@ -3,7 +3,7 @@
 //
 
 #include "drawing.h"
-#include "buttons.h"
+
 
 static gfloat max_broj3=0;
 
@@ -86,7 +86,7 @@ cairo_t *ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar 
         //  text_int[11]='\0';
         cairo_show_text(cr,text_int);
     }
-    if(q>=1){
+  else  /*if(q>=1)*/{
 
         for (int r = 0; r <= q; r++) {
             //pomeramo ga u zavisnosti od koliko redova nam treba
@@ -313,11 +313,11 @@ cairo_t *crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int he
     if (r == 0 || r==5)
 
         cairo_set_source_rgb(cr, 1, 0, 0);
-    if (r == 1 )
+    else if (r == 1 )
         cairo_set_source_rgb(cr, 0, 1, 0);
-    if (r == 2 || r==4)
+    else if (r == 2 || r==4)
         cairo_set_source_rgb(cr, 0, 0, 1); //rgb
-    if (r == 3)
+    else /*(r == 3)*/
         cairo_set_source_rgb(cr, 1, .5, 0);
 
   //  printf("size of array %d\n",history->len);
@@ -545,7 +545,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
 };
 void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
     int width, height;
-    gchar *rec;
+   // gchar *rec;
     gchar broj[5];
     gchar *track;
 
@@ -592,7 +592,7 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
 
 
-    rec=g_strdup_printf("%s",net.network_size_rc);
+   // rec=g_strdup_printf("%s",net.network_size_rc);
 
 
     for(int j=4; j<=5;j++) {
@@ -628,7 +628,7 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
         //  max_broj3=max_broj+1024;
 
     }
-    if(max_broj<=1000 && max_broj >1){
+    else if(max_broj<=1000 && max_broj >1){
         //if(max_broj<=1024 && max_broj >1){
 
         rec_bytes = max_broj;//kb
@@ -639,12 +639,12 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
 
     }
-    if(max_broj<=1){
+    else /*if(max_broj<=1)*/{
 
         rec_bytes= max_broj*1000;//bytes
         // rec_bytes= max_broj*1024;//bytes
 
-        track=rec;
+      //  track=rec;
         track=b;
         //     max_broj3=max_broj+1024;
         max_broj3=max_broj+100;
@@ -674,7 +674,7 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
     cairo_show_text(cr,"0");
     cairo_show_text(cr,track);
 
-    g_free(rec);
+    //g_free(rec);
 
 
 

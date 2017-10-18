@@ -3,7 +3,7 @@
 //
 
 #include "window.h"
-#include "gtk/gtk.h"
+
 #include "testing_tree.h"
 
 
@@ -23,10 +23,10 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
     button = gtk_button_new_with_label("refresh rate +");
     button2 = gtk_button_new_with_label("refresh rate-");
-    button3 = gtk_toggle_button_new_with_label("Process");
-    button4 = gtk_toggle_button_new_with_label("Dev");
-    button_dev = gtk_toggle_button_new_with_label("Dev2");
-    button5 = gtk_toggle_button_new_with_label("NEW");
+    button_proc = gtk_toggle_button_new_with_label("Process");
+   // button4 = gtk_toggle_button_new_with_label("Dev");
+    button_dev = gtk_toggle_button_new_with_label("Dev");
+  //  button5 = gtk_toggle_button_new_with_label("NEW");
     button_graph = gtk_toggle_button_new_with_label("graphs");
 
     menubar = gtk_menu_bar_new();
@@ -160,9 +160,9 @@ GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
     gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, FALSE);//expand,fill,padding
     gtk_box_pack_start(GTK_BOX(hbox), button2, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button3, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button5, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button4, 0, 0, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), button_proc, 0, 0, 0);
+  //  gtk_box_pack_start(GTK_BOX(hbox), button5, 0, 0, 0);
+   // gtk_box_pack_start(GTK_BOX(hbox), button4, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_dev, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_graph, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), label3, 0, 0, 0);

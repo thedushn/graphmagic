@@ -7,14 +7,14 @@
 
 
 struct Cpu_usage cpu[4];
-static gushort _cpu_count = 0;
+
 
 
 
 //void cpu_number (){
 int cpu_number (){
 
-    int c;
+    int c=0;
     FILE *file;
     gchar *filename = "/proc/cpuinfo";
     gchar buffer[1024];
@@ -103,8 +103,8 @@ void cpu_percentage(int cpu_count){
             jiffies_total_delta[i] = jiffies_total[i] - jiffies_total_old[i];
           //  printf("total deltaprvi%lu\n",  jiffies_total_delta[i]);
             test+=jiffies_total_delta[i];
-            cpu_user[i] = (jiffies_user[i] - jiffies_user_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
-           cpu_system[i] = (jiffies_system[i] - jiffies_system_old[i]) * 100 / (gdouble) (jiffies_total_delta[i]);
+            cpu_user[i] = (jiffies_user[i] - jiffies_user_old[i]) * 100 / (float) (jiffies_total_delta[i]);
+           cpu_system[i] = (jiffies_system[i] - jiffies_system_old[i]) * 100 / (float) (jiffies_total_delta[i]);
         }
 
         percentage[i] =cpu_user[i] + cpu_system[i];
@@ -242,8 +242,8 @@ get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffie
     if (jiffies_total_delta[4] > 0)
     {
 
-        *cpu_user = (jiffies_user - jiffies_user_old) * 100 / (gdouble)jiffies_total_delta[4];
-        *cpu_system = (jiffies_system - jiffies_system_old) * 100 / (gdouble)jiffies_total_delta[4];
+        *cpu_user = (jiffies_user - jiffies_user_old) * 100 / (float)jiffies_total_delta[4];
+        *cpu_system = (jiffies_system - jiffies_system_old) * 100 / (float)jiffies_total_delta[4];
        // printf("total  Delta final %lu user %f system %f \n",jiffies_total_delta[4],*cpu_user,*cpu_system);
     }
     else

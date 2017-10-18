@@ -2,13 +2,10 @@
 #include "network_bandwith.h"
 #include "interrupts.h"
 #include "task_manager.h"
-#include "process-tree-view.h"
+
 #include "drawing.h"
 
-//
-//#include "task-manager.h"
-//
-//#include "process-window.h"
+
 #include "testing_tree.h"
 #include "memory_usage.h"
 #include "window.h"
@@ -97,14 +94,7 @@ void process_refresh(GtkWidget *widget, gboolean BOOL){
     }
 
 
-    if (!g_source_remove(refresh)) {
-        g_critical ("Unable to remove source");
-        return;
-    }
-    refresh = 0;
-
-
-    init_timeout();
+    timeout_refresh();
 }
 
 void device_refresh(GtkWidget *widget, gboolean BOOL) {
@@ -160,14 +150,20 @@ void device_refresh(GtkWidget *widget, gboolean BOOL) {
     }
 
 
-    if (!g_source_remove(refresh)) {
-        g_critical ("Unable to remove source");
-        return;
-    }
-    refresh = 0;
+    timeout_refresh();
 
 
-    init_timeout();
+};
+void show_all(GtkWidget *widget){
+
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
+
+        device_all=TRUE;
+
+    } else
+        device_all=FALSE;
+
+    timeout_refresh();
 
 
 };
@@ -197,14 +193,7 @@ void graph_refresh(GtkWidget *widget, gboolean CPU) {
         CPU3_line = CPU;
     }
 
-    if (!g_source_remove(refresh)) {
-        g_critical ("Unable to remove source");
-        return;
-    }
-    refresh = 0;
-
-
-    init_timeout();
+    timeout_refresh();
 
 
 };
@@ -284,24 +273,17 @@ void CHANGE(){
     TESTIRANJE = !TESTIRANJE;
     timeout_refresh();
 }
-//void (){
-//
-//timeout
-//}
+
 
 void init_timeout() {
 
     gint i=0,j=0;
 
 
-    cpu_percent_change(ncpu);//nije ovde
-    get_memory_usage();//nije ovde
-    // array_interrupts();
-    interrupt_usage();
 GArray *new_task_list;
     GArray *new_device_list;
     new_task_list =  get_task_list2();
-    new_device_list   = device(TESTIRANJE);
+    new_device_list   = device(device_all);
     //  printf("new lenght %d \n",new_device_list->len);
  //   printf("names lenght %d \n",names_array->len);
 
@@ -468,6 +450,10 @@ GArray *new_task_list;
 
 
 
+    cpu_percent_change(ncpu);//nije ovde
+    get_memory_usage();//nije ovde
+
+    interrupt_usage();
     cpu_change(ncpu);
 
    memory_change(label);// nije ovde
@@ -519,7 +505,7 @@ gtk_init(&argc, &argv);
     array_interrupts();
     //test
  //   array();
-    tasks=g_array_new (FALSE, FALSE, sizeof (Task));
+   // tasks=g_array_new (FALSE, FALSE, sizeof (Task));
   //  array_devices();
 
     //  get_task_list(tasks);
@@ -531,8 +517,7 @@ gtk_init(&argc, &argv);
     names_array=g_array_new (FALSE, FALSE, sizeof (Devices));
 
 
-    // names_temp=g_array_new (TRUE, FALSE, sizeof (Devices));
- //   device(TRUE);
+
     for (int i = 0; i < 8; i++) {
         history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
 
@@ -553,11 +538,11 @@ gtk_init(&argc, &argv);
     window= main_window(dev_swindow,process_swindow);
     g_signal_connect(button, "clicked", G_CALLBACK(inc_refresh), NULL);
     g_signal_connect(button2, "clicked", G_CALLBACK(dec_refresh), NULL);
-    g_signal_connect(button3, "toggled", G_CALLBACK(button_clicked_view_process), NULL);
-    g_signal_connect(button4, "toggled", G_CALLBACK(CHANGE), NULL);
+    g_signal_connect(button_proc, "toggled", G_CALLBACK(button_clicked_view_process), NULL);
+  //  g_signal_connect(button4, "toggled", G_CALLBACK(dev_button_clicked), NULL);
     g_signal_connect(button_dev, "toggled", G_CALLBACK(dev_button_clicked2), NULL);
-    //g_signal_connect(button5, "toggled", G_CALLBACK(pokazi_ili_hide), NULL);
-    g_signal_connect(button5, "toggled", G_CALLBACK(CHANGE), NULL);
+
+
 
     g_signal_connect(button_graph, "clicked", G_CALLBACK(graph_button_clicked), NULL);
     g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);

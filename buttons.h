@@ -6,12 +6,12 @@
 #define GTKWORLD_BUTTONS_H
 
 #include <gtk/gtk.h>
-#include "main_header.h"
-//#include "drawing.h"
 
 
-static gboolean CPU0_line=FALSE;
-static gboolean CPU1_line=FALSE;
+
+
+static gboolean CPU0_line=TRUE;
+static gboolean CPU1_line=TRUE;
 static gboolean CPU2_line=TRUE;
 static gboolean CPU3_line=TRUE;
 
@@ -22,6 +22,8 @@ static gboolean device_used=TRUE;
 static gboolean device_free=TRUE;
 static gboolean device_total=TRUE;
 static gboolean device_avail=TRUE;
+static gboolean device_all=FALSE;
+
 static gboolean process_task=TRUE;
 static gboolean process_user=TRUE;
 static gboolean process_pid=TRUE;
@@ -30,9 +32,10 @@ static gboolean process_cpu=TRUE;
 static gboolean process_vm_size=TRUE;
 static gboolean process_rss=TRUE;
 static gboolean process_state=TRUE;
+
 GtkWidget *button;
 GtkWidget *button2;
-GtkWidget *button3;
+GtkWidget *button_proc;
 GtkWidget *button4;
 GtkWidget *button5;
 GtkWidget *button_dev;
@@ -46,6 +49,7 @@ GtkWidget * button_device_directory;
 GtkWidget * button_device_type;
 GtkWidget * button_device_avail;
 GtkWidget * button_device_used;
+GtkWidget *button_device_all;
 GtkWidget * button_device_free;
 GtkWidget * button_device_total;
 GtkWidget * button_process_task;

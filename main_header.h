@@ -43,7 +43,7 @@ GtkWidget *frame4;
 GtkWidget *window2;
 GtkWidget *dev_window;
 GtkWidget *proc_window;
-GtkTreeIter iter;
+
 GtkWidget *speed;
 GtkWidget *devices_menu;
 GtkWidget *filemenu2;
@@ -60,9 +60,9 @@ GtkWidget *file_system;
 GtkWidget *box2;
 
 
-GtkWidget *view;
+
 GtkWidget *view2;
-GtkWidget *view_dev;
+
 
 
 gchar *memory_usage_text;
@@ -79,25 +79,23 @@ GArray *task_array;
 GArray *names_array;
 
 
+
 void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
 void device_refresh(GtkWidget *widget, gboolean );
 void process_refresh(GtkWidget *widget, gboolean BOOL);
-
+void show_all(GtkWidget *widget);
 void close_window();
 
-static GtkWidget *create_view_and_model_file_system (void);
-static GtkWidget *create_view_and_model (void);
-static GtkTreeModel *create_and_fill_model (void);
-static GtkTreeModel *create_and_fill_model_file_system (void);
-void dev_problems(gboolean,GtkWidget *window);
+
+
 gboolean show_user_tasks;
 gboolean show_root_tasks;
 gboolean show_other_tasks;
 gint own_uid;
 void dec_refresh();
 void inc_refresh();
-void dev_button_clicked(GtkWidget *widget);
+
 
 void init_timeout2();
 void timeout_refresh();
@@ -126,28 +124,10 @@ GtkTreeStore *list_store1;
 
 gboolean show_cached_as_free; /* Show memory used Cache as free memory */
 
-gboolean full_view;
-
-
-GtkWidget *mainmenu;
 
 GtkWidget *taskpopup;
-GtkWidget *cpu_usage_progress_bar;
-GtkWidget *mem_usage_progress_bar;
-GtkWidget *cpu_usage_progress_bar_box;
-GtkWidget *mem_usage_progress_bar_box;
-GtkTreeViewColumn *column;
 
-#define COLUMN_NAME	0
-#define COLUMN_PID	1
-#define COLUMN_PPID	2
-#define COLUMN_STATE	3
-#define COLUMN_MEM	4
-#define COLUMN_RSS	5
-#define COLUMN_UNAME	6
-#define COLUMN_CPU   7
-#define COLUMN_CPU2   8
-#define COLUMN_TIME	7
+
 
 
 

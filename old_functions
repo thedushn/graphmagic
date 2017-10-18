@@ -127,7 +127,12 @@ void dev_problems(gboolean show,GtkWidget *window) {
 
 
 };
-
+void dev_button_clicked(GtkWidget *widget);
+void dev_problems(gboolean,GtkWidget *window);
+static GtkWidget *create_view_and_model_file_system (void);
+static GtkWidget *create_view_and_model (void);
+static GtkTreeModel *create_and_fill_model (void);
+static GtkTreeModel *create_and_fill_model_file_system (void);
 void devices_change(GtkWidget *widget) {
 
     if(widget==file_system){
