@@ -506,7 +506,7 @@ void refresh_list_item_device(gint i)
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 0, &str_data, -1); //COL_DEV
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data1, -1); //COL_DIR
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 2, &str_data2, -1);  //type
-        printf("type %s\n",str_data2);
+        //printf("type %s\n",str_data2);
 
         if(strcmp(device->name , str_data)==0 && strcmp(device->directory , str_data1)==0 /* && strcmp(device->type , str_data2)*/)
         {

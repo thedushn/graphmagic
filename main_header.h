@@ -77,6 +77,8 @@ gchar *network_usage_transimited_text;
 GArray *history[9];
 GArray *task_array;
 GArray *names_array;
+GArray *interrupt_array_d;
+ GArray *interrupt_array_temp;
 
 
 

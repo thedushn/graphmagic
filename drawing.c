@@ -227,7 +227,7 @@ cairo_t * crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i
 };
 cairo_t * crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size){
 
-    cairo_set_source_rgb(cr,0,0,0);
+  //  cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr, 0,font_size);
     cairo_set_source_rgb(cr,0,0,0);
     cairo_show_text(cr,"100%");
@@ -406,16 +406,16 @@ void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
 
   //  cairo_stroke(cr);
     //okvir
-     crtaj_okvir(cr,width,height,font_size,3);
+    cr= crtaj_okvir(cr,width,height,font_size,3);
 
 //procent linije
   //  crtaj_procent_linije(cr, width,height, font_size, 3);
 
     //procenti
-    crtaj_procente(cr,height,font_size);
+   cr= crtaj_procente(cr,height,font_size);
 
     //sekunde
-    crtaj_sekunde(cr,width,height,font_size,3);
+  cr=  crtaj_sekunde(cr,width,height,font_size,3);
 
 
     crtanje_graph(cr, history[6], 0, bjorg, 3, height, font_size, step);
@@ -433,9 +433,11 @@ void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
 }
 void do_drawing4(GtkWidget *widget,cairo_t *cr){
     int width, height;
-    gchar *ime2="";
+   // gchar *ime2="";
+    gchar ime2[3];
     long max_broj=0;
     signed long temp=0;
+    float duzina=0;
     Interrupts *peak;
     gchar broj[5];
     cairo_surface_t *graph_surface;
@@ -463,19 +465,19 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
 
 
 
-    if(width>height) {
-        printf("font %f width %d, height  %d ration  %f\n", font_size, width, height, (float) width / height);
-    }
-    if(height>width) {
-        printf("font %f width %d, height  %d ration  %f\n", font_size, width, height, (float) height / width);
-    }
+//    if(width>height) {
+//        printf("font %f width %d, height  %d ration  %f\n", font_size, width, height, (float) width / height);
+//    }
+//    if(height>width) {
+//        printf("font %f width %d, height  %d ration  %f\n", font_size, width, height, (float) height / width);
+//    }
 
     cairo_set_line_width(cr,1);
     cairo_set_font_size(cr, font_size);
 
     graph_surface= crtaj_surface(cr,width,height);
  //   crtaj_procent_linije(cr, width,height, font_size, 5);
-     crtaj_okvir(cr,width,height,font_size,5);
+    cr= crtaj_okvir(cr,width,height,font_size,5);
     cairo_set_source_rgb(cr,0,0,0);
 
 
@@ -521,18 +523,19 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
 
     cairo_move_to(cr,0,height-font_size);
     cairo_show_text(cr,"0");
-    float duzina= (width-(5*font_size*2))/5/10;
+    duzina= (width-(5*font_size*2))/5/10;
     for (int i = 0; i <= 9; i++) {
 
         // cairo_move_to(cr, 5 * font_size, height);
         peak = &g_array_index(ginterrupts_final, Interrupts, i);
 
         cairo_move_to(cr, 5 * font_size + 5 * duzina * (i), height);
-        ime2 = g_strdup_printf("%3s", peak->name);
+        sprintf(ime2,"%s",peak->name);
+       // ime2 = g_strdup_printf("%3s", peak->name);
         cairo_set_source_rgb(cr, 0, 0, 0);
        cairo_show_text(cr, ime2);
 
-        crtaj_interrupte(cr, i, peak, height, font_size, max_broj, duzina);
+       cr= crtaj_interrupte(cr, i, peak, height, font_size, max_broj, duzina);
     }
     if (graph_surface != NULL)
     {
@@ -540,7 +543,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
         cairo_paint (cr);
         cairo_surface_destroy (graph_surface);
     }
-    g_free(ime2);
+   // g_free(ime2);
 
 };
 void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
@@ -679,8 +682,8 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
 
 
-    crtanje_graph(cr,history[4],4,bjorg2,5,height,font_size,step);
-    crtanje_graph(cr,history[5],5,bjorg2,5,height,font_size,step);
+    cr=crtanje_graph(cr,history[4],4,bjorg2,5,height,font_size,step);
+    cr=crtanje_graph(cr,history[5],5,bjorg2,5,height,font_size,step);
 
     if (graph_surface != NULL)
     {
@@ -688,6 +691,7 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
         cairo_paint (cr);
         cairo_surface_destroy (graph_surface);
     }
+
 
 }
 //void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {

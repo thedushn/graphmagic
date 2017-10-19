@@ -26,10 +26,10 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
         do_drawing3(widget, cr, bjorg, time_step);
     }
-    else  /*if (widget == graph4)*/ {
-
-        do_drawing4(widget, cr);
-    }
+//    else  /*if (widget == graph4)*/ {
+//
+//        do_drawing4(widget, cr);
+//    }
 return TRUE;
 
 }
@@ -278,11 +278,27 @@ void init_timeout() {
 
 GArray *new_task_list;
     GArray *new_device_list;
+    GArray *new_interrupt_list;
     new_task_list =  get_task_list2();
     new_device_list   = device(device_all);
-    //  printf("new lenght %d \n",new_device_list->len);
- //   printf("names lenght %d \n",names_array->len);
+   new_interrupt_list=interrupt_usage();
 
+
+    printf("new list%d\n",new_interrupt_list->len);
+   Interrupts *interrupts=&g_array_index(interrupt_array_temp, Interrupts, i);
+
+    if(interrupts==NULL){
+
+        interrupt_array_temp=upis(new_interrupt_list,interrupt_array_temp);
+    }
+    poredjenje();
+    printf("list%d\n",interrupt_array_temp->len);
+    for(i = 0; i < interrupt_array_temp->len; i++) //uzimamo element niza
+    {
+         interrupts=&g_array_index(interrupt_array_temp, Interrupts, i);
+        printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts->name,interrupts->CPU0,interrupts->CPU1,interrupts->CPU2,interrupts->CPU3,interrupts->ime1,interrupts->ime2,interrupts->ime3,interrupts->ime4);
+        }
+    printf("/////\n");
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
         Devices *tmp = &g_array_index(names_array, Devices, i);
@@ -315,7 +331,7 @@ GArray *new_task_list;
                         tmp->free = new_tmp->free;
 
                         refresh_list_item_device(i);
-                        printf("I %d name %s directory %s size %lu\n",i,tmp->name,tmp->directory,tmp->total);
+                      //  printf("I %d name %s directory %s size %lu\n",i,tmp->name,tmp->directory,tmp->total);
                     }
                     tmp->checked = TRUE; //
                     new_tmp->checked = TRUE;
@@ -338,7 +354,7 @@ GArray *new_task_list;
         {
             remove_list_item_device(tmp->directory,tmp->name,tmp->type);
             g_array_remove_index(names_array, i);
-            printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
+         //   printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
             dev_num--;
         }
         else
@@ -442,6 +458,7 @@ GArray *new_task_list;
    g_array_free(new_task_list, TRUE);
 
       g_array_free(new_device_list,TRUE);
+      g_array_free(new_interrupt_list,TRUE);
 
 
 
@@ -449,7 +466,7 @@ GArray *new_task_list;
     cpu_percent_change(ncpu);//nije ovde
     get_memory_usage();//nije ovde
 
-    interrupt_usage();
+   // interrupt_usage();
     cpu_change();
  //   cpu_change(ncpu);
 
@@ -501,15 +518,13 @@ gtk_init(&argc, &argv);
     ncpu = cpu_number();
 
     interface_name();
-    array_interrupts();
-    //test
- //   array();
-   // tasks=g_array_new (FALSE, FALSE, sizeof (Task));
-  //  array_devices();
+    //array_interrupts();
 
-    //  get_task_list(tasks);
-    tasks_num=0;
+
+
     task_array=g_array_new (FALSE, FALSE, sizeof (Task));
+    interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
+    interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
 
 
     names_temp=g_array_new (FALSE, FALSE, sizeof (Devices));
@@ -577,6 +592,12 @@ gtk_init(&argc, &argv);
 
     gtk_main();
 
+
+    if (refresh > 0){
+        g_source_remove (refresh);
+
+    }
+   // g_object_unref (window);
 
     return 0;
 }

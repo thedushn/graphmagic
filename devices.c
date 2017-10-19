@@ -333,5 +333,6 @@ int g=0;
 
             }
         }
+    fclose(file);
 
 }

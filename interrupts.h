@@ -25,15 +25,19 @@
 #include <stdlib.h>
 
 typedef struct _Interrupts Interrupts;
- void interrupt_usage();
+GArray * interrupt_usage();
+ //void interrupt_usage();
 void array_interrupts ();
 GArray *ginterrupts;
 GArray *ginterrupts_temp;
 GArray *ginterrupts_main;
 GArray *ginterrupts_final;
-void printanje(GArray *array);
-void upis(GArray *array);
-void poredjenje(GArray *array);
+void printanje();
+//void printanje(GArray *array);
+//void upis(GArray *array);
+//void poredjenje(GArray *array);
+GArray *upis(GArray *array,GArray *array2);
+void poredjenje();
 //void sortiranje(GArray *array);
 //struct _Interrupts sortiranje(gconstpointer a, gconstpointer b);
 struct _Interrupts{
