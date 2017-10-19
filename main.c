@@ -267,17 +267,13 @@ void init_timeout2() {
 
 
 }
-gboolean TESTIRANJE=FALSE;
-void CHANGE(){
 
-    TESTIRANJE = !TESTIRANJE;
-    timeout_refresh();
-}
+
 
 
 void init_timeout() {
 
-    gint i=0,j=0;
+    guint i=0,j=0;
 
 
 GArray *new_task_list;
@@ -454,7 +450,8 @@ GArray *new_task_list;
     get_memory_usage();//nije ovde
 
     interrupt_usage();
-    cpu_change(ncpu);
+    cpu_change();
+ //   cpu_change(ncpu);
 
    memory_change(label);// nije ovde
     swap_change(label1); // nije ovde
@@ -482,6 +479,8 @@ GArray *new_task_list;
 
 
 int main(int argc, char *argv[]) {
+
+
 
 
 gtk_init(&argc, &argv);

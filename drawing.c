@@ -257,7 +257,7 @@ cairo_surface_t *crtaj_surface(cairo_t *cr,int width, int height){
 cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,float font_size,long max_broj,float duzina){
 
     gfloat procent=0;
-    gchar *ime;
+
     cairo_set_line_width(cr,1);
 
 
@@ -433,7 +433,7 @@ void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
 }
 void do_drawing4(GtkWidget *widget,cairo_t *cr){
     int width, height;
-    gchar *ime2;
+    gchar *ime2="";
     long max_broj=0;
     signed long temp=0;
     Interrupts *peak;

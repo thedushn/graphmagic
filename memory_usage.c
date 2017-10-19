@@ -10,7 +10,7 @@ struct _Memory_usage memory_usage;
 
 void	get_memory_usage(){
 
-    guint64 memory_total; guint64 memory_free; guint64 memory_cache; guint64 memory_buffers; guint64 swap_total; guint64 swap_free;
+    guint64 memory_total=0; guint64 memory_free=0; guint64 memory_cache=0; guint64 memory_buffers=0; guint64 swap_total=0; guint64 swap_free=0;
 
     FILE *file;
     gchar buffer[1024];

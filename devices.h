@@ -29,15 +29,15 @@
 
 
 typedef struct _Devices Devices;
-typedef struct _Memory Memory;
-void try();
+
+//void try();
 void readDir(char *path);
 GArray * device(gboolean show);
-void get_names();
+//void get_names();
 void mountlist(char *path,size_t j,gboolean mount);
-void array_devices();
+//void array_devices();
 
-void printanje_dev(GArray *array);
+//void printanje_dev(GArray *array);
 GArray *names;
 GArray *names_temp;
 
@@ -57,4 +57,4 @@ struct _Devices {
 
 
 
-void get_boot(void);
+//void get_boot(void);

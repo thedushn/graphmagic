@@ -16,12 +16,12 @@
 #include "cpu_usage.h"
 
 typedef struct _Task Task;
-gboolean	get_task_list		(GArray *task_list);
+//gboolean	get_task_list		(GArray *task_list);
 GArray *get_task_list2(void);
 static gboolean get_task_details (guint pid, Task *task);
 static inline int get_pagesize (void);
 
-static void	model_update_tree_iter				(GtkTreeModel *model, GtkTreeIter *iter, Task *task);
+//static void	model_update_tree_iter				(GtkTreeModel *model, GtkTreeIter *iter, Task *task);
 
 void compare_lists(GArray *array);
 
@@ -36,7 +36,7 @@ struct _Task
     guint		pid;
     guint		ppid;
     gchar		name[256];
-    gchar		cmdline[1024];
+   // gchar		cmdline[1024];
     gchar		state[16];
     gfloat		cpu_user;
     gfloat		cpu_system;

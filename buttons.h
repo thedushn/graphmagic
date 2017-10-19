@@ -36,8 +36,9 @@ static gboolean process_state=TRUE;
 GtkWidget *button;
 GtkWidget *button2;
 GtkWidget *button_proc;
-GtkWidget *button4;
-GtkWidget *button5;
+//GtkWidget *button4;
+//GtkWidget *button5;
+//GtkWidget *buttton_cpus;
 GtkWidget *button_dev;
 GtkWidget * button_graph;
 GtkWidget * button_graph0;
@@ -63,7 +64,7 @@ GtkWidget * button_process_cpu;
 
 
 static guint refresh = 0;
-static gfloat memory_used=.5;
+
 void button_clicked_view_process(GtkWidget *widget);
 //void dev_button_clicked(GtkWidget *widget);
 void graph_button_clicked(GtkWidget *widget);
@@ -72,9 +73,9 @@ void close_window();
 void pokazi_ili_hide(GtkWidget *button, GtkWidget *window);
 
 void new_button_clicked2();
-void dev_button_clicked(GtkWidget *widget);
+//void dev_button_clicked(GtkWidget *widget);
 void dev_button_clicked2(GtkWidget *widget);
-void change_view(GtkWidget *wigdet);
+//void change_view(GtkWidget *wigdet);
 void button_clicked_view_process(GtkWidget *widget);
 void clean_button();
 void device_window();

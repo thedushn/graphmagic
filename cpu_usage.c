@@ -152,7 +152,9 @@ void cpu_percent_change(int ncpu){
     }
 
 };
-gboolean  cpu_change(int ncpu){
+gboolean  cpu_change(){
+//gboolean  cpu_change(int ncpu){
+
 
 
 //

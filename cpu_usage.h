@@ -36,7 +36,8 @@ static gulong jiffies_total_delta[5] = {0,0,0,0,0};
 int cpu_number();
 void cpu_percentage(int);
 void cpu_percent_change(int ncpu);
-gboolean  cpu_change(int ncpu);
+//gboolean  cpu_change(int ncpu);
+gboolean  cpu_change();
 //gboolean  cpu_change2();
  void
 get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffies_system, gfloat *cpu_system);

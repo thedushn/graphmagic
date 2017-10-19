@@ -571,25 +571,34 @@ void graph_clicked(GtkWidget *widget){
 void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
 
 
-    if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))!=FALSE){
-
-       // gtk_widget_hide(hbox);
-        gtk_widget_hide(hbox1);
-        gtk_widget_hide(hbox3);
-        gtk_widget_hide(hbox2);
-        gtk_widget_show_all(window);
+    if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))!=FALSE){//ako je button toggled
 
 
-    }
+//        gtk_widget_hide(hbox1);
+//        gtk_widget_hide(hbox3);
+//        gtk_widget_hide(hbox2);
+        gtk_widget_show(window);
+        if(window==dev_swindow){
 
-    else {
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button_proc),FALSE); //postavljamo butto_proc na not toggled
+                gtk_widget_hide(process_swindow);
+        }
+        else{
 
-       // gtk_widget_show(hbox);
-        gtk_widget_show(hbox1);
-        gtk_widget_show(hbox3);
-        gtk_widget_show(hbox2);
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button_dev),FALSE); //postavljamo butto_proc na not toggled
+            gtk_widget_hide(dev_swindow);
+        }
+
+        }
+        else{
+
+//        gtk_widget_show(hbox1);
+//        gtk_widget_show(hbox3);
+//        gtk_widget_show(hbox2);
         gtk_widget_hide(window);
-    }
+
+        }
+
 
 
 };

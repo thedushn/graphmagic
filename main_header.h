@@ -26,7 +26,7 @@ GtkWidget *hbox3;
 GtkWidget *hbox2;
 GtkWidget *label;
 GtkWidget *label1;
-GtkWidget *label2;
+
 GtkWidget *label3;
 GtkWidget *label4;
 GtkWidget *label5;
