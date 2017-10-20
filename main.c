@@ -278,27 +278,17 @@ void init_timeout() {
 
 GArray *new_task_list;
     GArray *new_device_list;
-    GArray *new_interrupt_list;
+//    GArray *new_interrupt_list;
     new_task_list =  get_task_list2();
     new_device_list   = device(device_all);
-   new_interrupt_list=interrupt_usage();
+//   new_interrupt_list=interrupt_usage();
+//
+// interrupt_array_d=  poredjenje(new_interrupt_list,interrupt_array_temp);
+//
+//g_array_free(interrupt_array_temp,TRUE);
+//    interrupt_array_temp=g_array_new(FALSE,FALSE,sizeof(Interrupts));
+//    upis(new_interrupt_list,interrupt_array_temp);
 
-
-    printf("new list%d\n",new_interrupt_list->len);
-   Interrupts *interrupts=&g_array_index(interrupt_array_temp, Interrupts, i);
-
-    if(interrupts==NULL){
-
-        interrupt_array_temp=upis(new_interrupt_list,interrupt_array_temp);
-    }
-    poredjenje();
-    printf("list%d\n",interrupt_array_temp->len);
-    for(i = 0; i < interrupt_array_temp->len; i++) //uzimamo element niza
-    {
-         interrupts=&g_array_index(interrupt_array_temp, Interrupts, i);
-        printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts->name,interrupts->CPU0,interrupts->CPU1,interrupts->CPU2,interrupts->CPU3,interrupts->ime1,interrupts->ime2,interrupts->ime3,interrupts->ime4);
-        }
-    printf("/////\n");
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
         Devices *tmp = &g_array_index(names_array, Devices, i);
@@ -394,7 +384,7 @@ GArray *new_task_list;
             if(new_tmp->pid == tmp->pid)
             {
 
-                if((gint)tmp->ppid != (gint)new_tmp->ppid || strcmp(tmp->state,new_tmp->state) ||
+                if((gint)tmp->ppid != (gint)new_tmp->ppid || strcmp(tmp->state,new_tmp->state)!=0 ||
                         (unsigned int)tmp->cpu_system != (unsigned int)new_tmp->cpu_system ||
                         (unsigned int)tmp->cpu_user != (unsigned int)new_tmp->cpu_user ||
                         (unsigned int)tmp->rss != (unsigned int)new_tmp->rss) //||
@@ -456,9 +446,10 @@ GArray *new_task_list;
 
 
    g_array_free(new_task_list, TRUE);
+  // g_array_free(interrupt_array_temp, TRUE);
 
       g_array_free(new_device_list,TRUE);
-      g_array_free(new_interrupt_list,TRUE);
+    //  g_array_free(new_interrupt_list,TRUE);
 
 
 
@@ -549,6 +540,19 @@ gtk_init(&argc, &argv);
 
         g_array_set_size(history[i], 240);
     }
+
+    GArray *new_interrupt_list;
+
+    new_interrupt_list=interrupt_usage();
+
+
+
+
+
+        upis(new_interrupt_list,interrupt_array_temp);
+
+    g_array_free(new_interrupt_list,TRUE);
+
     window= main_window(dev_swindow,process_swindow);
     g_signal_connect(button, "clicked", G_CALLBACK(inc_refresh), NULL);
     g_signal_connect(button2, "clicked", G_CALLBACK(dec_refresh), NULL);

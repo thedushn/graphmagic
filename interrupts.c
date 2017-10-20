@@ -11,11 +11,11 @@
 
 
 
-//struct _Interrupts sortiranje (gpointer *a,gpointer *b){
+
 gint sortiranje(gconstpointer a,gconstpointer b){
     Interrupts *interrupts1= (Interrupts *)a;
     Interrupts *interrupts2=(Interrupts *)b;
-  //  Interrupts interrupts3;
+
      long CPU0a = 0;
      long CPU1a = 0;
      long CPU2a = 0;
@@ -47,56 +47,48 @@ gint sortiranje(gconstpointer a,gconstpointer b){
 
 
 };
-void array_interrupts (){
 
-    ginterrupts=g_array_new(FALSE,TRUE,sizeof(Interrupts));
-
-    ginterrupts_temp=g_array_new(FALSE,TRUE,sizeof(Interrupts));
-
-    ginterrupts_main=g_array_new(FALSE,TRUE,sizeof(Interrupts));
-    ginterrupts_final=g_array_new(FALSE,TRUE,sizeof(Interrupts));
-
-}
-Interrupts upis_imena(Interrupts *interrupts1,Interrupts interrupts3){
+void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3){
 
     size_t j=strlen(interrupts1->ime1);
     for (int t = 0; t <= j; t++) {
 
-        interrupts3.ime1[t] = interrupts1->ime1[t];
+        interrupts3->ime1[t] = interrupts1->ime1[t];
 
 
     }
     j=strlen(interrupts1->ime2);
     for (int t = 0; t <= j; t++) {
 
-        interrupts3.ime2[t] = interrupts1->ime2[t];
+        interrupts3->ime2[t] = interrupts1->ime2[t];
 
 
     }
     j=strlen(interrupts1->ime3);
     for (int t = 0; t <= j; t++) {
 
-        interrupts3.ime3[t] = interrupts1->ime3[t];
+        interrupts3->ime3[t] = interrupts1->ime3[t];
 
 
     }
     j=strlen(interrupts1->ime4);
     for (int t = 0; t <= j; t++) {
 
-        interrupts3.ime4[t] = interrupts1->ime4[t];
+        interrupts3->ime4[t] = interrupts1->ime4[t];
 
 
     }
 
 
-    return interrupts3;
+//    return interrupts3;
 };
-//void upis(){
-GArray * upis(GArray *array,GArray *array2){
+
+void upis(GArray *array,GArray *array2){
 
 
 //   for (int r = 0; r <= ginterrupts->len; r++) {//// staviti samo manje
-   for (int r = 0; r <= array->len; r++) {//// staviti samo manje
+   for (int r = 0; r < array->len; r++) {
+        //Interrupts interrupts3={0};
         Interrupts interrupts3={0};
         Interrupts *interrupts1;
     //    interrupts1 = &g_array_index(array, Interrupts, r);
@@ -112,21 +104,89 @@ GArray * upis(GArray *array,GArray *array2){
         interrupts3.CPU2=interrupts1->CPU2;
         interrupts3.CPU3=interrupts1->CPU3;
 
-      interrupts3 = upis_imena( interrupts1 , interrupts3);
+       upis_imena( interrupts1 , &interrupts3);
 
 
         g_array_append_val(array2,interrupts3);
 
     }
-    if (array2->len > array->len) {
-        g_array_remove_index(array2, array2->len-1);
-        // printf("size after %d\n",ginterrupts_final->len);
+
+};
+GArray * poredjenje(GArray *array,GArray *array2){//array novi array2 stari
+    Interrupts *interrupts2;
+    Interrupts *interrupts1;
+    Interrupts interrupts3={0};
+    signed long CPU0 = 0;
+    signed long CPU1 = 0;
+    signed long CPU2 = 0;
+    signed long CPU3 = 0;
+    GArray *array3=g_array_new(FALSE, FALSE, sizeof(Interrupts));
+    for (int r = 0; r < array->len; r++) {
+        interrupts1=&g_array_index(array,Interrupts,r);
+   // for (int r = 0; r < ginterrupts->len; r++) {
+       // interrupts1=&g_array_index(ginterrupts,Interrupts,r);
+        interrupts2=&g_array_index(array2,Interrupts,r);
+        //   printf("%lu\n",interrupts1->CPU0);
+        CPU0=interrupts1->CPU0 - interrupts2->CPU0;
+        CPU1=interrupts1->CPU1 - interrupts2->CPU1;
+        CPU2=interrupts1->CPU2 - interrupts2->CPU2;
+        CPU3=interrupts1->CPU3 - interrupts2->CPU3;
+        // printf("%lu\n",CPU0);
+//        if(interrupts1->name[0]==interrupts2->name[0] && interrupts1->name[1]==interrupts2->name[1] && interrupts1->name[2]==interrupts2->name[2] ) {
+            interrupts3.name[0] = interrupts1->name[0];
+            interrupts3.name[1] = interrupts1->name[1];
+            interrupts3.name[2] = interrupts1->name[2];
+            interrupts3.name[3] = interrupts1->name[3];
+//        }
+
+        interrupts3.CPU0=CPU0;
+        interrupts3.CPU1=CPU1;
+        interrupts3.CPU2=CPU2;
+        interrupts3.CPU3=CPU3;
+
+         upis_imena(interrupts1,&interrupts3);
+
+        g_array_append_val(array3,interrupts3);
+
+
     }
 
-return array2;
+
+    g_array_sort(array3,(GCompareFunc)sortiranje);
+
+
+// for (int r = 0; r < array3->len; r++) {
+//
+//    Interrupts *interrupts=&g_array_index(array3,Interrupts,r);
+//     printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts->name,interrupts->CPU0,interrupts->CPU1,interrupts->CPU2,interrupts->CPU3,interrupts->ime1,interrupts->ime2,interrupts->ime3,interrupts->ime4);
+//
+// }
+
+   // printf("%d \n",array3->len);
+           while (array3->len > 10) {
+                g_array_remove_index(array3, array3->len - 11);
+                // printf("size after %d\n",ginterrupts_final->len);
+            }
+
+
+//    for (int r = 0; r < array3->len; r++) {
+//
+//        Interrupts *interrupts=&g_array_index(array3,Interrupts,r);
+//        printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts->name,interrupts->CPU0,interrupts->CPU1,interrupts->CPU2,interrupts->CPU3,interrupts->ime1,interrupts->ime2,interrupts->ime3,interrupts->ime4);
+//
+//    }
+//    printf("%d \n",array3->len);
+      //  }
+   // }
+
+
+
+
+
+return array3;
+
 };
-//void poredjenje(GArray *array){
-void poredjenje(){
+/*void poredjenje(){
     Interrupts *interrupts2;
     Interrupts *interrupts1;
     Interrupts interrupts3={0};
@@ -211,29 +271,29 @@ void poredjenje(){
 
 
 
-};
-void printanje() {
-//void printanje(GArray *array) {
-
-
-    int i=0;
-
-       Interrupts *interrupts2 = &g_array_index(ginterrupts_temp,Interrupts,i);//uzmemo vrednost
-
-        if(interrupts2==NULL){
-          //  upis(array);
-       //     upis(ginterrupts);
-
-        }
-       // poredjenje(array);
-   //     poredjenje(ginterrupts);
-
-
-    g_array_free(ginterrupts,TRUE);
-    g_array_free(ginterrupts_main,TRUE);
-    ginterrupts_main=g_array_new(FALSE,FALSE,sizeof(Interrupts));
-    ginterrupts=g_array_new(FALSE,FALSE,sizeof(Interrupts));
-}
+};*/
+//void printanje() {
+////void printanje(GArray *array) {
+//
+//
+//    int i=0;
+//
+//       Interrupts *interrupts2 = &g_array_index(ginterrupts_temp,Interrupts,i);//uzmemo vrednost
+//
+//        if(interrupts2==NULL){
+//          //  upis(array);
+//       //     upis(ginterrupts);
+//
+//        }
+//       // poredjenje(array);
+//   //     poredjenje(ginterrupts);
+//
+//
+//    g_array_free(ginterrupts,TRUE);
+//    g_array_free(ginterrupts_main,TRUE);
+//    ginterrupts_main=g_array_new(FALSE,FALSE,sizeof(Interrupts));
+//    ginterrupts=g_array_new(FALSE,FALSE,sizeof(Interrupts));
+//}
 GArray * interrupt_usage() {
 
 

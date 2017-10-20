@@ -485,7 +485,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     for (int i = 0; i <= 9; i++) {
 
         cairo_move_to(cr, 5 * font_size, height);
-        peak = &g_array_index(ginterrupts_final, Interrupts, i);
+        peak = &g_array_index(interrupt_array_d, Interrupts, i);
         if(max_broj<=peak->CPU0){
 
             max_broj=peak->CPU0;
@@ -527,7 +527,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     for (int i = 0; i <= 9; i++) {
 
         // cairo_move_to(cr, 5 * font_size, height);
-        peak = &g_array_index(ginterrupts_final, Interrupts, i);
+        peak = &g_array_index(interrupt_array_d, Interrupts, i);
 
         cairo_move_to(cr, 5 * font_size + 5 * duzina * (i), height);
         sprintf(ime2,"%s",peak->name);
