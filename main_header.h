@@ -80,7 +80,7 @@ GArray *names_array;
 GArray *interrupt_array_d;
  GArray *interrupt_array_temp;
 
-
+static cairo_surface_t *surface = NULL;
 
 void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);

@@ -10,9 +10,7 @@
 #include "memory_usage.h"
 #include "window.h"
 
-
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
-
 
     if (widget == graph1) {
 
@@ -26,10 +24,10 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
         do_drawing3(widget, cr, bjorg, time_step);
     }
-//    else  /*if (widget == graph4)*/ {
-//
-//        do_drawing4(widget, cr);
-//    }
+    else  /*if (widget == graph4)*/ {
+
+        do_drawing4(widget, cr);
+    }
 return TRUE;
 
 }
@@ -278,17 +276,31 @@ void init_timeout() {
 
 GArray *new_task_list;
     GArray *new_device_list;
-//    GArray *new_interrupt_list;
+
     new_task_list =  get_task_list2();
     new_device_list   = device(device_all);
-//   new_interrupt_list=interrupt_usage();
-//
-// interrupt_array_d=  poredjenje(new_interrupt_list,interrupt_array_temp);
-//
-//g_array_free(interrupt_array_temp,TRUE);
-//    interrupt_array_temp=g_array_new(FALSE,FALSE,sizeof(Interrupts));
-//    upis(new_interrupt_list,interrupt_array_temp);
 
+   GArray *new_interrupt_list;
+    new_interrupt_list=interrupt_usage();
+    interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
+    poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
+////
+    printf("leght %d\n",interrupt_array_d->len);
+    for(int i=0 ;i<interrupt_array_d->len;i++){
+        Interrupts *interrupts5;
+        interrupts5=&g_array_index(interrupt_array_d,Interrupts,i);
+        printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts5->name,interrupts5->CPU0,interrupts5->CPU1,interrupts5->CPU2,interrupts5->CPU3,interrupts5->ime1,interrupts5->ime2,interrupts5->ime3,interrupts5->ime4);
+    }
+   g_array_free(interrupt_array_temp,TRUE);
+
+//
+//
+//
+    interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
+//
+//
+    upis(new_interrupt_list,interrupt_array_temp);
+//       printf("%d\n",interrupt_array_temp->len);
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
         Devices *tmp = &g_array_index(names_array, Devices, i);
@@ -445,11 +457,8 @@ GArray *new_task_list;
 
 
 
-   g_array_free(new_task_list, TRUE);
-  // g_array_free(interrupt_array_temp, TRUE);
 
-      g_array_free(new_device_list,TRUE);
-    //  g_array_free(new_interrupt_list,TRUE);
+
 
 
 
@@ -457,14 +466,21 @@ GArray *new_task_list;
     cpu_percent_change(ncpu);//nije ovde
     get_memory_usage();//nije ovde
 
-   // interrupt_usage();
     cpu_change();
- //   cpu_change(ncpu);
+
 
    memory_change(label);// nije ovde
     swap_change(label1); // nije ovde
 
     time_handler(window);
+    g_array_free(new_task_list, TRUE);
+
+     //g_array_free(interrupt_array_temp, TRUE);
+    g_array_free(new_interrupt_list,TRUE);
+ //   g_array_free(interrupt_array_d,TRUE);
+
+
+    g_array_free(new_device_list,TRUE);
     bjorg++;
 
 
@@ -514,8 +530,9 @@ gtk_init(&argc, &argv);
 
 
     task_array=g_array_new (FALSE, FALSE, sizeof (Task));
-    interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
+
     interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
+    interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
 
 
     names_temp=g_array_new (FALSE, FALSE, sizeof (Devices));
@@ -541,17 +558,17 @@ gtk_init(&argc, &argv);
         g_array_set_size(history[i], 240);
     }
 
-    GArray *new_interrupt_list;
+  //  GArray *new_interrupt_list;
 
-    new_interrupt_list=interrupt_usage();
-
-
+    interrupt_array_temp=interrupt_usage();
 
 
 
-        upis(new_interrupt_list,interrupt_array_temp);
 
-    g_array_free(new_interrupt_list,TRUE);
+
+       // upis(new_interrupt_list,interrupt_array_temp);
+
+     //   g_array_free(new_interrupt_list,TRUE);
 
     window= main_window(dev_swindow,process_swindow);
     g_signal_connect(button, "clicked", G_CALLBACK(inc_refresh), NULL);

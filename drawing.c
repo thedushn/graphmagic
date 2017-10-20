@@ -120,7 +120,7 @@ cairo_t *ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar 
 
 return cr;
 }
-cairo_t *ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4){
+void ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4){
 
 
 
@@ -163,10 +163,11 @@ cairo_t *ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *
 
 
 
-    return cr;
+  //  return cr;
 
 };
-cairo_t * crtaj_sekunde(cairo_t *cr,float width,float height,float font_size,int i){
+
+void crtaj_sekunde(cairo_t *cr,float width,float height,float font_size,int i){
    cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr,i*font_size,height);
     cairo_show_text(cr,"0 sec");
@@ -190,11 +191,11 @@ cairo_t * crtaj_sekunde(cairo_t *cr,float width,float height,float font_size,int
         cairo_line_to(cr,(width-2*i*font_size)/6*j+i*font_size,0);
     }
 cairo_stroke(cr);
-    return cr;
+   // return cr;
 
 }
 
-cairo_t * crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i){
+void crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i){
 
 
 
@@ -221,11 +222,11 @@ cairo_t * crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i
     cairo_move_to(cr,i*font_size,height/4*3);//25
     cairo_line_to(cr,width-i*font_size,height/4*3);
     cairo_stroke(cr);
-    return cr;
+  //  return cr;
 
 
 };
-cairo_t * crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size){
+void crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size){
 
   //  cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr, 0,font_size);
@@ -240,21 +241,21 @@ cairo_t * crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size){
     cairo_move_to(cr,0,height-font_size);
     cairo_show_text(cr,"0%");
     cairo_stroke(cr);
-    return cr;
+   // return cr;
 };
 cairo_surface_t *crtaj_surface(cairo_t *cr,int width, int height){
     cairo_surface_t *graph_surface;
 
 
     graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
-    cr = cairo_create (graph_surface);
+    /*cr =*/// cairo_create (graph_surface);
 
 
-    cairo_destroy(cr);
+    //cairo_destroy(cr);
     return graph_surface;
 
 }
-cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,float font_size,long max_broj,float duzina){
+void  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,float font_size,long max_broj,float duzina){
 
     gfloat procent=0;
 
@@ -265,7 +266,7 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
     procent=((height-font_size)/max_broj)* peak->CPU0;
 
 
- cr=ispis_interrupta(cr,font_size,duzina,i,peak->ime1,peak->ime2,peak->ime3,peak->ime4);
+    ispis_interrupta(cr,font_size,duzina,i,peak->ime1,peak->ime2,peak->ime3,peak->ime4);
 
 
 
@@ -299,12 +300,12 @@ cairo_t *  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,floa
     cairo_set_source_rgb(cr,1,.5,0);
     cairo_fill(cr);
 
-    return cr;
+   // return cr;
 
 }
 
 //cairo_t *crtanje_graph(cairo_t *cr,GArray *history,int r,int y,int width,int height, gfloat font_size, double step){
-cairo_t *crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int height, gfloat font_size, double step){
+void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int height, gfloat font_size, double step){
 
 
     double prev=height-font_size; //nula
@@ -368,7 +369,7 @@ cairo_t *crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int he
 
 
 
-    return cr;
+   // return cr;
 };
 
 void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
@@ -377,7 +378,7 @@ void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
     width= gtk_widget_get_allocated_width(widget);
 
     cairo_surface_t *graph_surface;
-
+    graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
 
     //   cairo_set_source_rgb(cr,1,.05,1);
     cairo_set_line_width(cr,1);
@@ -401,21 +402,21 @@ void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
 
 
     //secund linije
-    graph_surface= crtaj_surface(cr,width,height);
+   // graph_surface= crtaj_surface(cr,width,height);
 
 
   //  cairo_stroke(cr);
     //okvir
-    cr= crtaj_okvir(cr,width,height,font_size,3);
+    crtaj_okvir(cr,width,height,font_size,3);
 
 //procent linije
   //  crtaj_procent_linije(cr, width,height, font_size, 3);
 
     //procenti
-   cr= crtaj_procente(cr,height,font_size);
+    crtaj_procente(cr,height,font_size);
 
     //sekunde
-  cr=  crtaj_sekunde(cr,width,height,font_size,3);
+   crtaj_sekunde(cr,width,height,font_size,3);
 
 
     crtanje_graph(cr, history[6], 0, bjorg, 3, height, font_size, step);
@@ -475,9 +476,10 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     cairo_set_line_width(cr,1);
     cairo_set_font_size(cr, font_size);
 
-    graph_surface= crtaj_surface(cr,width,height);
+    graph_surface= cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
  //   crtaj_procent_linije(cr, width,height, font_size, 5);
-    cr= crtaj_okvir(cr,width,height,font_size,5);
+
+     crtaj_okvir(cr,width,height,font_size,5);
     cairo_set_source_rgb(cr,0,0,0);
 
 
@@ -535,7 +537,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
         cairo_set_source_rgb(cr, 0, 0, 0);
        cairo_show_text(cr, ime2);
 
-       cr= crtaj_interrupte(cr, i, peak, height, font_size, max_broj, duzina);
+        crtaj_interrupte(cr, i, peak, height, font_size, max_broj, duzina);
     }
     if (graph_surface != NULL)
     {
@@ -682,8 +684,8 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
 
 
-    cr=crtanje_graph(cr,history[4],4,bjorg2,5,height,font_size,step);
-    cr=crtanje_graph(cr,history[5],5,bjorg2,5,height,font_size,step);
+    crtanje_graph(cr,history[4],4,bjorg2,5,height,font_size,step);
+    crtanje_graph(cr,history[5],5,bjorg2,5,height,font_size,step);
 
     if (graph_surface != NULL)
     {

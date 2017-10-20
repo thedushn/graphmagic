@@ -27,7 +27,7 @@
 typedef struct _Interrupts Interrupts;
 GArray * interrupt_usage();
 void upis(GArray *array,GArray *array2);
-GArray * poredjenje(GArray *array,GArray *array2);
+void poredjenje(GArray *array,GArray *array2,GArray *array3);
 void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3);
 gint sortiranje(gconstpointer a,gconstpointer b);
 struct _Interrupts{
