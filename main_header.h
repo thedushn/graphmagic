@@ -12,6 +12,7 @@
 
 
 static GtkWidget *window;
+ GtkWidget *window2;
  GtkWidget *process_swindow;
  GtkWidget *dev_swindow;
 
@@ -40,7 +41,7 @@ GtkWidget *frame3;
 GtkWidget *frame4;
 
 
-GtkWidget *window2;
+
 GtkWidget *dev_window;
 GtkWidget *proc_window;
 
@@ -80,7 +81,7 @@ GArray *names_array;
 GArray *interrupt_array_d;
  GArray *interrupt_array_temp;
 
-static cairo_surface_t *surface = NULL;
+//static cairo_surface_t *surface = NULL;
 
 void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);

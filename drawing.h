@@ -30,6 +30,7 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2);
 void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step);
 void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step);
 void do_drawing4(GtkWidget *widget,cairo_t *cr);
+//void do_drawing4(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array);
 void crtaj_sekunde(cairo_t *cr,float width,float height,float font_size,int i);
 void crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i);
 void crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size);

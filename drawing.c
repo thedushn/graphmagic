@@ -434,7 +434,7 @@ void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
 }
 void do_drawing4(GtkWidget *widget,cairo_t *cr){
     int width, height;
-   // gchar *ime2="";
+
     gchar ime2[3];
     long max_broj=0;
     signed long temp=0;
@@ -442,7 +442,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     Interrupts *peak;
     gchar broj[5];
     cairo_surface_t *graph_surface;
-   // float font_size=10;
+
 
 
 
@@ -484,7 +484,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
 
 
 
-    for (int i = 0; i <= 9; i++) {
+    for (int i = 0; i <=9; i++) {
 
         cairo_move_to(cr, 5 * font_size, height);
         peak = &g_array_index(interrupt_array_d, Interrupts, i);
@@ -506,7 +506,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
         }
 
     }
-    max_broj+=100;
+    max_broj+=200;//100
     cairo_move_to(cr, 0,font_size);
     sprintf(broj,"%li",max_broj);
     cairo_show_text(cr,broj);
@@ -526,7 +526,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     cairo_move_to(cr,0,height-font_size);
     cairo_show_text(cr,"0");
     duzina= (width-(5*font_size*2))/5/10;
-    for (int i = 0; i <= 9; i++) {
+    for (int i = 0; i <=9; i++) {
 
         // cairo_move_to(cr, 5 * font_size, height);
         peak = &g_array_index(interrupt_array_d, Interrupts, i);
@@ -538,6 +538,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
        cairo_show_text(cr, ime2);
 
         crtaj_interrupte(cr, i, peak, height, font_size, max_broj, duzina);
+
     }
     if (graph_surface != NULL)
     {
@@ -545,7 +546,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
         cairo_paint (cr);
         cairo_surface_destroy (graph_surface);
     }
-   // g_free(ime2);
+
 
 };
 void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){

@@ -143,12 +143,12 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
 
 
     }
-    printf("%d\n",array3->len);
-    for(int i=0 ;i<array3->len;i++){
-        Interrupts *interrupts5;
-        interrupts5=&g_array_index(array3,Interrupts,i);
-        printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts5->name,interrupts5->CPU0,interrupts5->CPU1,interrupts5->CPU2,interrupts5->CPU3,interrupts5->ime1,interrupts5->ime2,interrupts5->ime3,interrupts5->ime4);
-    }
+    printf("Before sorting %d\n",array3->len);
+//    for(int i=0 ;i<array3->len;i++){
+//        Interrupts *interrupts5;
+//        interrupts5=&g_array_index(array3,Interrupts,i);
+//        printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts5->name,interrupts5->CPU0,interrupts5->CPU1,interrupts5->CPU2,interrupts5->CPU3,interrupts5->ime1,interrupts5->ime2,interrupts5->ime3,interrupts5->ime4);
+//    }
 
     g_array_sort(array3,(GCompareFunc)sortiranje);
 
@@ -158,6 +158,7 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
                 g_array_remove_index(array3, array3->len - 11);
 
             }
+
 
 
 };

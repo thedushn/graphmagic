@@ -180,9 +180,9 @@ void dev_button_clicked2(GtkWidget *widget){
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
 
+
         pokazi_ili_hide(widget, dev_swindow);
 
-        //   dev_problems(TRUE,dev_swindow);
 
 
         gtk_widget_show_all(dev_swindow);
