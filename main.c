@@ -12,7 +12,25 @@
 #include "common.h"
 #include "buttons.h"
 #include "buttons_s.h"
-struct _Memory_usage memory_usage;
+#include"sys/types.h"
+#include"sys/socket.h"
+#include"stdio.h"
+#include"stdlib.h"
+#include"sys/types.h"
+#include"sys/socket.h"
+#include"string.h"
+#include"netinet/in.h"
+#include"pthread.h"
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include "functions.h"
+#define BUF_SIZE 2000
+#define CLADDR_LEN 100
+#define PACKET_SIZE 1400
+#define PORT_NUM 5004
+
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
     if (widget == graph1) {
@@ -35,127 +53,127 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 return TRUE;
 
 }
-void process_refresh(GtkWidget *widget, gboolean BOOL){
-
-        //data_s.interrupts.
-    if (widget == button_process_state) {
-
-
-        process_state = BOOL;
-
-
-    }
-    else if (widget ==button_process_vm_size) {
-
-
-        process_vm_size = BOOL;
-
-
-    }
-    else if (widget == button_process_rss) {
-
-
-        process_rss = BOOL;
-
-
-    }
-    else if (widget == button_process_task) {
-
-
-        process_task = BOOL;
-
-
-    }
-    else if (widget == button_process_pid) {
-
-
-        process_pid = BOOL;
-
-
-    }
-    else if (widget == button_process_ppid) {
-
-
-        process_ppid = BOOL;
-
-
-    }
-    else if (widget == button_process_cpu) {
-
-
-        process_cpu = BOOL;
-
-
-    }
-    else /* (widget == button_device_type)*/ {
-
-
-        process_user = BOOL;
-
-
-    }
-
-
-    timeout_refresh();
-}
-
-void device_refresh(GtkWidget *widget, gboolean BOOL) {
-
-    if (widget == button_device_devices) {
-
-
-        device_devices = BOOL;
-
-
-    }
-    else if (widget == button_device_directory) {
-
-
-        device_directory = BOOL;
-
-
-    }
-    else if (widget == button_device_total) {
-
-
-        device_total = BOOL;
-
-
-    }
-    else if (widget == button_device_free) {
-
-
-        device_free = BOOL;
-
-
-    }
-    else if (widget == button_device_used) {
-
-
-        device_used = BOOL;
-
-
-    }
-    else if (widget == button_device_avail) {
-
-
-        device_avail = BOOL;
-
-
-    }
-    else /* (widget == button_device_type)*/ {
-
-
-        device_type = BOOL;
-
-
-    }
-
-
-    timeout_refresh();
-
-
-};
+//void process_refresh(GtkWidget *widget, gboolean BOOL){
+//
+//        //data_s.interrupts.
+//    if (widget == button_process_state) {
+//
+//
+//        process_state = BOOL;
+//
+//
+//    }
+//    else if (widget ==button_process_vm_size) {
+//
+//
+//        process_vm_size = BOOL;
+//
+//
+//    }
+//    else if (widget == button_process_rss) {
+//
+//
+//        process_rss = BOOL;
+//
+//
+//    }
+//    else if (widget == button_process_task) {
+//
+//
+//        process_task = BOOL;
+//
+//
+//    }
+//    else if (widget == button_process_pid) {
+//
+//
+//        process_pid = BOOL;
+//
+//
+//    }
+//    else if (widget == button_process_ppid) {
+//
+//
+//        process_ppid = BOOL;
+//
+//
+//    }
+//    else if (widget == button_process_cpu) {
+//
+//
+//        process_cpu = BOOL;
+//
+//
+//    }
+//    else /* (widget == button_device_type)*/ {
+//
+//
+//        process_user = BOOL;
+//
+//
+//    }
+//
+//
+//    timeout_refresh();
+//}
+
+//void device_refresh(GtkWidget *widget, gboolean BOOL) {
+//
+//    if (widget == button_device_devices) {
+//
+//
+//        device_devices = BOOL;
+//
+//
+//    }
+//    else if (widget == button_device_directory) {
+//
+//
+//        device_directory = BOOL;
+//
+//
+//    }
+//    else if (widget == button_device_total) {
+//
+//
+//        device_total = BOOL;
+//
+//
+//    }
+//    else if (widget == button_device_free) {
+//
+//
+//        device_free = BOOL;
+//
+//
+//    }
+//    else if (widget == button_device_used) {
+//
+//
+//        device_used = BOOL;
+//
+//
+//    }
+//    else if (widget == button_device_avail) {
+//
+//
+//        device_avail = BOOL;
+//
+//
+//    }
+//    else /* (widget == button_device_type)*/ {
+//
+//
+//        device_type = BOOL;
+//
+//
+//    }
+//
+//
+//    timeout_refresh();
+//
+//
+//};
 void show_all(GtkWidget *widget){
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
@@ -169,43 +187,43 @@ void show_all(GtkWidget *widget){
 
 
 };
-void graph_refresh(GtkWidget *widget, gboolean CPU) {
-
-    if (widget == button_graph0) {
-
-
-        CPU0_line = CPU;
-        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
-
-
-    }
-    else if (widget == button_graph1) {
-
-
-        CPU1_line = CPU;
-
-        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
-
-    }
-    else if (widget == button_graph2) {
-
-        CPU2_line = CPU;
-        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
-
-
-    }
-    else /* (widget == button_graph3)*/ {
-
-        CPU3_line = CPU;
-        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
-
-    }
-
-    timeout_refresh();
-   // time_handler(window);
-
-
-};
+//void graph_refresh(GtkWidget *widget, gboolean CPU) {
+//
+//    if (widget == button_graph0) {
+//
+//
+//        CPU0_line = CPU;
+//        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
+//
+//
+//    }
+//    else if (widget == button_graph1) {
+//
+//
+//        CPU1_line = CPU;
+//
+//        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
+//
+//    }
+//    else if (widget == button_graph2) {
+//
+//        CPU2_line = CPU;
+//        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+//
+//
+//    }
+//    else /* (widget == button_graph3)*/ {
+//
+//        CPU3_line = CPU;
+//        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
+//
+//    }
+//
+//    timeout_refresh();
+//   // time_handler(window);
+//
+//
+//};
 
 
 void inc_refresh() {
@@ -300,7 +318,7 @@ void init_timeout() {
 
     upis(new_interrupt_list,interrupt_array_temp);
   //  interrupt_array_temp=interrupt_usage();
-       printf("%d\n",interrupt_array_temp->len);
+    //   printf("%d\n",interrupt_array_temp->len);
 
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
@@ -378,7 +396,7 @@ void init_timeout() {
             g_array_append_val(names_array, *new_device);
             //   if(( new_task->uid == own_uid))
             add_new_list_item_dev(dev_num);
-            printf("new item added for no reason %d name %s\n",i,new_device->name);
+          //  printf("new item added for no reason %d name %s\n",i,new_device->name);
             dev_num++;
         }
     }
@@ -495,10 +513,74 @@ get_memory_usage();//nije ovde
 
 int main(int argc, char *argv[]) {
 
+    struct sockaddr_in addr ,cl_addr;
+    int sockfd, len ,ret, ret1, newsockfd;
+    char buffer[BUF_SIZE];
+    char buffer2[BUF_SIZE];
+    char clientAddr[CLADDR_LEN];
+    pthread_t t1,t2;
+    if(argc <2){
+
+        printf("no port provided");
+        exit(1);
+    }
+    int portnum=atoi(argv[1]);
+   // int portnum=PORT_NUM;
+    printf("port number %d ",portnum);
+    sockfd =socket(AF_INET,SOCK_STREAM,0);
+    if(sockfd<0){
+        printf("Error creating socket!\n");
+        exit(1);
+    }
+    printf("Socket created \n");
+
+    memset(&addr,0,sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons(portnum);
 
 
+    ret = bind(sockfd,(struct sockaddr *) &addr, sizeof(addr));
+    if (ret < 0){
+        printf("Error binding!\n");
+        exit(1);
+    }
+    printf("Binding done...\n");
+
+    printf("Waiting for a connection...\n");
+
+    listen(sockfd, 5); //hello is anybody going to call me :{
+    printf("da li smo prosli \n");
+    len =sizeof(cl_addr);
+    newsockfd = accept(sockfd,(struct sockaddr *) &cl_addr, &len);
+    if (newsockfd < 0) {
+        printf("Error accepting connection!\n");
+        exit(1);
+    }
+
+    inet_ntop(AF_INET, &(cl_addr.sin_addr), clientAddr, CLADDR_LEN);
+    printf("Connection accepted from %s...\n", clientAddr);
+
+    memset(buffer,0,BUF_SIZE);
+    printf("time to send some shit over the ethernet\n");
+//    if(pthread_mutex_init(&mut, NULL)!=0){
+//        printf("mutex init failed \n");
+//        exit(1);
+//    }
+
+    printf("making threads\n");
+
+//    if(ret) {
+//        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
+//        exit(1);
+//    }
 
 gtk_init(&argc, &argv);
+  //  chat((int*) newsockfd);
+
+     ret= pthread_create(&t1,NULL,chat, (int *) newsockfd);
+    ret1 = pthread_create(&t2, NULL, chat2,  (int*) newsockfd);
+    printf("prosli");
 
 
 
@@ -609,6 +691,13 @@ gtk_init(&argc, &argv);
         g_source_remove (refresh);
 
     }
+    pthread_join( t1, NULL);
+    pthread_join( t2, NULL);
+    close(sockfd);
+    //unistavanje mutexa
+   // pthread_mutex_destroy(&m);
+
+ //   pthread_exit(NULL);
 
 
     return 0;

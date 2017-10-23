@@ -111,11 +111,7 @@ void cpu_percentage(int cpu_count){
 
 
         cpu[i].percentage =percentage[i];
-     //   printf("cpu percentage %f \n", cpu[i].percentage);
 
-      //  jiffies_user[5]+=jiffies_user[i];
-
-        //jiffies_system[5]+=jiffies_system[i];
 
 
 

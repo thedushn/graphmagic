@@ -330,40 +330,40 @@ void device_clicked(GtkWidget *widget){
 
             // graph_refresh();
             change_list_store_view_devices(widget, device_devices);
-            device_refresh(widget,device_devices );
+          //  device_refresh(widget,device_devices );
 
         }
         else if(widget==button_device_directory){
 
             device_directory= FALSE;
             change_list_store_view_devices(widget, device_directory);
-            device_refresh(widget,device_directory );
+          //  device_refresh(widget,device_directory );
         }
         else if(widget==button_device_avail){
 
             device_avail= FALSE;
             change_list_store_view_devices(widget, device_avail);
-            device_refresh(widget,device_avail );
+           // device_refresh(widget,device_avail );
         }
         else if(widget==button_device_total){
                 device_total= FALSE;
             change_list_store_view_devices(widget, device_total);
-            device_refresh(widget,device_total );
+           // device_refresh(widget,device_total );
         }
         else if(widget==button_device_used){
             device_used= FALSE;
             change_list_store_view_devices(widget, device_used);
-            device_refresh(widget,device_used );
+           // device_refresh(widget,device_used );
         }
         else if(widget==button_device_type){
             device_type= FALSE;
             change_list_store_view_devices(widget, device_type);
-            device_refresh(widget,device_type );
+          //  device_refresh(widget,device_type );
         }
         else /*if(widget==button_device_free)*/{
             device_free= FALSE;
             change_list_store_view_devices(widget, device_free);
-            device_refresh(widget,device_free );
+          //  device_refresh(widget,device_free );
         }
 
 
@@ -491,27 +491,27 @@ void graph_clicked(GtkWidget *widget){
 
             CPU0_line= TRUE;
        //     testiranje=1;
-             graph_refresh(widget,CPU0_line );
+//             graph_refresh(widget,CPU0_line );
 
           //  return CPU0_line;
         }
         if(widget==button_graph1){
 
             CPU1_line= TRUE;
-            graph_refresh(widget,CPU1_line );
+        //    graph_refresh(widget,CPU1_line );
             printf("CPU line %d\n",CPU1_line);
         }
         if(widget==button_graph2){
 
             CPU2_line= TRUE;
-            graph_refresh(widget,CPU2_line );
+        //    graph_refresh(widget,CPU2_line );
             printf("CPU line %d\n",CPU2_line);
         }
         if(widget==button_graph3){
 
             CPU3_line= TRUE;
             printf("CPU line %d\n",CPU3_line);
-            graph_refresh(widget,CPU3_line );
+         //   graph_refresh(widget,CPU3_line );
             //  graph_refresh();
         }
       //  graph_refresh();
@@ -524,28 +524,28 @@ void graph_clicked(GtkWidget *widget){
             CPU0_line= FALSE;
 
             // graph_refresh();
-            graph_refresh(widget,CPU0_line );
+         //   graph_refresh(widget,CPU0_line );
 
         }
         if(widget==button_graph1){
 
             CPU1_line= FALSE;
             // graph_refresh();
-            graph_refresh(widget,CPU1_line );
+        //    graph_refresh(widget,CPU1_line );
             printf("CPU line %d\n",CPU1_line);
         }
         if(widget==button_graph2){
 
             CPU2_line= FALSE;
             // graph_refresh();
-            graph_refresh(widget,CPU2_line );
+        //    graph_refresh(widget,CPU2_line );
             printf("CPU line %d\n",CPU2_line);
         }
         if(widget==button_graph3){
 
             CPU3_line= FALSE;
             // graph_refresh();
-            graph_refresh(widget,CPU3_line );
+        //    graph_refresh(widget,CPU3_line );
             printf("CPU line %d\n",CPU3_line);
         }
        // graph_refresh();
@@ -745,10 +745,10 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     crtaj_sekunde(cr, width, height, font_size, 3);
 
 
-    printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
-    printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
-    printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
-    printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
+//    printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
+//    printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
+//    printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+//    printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
     if(CPU0_line==TRUE){
 
 

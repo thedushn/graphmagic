@@ -161,8 +161,8 @@ int g=0;
                         break;
                     }
                 }
-                devices = testing_files(devices);
-                g_array_prepend_val(names, devices);
+                devices = testing_files(devices);//statf    pa saljemo
+                g_array_append_val(names, devices);
             }
         }
         else{
@@ -206,7 +206,7 @@ int g=0;
                                 }
                                 //   printf(" type %s\n",type);
                                 devices=testing_files(devices);
-                                g_array_prepend_val(names,devices);
+                                g_array_append_val(names,devices);
                             }
 
                         }

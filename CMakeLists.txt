@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7)
 project(gtkworld)
-
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
 set(CMAKE_C_STANDARD 11)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
@@ -26,7 +26,7 @@ set(SOURCE_FILES main.c memory_usage.c memory_usage.h cpu_usage.c cpu_usage.h ne
        # process-window.c process-window.h
         testing_tree.c testing_tree.h window.c window.h
         #lines.h
-        common.h interrupts_s.h buttons_s.h)
+        common.h interrupts_s.h buttons_s.h functions.c functions.h)
 
 
 
