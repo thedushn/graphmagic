@@ -5,6 +5,8 @@
 #include "buttons.h"
 #include "drawing.h"
 #include "testing_tree.h"
+#include "main_header.h"
+#include "buttons_s.h"
 
 void process_window(){
     proc_window =gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -208,19 +210,6 @@ void dev_button_clicked2(GtkWidget *widget){
     }
 
 }
-//void dev_button_clicked(GtkWidget *widget) {
-//
-//
-//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
-//
-//        pokazi_ili_hide(widget, dev_swindow);
-//
-//       // gtk_widget_show(dev_swindow);
-//    } else {
-//        pokazi_ili_hide(widget, dev_swindow);
-//
-//    }
-//};
 
 
 void close_window() {
@@ -303,33 +292,33 @@ void device_clicked(GtkWidget *widget){
 
             device_directory= TRUE;
             change_list_store_view_devices(widget, device_directory);
-            device_refresh(widget,device_directory );
+           // device_refresh(widget,device_directory );
         }
         else if(widget==button_device_avail){
 
             device_avail= TRUE;
             change_list_store_view_devices(widget, device_avail);
-            device_refresh(widget,device_avail );
+           // device_refresh(widget,device_avail );
         }
         else if(widget==button_device_total){
             device_total= TRUE;
             change_list_store_view_devices(widget, device_total);
-            device_refresh(widget,device_total );
+          //  device_refresh(widget,device_total );
         }
         else if(widget==button_device_used){
             device_used= TRUE;
             change_list_store_view_devices(widget, device_used);
-            device_refresh(widget,device_used );
+           // device_refresh(widget,device_used );
         }
         else if(widget==button_device_type){
             device_type= TRUE;
             change_list_store_view_devices(widget, device_type);
-            device_refresh(widget,device_type );
+          //  device_refresh(widget,device_type );
         }
         else /*if(widget==button_device_free)*/{
             device_free= TRUE;
             change_list_store_view_devices(widget, device_free);
-            device_refresh(widget,device_free );
+         //   device_refresh(widget,device_free );
         }
 
     }
@@ -393,7 +382,7 @@ void process_clicked(GtkWidget *widget){
             process_task= TRUE;
             //     testiranje=1;
             change_list_store_view_process(widget, process_task);
-              process_refresh(widget,process_task );
+            //  process_refresh(widget,process_task );
 
             //  return CPU0_line;
         }
@@ -401,39 +390,39 @@ void process_clicked(GtkWidget *widget){
 
             process_cpu= TRUE;
             change_list_store_view_process(widget, process_cpu);
-            process_refresh(widget,process_cpu );
+          //  process_refresh(widget,process_cpu );
         }
         else if(widget==button_process_pid){
 
             process_pid= TRUE;
             change_list_store_view_process(widget, process_pid);
-            process_refresh(widget,process_pid );
+         //   process_refresh(widget,process_pid );
         }
         else if(widget==button_process_ppid){
             process_ppid= TRUE;
             change_list_store_view_process(widget, process_ppid);
-            process_refresh(widget,process_ppid );
+          //  process_refresh(widget,process_ppid );
         }
         else if(widget==button_process_rss){
             process_rss= TRUE;
             change_list_store_view_process(widget, process_rss);
-            process_refresh(widget,process_rss );
+        //    process_refresh(widget,process_rss );
         }
         else if(widget==button_process_vm_size){
             process_vm_size= TRUE;
             change_list_store_view_process(widget, process_vm_size);
-            process_refresh(widget,process_vm_size );
+         //   process_refresh(widget,process_vm_size );
         }
         else if(widget==button_process_state){
             process_state= TRUE;
             change_list_store_view_process(widget, process_state);
-            process_refresh(widget,process_state );
+          //  process_refresh(widget,process_state );
         }
         else{
 
             process_user= TRUE;
             change_list_store_view_process(widget, process_user);
-            process_refresh(widget,process_user );
+          //  process_refresh(widget,process_user );
         }
 
 
@@ -445,7 +434,7 @@ void process_clicked(GtkWidget *widget){
             process_task= FALSE;
             //     testiranje=1;
             change_list_store_view_process(widget, process_task);
-              process_refresh(widget,process_task );
+          //    process_refresh(widget,process_task );
 
             //  return CPU0_line;
         }
@@ -453,39 +442,39 @@ void process_clicked(GtkWidget *widget){
 
             process_cpu= FALSE;
             change_list_store_view_process(widget, process_cpu);
-            process_refresh(widget,process_cpu );
+           // process_refresh(widget,process_cpu );
         }
         else if(widget==button_process_pid){
 
             process_pid= FALSE;
             change_list_store_view_process(widget, process_pid);
-            process_refresh(widget,process_pid );
+           // process_refresh(widget,process_pid );
         }
         else if(widget==button_process_ppid){
             process_ppid= FALSE;
             change_list_store_view_process(widget, process_ppid);
-            process_refresh(widget,process_ppid );
+           // process_refresh(widget,process_ppid );
         }
         else if(widget==button_process_rss){
             process_rss= FALSE;
             change_list_store_view_process(widget, process_rss);
-            process_refresh(widget,process_rss );
+            //process_refresh(widget,process_rss );
         }
         else if(widget==button_process_vm_size){
             process_vm_size= FALSE;
             change_list_store_view_process(widget, process_vm_size);
-            process_refresh(widget,process_vm_size );
+            //process_refresh(widget,process_vm_size );
         }
         else if(widget==button_process_state){
             process_state= FALSE;
             change_list_store_view_process(widget, process_state);
-            process_refresh(widget,process_state );
+           // process_refresh(widget,process_state );
         }
         else{
 
             process_user= FALSE;
             change_list_store_view_process(widget, process_user);
-            process_refresh(widget,process_user );
+          //  process_refresh(widget,process_user );
         }
 
 
@@ -632,6 +621,91 @@ void clean_button(){
 //    }
 
 }
+void handle_task_menu(GtkWidget *widget, gchar *signal)
+{
+    printf("signal %s\n",signal);
+    if(signal != NULL)
+    {
+
+
+//        if (strcmp(signal, "KILL") == 0)
+//            s = ("Really kill the task?");
+//        else
+//            s = ("Really terminate the task?");
+
+        if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 || strcmp(signal, "KILL") == 0 )
+        {
+            gchar *task_id = "";
+            GtkTreeModel *model;
+            GtkTreeIter iter;
+
+            if(gtk_tree_selection_get_selected(selection, &model, &iter))
+            {
+                gtk_tree_model_get(model, &iter, 1, &task_id, -1);
+                send_signal_to_task(task_id, signal);
+                init_timeout();
+            }
+        }
+    }
+}
+void send_signal_to_task(gchar *task_id, gchar *signal)
+{
+    printf("SIGNAL %s the task with ID %s\n", signal, task_id);
+    if(task_id != "" && signal != NULL)
+    {
+        gchar command[64] = "kill -";
+        g_strlcat(command,signal, sizeof command);
+        g_strlcat(command," ", sizeof command);
+        g_strlcat(command,task_id, sizeof command);
+        printf("Task id %s",task_id);
+        if(system(command) != 0)
+            printf("comand failed\n");
+//            xfce_err("Couldn't %s the task with ID %s", signal, task_id);
+    }
+}
+GtkWidget* create_taskpopup (void)
+{
+    GtkWidget *taskpopup;
+    GtkWidget *menu_item;
+
+    taskpopup = gtk_menu_new ();
+
+    menu_item = gtk_menu_item_new_with_mnemonic (("Stop"));
+    gtk_widget_show (menu_item);
+    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "STOP");
+
+    menu_item = gtk_menu_item_new_with_mnemonic (("Continue"));
+    gtk_widget_show (menu_item);
+    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "CONT");
+
+    menu_item = gtk_menu_item_new_with_mnemonic (("Term"));
+    gtk_widget_show (menu_item);
+    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "TERM");
+
+    menu_item = gtk_menu_item_new_with_mnemonic (("Kill"));
+    gtk_widget_show (menu_item);
+    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "KILL");
+
+    return taskpopup;
+}
+gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *event)
+{
+    if(event->button == 3)
+    {
+        printf("i was here\n");
+        GdkEventButton *mouseevent = (GdkEventButton *)event;
+        printf("moseevent button %d\n",mouseevent->button);
+        if(taskpopup == NULL)
+            taskpopup = create_taskpopup ();
+        gtk_menu_popup(GTK_MENU(taskpopup), NULL, NULL, NULL, NULL, mouseevent->button, mouseevent->time);
+
+    }
+    return FALSE;
+}
 void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     int width, height;
     float font_size = 12;
@@ -671,7 +745,10 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     crtaj_sekunde(cr, width, height, font_size, 3);
 
 
-
+    printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
+    printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
+    printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+    printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
     if(CPU0_line==TRUE){
 
 
@@ -696,18 +773,3 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
         cairo_surface_destroy (graph_surface);
     }
 };
-//void change_view(GtkWidget *button){
-//
-//
-//    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))) {
-//
-//        gtk_widget_show_all(dev_swindow);
-//        gtk_widget_show_all(process_swindow);
-//
-//    }
-//    else{
-//
-//        gtk_widget_hide(process_swindow);
-//        gtk_widget_hide(dev_swindow);
-//    }
-//}

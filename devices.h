@@ -39,7 +39,7 @@ void mountlist(char *path,size_t j,gboolean mount);
 
 //void printanje_dev(GArray *array);
 GArray *names;
-GArray *names_temp;
+
 
 struct _Devices {
 

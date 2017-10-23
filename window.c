@@ -5,9 +5,12 @@
 #include "window.h"
 
 #include "testing_tree.h"
-
-
-GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
+#include "buttons.h"
+#include "memory_usage.h"
+#include "cpu_usage.h"
+struct _Memory_usage memory_usage;
+struct _Cpu_usage cpu[4];
+  GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
 
    GtkWidget *window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -225,3 +228,76 @@ void quit_activated() {
     g_print("File -> Quit activated...bye.\n");
     gtk_main_quit();
 };
+
+void swap_change(gpointer data){
+
+
+
+
+ // static guint i =0;
+ gchar  *swap_total,*swap_used;
+ gfloat  j = memory_usage.swap_percentage;
+ swap_used = g_format_size_full((guint64) memory_usage.swap_used, G_FORMAT_SIZE_IEC_UNITS);
+ swap_total = g_format_size_full((guint64) memory_usage.swap_total, G_FORMAT_SIZE_IEC_UNITS);
+ g_array_prepend_val(history[7],  j);
+ if (history[7]->len > 1)
+  g_array_remove_index (history[7], history[7]->len - 1);
+ swap_usage_text = g_strdup_printf(("SWAP: %0.2f%% (%s) %s"),memory_usage.swap_percentage,swap_used,swap_total);
+ gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
+ g_free(swap_usage_text);
+ g_free(swap_total);
+ g_free(swap_used);
+
+}
+void memory_change(gpointer data){
+
+
+ gchar *used,*total,*memory_usage_text1;
+
+ gfloat  j = memory_usage.percentage;
+
+ used = g_format_size_full((guint64) memory_usage.memory_used, G_FORMAT_SIZE_IEC_UNITS);
+
+ total = g_format_size_full((guint64) memory_usage.memory_total, G_FORMAT_SIZE_IEC_UNITS);
+
+ g_array_prepend_val(history[6], j);
+
+ if (history[6]->len > 1)
+  g_array_remove_index (history[6], history[6]->len - 1);
+
+
+
+
+
+
+ memory_usage_text1 = g_strdup_printf (("Memory: %0.2f%%(%s)%s"),memory_usage.percentage,used,total);
+ gtk_label_set_text (GTK_LABEL (data), memory_usage_text1);
+ g_free(memory_usage_text1);
+ g_free(total);
+ g_free(used);
+
+}
+gboolean  cpu_change(){
+
+    ////vratiti nazad
+    cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
+    cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
+    cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
+    cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
+
+    gtk_label_set_text (GTK_LABEL (label3),cpu0_usage_text);
+    gtk_label_set_text (GTK_LABEL (label4),cpu1_usage_text);
+    gtk_label_set_text (GTK_LABEL (label5),cpu2_usage_text);
+    gtk_label_set_text (GTK_LABEL (label6),cpu3_usage_text);
+
+    g_free(cpu0_usage_text);
+    g_free(cpu1_usage_text);
+    g_free(cpu2_usage_text);
+    g_free(cpu3_usage_text);
+    ////vratiti nazad
+    return TRUE;
+
+};
+
+
+

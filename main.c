@@ -9,7 +9,10 @@
 #include "testing_tree.h"
 #include "memory_usage.h"
 #include "window.h"
-
+#include "common.h"
+#include "buttons.h"
+#include "buttons_s.h"
+struct _Memory_usage memory_usage;
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
     if (widget == graph1) {
@@ -26,15 +29,15 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
     }
     else  /*if (widget == graph4)*/ {
 
-        do_drawing4(widget, cr);
-       // do_drawing4(widget, cr,interrupt_array_d);
+        //do_drawing4(widget, cr);
+        do_drawing4(widget, cr,interrupt_array_d);
     }
 return TRUE;
 
 }
 void process_refresh(GtkWidget *widget, gboolean BOOL){
 
-
+        //data_s.interrupts.
     if (widget == button_process_state) {
 
 
@@ -172,6 +175,7 @@ void graph_refresh(GtkWidget *widget, gboolean CPU) {
 
 
         CPU0_line = CPU;
+        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
 
 
     }
@@ -180,19 +184,25 @@ void graph_refresh(GtkWidget *widget, gboolean CPU) {
 
         CPU1_line = CPU;
 
+        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
 
     }
     else if (widget == button_graph2) {
 
         CPU2_line = CPU;
+        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+
 
     }
     else /* (widget == button_graph3)*/ {
 
         CPU3_line = CPU;
+        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
+
     }
 
     timeout_refresh();
+   // time_handler(window);
 
 
 };
@@ -275,32 +285,19 @@ void init_timeout() {
     guint i=0,j=0;
 
 
-GArray *new_task_list;
-    GArray *new_device_list;
 
+
+    GArray *new_task_list;
+    GArray *new_device_list;
+    GArray *new_interrupt_list;
     new_task_list =  get_task_list2();
     new_device_list   = device(device_all);
 
-   GArray *new_interrupt_list;
     new_interrupt_list=interrupt_usage();
-   // interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
-
-////
-    printf("leght %d\n",interrupt_array_d->len);
-    for( i=0 ;i<interrupt_array_d->len;i++){
-        Interrupts *interrupts5;
-        interrupts5=&g_array_index(interrupt_array_d,Interrupts,i);
-        printf("name[%s] CPU0[%lu] CPU1[%lu] CPU2[%lu] CPU3[%lu] ime1[%s],ime2 [%s] ime3 [%s] ime4[%s]\n",interrupts5->name,interrupts5->CPU0,interrupts5->CPU1,interrupts5->CPU2,interrupts5->CPU3,interrupts5->ime1,interrupts5->ime2,interrupts5->ime3,interrupts5->ime4);
-    }
    g_array_free(interrupt_array_temp,TRUE);
-
-//
-//
-//
     interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
-//
-//
+
     upis(new_interrupt_list,interrupt_array_temp);
   //  interrupt_array_temp=interrupt_usage();
        printf("%d\n",interrupt_array_temp->len);
@@ -443,32 +440,22 @@ GArray *new_task_list;
 
 
     /* check for unchecked new tasks for inserting */
-    for(i = 0; i < new_task_list->len; i++)
-    {
+    for(i = 0; i < new_task_list->len; i++) {
         Task *new_tmp = &g_array_index(new_task_list, Task, i);
 
-        if(!new_tmp->checked)
-        {
+        if (!new_tmp->checked) {
             Task *new_task = new_tmp;
 
             g_array_append_val(task_array, *new_task);
-         //   if(( new_task->uid == own_uid))
-                add_new_list_item(tasks_num);
+            //   if(( new_task->uid == own_uid))
+            add_new_list_item(tasks_num);
             tasks_num++;
         }
     }
-
-
-
-
-
-
-
-
-
-
     cpu_percent_change(ncpu);//nije ovde
-    get_memory_usage();//nije ovde
+get_memory_usage();//nije ovde
+
+
 
     cpu_change();
 
@@ -481,7 +468,7 @@ GArray *new_task_list;
 
      //g_array_free(interrupt_array_temp, TRUE);
     g_array_free(new_interrupt_list,TRUE);
-   // g_array_free(interrupt_array_d,TRUE);
+   // g_array_unref(interrupt_array_d);
 
 
     g_array_free(new_device_list,TRUE);
@@ -539,7 +526,7 @@ gtk_init(&argc, &argv);
     interrupt_array_d=g_array_new (FALSE, TRUE, sizeof (Interrupts));
 
 
-    names_temp=g_array_new (FALSE, FALSE, sizeof (Devices));
+    //names_temp=g_array_new (FALSE, FALSE, sizeof (Devices));
     names_array=g_array_new (FALSE, FALSE, sizeof (Devices));
 
 
@@ -607,9 +594,9 @@ gtk_init(&argc, &argv);
 
     gtk_widget_show_all(window);
 
-
-    gtk_widget_hide(dev_swindow);
-   gtk_widget_hide(process_swindow);
+//
+//    gtk_widget_hide(dev_swindow);
+//   gtk_widget_hide(process_swindow);
 //    gtk_widget_hide(hbox1);
 //    gtk_widget_hide(hbox3);
 //    gtk_widget_hide(hbox2);
@@ -622,7 +609,7 @@ gtk_init(&argc, &argv);
         g_source_remove (refresh);
 
     }
-   // g_object_unref (window);
+
 
     return 0;
 }

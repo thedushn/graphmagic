@@ -4,7 +4,7 @@
 
 #include "network_bandwith.h"
 
-struct  Network net;
+struct  _Network net;
 static int broj;
 gchar  name_buffer[10];
 int interface_name(){

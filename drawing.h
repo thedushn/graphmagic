@@ -13,24 +13,23 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <cairo.h>
-#include "network_bandwith.h"
-#include "interrupts.h"
-//#include "buttons.h"
 
-//#include "main_header.h"
+#include "interrupts_s.h"
+
+
 GArray *history[9];
-struct Network net;
 
-//gboolean CPU0_line = TRUE;
-//gboolean CPU1_line = TRUE;
-//gboolean CPU2_line = TRUE;
-//gboolean CPU3_line = TRUE;
+//static gboolean CPU0_line=FALSE;
+//static gboolean CPU1_line=TRUE;
+//static gboolean CPU2_line=TRUE;
+//static gboolean CPU3_line=TRUE;
 
 void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2);
 void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step);
+
 void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step);
-void do_drawing4(GtkWidget *widget,cairo_t *cr);
-//void do_drawing4(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array);
+//void do_drawing4(GtkWidget *widget,cairo_t *cr);
+void do_drawing4(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array);
 void crtaj_sekunde(cairo_t *cr,float width,float height,float font_size,int i);
 void crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i);
 void crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size);

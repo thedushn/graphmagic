@@ -77,6 +77,7 @@ gchar *network_usage_transimited_text;
 
 GArray *history[9];
 GArray *task_array;
+//GArray *names_temp;
 GArray *names_array;
 GArray *interrupt_array_d;
  GArray *interrupt_array_temp;
@@ -89,6 +90,7 @@ void device_refresh(GtkWidget *widget, gboolean );
 void process_refresh(GtkWidget *widget, gboolean BOOL);
 void show_all(GtkWidget *widget);
 void close_window();
+static gboolean time_handler(GtkWidget *widget);
 
 
 

@@ -6,7 +6,7 @@
 
 
 
-struct Cpu_usage cpu[4];
+struct _Cpu_usage cpu[4];
 
 
 
@@ -133,11 +133,11 @@ void cpu_percentage(int cpu_count){
 
 void cpu_percent_change(int ncpu){
 
-
+    Cpu_usage *cpu1[4];
     cpu_percentage(ncpu);
-    //  static guint i= 0;
+
     gfloat j;
-  //    gfloat *peak;
+
     for(int s=0;s<ncpu;s++) {
 
         j = cpu[s].percentage;
@@ -152,74 +152,7 @@ void cpu_percent_change(int ncpu){
     }
 
 };
-gboolean  cpu_change(){
-//gboolean  cpu_change(int ncpu){
-
-
-
-//
-//    for(int i=0;i<ncpu;i++){
-//        gchar *cpu_usage_text_temp[ncpu];
-//        label3 = gtk_label_new(NULL);
-//        gtk_box_pack_start(GTK_BOX(hbox), label3, 0, 0, 0);
-//        cpu_usage_text_temp[i] = g_strdup_printf(("CPU%d: %2.f%%"), cpu[i].number, cpu[i].percentage);
-//        gtk_label_set_text (GTK_LABEL (label3),cpu_usage_text_temp[i]);
-//        g_free(cpu_usage_text_temp[i]);
-//    }
-//
-//    return TRUE;
-
-
-    // label3 = gtk_label_new(NULL);
-//    gchar *cpu_usage_text_temp;
-//    gtk_box_pack_start(GTK_BOX(hbox), label3, 0, 0, 0);
-//    cpu_usage_text_temp = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
-//    gtk_label_set_text (GTK_LABEL (label3),cpu_usage_text_temp);
-//    g_free(cpu_usage_text_temp);
-    ////vratiti nazad
-    cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
-    cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
-    cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
-    cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
-
-    gtk_label_set_text (GTK_LABEL (label3),cpu0_usage_text);
-    gtk_label_set_text (GTK_LABEL (label4),cpu1_usage_text);
-    gtk_label_set_text (GTK_LABEL (label5),cpu2_usage_text);
-    gtk_label_set_text (GTK_LABEL (label6),cpu3_usage_text);
-
-    g_free(cpu0_usage_text);
-    g_free(cpu1_usage_text);
-    g_free(cpu2_usage_text);
-    g_free(cpu3_usage_text);
-    ////vratiti nazad
-return TRUE;
-    /*if(data== label3) {
-
-        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
-        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
-    }
-    if(data== label4) {
-
-        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
-        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
-    }
-    if(data== label5) {
-
-        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
-        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
-    }
-    if(data== label6) {
-
-        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
-        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
-    }
-*/
-
-    // return TRUE;
-};
-
-
- void
+void
 get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffies_system, gfloat *cpu_system)
 {
     static GHashTable *hash_cpu_user = NULL;
@@ -240,13 +173,13 @@ get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffie
     if (jiffies_user < jiffies_user_old || jiffies_system < jiffies_system_old)
         return;
 
-   // if (_cpu_count > 0 && jiffies_total_delta > 0)
+    // if (_cpu_count > 0 && jiffies_total_delta > 0)
     if (jiffies_total_delta[4] > 0)
     {
 
         *cpu_user = (jiffies_user - jiffies_user_old) * 100 / (float)jiffies_total_delta[4];
         *cpu_system = (jiffies_system - jiffies_system_old) * 100 / (float)jiffies_total_delta[4];
-       // printf("total  Delta final %lu user %f system %f \n",jiffies_total_delta[4],*cpu_user,*cpu_system);
+        // printf("total  Delta final %lu user %f system %f \n",jiffies_total_delta[4],*cpu_user,*cpu_system);
     }
     else
     {

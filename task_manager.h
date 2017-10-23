@@ -13,7 +13,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "cpu_usage.h"
+
 
 typedef struct _Task Task;
 //gboolean	get_task_list		(GArray *task_list);
@@ -45,16 +45,5 @@ struct _Task
     gshort		prio;
     gboolean checked;
 };
-enum
-{
-    COL_TASK = 0,
-    COL_PID,
-    COL_RSS,
-    COL_CPU,
-    COL_VSZ,
-    COL_PPID,
-    COL_STATE,
-    COL_UNAME,
-    NUM_COLS
-} ;
+
 #endif //GTKWORLD_TASKS_C_H

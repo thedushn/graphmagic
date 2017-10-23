@@ -5,8 +5,6 @@
 #ifndef GTKWORLD_CPU_USAGE_H
 #define GTKWORLD_CPU_USAGE_H
 #include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <pwd.h>
 #include <unistd.h>
 #include <string.h>
@@ -14,18 +12,12 @@
 #include <cairo.h>
 #include <gtk/gtk.h>
 #include <math.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "main_header.h"
+
 static int ncpu;
-
-
-static gulong jiffies_total_delta[5] = {0,0,0,0,0};
- struct Cpu_usage {
+typedef struct _Cpu_usage Cpu_usage;
+struct _Cpu_usage {
 
 
     gfloat percentage;
@@ -33,11 +25,14 @@ static gulong jiffies_total_delta[5] = {0,0,0,0,0};
 
 };
 
+static gulong jiffies_total_delta[5] = {0,0,0,0,0};
+
+
 int cpu_number();
 void cpu_percentage(int);
 void cpu_percent_change(int ncpu);
 //gboolean  cpu_change(int ncpu);
-gboolean  cpu_change();
+
 //gboolean  cpu_change2();
  void
 get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffies_system, gfloat *cpu_system);

@@ -4,6 +4,7 @@
 
 #include "memory_usage.h"
 #include "main_header.h"
+
 struct _Memory_usage memory_usage;
 
 
@@ -65,51 +66,4 @@ void	get_memory_usage(){
 
 
 }
-void swap_change(gpointer data){
 
-
-
-
-    // static guint i =0;
-  gchar  *swap_total,*swap_used;
-    gfloat  j = memory_usage.swap_percentage;
-    swap_used = g_format_size_full((guint64) memory_usage.swap_used, G_FORMAT_SIZE_IEC_UNITS);
-    swap_total = g_format_size_full((guint64) memory_usage.swap_total, G_FORMAT_SIZE_IEC_UNITS);
-    g_array_prepend_val(history[7],  j);
-    if (history[7]->len > 1)
-        g_array_remove_index (history[7], history[7]->len - 1);
-    swap_usage_text = g_strdup_printf(("SWAP: %0.2f%% (%s) %s"),memory_usage.swap_percentage,swap_used,swap_total);
-    gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
-    g_free(swap_usage_text);
-    g_free(swap_total);
-    g_free(swap_used);
-
-}
-void memory_change(gpointer data){
-
-
-   gchar *used,*total;
-
-    gfloat  j = memory_usage.percentage;
-
-    used = g_format_size_full((guint64) memory_usage.memory_used, G_FORMAT_SIZE_IEC_UNITS);
-
-    total = g_format_size_full((guint64) memory_usage.memory_total, G_FORMAT_SIZE_IEC_UNITS);
-
-    g_array_prepend_val(history[6], j);
-
-    if (history[6]->len > 1)
-        g_array_remove_index (history[6], history[6]->len - 1);
-
-
-
-
-
-
-    memory_usage_text = g_strdup_printf (("Memory: %0.2f%%(%s)%s"),memory_usage.percentage,used,total);
-    gtk_label_set_text (GTK_LABEL (data), memory_usage_text);
-    g_free(memory_usage_text);
-    g_free(total);
-    g_free(used);
-
-}

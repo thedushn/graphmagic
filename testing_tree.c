@@ -4,64 +4,19 @@
 
 #include "testing_tree.h"
 #include "buttons.h"
+#include "devices.h"
+#include "main_header.h"
+#include "task_manager.h"
 
 
-void handle_task_menu(GtkWidget *widget, gchar *signal)
-{
-    printf("signal %s\n",signal);
-    if(signal != NULL)
-    {
-        gchar *s;
-
-//        if (strcmp(signal, "KILL") == 0)
-//            s = ("Really kill the task?");
-//        else
-//            s = ("Really terminate the task?");
-
-        if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 || strcmp(signal, "KILL") == 0 )
-        {
-            gchar *task_id = "";
-            GtkTreeModel *model;
-            GtkTreeIter iter;
-
-            if(gtk_tree_selection_get_selected(selection, &model, &iter))
-            {
-                gtk_tree_model_get(model, &iter, 1, &task_id, -1);
-                send_signal_to_task(task_id, signal);
-                init_timeout();
-            }
-        }
-    }
-}
-void send_signal_to_task(gchar *task_id, gchar *signal)
-{
-    printf("SIGNAL %s the task with ID %s\n", signal, task_id);
-    if(task_id != "" && signal != NULL)
-    {
-        gchar command[64] = "kill -";
-        g_strlcat(command,signal, sizeof command);
-        g_strlcat(command," ", sizeof command);
-        g_strlcat(command,task_id, sizeof command);
-        printf("Task id %s",task_id);
-       if(system(command) != 0)
-           printf("comand failed\n");
-//            xfce_err("Couldn't %s the task with ID %s", signal, task_id);
-    }
-}
 
 
-void on_quit(void)
-{
-
-
-    gtk_main_quit();
-}
 
 GtkTreeStore * create_list_store(void)
 {
     GtkCellRenderer *cell_renderer;
     GtkTreeViewColumn *column;
-#define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
+
     list_store = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
 
     cell_renderer = gtk_cell_renderer_text_new();
@@ -198,23 +153,23 @@ void add_new_list_item_dev(gint i)
     fill_list_item_device(i, &iter);
 }
 /* change the task view (user, root, other) */
-void change_task_view(void)
-{
-    gtk_tree_store_clear(GTK_TREE_STORE(list_store));
-    gint i = 0;
-
-    //for(i = 0; i < tasks; i++)
-    for(i = 0; i < tasks_num; i++)
-
-    {
-        Task task = g_array_index(task_array, Task, i);
-
-        if((task.uid == own_uid && show_user_tasks) || (task.uid == 0 && show_root_tasks) || (task.uid != own_uid && task.uid != 0 && show_other_tasks))
-            add_new_list_item(i);
-    }
-
-    init_timeout();
-}
+//void change_task_view(void)
+//{
+//    gtk_tree_store_clear(GTK_TREE_STORE(list_store));
+//    gint i = 0;
+//
+//    //for(i = 0; i < tasks; i++)
+//    for(i = 0; i < tasks_num; i++)
+//
+//    {
+//        Task task = g_array_index(task_array, Task, i);
+//
+//        if((task.uid == own_uid && show_user_tasks) || (task.uid == 0 && show_root_tasks) || (task.uid != own_uid && task.uid != 0 && show_other_tasks))
+//            add_new_list_item(i);
+//    }
+//
+//    init_timeout();
+//}
 void change_list_store_view_devices(GtkWidget *widget, gboolean visible)
 {
 //    dev=0
@@ -293,111 +248,13 @@ void change_list_store_view_process(GtkWidget *widget, gboolean visible)
     }
 
 }
-void on_show_tasks_toggled (GtkMenuItem *menuitem, gint uid)
-{
-    if(uid == own_uid)
-        show_user_tasks = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
-    else if(uid == 0)
-        show_root_tasks = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
-    else
-        show_other_tasks = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
-
-    change_task_view();
-}
-
-GtkWidget* create_taskpopup (void)
-{
-    GtkWidget *taskpopup;
-    GtkWidget *menu_item;
-
-    taskpopup = gtk_menu_new ();
-
-    menu_item = gtk_menu_item_new_with_mnemonic (("Stop"));
-    gtk_widget_show (menu_item);
-    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
-    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "STOP");
-
-    menu_item = gtk_menu_item_new_with_mnemonic (("Continue"));
-    gtk_widget_show (menu_item);
-    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
-    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "CONT");
-
-    menu_item = gtk_menu_item_new_with_mnemonic (("Term"));
-    gtk_widget_show (menu_item);
-    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
-    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "TERM");
-
-    menu_item = gtk_menu_item_new_with_mnemonic (("Kill"));
-    gtk_widget_show (menu_item);
-    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
-    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "KILL");
-
-    return taskpopup;
-}
-
-GtkWidget* create_mainmenu (void)
-{
-    GtkWidget *mainmenu;
-
-    GtkWidget *trennlinie1;
-    GtkWidget *show_user_tasks1;
-    GtkWidget *show_root_tasks1;
-    GtkWidget *show_other_tasks1;
-    GtkWidget *show_cached_as_free1;
-    GtkAccelGroup *accel_group;
-
-    accel_group = gtk_accel_group_new ();
-
-    mainmenu = gtk_menu_new ();
-
-
-    trennlinie1 = gtk_separator_menu_item_new ();
-    gtk_widget_show (trennlinie1);
-    gtk_menu_shell_append(GTK_MENU_SHELL(mainmenu), trennlinie1);
-    gtk_widget_set_sensitive (trennlinie1, FALSE);
-
-    show_user_tasks1 = gtk_check_menu_item_new_with_mnemonic (("Show user tasks"));
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(show_user_tasks1), show_user_tasks);
-    gtk_widget_show (show_user_tasks1);
-    gtk_menu_shell_append(GTK_MENU_SHELL(mainmenu), show_user_tasks1);
-
-    show_root_tasks1 = gtk_check_menu_item_new_with_mnemonic (("Show root tasks"));
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(show_root_tasks1), show_root_tasks);
-    gtk_widget_show (show_root_tasks1);
-    gtk_menu_shell_append(GTK_MENU_SHELL(mainmenu), show_root_tasks1);
-
-    show_other_tasks1 = gtk_check_menu_item_new_with_mnemonic (("Show other tasks"));
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(show_other_tasks1), show_other_tasks);
-    gtk_widget_show (show_other_tasks1);
-    gtk_menu_shell_append(GTK_MENU_SHELL(mainmenu), show_other_tasks1);
-
-    show_cached_as_free1 = gtk_check_menu_item_new_with_mnemonic (("Show memory used by cache as free"));
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(show_cached_as_free1), show_cached_as_free);
-    gtk_widget_show (show_cached_as_free1);
-    gtk_menu_shell_append(GTK_MENU_SHELL(mainmenu), show_cached_as_free1);
 
 
 
-    gtk_menu_set_accel_group (GTK_MENU (mainmenu), accel_group);
-
-    return mainmenu;
-}
 
 
-gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *event)
-{
-    if(event->button == 3)
-    {
-        printf("i was here\n");
-        GdkEventButton *mouseevent = (GdkEventButton *)event;
-        printf("moseevent button %d\n",mouseevent->button);
-        if(taskpopup == NULL)
-            taskpopup = create_taskpopup ();
-        gtk_menu_popup(GTK_MENU(taskpopup), NULL, NULL, NULL, NULL, mouseevent->button, mouseevent->time);
 
-    }
-    return FALSE;
-}
+
 
 
 

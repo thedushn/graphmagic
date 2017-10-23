@@ -3,8 +3,8 @@
 //
 
 #include "drawing.h"
-
-
+//#include "buttons.h"
+#include "buttons_s.h"
 static gfloat max_broj3=0;
 
 
@@ -432,7 +432,8 @@ void do_drawing3(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step){
 
 
 }
-void do_drawing4(GtkWidget *widget,cairo_t *cr){
+void do_drawing4(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array){
+//void do_drawing4(GtkWidget *widget,cairo_t *cr){
     int width, height;
 
     gchar ime2[3];
@@ -487,7 +488,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     for (int i = 0; i <=9; i++) {
 
         cairo_move_to(cr, 5 * font_size, height);
-        peak = &g_array_index(interrupt_array_d, Interrupts, i);
+        peak = &g_array_index(interrupts_array, Interrupts, i);
         if(max_broj<=peak->CPU0){
 
             max_broj=peak->CPU0;
@@ -506,7 +507,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
         }
 
     }
-    max_broj+=200;//100
+    max_broj+=500;//100
     cairo_move_to(cr, 0,font_size);
     sprintf(broj,"%li",max_broj);
     cairo_show_text(cr,broj);
@@ -529,7 +530,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr){
     for (int i = 0; i <=9; i++) {
 
         // cairo_move_to(cr, 5 * font_size, height);
-        peak = &g_array_index(interrupt_array_d, Interrupts, i);
+        peak = &g_array_index(interrupts_array, Interrupts, i);
 
         cairo_move_to(cr, 5 * font_size + 5 * duzina * (i), height);
         sprintf(ime2,"%s",peak->name);
@@ -736,7 +737,10 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 //    crtaj_sekunde(cr, width, height, font_size, 3);
 //
 //
-//
+////        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
+////        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
+////        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+////        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
 //    if(CPU0_line==TRUE){
 //
 //
