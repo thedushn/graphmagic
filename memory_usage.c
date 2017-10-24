@@ -3,7 +3,7 @@
 //
 
 #include "memory_usage.h"
-#include "main_header.h"
+
 
 struct _Memory_usage memory_usage;
 
@@ -59,8 +59,7 @@ void	get_memory_usage(){
     float   percentage =(memory_total != 0) ? memory_used * 100 / (float)memory_total : 0;
             /*(float)memory_used/(float)memory_total *100 ;*/
     memory_usage.percentage = percentage;
-  //  printf("%d",memory_usage.percentage);
- // printf("Percentage %f",percentage);
+
 
 
 

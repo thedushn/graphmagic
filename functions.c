@@ -1,9 +1,4 @@
 //
-// Created by dusan on 23.10.17..
-//
-
-#include "functions.h"
-//
 // Created by root on 13.6.17..
 //
 
@@ -19,6 +14,8 @@
 #include <fcntl.h>
 #include <math.h>
 #include "functions.h"
+#include "memory_usage.h"
+#include "common.h"
 #include <unistd.h>
 #define BUF_SIZE 2000
 #define CLADDR_LEN 100
@@ -27,16 +24,47 @@ char * test="Type the name  of the file u want to receive\n";
 char *message= "Iste su extensions mozemo da nastavimo sa slanjem";
 int num_packets;
 char *message2= "reci kako oces da se zove file koji ti primas\n";
-char *end ="end of file";
+char *end ="\nend of file";
 
 int rezultat=1;
 
-void *receiving(void *socket) {
+
+void *primanje(void * socket){
+    printf("\nusli smo tu gde treba: primanje \n");
+    int  ret;
+    Memory_usage memory_usage;
+    char buffer[BUF_SIZE];
+    memset(buffer, 0, BUF_SIZE);
+    int sockfd= (int)socket;
+    char buffer2[BUF_SIZE];
+    char buffer_file[BUF_SIZE];
+    char num_packets[BUF_SIZE];
+    memset(num_packets, 0, BUF_SIZE);
+    memset(buffer_file, 0, BUF_SIZE);
+    memset(buffer2, 0, BUF_SIZE);
+    ssize_t dataReceived;
+     data_s memory;
+    struct	my_thread_info *info = socket;
+
+
+        //ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
+        ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
+        if (ret < 0) {
+            printf("Error receving data!\n\t-%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
+                    ,memory.Memory.memory_total,memory.Memory.memory_used);
+            //printf("slanje broja paketa nije uspelo\n");
+        }
+        printf("uspelo slanje%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
+                ,memory.Memory.memory_total,memory.Memory.memory_used);
+
+
+}
+void *receiving(int socket) {
     printf("\nusli smo tu gde treba: receiving \n");
     int sockfd, ret;
     char buffer[BUF_SIZE];
     memset(buffer, 0, BUF_SIZE);
-    sockfd = (int) socket;
+    sockfd =  socket;
     char buffer2[BUF_SIZE];
     char buffer_file[BUF_SIZE];
     char num_packets[BUF_SIZE];
@@ -52,12 +80,8 @@ void *receiving(void *socket) {
     }
     printf("kako oces da se zove file \n");
 
-    /*if(gets(buffer2, BUF_SIZE, stdin)!=NULL){
-        ret = send(sockfd,buffer2,BUF_SIZE,0);
-        if(ret<0){
-            printf("Error sending data!\n\t-%s", buffer2);
-        }*/
-    ret = recvfrom(sockfd, buffer, BUF_SIZE, 0, NULL, NULL);
+
+    ret = (int )recvfrom(sockfd, buffer, BUF_SIZE, 0, NULL, NULL);
     if (ret < 0) {
         printf("Error sending data!\n\t-%s", buffer);
         //printf("slanje broja paketa nije uspelo\n");
@@ -65,34 +89,32 @@ void *receiving(void *socket) {
     //	printf("sta salje client %s\n", buffer2);
     printf("sta salje client %s\n", buffer);//ovde primi da su file iste extensions
     //sada u ovom receive treba da primi file kako treba da sse zove
-    ret = recvfrom(sockfd, buffer2, BUF_SIZE, 0, NULL, NULL);
+    ret = (int )recvfrom(sockfd, buffer2, BUF_SIZE, 0, NULL, NULL);
     if (ret < 0) {
         printf("Error sending data!\n\t-%s", buffer2);
     }
     printf("sta salje client %s\n", buffer2);
     //primanje broja paketa
-    ret = recvfrom(sockfd, num_packets, BUF_SIZE, 0, NULL, NULL);
+    ret = (int )recvfrom(sockfd, num_packets, BUF_SIZE, 0, NULL, NULL);
     if (ret < 0) {
         printf("Error sending data!\n\t-%s", num_packets);
     }
     printf("broj paketa : %s\n", num_packets);
     int packets = atoi(num_packets);
     printf("broj packeta %d \n", packets);
-    int count = 0;
     filefd = fopen(buffer, "w+");
-    pthread_mutex_lock(&mut);
-    if (filefd == -1) {
+
+    if (filefd == NULL) {
         perror("open");
         exit(EXIT_FAILURE);
     }
     for(int i=0; i<packets;i++){
-  //  while(1){
+
 
         dataReceived = read(sockfd,buffer_file,PACKET_SIZE);
         printf("data %s",buffer_file);
 
-        //for(int i=0; i<packets;i++){
-          //  printf("i: %d",i);
+
         if(dataReceived>0) {
             if(strcmp(buffer_file,end)==0) {
                 printf("dosli smo do kraja file");
@@ -105,52 +127,31 @@ void *receiving(void *socket) {
                 printf("\n Read Error \n");
             }
 
-           // printf("\nFile OK....Completed\n");
-            printf("%d",i);
-        //}
 
-  //  }
+            printf("%d\n",i);
+
 
 
     	}
     fclose(filefd);
+    rezultat =1;
     printf("\nFile OK....Completed\n");
     printf("lets seee if this works\n");
     pthread_mutex_unlock(&mut);
-
-    /*	while((dataReceived = read(sockfd,buffer_file,PACKET_SIZE))	> 0){
-            printf("data %s",buffer_file);
-            if(strncmp(buffer_file,end,11)==0){
-                fclose(filefd);
-                printf("zatvorili smo file");
-                break;
-            }
-            for(count=0;count<=packets;count++){
-                printf("count: %d\n",count);
-            fwrite(buffer_file,1,dataReceived,filefd);
-            }
-            break;
-        }
-            if(dataReceived < 0)
-                {
-                    printf("\n Read Error \n");
-                }
-            printf("\nFile OK....Completed\n");
-    //}
-            fclose(filefd);
     pthread_cond_signal(&cond);
-    printf("izasli smo iz receiving\n");*/
+
+
 
 
 }
-void * confromation(void *socket){
+void * confromation(int socket){
     int sockfd, ret;
     char buffer[BUF_SIZE];
-    sockfd = (int) socket;
+    sockfd =  socket;
     printf("usli smo u conformation \n");
     printf("treba poslati ime file to se radi u chat2\n");
 
-    ret = recv(sockfd,buffer,BUF_SIZE,0);
+    ret = (int) recv(sockfd,buffer,BUF_SIZE,0);
     if(ret<0){
         printf("Error sending data!\n\t-%s", buffer);
     }
@@ -166,11 +167,13 @@ void * confromation(void *socket){
     printf("izasli smo iz conformation\n");
 
 }
-void * chat2(void * socket){
+void*  chat2(void *socket){
     int sockfd, ret;
     char buffer[BUF_SIZE];
-    sockfd = (int) socket;
+   
     struct sockaddr_in addr;
+	struct	my_thread_info *info = socket;
+	 
     while(1){
         printf("we made it to chat2(sending messages)\n");
         if(rezultat==0){
@@ -184,7 +187,7 @@ void * chat2(void * socket){
                 //}
 
                 printf("YOU : %s\n",buffer);
-                ret = send(sockfd,buffer,BUF_SIZE,0);
+                ret = send(info->thread_socket,buffer,BUF_SIZE,0);
 
                 if (ret < 0) {
                     printf("Error sending data!\n\t-%s", buffer);
@@ -198,16 +201,18 @@ void * chat2(void * socket){
     printf("izasli smo iz while petlje#nismo\n");
 
 }
-void * chat(void * socket) {
-    int sockfd , ret;
+void*  chat(void  *socket) {
+    int  ret;
     char buffer [BUF_SIZE];
-    sockfd =(int) socket;
+    
     memset(buffer,0,BUF_SIZE);
 
+	struct	my_thread_info *info = socket;
+	
     printf("we made it to chat(receving messages)\n");
-    for(;;){
+    while (1){
         printf("still in chat\n");
-        ret =recv(sockfd,buffer,BUF_SIZE,0);
+        ret =recv(info->thread_socket,buffer,BUF_SIZE,0);
         if (ret < 0) {
             printf("Error receiving data!\n");
         }
@@ -218,7 +223,7 @@ void * chat(void * socket) {
         }
         if(strcmp(buffer,test)==0){
             printf("Iz chat client: %s",buffer);
-            confromation(sockfd);
+            confromation(info->thread_socket);
             //samo za test da vidimo sta client salje tj da li uopste salje
             //*receive_some_files(sockfd);
         }

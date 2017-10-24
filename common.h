@@ -7,12 +7,12 @@
 
 #include "gtk/gtk.h"
 
-//#include "network_bandwith.h"
-//#include "task_manager.h"
+#include "network_bandwith.h"
+#include "task_manager.h"
 #include "devices.h"
-//#include "cpu_usage.h"
-//#include "memory_usage.h"
-//#include "interrupts_s.h"
+#include "cpu_usage.h"
+#include "memory_usage.h"
+#include "interrupts_s.h"
 
 
 

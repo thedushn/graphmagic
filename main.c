@@ -570,17 +570,23 @@ int main(int argc, char *argv[]) {
 
     printf("making threads\n");
 
-//    if(ret) {
-//        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
-//        exit(1);
-//    }
+
 
 gtk_init(&argc, &argv);
   //  chat((int*) newsockfd);
 
-     ret= pthread_create(&t1,NULL,chat, (int *) newsockfd);
-    ret1 = pthread_create(&t2, NULL, chat2,  (int*) newsockfd);
-    printf("prosli");
+    // ret= pthread_create(&t1,NULL,chat, /*(int *)*/ &newsockfd);
+        ret=pthread_create(&t1,NULL,primanje,&newsockfd);
+    if(ret) {
+        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
+        exit(1);
+    }
+//    ret1 = pthread_create(&t2, NULL, chat2,  /*(int*) */&newsockfd);
+//    if(ret1) {
+//        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
+//        exit(1);
+//    }
+    printf("prosli\n");
 
 
 
