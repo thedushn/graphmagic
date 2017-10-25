@@ -28,7 +28,19 @@ char *end ="\nend of file";
 
 int rezultat=1;
 
+void *salji( void * socket){
+    printf("usli u salji\n");
+        char *mem="salji mem\n";
+    char buffer[BUF_SIZE];
+    strcpy(buffer,mem);
+    struct	my_thread_info *info = socket;
+    int ret= (int)send(info->thread_socket,buffer,BUF_SIZE,0);
+    if(ret<0){
 
+        printf("Error sending ACK\n");
+    }
+
+}
 void *primanje(void * socket){
     printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
@@ -46,9 +58,7 @@ void *primanje(void * socket){
 
     struct	my_thread_info *info = socket;
 
-    //ret = (int )recvfrom(info->thread_socket,buffer, BUF_SIZE, 0,NULL,NULL);
-  //  printf("buffer %s",buffer);
-    while(1){
+
         data_s memory;
         ret = (int )recvfrom(info->thread_socket,&memory, sizeof(data_s), 0,NULL,NULL);
        // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
@@ -57,11 +67,12 @@ void *primanje(void * socket){
                    ,memory.Memory.memory_total,memory.Memory.memory_used);
            // printf("slanje broja paketa nije uspelo %s\n ",buffer);
         }
+    else
         printf("uspelo slanje%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
                 ,memory.Memory.memory_total,memory.Memory.memory_used);
 
 
-    }
+ //   }
 
 
 

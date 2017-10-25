@@ -30,6 +30,7 @@
 #define CLADDR_LEN 100
 #define PACKET_SIZE 1400
 #define PORT_NUM 5004
+int newsockfd;
 
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
@@ -319,7 +320,8 @@ void init_timeout() {
     upis(new_interrupt_list,interrupt_array_temp);
   //  interrupt_array_temp=interrupt_usage();
     //   printf("%d\n",interrupt_array_temp->len);
-
+    //salji(&newsockfd);
+    primanje(&newsockfd);
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
         Devices *tmp = &g_array_index(names_array, Devices, i);
@@ -514,7 +516,7 @@ get_memory_usage();//nije ovde
 int main(int argc, char *argv[]) {
 
     struct sockaddr_in addr ,cl_addr;
-    int sockfd, len ,ret, ret1, newsockfd;
+    int sockfd, len ,ret, ret1/*, newsockfd*/;
     char buffer[BUF_SIZE];
     char buffer2[BUF_SIZE];
     char clientAddr[CLADDR_LEN];
@@ -576,11 +578,11 @@ gtk_init(&argc, &argv);
   //  chat((int*) newsockfd);
 
     // ret= pthread_create(&t1,NULL,chat, /*(int *)*/ &newsockfd);
-        ret=pthread_create(&t1,NULL,primanje,&newsockfd);
-    if(ret) {
-        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
-        exit(1);
-    }
+//        ret=pthread_create(&t1,NULL,primanje,&newsockfd);
+//    if(ret) {
+//        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
+//        exit(1);
+//    }
 //    ret1 = pthread_create(&t2, NULL, chat2,  /*(int*) */&newsockfd);
 //    if(ret1) {
 //        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
@@ -697,7 +699,7 @@ gtk_init(&argc, &argv);
         g_source_remove (refresh);
 
     }
-    pthread_join( t1, NULL);
+  //  pthread_join( t1, NULL);
   //  pthread_join( t2, NULL);
     close(sockfd);
     //unistavanje mutexa
