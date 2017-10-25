@@ -236,6 +236,7 @@ void swap_change(gpointer data){
 
  // static guint i =0;
  gchar  *swap_total,*swap_used;
+
  gfloat  j = memory_usage.swap_percentage;
  swap_used = g_format_size_full((guint64) memory_usage.swap_used, G_FORMAT_SIZE_IEC_UNITS);
  swap_total = g_format_size_full((guint64) memory_usage.swap_total, G_FORMAT_SIZE_IEC_UNITS);
@@ -255,6 +256,7 @@ void memory_change(gpointer data){
  gchar *used,*total,*memory_usage_text1;
 
  gfloat  j = memory_usage.percentage;
+
 
  used = g_format_size_full((guint64) memory_usage.memory_used, G_FORMAT_SIZE_IEC_UNITS);
 

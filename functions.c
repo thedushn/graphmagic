@@ -25,26 +25,43 @@ char *message= "Iste su extensions mozemo da nastavimo sa slanjem";
 int num_packets;
 char *message2= "reci kako oces da se zove file koji ti primas\n";
 char *end ="\nend of file";
-
+struct _Memory_usage memory_usage;
 int rezultat=1;
 
-void *salji( void * socket){
-    printf("usli u salji\n");
-        char *mem="salji mem\n";
-    char buffer[BUF_SIZE];
-    strcpy(buffer,mem);
-    struct	my_thread_info *info = socket;
-    int ret= (int)send(info->thread_socket,buffer,BUF_SIZE,0);
-    if(ret<0){
-
-        printf("Error sending ACK\n");
-    }
-
-}
-void *primanje(void * socket){
+//void *primanje(void * socket){
+//    printf("\nusli smo tu gde treba: primanje \n");
+//    int  ret;
+//    Memory_usage memory_usage;
+//    char buffer[BUF_SIZE];
+//    memset(buffer, 0, BUF_SIZE);
+//    int sockfd= (int)socket;
+//    char buffer2[BUF_SIZE];
+//    char buffer_file[BUF_SIZE];
+//    char num_packets[BUF_SIZE];
+//    memset(num_packets, 0, BUF_SIZE);
+//    memset(buffer_file, 0, BUF_SIZE);
+//    memset(buffer2, 0, BUF_SIZE);
+//    ssize_t dataReceived;
+//     data_s memory;
+//    struct	my_thread_info *info = socket;
+//
+//
+//        //ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
+//        ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
+//        if (ret < 0) {
+//            printf("Error receving data!\n\t-%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
+//                    ,memory.Memory.memory_total,memory.Memory.memory_used);
+//            //printf("slanje broja paketa nije uspelo\n");
+//        }
+//        printf("uspelo slanje%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
+//                ,memory.Memory.memory_total,memory.Memory.memory_used);
+//
+//
+//}
+void* primanje(void * socket){
     printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
-    Memory_usage memory_usage;
+   // Memory_usage memory_usage;
     char buffer[BUF_SIZE];
     memset(buffer, 0, BUF_SIZE);
     int sockfd= (int)socket;
@@ -59,20 +76,25 @@ void *primanje(void * socket){
     struct	my_thread_info *info = socket;
 
 
-        data_s memory;
-        ret = (int )recvfrom(info->thread_socket,&memory, sizeof(data_s), 0,NULL,NULL);
-       // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
-        if (ret < 0) {
-            printf("Error receving data!\n\t-%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
-                   ,memory.Memory.memory_total,memory.Memory.memory_used);
-           // printf("slanje broja paketa nije uspelo %s\n ",buffer);
-        }
+    data_s memory;
+    ret = (int )recvfrom(info->thread_socket,&memory, sizeof(data_s), 0,NULL,NULL);
+    // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
+    if (ret < 0) {
+        printf("Error receving data!\n\t-%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
+                ,memory.Memory.memory_total,memory.Memory.memory_used);
+        // printf("slanje broja paketa nije uspelo %s\n ",buffer);
+    }
     else
         printf("uspelo slanje%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
                 ,memory.Memory.memory_total,memory.Memory.memory_used);
 
 
- //   }
+    //   }
+    memory_usage.percentage=memory.Memory.percentage;
+    memory_usage.memory_total=memory.Memory.memory_total;
+    memory_usage.swap_used=memory.Memory.swap_used;
+    memory_usage.swap_percentage=memory.Memory.swap_percentage;
+    memory_usage.swap_total=memory.Memory.swap_total;
 
 
 

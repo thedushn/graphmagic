@@ -297,7 +297,66 @@ void init_timeout2() {
 }
 
 
+void conekcija(){
 
+    struct sockaddr_in addr ,cl_addr;
+    int sockfd, len ,ret, ret1;
+    char buffer[BUF_SIZE];
+    char buffer2[BUF_SIZE];
+    char clientAddr[CLADDR_LEN];
+    pthread_t t1,t2;
+//    if(argc <2){
+//
+//        printf("no port provided");
+//        exit(1);
+//    }
+  //  int portnum=atoi(5555);
+     int portnum=5555;
+    printf("port number %d ",portnum);
+    sockfd =socket(AF_INET,SOCK_STREAM,0);
+    if(sockfd<0){
+        printf("Error creating socket!\n");
+        exit(1);
+    }
+    printf("Socket created \n");
+
+    memset(&addr,0,sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons(portnum);
+
+
+    ret = bind(sockfd,(struct sockaddr *) &addr, sizeof(addr));
+    if (ret < 0){
+        printf("Error binding!\n");
+        exit(1);
+    }
+    printf("Binding done...\n");
+
+    printf("Waiting for a connection...\n");
+
+    listen(sockfd, 5); //hello is anybody going to call me :{
+    printf("da li smo prosli \n");
+    len =sizeof(cl_addr);
+    newsockfd = accept(sockfd,(struct sockaddr *) &cl_addr, &len);
+    if (newsockfd < 0) {
+        printf("Error accepting connection!\n");
+        exit(1);
+    }
+
+    inet_ntop(AF_INET, &(cl_addr.sin_addr), clientAddr, CLADDR_LEN);
+    printf("Connection accepted from %s...\n", clientAddr);
+
+    memset(buffer,0,BUF_SIZE);
+    printf("time to send some shit over the ethernet\n");
+//    if(pthread_mutex_init(&mut, NULL)!=0){
+//        printf("mutex init failed \n");
+//        exit(1);
+//    }
+
+    printf("making threads\n");
+
+}
 
 void init_timeout() {
 
@@ -305,12 +364,16 @@ void init_timeout() {
 
 
 
-
+    gfloat  percentage=30;
     GArray *new_task_list;
     GArray *new_device_list;
     GArray *new_interrupt_list;
     new_task_list =  get_task_list2();
     new_device_list   = device(device_all);
+
+
+
+    primanje(&newsockfd);
 
     new_interrupt_list=interrupt_usage();
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
@@ -320,8 +383,11 @@ void init_timeout() {
     upis(new_interrupt_list,interrupt_array_temp);
   //  interrupt_array_temp=interrupt_usage();
     //   printf("%d\n",interrupt_array_temp->len);
-    //salji(&newsockfd);
-    primanje(&newsockfd);
+
+
+
+
+
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
         Devices *tmp = &g_array_index(names_array, Devices, i);
@@ -473,7 +539,7 @@ void init_timeout() {
         }
     }
     cpu_percent_change(ncpu);//nije ovde
-get_memory_usage();//nije ovde
+//get_memory_usage();//nije ovde
 
 
 
@@ -515,81 +581,11 @@ get_memory_usage();//nije ovde
 
 int main(int argc, char *argv[]) {
 
-    struct sockaddr_in addr ,cl_addr;
-    int sockfd, len ,ret, ret1/*, newsockfd*/;
-    char buffer[BUF_SIZE];
-    char buffer2[BUF_SIZE];
-    char clientAddr[CLADDR_LEN];
-    pthread_t t1,t2;
-    if(argc <2){
-
-        printf("no port provided");
-        exit(1);
-    }
-    int portnum=atoi(argv[1]);
-   // int portnum=PORT_NUM;
-    printf("port number %d ",portnum);
-    sockfd =socket(AF_INET,SOCK_STREAM,0);
-    if(sockfd<0){
-        printf("Error creating socket!\n");
-        exit(1);
-    }
-    printf("Socket created \n");
-
-    memset(&addr,0,sizeof(addr));
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = INADDR_ANY;
-    addr.sin_port = htons(portnum);
-
-
-    ret = bind(sockfd,(struct sockaddr *) &addr, sizeof(addr));
-    if (ret < 0){
-        printf("Error binding!\n");
-        exit(1);
-    }
-    printf("Binding done...\n");
-
-    printf("Waiting for a connection...\n");
-
-    listen(sockfd, 5); //hello is anybody going to call me :{
-    printf("da li smo prosli \n");
-    len =sizeof(cl_addr);
-    newsockfd = accept(sockfd,(struct sockaddr *) &cl_addr, &len);
-    if (newsockfd < 0) {
-        printf("Error accepting connection!\n");
-        exit(1);
-    }
-
-    inet_ntop(AF_INET, &(cl_addr.sin_addr), clientAddr, CLADDR_LEN);
-    printf("Connection accepted from %s...\n", clientAddr);
-
-    memset(buffer,0,BUF_SIZE);
-    printf("time to send some shit over the ethernet\n");
-//    if(pthread_mutex_init(&mut, NULL)!=0){
-//        printf("mutex init failed \n");
-//        exit(1);
-//    }
-
-    printf("making threads\n");
-
 
 
 gtk_init(&argc, &argv);
-  //  chat((int*) newsockfd);
 
-    // ret= pthread_create(&t1,NULL,chat, /*(int *)*/ &newsockfd);
-//        ret=pthread_create(&t1,NULL,primanje,&newsockfd);
-//    if(ret) {
-//        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
-//        exit(1);
-//    }
-//    ret1 = pthread_create(&t2, NULL, chat2,  /*(int*) */&newsockfd);
-//    if(ret1) {
-//        printf("ERROR: Return Code from pthread_create() is %d\n", ret);
-//        exit(1);
-//    }
-    printf("prosli\n");
-
+    conekcija();
 
 
     dev_swindow = gtk_scrolled_window_new(NULL,
@@ -699,13 +695,7 @@ gtk_init(&argc, &argv);
         g_source_remove (refresh);
 
     }
-  //  pthread_join( t1, NULL);
-  //  pthread_join( t2, NULL);
-    close(sockfd);
-    //unistavanje mutexa
-   // pthread_mutex_destroy(&m);
 
-    pthread_exit(NULL);
 
 
     return 0;

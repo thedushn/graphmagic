@@ -4,14 +4,13 @@
 
 #ifndef SERVER_FUNCTIONS_H
 #define SERVER_FUNCTIONS_H
-#include "common.h"
+
 
 void * confromation(int socket);
 void *receiving(int socket);
 void* chat(void* socket);
 void* chat2(void* socket);
 void *primanje(void * socket);
-void *salji(void * socket);
 
 pthread_mutex_t mut;
 pthread_cond_t  cond ;

@@ -5,7 +5,7 @@
 #include "memory_usage.h"
 
 
-struct _Memory_usage memory_usage;
+Memory_usage memory_usage;
 
 
 
