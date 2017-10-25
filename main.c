@@ -698,12 +698,12 @@ gtk_init(&argc, &argv);
 
     }
     pthread_join( t1, NULL);
-    pthread_join( t2, NULL);
+  //  pthread_join( t2, NULL);
     close(sockfd);
     //unistavanje mutexa
    // pthread_mutex_destroy(&m);
 
- //   pthread_exit(NULL);
+    pthread_exit(NULL);
 
 
     return 0;

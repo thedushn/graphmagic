@@ -43,19 +43,26 @@ void *primanje(void * socket){
     memset(buffer_file, 0, BUF_SIZE);
     memset(buffer2, 0, BUF_SIZE);
     ssize_t dataReceived;
-     data_s memory;
+
     struct	my_thread_info *info = socket;
 
-
-        //ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
-        ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
+    //ret = (int )recvfrom(info->thread_socket,buffer, BUF_SIZE, 0,NULL,NULL);
+  //  printf("buffer %s",buffer);
+    while(1){
+        data_s memory;
+        ret = (int )recvfrom(info->thread_socket,&memory, sizeof(data_s), 0,NULL,NULL);
+       // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
         if (ret < 0) {
             printf("Error receving data!\n\t-%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
-                    ,memory.Memory.memory_total,memory.Memory.memory_used);
-            //printf("slanje broja paketa nije uspelo\n");
+                   ,memory.Memory.memory_total,memory.Memory.memory_used);
+           // printf("slanje broja paketa nije uspelo %s\n ",buffer);
         }
         printf("uspelo slanje%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
                 ,memory.Memory.memory_total,memory.Memory.memory_used);
+
+
+    }
+
 
 
 }
