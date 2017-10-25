@@ -28,36 +28,7 @@ char *end ="\nend of file";
 struct _Memory_usage memory_usage;
 int rezultat=1;
 
-//void *primanje(void * socket){
-//    printf("\nusli smo tu gde treba: primanje \n");
-//    int  ret;
-//    Memory_usage memory_usage;
-//    char buffer[BUF_SIZE];
-//    memset(buffer, 0, BUF_SIZE);
-//    int sockfd= (int)socket;
-//    char buffer2[BUF_SIZE];
-//    char buffer_file[BUF_SIZE];
-//    char num_packets[BUF_SIZE];
-//    memset(num_packets, 0, BUF_SIZE);
-//    memset(buffer_file, 0, BUF_SIZE);
-//    memset(buffer2, 0, BUF_SIZE);
-//    ssize_t dataReceived;
-//     data_s memory;
-//    struct	my_thread_info *info = socket;
-//
-//
-//        //ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
-//        ret = (int )recv(info->thread_socket,&memory, sizeof(data_s), 0);
-//        if (ret < 0) {
-//            printf("Error receving data!\n\t-%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
-//                    ,memory.Memory.memory_total,memory.Memory.memory_used);
-//            //printf("slanje broja paketa nije uspelo\n");
-//        }
-//        printf("uspelo slanje%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
-//                ,memory.Memory.memory_total,memory.Memory.memory_used);
-//
-//
-//}
+
 void* primanje(void * socket){
     printf("\nusli smo tu gde treba: primanje \n");
     int  ret;

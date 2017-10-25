@@ -31,6 +31,8 @@
 #define PACKET_SIZE 1400
 #define PORT_NUM 5004
 int newsockfd;
+pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
@@ -297,7 +299,7 @@ void init_timeout2() {
 }
 
 
-void conekcija(){
+void conekcija(gchar * argv){
 
     struct sockaddr_in addr ,cl_addr;
     int sockfd, len ,ret, ret1;
@@ -310,8 +312,8 @@ void conekcija(){
 //        printf("no port provided");
 //        exit(1);
 //    }
-  //  int portnum=atoi(5555);
-     int portnum=5555;
+    int portnum=atoi(argv);
+    // int portnum=5555;
     printf("port number %d ",portnum);
     sockfd =socket(AF_INET,SOCK_STREAM,0);
     if(sockfd<0){
@@ -584,8 +586,12 @@ int main(int argc, char *argv[]) {
 
 
 gtk_init(&argc, &argv);
+        if(argc<2){
 
-    conekcija();
+            printf("port not providec \n");
+            exit(1);
+        }
+    conekcija(argv[1]);
 
 
     dev_swindow = gtk_scrolled_window_new(NULL,
