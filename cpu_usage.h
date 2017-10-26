@@ -14,6 +14,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "main_header.h"
+#include "common.h"
 
 static int ncpu;
 typedef struct _Cpu_usage Cpu_usage;
@@ -30,7 +31,7 @@ static gulong jiffies_total_delta[5] = {0,0,0,0,0};
 
 int cpu_number();
 void cpu_percentage(int);
-void cpu_percent_change(int ncpu);
+void cpu_percent_change(Cpu_usage1 *cpu_usage1);
 //gboolean  cpu_change(int ncpu);
 
 //gboolean  cpu_change2();

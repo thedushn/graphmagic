@@ -79,7 +79,7 @@ void* primanje_interrupta(void * socket){
 
 
 }
-void* primanje(void * socket,GArray *array_int){
+void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1/*,GArray *array_tasks*/){
     printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
    // Memory_usage memory_usage;
@@ -176,6 +176,33 @@ void* primanje(void * socket,GArray *array_int){
                data.cpu_usage.percentage2,
                data.cpu_usage.percentage3);
     }
+        cpu_usage1->percentage0    =data.cpu_usage.percentage0;
+        cpu_usage1->percentage1   = data.cpu_usage.percentage1;
+          cpu_usage1->percentage2 = data.cpu_usage.percentage2;
+           cpu_usage1->percentage3= data.cpu_usage.percentage3;
+
+ // GArray  * array_tasks=g_array_new (FALSE, FALSE, sizeof (Task));
+
+//
+    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),NULL,NULL,NULL);
+    if (ret < 0) {
+        printf("Error sending num_packets!\n\t");
+
+        exit(1);
+    }
+    printf("num %d\n",num);
+//    for(int i=0 ;i<num;i++) {
+//
+//
+//        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
+//        if (ret < 0) {
+//            printf("Error sending num_packets!\n\t");
+//            //  break;
+//            exit(1);
+//        }
+//        g_array_append_val(array_tasks,data);
+//
+//    }
 
 
 

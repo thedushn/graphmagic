@@ -8,6 +8,7 @@
 #include "buttons.h"
 #include "memory_usage.h"
 #include "cpu_usage.h"
+
 struct _Memory_usage memory_usage;
 struct _Cpu_usage cpu[4];
   GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
@@ -282,13 +283,13 @@ void memory_change(gpointer data){
  g_free(used);
 
 }
-gboolean  cpu_change(){
+gboolean  cpu_change(Cpu_usage1 *cpu_usage1){
 
     ////vratiti nazad
-    cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
-    cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
-    cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
-    cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
+    cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 0, cpu_usage1->percentage0);
+    cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
+    cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 2,  cpu_usage1->percentage2);
+    cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);
 
     gtk_label_set_text (GTK_LABEL (label3),cpu0_usage_text);
     gtk_label_set_text (GTK_LABEL (label4),cpu1_usage_text);

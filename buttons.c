@@ -221,10 +221,21 @@ void close_window() {
 
 
 };
-void start_stop(){
 
+void start_stop(){
+    static int gut=0;
+   int ret;
     char *mem="salji mem\n";
-    int ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
+//    if(gut % 2 == 0){
+//        ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
+//        if(ret<0){
+//
+//            printf("nije uspelo slanje cond \n");
+//
+//        }
+//    }
+//    else
+        ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
@@ -503,27 +514,27 @@ void graph_clicked(GtkWidget *widget){
 
             CPU0_line= TRUE;
        //     testiranje=1;
-//             graph_refresh(widget,CPU0_line );
+             graph_refresh(widget,CPU0_line );
 
           //  return CPU0_line;
         }
         if(widget==button_graph1){
 
             CPU1_line= TRUE;
-        //    graph_refresh(widget,CPU1_line );
+            graph_refresh(widget,CPU1_line );
             printf("CPU line %d\n",CPU1_line);
         }
         if(widget==button_graph2){
 
             CPU2_line= TRUE;
-        //    graph_refresh(widget,CPU2_line );
+            graph_refresh(widget,CPU2_line );
             printf("CPU line %d\n",CPU2_line);
         }
         if(widget==button_graph3){
 
             CPU3_line= TRUE;
             printf("CPU line %d\n",CPU3_line);
-         //   graph_refresh(widget,CPU3_line );
+            graph_refresh(widget,CPU3_line );
             //  graph_refresh();
         }
       //  graph_refresh();
@@ -536,28 +547,28 @@ void graph_clicked(GtkWidget *widget){
             CPU0_line= FALSE;
 
             // graph_refresh();
-         //   graph_refresh(widget,CPU0_line );
+            graph_refresh(widget,CPU0_line );
 
         }
         if(widget==button_graph1){
 
             CPU1_line= FALSE;
             // graph_refresh();
-        //    graph_refresh(widget,CPU1_line );
+            graph_refresh(widget,CPU1_line );
             printf("CPU line %d\n",CPU1_line);
         }
         if(widget==button_graph2){
 
             CPU2_line= FALSE;
             // graph_refresh();
-        //    graph_refresh(widget,CPU2_line );
+            graph_refresh(widget,CPU2_line );
             printf("CPU line %d\n",CPU2_line);
         }
         if(widget==button_graph3){
 
             CPU3_line= FALSE;
             // graph_refresh();
-        //    graph_refresh(widget,CPU3_line );
+            graph_refresh(widget,CPU3_line );
             printf("CPU line %d\n",CPU3_line);
         }
        // graph_refresh();
@@ -591,7 +602,7 @@ void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
         }
 
         }
-        else{
+    else{
 
 //        gtk_widget_show(hbox1);
 //        gtk_widget_show(hbox3);

@@ -48,7 +48,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
         do_drawing3(widget, cr, bjorg, time_step);
     }
-    else  /*if (widget == graph4)*/ {
+    else  if (widget == graph4) {
 
         //do_drawing4(widget, cr);
         do_drawing4(widget, cr,interrupt_array_d);
@@ -105,7 +105,43 @@ void dec_refresh() {
 };
 
 
+void graph_refresh(GtkWidget *widget, gboolean CPU) {
 
+//    if (widget == button_graph0) {
+//
+//
+//        CPU0_line = CPU;
+//        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
+//
+//
+//    }
+//    else if (widget == button_graph1) {
+//
+//
+//        CPU1_line = CPU;
+//
+//        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
+//
+//    }
+//    else if (widget == button_graph2) {
+//
+//        CPU2_line = CPU;
+//        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+//
+//
+//    }
+//    else /* (widget == button_graph3)*/ {
+//
+//        CPU3_line = CPU;
+//        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
+//
+//    }
+
+    timeout_refresh();
+   // time_handler(window);
+
+
+};
 
 static gboolean time_handler(GtkWidget *widget) {
 
@@ -212,18 +248,18 @@ void *init_timeout() {
 
 
 
-    gfloat  percentage=30;
-    GArray *new_task_list;
+
+    GArray *new_task_list/*=g_array_new (FALSE, FALSE, sizeof (Task))*/;
     GArray *new_device_list;
-    GArray *new_interrupt_list=
-    g_array_new (FALSE, FALSE, sizeof (Interrupts));
+    GArray *new_interrupt_list= g_array_new (FALSE, FALSE, sizeof (Interrupts));
     new_task_list =  get_task_list2();
     new_device_list   = device(device_all);
+    Cpu_usage1 cpu_usage1;
 
 
-
-    primanje(&newsockfd,new_interrupt_list);
+    primanje(&newsockfd,new_interrupt_list,&cpu_usage1/*,new_task_list*/);
     //primanje_interrupta(&newsockfd);
+     start_stop();
 
     //new_interrupt_list=interrupt_usage();
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
@@ -388,12 +424,12 @@ void *init_timeout() {
             tasks_num++;
         }
     }
-    cpu_percent_change(ncpu);//nije ovde
+    cpu_percent_change(&cpu_usage1);//nije ovde
 //get_memory_usage();//nije ovde
 
 
 
-    cpu_change();
+    cpu_change(&cpu_usage1);
 
 
    memory_change(label);// nije ovde
@@ -403,7 +439,7 @@ void *init_timeout() {
     g_array_free(new_task_list, TRUE);
 
      //g_array_free(interrupt_array_temp, TRUE);
-    g_array_free(new_interrupt_list,TRUE);
+   // g_array_free(new_interrupt_list,TRUE);
    // g_array_unref(interrupt_array_d);
 
 

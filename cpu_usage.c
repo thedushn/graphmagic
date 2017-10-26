@@ -127,25 +127,33 @@ void cpu_percentage(int cpu_count){
 
 }
 
-void cpu_percent_change(int ncpu){
+void cpu_percent_change(Cpu_usage1 *cpu_usage1){
 
-    Cpu_usage *cpu1[4];
-    cpu_percentage(ncpu);
+   // Cpu_usage *cpu1[4];
+   // cpu_percentage(ncpu);
 
     gfloat j;
 
-    for(int s=0;s<ncpu;s++) {
 
-        j = cpu[s].percentage;
-        //   j=4*j;
+        g_array_prepend_val(history[0], cpu_usage1->percentage0);
+        if (history[0]->len > 1)
+            g_array_remove_index (history[0], history[0]->len - 1);
 
-        g_array_prepend_val(history[s],  j);
-      //  printf("array size %d\n",history[s]->len);
-        if (history[s]->len > 1)
-            g_array_remove_index (history[s], history[s]->len - 1);
+    g_array_prepend_val(history[1], cpu_usage1->percentage1);
+    if (history[1]->len > 1)
+        g_array_remove_index (history[1], history[1]->len - 1);
+
+    g_array_prepend_val(history[2], cpu_usage1->percentage2);
+    if (history[2]->len > 1)
+        g_array_remove_index (history[2], history[2]->len - 1);
 
 
-    }
+
+    g_array_prepend_val(history[3], cpu_usage1->percentage3);
+    if (history[3]->len > 1)
+        g_array_remove_index (history[3], history[3]->len - 1);
+
+
 
 };
 void

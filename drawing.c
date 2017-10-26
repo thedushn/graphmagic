@@ -86,7 +86,7 @@ cairo_t *ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar 
         //  text_int[11]='\0';
         cairo_show_text(cr,text_int);
     }
-  else  /*if(q>=1)*/{
+    else  /*if(q>=1)*/{
 
         for (int r = 0; r <= q; r++) {
             //pomeramo ga u zavisnosti od koliko redova nam treba
@@ -507,7 +507,7 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array){
         }
 
     }
-    max_broj+=500;//100
+    max_broj+=100;//100
     cairo_move_to(cr, 0,font_size);
     sprintf(broj,"%li",max_broj);
     cairo_show_text(cr,broj);

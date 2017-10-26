@@ -6,13 +6,13 @@
 #define GTKWORLD_WINDOW_C_H
 
 #include "main_header.h"
-
+#include "common.h"
 
 
 
 
 void quit_activated() ;
-gboolean  cpu_change();
+gboolean  cpu_change(Cpu_usage1 *cpu_usage1);
 void memory_change(gpointer data);
 void swap_change(gpointer data);
 GtkWidget *main_window(GtkWidget *des_swindow,GtkWidget *proc_swindow);
