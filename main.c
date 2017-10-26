@@ -57,19 +57,7 @@ return TRUE;
 
 }
 
-void show_all(GtkWidget *widget){
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
-
-        device_all=TRUE;
-
-    } else
-        device_all=FALSE;
-
-    timeout_refresh();
-
-
-};
 
 
 void inc_refresh() {
@@ -249,15 +237,17 @@ void *init_timeout() {
 
 
 
-    GArray *new_task_list/*=g_array_new (FALSE, FALSE, sizeof (Task))*/;
-    GArray *new_device_list;
+    //GArray *new_task_list;
+    GArray *new_task_list=g_array_new (FALSE, FALSE, sizeof (Task));
+    GArray *new_device_list=g_array_new (FALSE, FALSE, sizeof (Devices));
     GArray *new_interrupt_list= g_array_new (FALSE, FALSE, sizeof (Interrupts));
-    new_task_list =  get_task_list2();
-    new_device_list   = device(device_all);
+  //  new_task_list =  get_task_list2();
+  //  new_device_list   = device(device_all);
     Cpu_usage1 cpu_usage1;
 
 
-    primanje(&newsockfd,new_interrupt_list,&cpu_usage1/*,new_task_list*/);
+    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list);
+   // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
     //primanje_interrupta(&newsockfd);
      start_stop();
 
@@ -329,7 +319,7 @@ void *init_timeout() {
         {
             remove_list_item_device(tmp->directory,tmp->name,tmp->type);
             g_array_remove_index(names_array, i);
-         //   printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
+           // printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
             dev_num--;
         }
         else
@@ -436,7 +426,7 @@ void *init_timeout() {
     swap_change(label1); // nije ovde
 
     time_handler(window);
-    g_array_free(new_task_list, TRUE);
+   // g_array_free(new_task_list, TRUE);
 
      //g_array_free(interrupt_array_temp, TRUE);
    // g_array_free(new_interrupt_list,TRUE);

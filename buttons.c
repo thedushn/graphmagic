@@ -226,6 +226,11 @@ void start_stop(){
     static int gut=0;
    int ret;
     char *mem="salji mem\n";
+    struct Sending_stuff{
+
+       int mem;
+        gboolean show;
+    }stuff;
 //    if(gut % 2 == 0){
 //        ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
 //        if(ret<0){
@@ -235,7 +240,11 @@ void start_stop(){
 //        }
 //    }
 //    else
-        ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
+    stuff.mem=0;
+    //printf("%s\n",stuff.mem);
+    stuff.show=device_all;
+    printf("sHOW %s\n", stuff.show==TRUE ? "TRUE" : "FALSE");
+        ret=(int) send (newsockfd,&stuff,sizeof(stuff),NULL);
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
@@ -296,6 +305,25 @@ void graph_button_clicked(GtkWidget *widget){
         gtk_widget_destroy(window2);
 
     }
+};
+void show_all(GtkWidget *widget){
+
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
+
+        device_all=TRUE;
+
+    } else
+        device_all=FALSE;
+
+//    int ret=(int)send(newsockfd,&device_all,sizeof(gboolean),NULL);
+//    if(ret<0){
+//
+//        printf("boolean wasnt sent \n");
+//    }
+    printf("boolean was sent \n");
+    timeout_refresh();
+
+
 };
 void device_clicked(GtkWidget *widget){
 //void graph_clicked(GtkWidget *widget){

@@ -11,7 +11,8 @@ void * confromation(int socket);
 void *receiving(int socket);
 void* chat(void* socket);
 void* chat2(void* socket);
-void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1/*,GArray *array_tasks*/);
+void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices);
+//void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1);
 void* primanje_interrupta(void * socket);
 
 pthread_mutex_t mut;

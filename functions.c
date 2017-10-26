@@ -79,7 +79,8 @@ void* primanje_interrupta(void * socket){
 
 
 }
-void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1/*,GArray *array_tasks*/){
+//void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1){
+void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices){
     printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
    // Memory_usage memory_usage;
@@ -128,7 +129,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1/*,GArray *
 
         printf("Error receving data! %d",num);
     }
-    printf("BROJ INT %d",num);
+  //  printf("BROJ INT %d",num);
     for(int i=0 ;i<num;i++){
         ret = (int )recvfrom(info->thread_socket,&data, sizeof(data_s), 0,NULL,NULL);
         // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
@@ -162,7 +163,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1/*,GArray *
 
 
     }
-    printf("Garray lenght %d\n",array_int->len);
+ //   printf("Garray lenght %d\n",array_int->len);
 
     //   }
     ret=(int )recvfrom(info->thread_socket,&data, sizeof(data_s), 0,NULL,NULL);
@@ -171,10 +172,10 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1/*,GArray *
     }
     else{
 
-        printf("cpu usage %f %f %f %f\n",data.cpu_usage.percentage0,
-               data.cpu_usage.percentage1,
-               data.cpu_usage.percentage2,
-               data.cpu_usage.percentage3);
+//        printf("cpu usage %f %f %f %f\n",data.cpu_usage.percentage0,
+//               data.cpu_usage.percentage1,
+//               data.cpu_usage.percentage2,
+//               data.cpu_usage.percentage3);
     }
         cpu_usage1->percentage0    =data.cpu_usage.percentage0;
         cpu_usage1->percentage1   = data.cpu_usage.percentage1;
@@ -190,19 +191,41 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1/*,GArray *
 
         exit(1);
     }
-    printf("num %d\n",num);
-//    for(int i=0 ;i<num;i++) {
-//
-//
-//        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
-//        if (ret < 0) {
-//            printf("Error sending num_packets!\n\t");
-//            //  break;
-//            exit(1);
-//        }
-//        g_array_append_val(array_tasks,data);
-//
-//    }
+ //   printf("num %d\n",num);
+    for(int i=0 ;i<num;i++) {
+
+
+        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
+        if (ret < 0) {
+            printf("Error sending num_packets!\n\t");
+            //  break;
+            exit(1);
+        }
+        g_array_append_val(array_tasks,data.task);
+
+    }
+    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),NULL,NULL,NULL);
+    if (ret < 0) {
+        printf("Error sending num_packets!\n\t");
+
+        exit(1);
+    }
+ //   printf("num %d\n",num);
+    for(int i=0 ;i<num;i++) {
+
+
+        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
+        if (ret < 0) {
+            printf("Error sending num_packets!\n\t");
+            //  break;
+            exit(1);
+        }
+
+        printf("%s %s %s \n",data.devices.directory,data.devices.name,data.devices.type);
+        g_array_append_val(array_devices,data.devices);
+
+    }
+
 
 
 
