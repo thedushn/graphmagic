@@ -30,7 +30,7 @@
 #define CLADDR_LEN 100
 #define PACKET_SIZE 1400
 #define PORT_NUM 5004
-int newsockfd;
+
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
@@ -56,127 +56,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 return TRUE;
 
 }
-//void process_refresh(GtkWidget *widget, gboolean BOOL){
-//
-//        //data_s.interrupts.
-//    if (widget == button_process_state) {
-//
-//
-//        process_state = BOOL;
-//
-//
-//    }
-//    else if (widget ==button_process_vm_size) {
-//
-//
-//        process_vm_size = BOOL;
-//
-//
-//    }
-//    else if (widget == button_process_rss) {
-//
-//
-//        process_rss = BOOL;
-//
-//
-//    }
-//    else if (widget == button_process_task) {
-//
-//
-//        process_task = BOOL;
-//
-//
-//    }
-//    else if (widget == button_process_pid) {
-//
-//
-//        process_pid = BOOL;
-//
-//
-//    }
-//    else if (widget == button_process_ppid) {
-//
-//
-//        process_ppid = BOOL;
-//
-//
-//    }
-//    else if (widget == button_process_cpu) {
-//
-//
-//        process_cpu = BOOL;
-//
-//
-//    }
-//    else /* (widget == button_device_type)*/ {
-//
-//
-//        process_user = BOOL;
-//
-//
-//    }
-//
-//
-//    timeout_refresh();
-//}
 
-//void device_refresh(GtkWidget *widget, gboolean BOOL) {
-//
-//    if (widget == button_device_devices) {
-//
-//
-//        device_devices = BOOL;
-//
-//
-//    }
-//    else if (widget == button_device_directory) {
-//
-//
-//        device_directory = BOOL;
-//
-//
-//    }
-//    else if (widget == button_device_total) {
-//
-//
-//        device_total = BOOL;
-//
-//
-//    }
-//    else if (widget == button_device_free) {
-//
-//
-//        device_free = BOOL;
-//
-//
-//    }
-//    else if (widget == button_device_used) {
-//
-//
-//        device_used = BOOL;
-//
-//
-//    }
-//    else if (widget == button_device_avail) {
-//
-//
-//        device_avail = BOOL;
-//
-//
-//    }
-//    else /* (widget == button_device_type)*/ {
-//
-//
-//        device_type = BOOL;
-//
-//
-//    }
-//
-//
-//    timeout_refresh();
-//
-//
-//};
 void show_all(GtkWidget *widget){
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
@@ -190,43 +70,6 @@ void show_all(GtkWidget *widget){
 
 
 };
-//void graph_refresh(GtkWidget *widget, gboolean CPU) {
-//
-//    if (widget == button_graph0) {
-//
-//
-//        CPU0_line = CPU;
-//        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
-//
-//
-//    }
-//    else if (widget == button_graph1) {
-//
-//
-//        CPU1_line = CPU;
-//
-//        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
-//
-//    }
-//    else if (widget == button_graph2) {
-//
-//        CPU2_line = CPU;
-//        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
-//
-//
-//    }
-//    else /* (widget == button_graph3)*/ {
-//
-//        CPU3_line = CPU;
-//        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
-//
-//    }
-//
-//    timeout_refresh();
-//   // time_handler(window);
-//
-//
-//};
 
 
 void inc_refresh() {
@@ -294,7 +137,10 @@ void init_timeout2() {
 
         bjorg2 = 60;
     }
-
+//    if (refresh == 0) {
+//
+//        refresh = g_timeout_add(t, (GSourceFunc) init_timeout2, NULL);
+//    }
 
 }
 
@@ -360,7 +206,7 @@ void conekcija(gchar * argv){
 
 }
 
-void init_timeout() {
+void *init_timeout() {
 
     guint i=0,j=0;
 
@@ -369,15 +215,17 @@ void init_timeout() {
     gfloat  percentage=30;
     GArray *new_task_list;
     GArray *new_device_list;
-    GArray *new_interrupt_list;
+    GArray *new_interrupt_list=
+    g_array_new (FALSE, FALSE, sizeof (Interrupts));
     new_task_list =  get_task_list2();
     new_device_list   = device(device_all);
 
 
 
-    primanje(&newsockfd);
+    primanje(&newsockfd,new_interrupt_list);
+    //primanje_interrupta(&newsockfd);
 
-    new_interrupt_list=interrupt_usage();
+    //new_interrupt_list=interrupt_usage();
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
    g_array_free(interrupt_array_temp,TRUE);
     interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
@@ -583,7 +431,7 @@ void init_timeout() {
 
 int main(int argc, char *argv[]) {
 
-
+    pthread_t t1,t2;
 
 gtk_init(&argc, &argv);
         if(argc<2){
@@ -591,6 +439,7 @@ gtk_init(&argc, &argv);
             printf("port not providec \n");
             exit(1);
         }
+  //  pthread_create(&t1,NULL,conekcija,(void*)argv[1]);
     conekcija(argv[1]);
 
 
@@ -643,7 +492,7 @@ gtk_init(&argc, &argv);
 
   //  GArray *new_interrupt_list;
 
-    interrupt_array_temp=interrupt_usage();
+  //  interrupt_array_temp=interrupt_usage();
 
 
 
@@ -663,6 +512,7 @@ gtk_init(&argc, &argv);
 
 
     g_signal_connect(button_graph, "clicked", G_CALLBACK(graph_button_clicked), NULL);
+    g_signal_connect(button_condition, "clicked", G_CALLBACK(start_stop), NULL);
     g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
 
 
@@ -678,10 +528,11 @@ gtk_init(&argc, &argv);
 
 
     g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
+        init_timeout();
 
-    init_timeout();
 
-
+// pthread_create(&t1,NULL,init_timeout,NULL);
+//pthread_create(&t2,NULL,init_timeout2,NULL);
 
 
     gtk_widget_show_all(window);
@@ -695,12 +546,16 @@ gtk_init(&argc, &argv);
 
 
     gtk_main();
+ //   g_thread_join(tg);
 
 
     if (refresh > 0){
         g_source_remove (refresh);
 
     }
+
+
+
 
 
 

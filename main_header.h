@@ -52,7 +52,7 @@ GtkWidget *quit;
 GtkWidget *increase_refresh;
 GtkWidget *decrease_refresh;
 GtkWidget *file_system;
-
+int newsockfd;
 
 
 
@@ -84,7 +84,7 @@ GArray *interrupt_array_d;
 
 //static cairo_surface_t *surface = NULL;
 
-void init_timeout();
+void *init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
 void device_refresh(GtkWidget *widget, gboolean );
 void process_refresh(GtkWidget *widget, gboolean BOOL);

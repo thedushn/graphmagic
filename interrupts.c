@@ -112,7 +112,17 @@ void upis(GArray *array,GArray *array2){
 //GArray * poredjenje(GArray *array,GArray *array2){//array novi array2 stari
 void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2 stari
 //
+    int i=0;
+    Interrupts *interruptstest = &g_array_index(array2,Interrupts,i);//uzmemo vrednost
 
+    if(interruptstest==NULL){
+        upis(array,array2);
+
+    }
+//    if(array2->len<1){
+//
+//        upis(array,array2);
+//    }
     while(array3->len>0){
 
         g_array_remove_index(array3, 0);

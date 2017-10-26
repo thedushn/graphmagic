@@ -16,6 +16,7 @@
 #include "functions.h"
 #include "memory_usage.h"
 #include "common.h"
+#include "interrupts.h"
 #include <unistd.h>
 #define BUF_SIZE 2000
 #define CLADDR_LEN 100
@@ -29,7 +30,56 @@ struct _Memory_usage memory_usage;
 int rezultat=1;
 
 
-void* primanje(void * socket){
+void* primanje_interrupta(void * socket){
+    printf("\nusli smo tu gde treba: primanje_inter \n");
+    int  ret;
+    // Memory_usage memory_usage;
+    char buffer[BUF_SIZE];
+    memset(buffer, 0, BUF_SIZE);
+    int sockfd= (int)socket;
+    char buffer2[BUF_SIZE];
+    char buffer_file[BUF_SIZE];
+    char num_packets[BUF_SIZE];
+    memset(num_packets, 0, BUF_SIZE);
+    memset(buffer_file, 0, BUF_SIZE);
+    memset(buffer2, 0, BUF_SIZE);
+    ssize_t dataReceived;
+    int NUM;
+    struct	my_thread_info *info = socket;
+    data_s interrupts;
+    Interrupts interrupts1;
+    ret=(int )recvfrom(info->thread_socket,&NUM, sizeof(int), 0,NULL,NULL);
+    if(ret<0){
+
+        printf("Error receving data! %d",NUM);
+    }
+    printf("BROJ INT %d",NUM);
+    for(int i=0 ;i<NUM;i++){
+        ret = (int )recvfrom(info->thread_socket,&interrupts, sizeof(data_s), 0,NULL,NULL);
+        // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
+        if (ret < 0) {
+            printf("Error receving data!\n\t %lu  %s %s %s   \n", interrupts.interrupts.CPU0,interrupts.interrupts.name,
+                   interrupts.interrupts.ime1,interrupts.interrupts.ime2);
+            // printf("slanje broja paketa nije uspelo %s\n ",buffer);
+        }
+        else
+            printf(" Receving data!\n\t %lu %lu %lu %lu %s %s %s \n", interrupts.interrupts.CPU0,
+                   interrupts.interrupts.CPU1,
+                   interrupts.interrupts.CPU2,
+                   interrupts.interrupts.CPU3,interrupts.interrupts.name,
+                   interrupts.interrupts.ime1,interrupts.interrupts.ime2);
+
+
+        //   }
+
+        interrupts1.CPU0=interrupts.interrupts.CPU0;
+    }
+
+
+
+
+}
+void* primanje(void * socket,GArray *array_int){
     printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
    // Memory_usage memory_usage;
@@ -47,25 +97,85 @@ void* primanje(void * socket){
     struct	my_thread_info *info = socket;
 
 
-    data_s memory;
-    ret = (int )recvfrom(info->thread_socket,&memory, sizeof(data_s), 0,NULL,NULL);
+    data_s data;
+    ret = (int )recvfrom(info->thread_socket,&data, sizeof(data_s), 0,NULL,NULL);
     // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
     if (ret < 0) {
-        printf("Error receving data!\n\t-%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
-                ,memory.Memory.memory_total,memory.Memory.memory_used);
+        printf("Error receving data!\n\t-%f %lli %lli %lli \n", data.Memory.swap_percentage,data.Memory.swap_used
+                ,data.Memory.memory_total,data.Memory.memory_used);
         // printf("slanje broja paketa nije uspelo %s\n ",buffer);
     }
-    else
-        printf("uspelo slanje%f %lli %lli %lli \n", memory.Memory.swap_percentage,memory.Memory.swap_used
-                ,memory.Memory.memory_total,memory.Memory.memory_used);
+    else{
+        memory_usage.percentage=data.Memory.percentage;
+        memory_usage.memory_total=data.Memory.memory_total;
+        memory_usage.swap_used=data.Memory.swap_used;
+        memory_usage.swap_percentage=data.Memory.swap_percentage;
+        memory_usage.swap_total=data.Memory.swap_total;
+        memory_usage.memory_used=data.Memory.memory_used;
+        printf("uspelo slanje%f %lli %lli %lli \n", data.Memory.swap_percentage,data.Memory.swap_used
+                ,data.Memory.memory_total,data.Memory.memory_used);
 
+    }
+
+    int num;
+    // struct	my_thread_info *info = socket;
+  //  data_s interrupts;
+    Interrupts interrupts1;
+   // GArray * ginterrupts;
+  //  ginterrupts=g_array_new (FALSE, FALSE, sizeof (Interrupts));
+    ret=(int )recvfrom(info->thread_socket,&num, sizeof(int), 0,NULL,NULL);
+    if(ret<0){
+
+        printf("Error receving data! %d",num);
+    }
+    printf("BROJ INT %d",num);
+    for(int i=0 ;i<num;i++){
+        ret = (int )recvfrom(info->thread_socket,&data, sizeof(data_s), 0,NULL,NULL);
+        // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
+        if (ret < 0) {
+            printf("Error receving data!\n\t %lu  %s %s %s   \n", data.interrupts.CPU0,data.interrupts.name,
+                   data.interrupts.ime1,data.interrupts.ime2);
+            // printf("slanje broja paketa nije uspelo %s\n ",buffer);
+        }
+        else
+//            printf(" Receving data!\n\t %lu %lu %lu %lu %s %s %s \n", data.interrupts.CPU0,
+//                   data.interrupts.CPU1,
+//                   data.interrupts.CPU2,
+//                   data.interrupts.CPU3,data.interrupts.name,
+//                   data.interrupts.ime1,data.interrupts.ime2);
+
+
+        //   }
+
+//        interrupts1.CPU0=data.interrupts.CPU0;
+//        interrupts1.CPU1=data.interrupts.CPU1;
+//        interrupts1.CPU2=data.interrupts.CPU2;
+//        interrupts1.CPU3=data.interrupts.CPU3;
+//        for( i=0 ;i<sizeof(interrupts1.name);i++){
+//            interrupts1.name[i]=data.interrupts.name[i];
+//
+//        }
+//        upis_imena(&interrupts1,&data.interrupts);
+
+        g_array_append_val(array_int,data.interrupts);
+
+
+
+    }
+    printf("Garray lenght %d\n",array_int->len);
 
     //   }
-    memory_usage.percentage=memory.Memory.percentage;
-    memory_usage.memory_total=memory.Memory.memory_total;
-    memory_usage.swap_used=memory.Memory.swap_used;
-    memory_usage.swap_percentage=memory.Memory.swap_percentage;
-    memory_usage.swap_total=memory.Memory.swap_total;
+    ret=(int )recvfrom(info->thread_socket,&data, sizeof(data_s), 0,NULL,NULL);
+    if (ret < 0) {
+        printf("Error receving data!\n");
+    }
+    else{
+
+        printf("cpu usage %f %f %f %f\n",data.cpu_usage.percentage0,
+               data.cpu_usage.percentage1,
+               data.cpu_usage.percentage2,
+               data.cpu_usage.percentage3);
+    }
 
 
 

@@ -2,6 +2,7 @@
 // Created by dushn on 19.9.17..
 //
 
+#include <sys/socket.h>
 #include "buttons.h"
 #include "drawing.h"
 #include "testing_tree.h"
@@ -220,6 +221,17 @@ void close_window() {
 
 
 };
+void start_stop(){
+
+    char *mem="salji mem\n";
+    int ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
+    if(ret<0){
+
+        printf("nije uspelo slanje cond \n");
+
+    }
+    printf("poslali smo cond\n");
+}
 void graph_button_clicked(GtkWidget *widget){
 
 

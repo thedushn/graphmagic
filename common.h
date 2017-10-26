@@ -10,18 +10,27 @@
 #include "network_bandwith.h"
 #include "task_manager.h"
 #include "devices.h"
-#include "cpu_usage.h"
+//#include "cpu_usage.h"
 #include "memory_usage.h"
 #include "interrupts_s.h"
+typedef struct _Cpu_usage1 Cpu_usage1;
+struct _Cpu_usage1 {
 
 
+    gfloat percentage0;
+    gfloat percentage1;
+    gfloat percentage2;
+    gfloat percentage3;
+    int number;
+
+};
 
 typedef union DATA_S data_s;
 union DATA_S {
 
     Memory_usage Memory;
     Interrupts interrupts;
-    Cpu_usage cpu_usage;
+    Cpu_usage1 cpu_usage;
     Network network;
     Task task;
     Devices devices;

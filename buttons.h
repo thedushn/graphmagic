@@ -41,6 +41,8 @@ GtkWidget * button_process_vm_size;
 GtkWidget * button_process_rss;
 GtkWidget * button_process_cpu;
 
+GtkWidget * button_condition;
+
 
 static guint refresh = 0;
 gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *event);
@@ -65,5 +67,5 @@ void process_window();
 void process_clicked(GtkWidget *widget);
 void device_clicked(GtkWidget *widget);
 void graph_clicked(GtkWidget *widget);
-
+void start_stop();
 #endif //GTKWORLD_BUTTONS_H
