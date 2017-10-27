@@ -6,8 +6,27 @@
 #define GTKWORLD_BUTTONS_H
 
 #include <gtk/gtk.h>
+typedef struct _Signal  Signal;
+            struct _Signal{
+                    gchar signal[5];
+                    gchar task_id[256];
+
+            };
+
+typedef  struct _Sending_stuff Sending_stuff;
+struct _Sending_stuff{
+
+    int mem;
+    gboolean show;
+
+};
+union Stuff {
 
 
+    Sending_stuff sending_stuff;
+    Signal signal1;
+
+};
 
 
 
@@ -67,5 +86,5 @@ void process_window();
 void process_clicked(GtkWidget *widget);
 void device_clicked(GtkWidget *widget);
 void graph_clicked(GtkWidget *widget);
-void start_stop();
+void start_stop(int show,gchar *signal ,gchar *task_id);
 #endif //GTKWORLD_BUTTONS_H

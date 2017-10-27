@@ -221,15 +221,20 @@ void close_window() {
 
 
 };
-
-void start_stop(){
+static gboolean  show_before=FALSE;
+void start_stop(int show,gchar *signal ,gchar *task_id){
     static int gut=0;
    int ret;
+
+
     char *mem="salji mem\n";
     struct Sending_stuff{
 
        int mem;
         gboolean show;
+        gchar signal [5];
+        gchar task_id [256];
+
     }stuff;
 //    if(gut % 2 == 0){
 //        ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
@@ -240,11 +245,30 @@ void start_stop(){
 //        }
 //    }
 //    else
+    if(show==1){
+
+        show_before= !show_before;
+    }
+//    else{
+//        show_before=FALSE;
+//    }
     stuff.mem=0;
     //printf("%s\n",stuff.mem);
+   // stuff.show=show_before;
     stuff.show=device_all;
+    if(signal!="" && task_id!=""){
+        for(int i=0; i<sizeof(signal);i++){
+
+            stuff.signal[i]=signal[i];
+        }
+        for(int i=0; i<sizeof(task_id);i++){
+
+            stuff.task_id[i]=task_id[i];
+        }
+    }
+
     printf("sHOW %s\n", stuff.show==TRUE ? "TRUE" : "FALSE");
-        ret=(int) send (newsockfd,&stuff,sizeof(stuff),NULL);
+        ret=(int) send (newsockfd,&stuff,sizeof(stuff),0);
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
@@ -311,9 +335,11 @@ void show_all(GtkWidget *widget){
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (widget))) {
 
         device_all=TRUE;
+        start_stop(1,"","");
 
     } else
         device_all=FALSE;
+     start_stop(1,"","");
 
 //    int ret=(int)send(newsockfd,&device_all,sizeof(gboolean),NULL);
 //    if(ret<0){
@@ -684,7 +710,7 @@ void handle_task_menu(GtkWidget *widget, gchar *signal)
 //        else
 //            s = ("Really terminate the task?");
 
-        if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 || strcmp(signal, "KILL") == 0 )
+        if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 || strcmp(signal, "KILL") == 0  || strcmp(signal, "TERM") == 0)
         {
             gchar *task_id = "";
             GtkTreeModel *model;
@@ -693,7 +719,8 @@ void handle_task_menu(GtkWidget *widget, gchar *signal)
             if(gtk_tree_selection_get_selected(selection, &model, &iter))
             {
                 gtk_tree_model_get(model, &iter, 1, &task_id, -1);
-                send_signal_to_task(task_id, signal);
+              //  send_signal_to_task(task_id, signal);
+                start_stop(0,signal,task_id);
                 init_timeout();
             }
         }
@@ -704,6 +731,31 @@ void send_signal_to_task(gchar *task_id, gchar *signal)
     printf("SIGNAL %s the task with ID %s\n", signal, task_id);
     if(task_id != "" && signal != NULL)
     {
+//            struct Signal{
+//                    gchar signal[5];
+//                    gchar task_id[256];
+//
+//            }signal1;
+//
+//        for(int i=0 ;i<(int)sizeof(signal);i++){
+//
+//              signal1.signal[i]=signal[i];
+//
+//        }
+//        for(int i=0 ;i<(int)sizeof(task_id);i++){
+//
+//            signal1.task_id[i]=task_id[i];
+//
+//        }
+//
+//
+//        int ret=(int) send(newsockfd,&signal1,sizeof(signal1),0);
+//        if(ret<0){
+//
+//
+//            printf("nece da posalje signal %s %s \n",signal1.signal,signal1.task_id);
+//        }
+//        printf(" posalje signal [%s] [%s] \n",signal1.signal,signal1.task_id);
         gchar command[64] = "kill -";
         g_strlcat(command,signal, sizeof command);
         g_strlcat(command," ", sizeof command);
@@ -711,7 +763,7 @@ void send_signal_to_task(gchar *task_id, gchar *signal)
         printf("Task id %s",task_id);
         if(system(command) != 0)
             printf("comand failed\n");
-//            xfce_err("Couldn't %s the task with ID %s", signal, task_id);
+
     }
 }
 GtkWidget* create_taskpopup (void)

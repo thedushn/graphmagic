@@ -36,7 +36,7 @@ void* primanje_interrupta(void * socket){
     // Memory_usage memory_usage;
     char buffer[BUF_SIZE];
     memset(buffer, 0, BUF_SIZE);
-    int sockfd= (int)socket;
+
     char buffer2[BUF_SIZE];
     char buffer_file[BUF_SIZE];
     char num_packets[BUF_SIZE];
@@ -81,12 +81,12 @@ void* primanje_interrupta(void * socket){
 }
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1){
 void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network){
-    printf("\nusli smo tu gde treba: primanje \n");
+   // printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
    // Memory_usage memory_usage;
     char buffer[BUF_SIZE];
     memset(buffer, 0, BUF_SIZE);
-    int sockfd= (int)socket;
+
     char buffer2[BUF_SIZE];
     char buffer_file[BUF_SIZE];
     char num_packets[BUF_SIZE];
@@ -113,8 +113,8 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
         memory_usage.swap_percentage=data.Memory.swap_percentage;
         memory_usage.swap_total=data.Memory.swap_total;
         memory_usage.memory_used=data.Memory.memory_used;
-        printf("uspelo slanje%f %lli %lli %lli \n", data.Memory.swap_percentage,data.Memory.swap_used
-                ,data.Memory.memory_total,data.Memory.memory_used);
+    //    printf("uspelo slanje%f %lli %lli %lli \n", data.Memory.swap_percentage,data.Memory.swap_used
+    //            ,data.Memory.memory_total,data.Memory.memory_used);
 
     }
 
@@ -185,7 +185,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
  // GArray  * array_tasks=g_array_new (FALSE, FALSE, sizeof (Task));
 
 //
-    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),NULL,NULL,NULL);
+    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),0,NULL,NULL);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
 
@@ -195,7 +195,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
     for(int i=0 ;i<num;i++) {
 
 
-        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
+        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), 0,NULL,NULL);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
             //  break;
@@ -204,7 +204,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
         g_array_append_val(array_tasks,data.task);
 
     }
-    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),NULL,NULL,NULL);
+    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),0,NULL,NULL);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
 
@@ -214,19 +214,19 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
     for(int i=0 ;i<num;i++) {
 
 
-        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
+        ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), 0,NULL,NULL);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
             //  break;
             exit(1);
         }
 
-        printf("%s %s %s \n",data.devices.directory,data.devices.name,data.devices.type);
+      //  printf("%s %s %s \n",data.devices.directory,data.devices.name,data.devices.type);
         g_array_append_val(array_devices,data.devices);
 
     }
 
-    ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
+    ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), 0,NULL,NULL);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
         //  break;
@@ -234,7 +234,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
     }
     network->received_bytes= data.network.received_bytes;
     network->transmited_bytes=data.network.transmited_bytes;
-    printf("%lli %lli \n",network->transmited_bytes,network->received_bytes);
+  //  printf("%lli %lli \n",network->transmited_bytes,network->received_bytes);
 
 
 
@@ -350,10 +350,10 @@ void * confromation(int socket){
 void*  chat2(void *socket){
     int sockfd, ret;
     char buffer[BUF_SIZE];
-   
+
     struct sockaddr_in addr;
 	struct	my_thread_info *info = socket;
-	 
+
     while(1){
         printf("we made it to chat2(sending messages)\n");
         if(rezultat==0){

@@ -32,7 +32,7 @@ struct _Cpu_usage cpu[4];
     button_dev = gtk_toggle_button_new_with_label("Dev");
   //  button5 = gtk_toggle_button_new_with_label("NEW");
     button_graph = gtk_toggle_button_new_with_label("graphs");
-      button_condition= gtk_button_new_with_label("COND");
+    //  button_condition= gtk_button_new_with_label("COND");
 
     menubar = gtk_menu_bar_new();
     filemenu = gtk_menu_new();
@@ -171,7 +171,7 @@ struct _Cpu_usage cpu[4];
    // gtk_box_pack_start(GTK_BOX(hbox), button4, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_dev, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_graph, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), button_condition, 0, 0, 0);
+  //  gtk_box_pack_start(GTK_BOX(hbox), button_condition, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), label3, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), label4, 0, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(hbox), label5, 0, 0, 0);

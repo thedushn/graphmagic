@@ -250,7 +250,7 @@ void *init_timeout() {
     primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network);
    // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
     //primanje_interrupta(&newsockfd);
-     start_stop();
+     start_stop(0,"" ,"");
 
     //new_interrupt_list=interrupt_usage();
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
@@ -436,10 +436,10 @@ void *init_timeout() {
     swap_change(label1); // nije ovde
 
     time_handler(window);
-   // g_array_free(new_task_list, TRUE);
+    g_array_free(new_task_list, TRUE);
 
      //g_array_free(interrupt_array_temp, TRUE);
-   // g_array_free(new_interrupt_list,TRUE);
+    g_array_free(new_interrupt_list,TRUE);
    // g_array_unref(interrupt_array_d);
 
 
@@ -548,7 +548,7 @@ gtk_init(&argc, &argv);
 
 
     g_signal_connect(button_graph, "clicked", G_CALLBACK(graph_button_clicked), NULL);
-    g_signal_connect(button_condition, "clicked", G_CALLBACK(start_stop), NULL);
+ //   g_signal_connect(button_condition, "clicked", G_CALLBACK(start_stop), NULL);
     g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
 
 
