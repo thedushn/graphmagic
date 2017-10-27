@@ -25,20 +25,20 @@
 typedef struct _Network Network;
 struct _Network{
 
-    float received_bytes;
-    float transmited_bytes;
-    char *network_size_rc;
-    char *network_size_ts;
-    float received_kb;
-    float transmited_kb;
+    unsigned  long received_bytes;
+    unsigned  long transmited_bytes;
+//    char *network_size_rc;
+//    char *network_size_ts;
+//    float received_kb;
+//    float transmited_kb;
 
 
 };
 
 void received_transfered();
 int interface_name();
-gboolean network_change_rc(gpointer data);
-gboolean network_change_ts(gpointer data);
+gboolean network_change_rc(gpointer data,Network *network);
+//gboolean network_change_ts(gpointer data);
 
 
 

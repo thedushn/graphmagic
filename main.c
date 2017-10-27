@@ -151,9 +151,9 @@ void timeout_refresh() {
 }
 
 void init_timeout2() {
-    received_transfered();
-    network_change_rc(label7);
-    network_change_ts(label8);
+//    received_transfered();
+//    network_change_rc(label7);
+//    network_change_ts(label8);
     bjorg2++;
 
     if (bjorg2 >= 60) {
@@ -244,9 +244,10 @@ void *init_timeout() {
   //  new_task_list =  get_task_list2();
   //  new_device_list   = device(device_all);
     Cpu_usage1 cpu_usage1;
+    Network network;
 
 
-    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list);
+    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network);
    // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
     //primanje_interrupta(&newsockfd);
      start_stop();
@@ -261,7 +262,16 @@ void *init_timeout() {
     //   printf("%d\n",interrupt_array_temp->len);
 
 
+//    received_transfered();
+    network_change_rc(label7,&network);
+//    network_change_ts(label8);
+    bjorg2++;
 
+    if (bjorg2 >= 60) {
+
+
+        bjorg2 = 60;
+    }
 
 
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
@@ -553,7 +563,7 @@ gtk_init(&argc, &argv);
 
 
 
-    g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
+  //  g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
         init_timeout();
 
 

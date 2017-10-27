@@ -80,7 +80,7 @@ void* primanje_interrupta(void * socket){
 
 }
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1){
-void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices){
+void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network){
     printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
    // Memory_usage memory_usage;
@@ -226,6 +226,15 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
 
     }
 
+    ret = (int) recvfrom(info->thread_socket, &data, sizeof(data), NULL,NULL,NULL);
+    if (ret < 0) {
+        printf("Error sending num_packets!\n\t");
+        //  break;
+        exit(1);
+    }
+    network->received_bytes= data.network.received_bytes;
+    network->transmited_bytes=data.network.transmited_bytes;
+    printf("%lli %lli \n",network->transmited_bytes,network->received_bytes);
 
 
 

@@ -41,7 +41,7 @@ int interface_name(){
 
 }
 
-void received_transfered(){
+/*void received_transfered(){
 
 
   static  unsigned  long received_bytes1=0;
@@ -124,7 +124,7 @@ void received_transfered(){
 
     char *j=strchr(buffer,ch);
 
-   /* sscanf(buffer," %lu %lu",&received_bytes, &received_packets
+   *//* sscanf(buffer," %lu %lu",&received_bytes, &received_packets
             , &received_errors,&received_drop, &received_fifo, &received_frame, &received_compressed, &received_multicast,
     &transmit_bytes,
     &transmit_packets,
@@ -133,7 +133,7 @@ void received_transfered(){
     &transmit_fifo,
     &transmit_frame,
     &transmit_compressed,
-   &transmit_multicast);*/
+   &transmit_multicast);*//*
    strncpy ( buffer2, j, sizeof(buffer2) );
    // printf("buffer2 %s",buffer2);
 
@@ -246,51 +246,56 @@ void received_transfered(){
  //   printf("network_rc %f network_ts %f",network_rc,network_ts);
 
 
-  /*  g_free(network_size_rc);
-    g_free(network_size_ts);*/
-    }
+  *//*  g_free(network_size_rc);
+    g_free(network_size_ts);*//*
+    }*/
 
- gboolean network_change_rc(gpointer data){
+ gboolean network_change_rc(gpointer data,Network *network){
 
 
-    // received_transfered();
-    // float net1= net.received_bytes;
-    float net_kb = net.received_kb;
-    // net_kb/=100;
 
-    // printf("STO NECE: %f",net1);
+   float net_kb =  network->received_bytes/1024;
+    float net_kb_tr=network->transmited_bytes/1024;
+
+    g_array_prepend_val(history[5], net_kb_tr);
+    if (history[5]->len > 1)
+        g_array_remove_index (history[5], history[5]->len - 1);
     g_array_prepend_val(history[4], net_kb);
     if (history[4]->len > 1)
         g_array_remove_index (history[4], history[4]->len - 1);
 
+    gchar *  rec_bytes = g_format_size_full(network->received_bytes, G_FORMAT_SIZE_IEC_UNITS);
+    gchar *    rec_tr_bytes=g_format_size_full(network->transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
+    network_usage_received_text =g_strdup_printf("RECEIVED:  %s/s",rec_bytes);
+    network_usage_transimited_text =g_strdup_printf("TRANSMITED: %s/s",rec_tr_bytes);
+    gtk_label_set_text (GTK_LABEL (label7),network_usage_received_text);
 
-
-    network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size_rc);
-
-    gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
+    gtk_label_set_text (GTK_LABEL (label8),network_usage_transimited_text);
     g_free(network_usage_received_text);
-    return TRUE;
-}
- gboolean network_change_ts(gpointer data){
-
-
-
-    // float net1= net.transmited_bytes;
-    float net_kb = net.transmited_kb;
-    // static guint i =0;
-
-    // printf("STO NECE: %f",net1);
-    g_array_prepend_val(history[5], net_kb);
-    if (history[5]->len > 1)
-        g_array_remove_index (history[5], history[5]->len - 1);
-
-
-
-    network_usage_transimited_text =g_strdup_printf("TRANSMITED: %2.f %s",net.transmited_bytes,net.network_size_ts);
-
-    gtk_label_set_text (GTK_LABEL (data),network_usage_transimited_text);
-
      g_free(network_usage_transimited_text);
-    return TRUE;
 
+    return TRUE;
 }
+// gboolean network_change_ts(gpointer data){
+//
+//
+//
+//    // float net1= net.transmited_bytes;
+//    float net_kb = net.transmited_kb;
+//    // static guint i =0;
+//
+//    // printf("STO NECE: %f",net1);
+//    g_array_prepend_val(history[5], net_kb);
+//    if (history[5]->len > 1)
+//        g_array_remove_index (history[5], history[5]->len - 1);
+//
+//
+//
+//    network_usage_transimited_text =g_strdup_printf("TRANSMITED: %2.f %s",net.transmited_bytes,net.network_size_ts);
+//
+//    gtk_label_set_text (GTK_LABEL (data),network_usage_transimited_text);
+//
+//     g_free(network_usage_transimited_text);
+//    return TRUE;
+//
+//}
