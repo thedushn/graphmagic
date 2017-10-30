@@ -59,6 +59,7 @@ GtkWidget * button_process_state;
 GtkWidget * button_process_vm_size;
 GtkWidget * button_process_rss;
 GtkWidget * button_process_cpu;
+GtkWidget * button_process_prio;
 
 GtkWidget * button_condition;
 

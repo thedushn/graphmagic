@@ -54,6 +54,7 @@ enum
     COL_PID,
     COL_RSS,
     COL_CPU,
+    COL_PRIO,
     COL_VSZ,
     COL_PPID,
     COL_STATE,

@@ -3,8 +3,7 @@
 //
 
 #include "drawing.h"
-//#include "buttons.h"
-#include "buttons_s.h"
+
 static gfloat max_broj3=0;
 
 
@@ -577,7 +576,8 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
 
      cairo_surface_t *graph_surface;
-    graph_surface= crtaj_surface(cr,width,height);
+   // graph_surface= crtaj_surface(cr,width,height);
+    graph_surface= cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
 
     cairo_set_line_width(cr,1);
 
@@ -623,20 +623,20 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
 
     cairo_set_source_rgb(cr,0,0,0);
 
-    //   if(max_broj>1024){
-    if(max_broj>1000){
+       if(max_broj>1024){
+ //   if(max_broj>1000){
 
 
-        //  rec_bytes = max_broj / 1024;//mb
-        rec_bytes = max_broj / 1000;//mb
+          rec_bytes = max_broj / 1024;//mb
+       // rec_bytes = max_broj / 1000;//mb
         rec_bytes += 1;
         track=mb;
-        max_broj3=max_broj+1000;
-        //  max_broj3=max_broj+1024;
+     //   max_broj3=max_broj+1000;
+          max_broj3=max_broj+1024;
 
     }
-    else if(max_broj<=1000 && max_broj >1){
-        //if(max_broj<=1024 && max_broj >1){
+  //  else if(max_broj<=1000 && max_broj >1){
+        else   if(max_broj<=1024 && max_broj >1){
 
         rec_bytes = max_broj;//kb
 
@@ -648,13 +648,13 @@ void do_drawing(GtkWidget *widget,cairo_t *cr,guint bjorg2){
     }
     else /*if(max_broj<=1)*/{
 
-        rec_bytes= max_broj*1000;//bytes
-        // rec_bytes= max_broj*1024;//bytes
+       // rec_bytes= max_broj*1000;//bytes
+         rec_bytes= max_broj*1024;//bytes
 
       //  track=rec;
         track=b;
-        //     max_broj3=max_broj+1024;
-        max_broj3=max_broj+100;
+             max_broj3=max_broj+1024;
+      //  max_broj3=max_broj+100;
 
     }
 

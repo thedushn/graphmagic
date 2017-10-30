@@ -20,6 +20,7 @@ void process_window(){
     button_process_task=gtk_check_button_new_with_label ("Task");
     button_process_vm_size=gtk_check_button_new_with_label ("VM_size");
     button_process_user=gtk_check_button_new_with_label ("User");
+    button_process_prio=gtk_check_button_new_with_label ("Prio");
 
     if(process_cpu==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_cpu),TRUE);
@@ -46,6 +47,9 @@ void process_window(){
     if(process_user==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_user),TRUE);
     }
+    if(process_prio==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_prio),TRUE);
+    }
 
 
 
@@ -62,6 +66,7 @@ void process_window(){
     gtk_box_pack_start(GTK_BOX(box2),button_process_vm_size,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_rss,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_cpu,1,1,0);
+    gtk_box_pack_start(GTK_BOX(box2),button_process_prio,1,1,0);
     g_signal_connect(button_process_user,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_rss,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_task,"toggled", G_CALLBACK(process_clicked), NULL);
@@ -70,6 +75,7 @@ void process_window(){
     g_signal_connect(button_process_cpu,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_pid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_ppid,"toggled", G_CALLBACK(process_clicked), NULL);
+    g_signal_connect(button_process_prio,"toggled", G_CALLBACK(process_clicked), NULL);
 
 
     gtk_window_set_position(GTK_WINDOW(proc_window), GTK_WIN_POS_CENTER);
@@ -227,12 +233,11 @@ void start_stop(int show,gchar *signal ,gchar *task_id){
    int ret;
 
 
-    char *mem="salji mem\n";
     struct Sending_stuff{
 
        int mem;
         gboolean show;
-        gchar signal [5];
+        gchar signal [10];
         gchar task_id [256];
 
     }stuff;
@@ -469,6 +474,12 @@ void process_clicked(GtkWidget *widget){
             change_list_store_view_process(widget, process_cpu);
           //  process_refresh(widget,process_cpu );
         }
+        else if(widget==button_process_prio){
+
+            process_prio= TRUE;
+            change_list_store_view_process(widget, process_prio);
+            //  process_refresh(widget,process_cpu );
+        }
         else if(widget==button_process_pid){
 
             process_pid= TRUE;
@@ -520,6 +531,12 @@ void process_clicked(GtkWidget *widget){
             process_cpu= FALSE;
             change_list_store_view_process(widget, process_cpu);
            // process_refresh(widget,process_cpu );
+        }
+        else if(widget==button_process_prio){
+
+            process_prio= FALSE;
+            change_list_store_view_process(widget, process_prio);
+            // process_refresh(widget,process_cpu );
         }
         else if(widget==button_process_pid){
 
@@ -726,6 +743,35 @@ void handle_task_menu(GtkWidget *widget, gchar *signal)
         }
     }
 }
+void handle_task_prio(GtkWidget *widget, gchar *signal)
+{
+    printf("signal %s\n",signal);
+    if(signal != NULL)
+    {
+
+
+//        if (strcmp(signal, "KILL") == 0)
+//            s = ("Really kill the task?");
+//        else
+//            s = ("Really terminate the task?");
+
+        if(strcmp(signal, "VERY_LOW") == 0 || strcmp(signal, "VERY_HIGH") == 0 || strcmp(signal, "NORMAL") == 0
+           || strcmp(signal, "LOW") == 0 || strcmp(signal, "HIGH") == 0)
+        {
+            gchar *task_id = "";
+            GtkTreeModel *model;
+            GtkTreeIter iter;
+
+            if(gtk_tree_selection_get_selected(selection, &model, &iter))
+            {
+                gtk_tree_model_get(model, &iter, 1, &task_id, -1);
+                //  send_signal_to_task(task_id, signal);
+                start_stop(0,signal,task_id);
+                init_timeout();
+            }
+        }
+    }
+}
 void send_signal_to_task(gchar *task_id, gchar *signal)
 {
     printf("SIGNAL %s the task with ID %s\n", signal, task_id);
@@ -769,7 +815,13 @@ void send_signal_to_task(gchar *task_id, gchar *signal)
 GtkWidget* create_taskpopup (void)
 {
     GtkWidget *taskpopup;
+
+
     GtkWidget *menu_item;
+
+    GtkWidget* menu_priority;
+
+
 
     taskpopup = gtk_menu_new ();
 
@@ -792,6 +844,40 @@ GtkWidget* create_taskpopup (void)
     gtk_widget_show (menu_item);
     gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
     g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_menu), "KILL");
+
+    menu_priority = gtk_menu_new ();
+
+    menu_item = gtk_menu_item_new_with_label (("Very low"));
+  //  g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+    gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "VERY_LOW");
+
+    menu_item = gtk_menu_item_new_with_label (("Low"));
+  //  g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+    gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "LOW");
+
+    menu_item = gtk_menu_item_new_with_label (("Normal"));
+   // g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+    gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "NORMAL");
+
+    menu_item = gtk_menu_item_new_with_label (("High"));
+  //  g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+    gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "HIGH");
+
+    menu_item = gtk_menu_item_new_with_label (("Very high"));
+   // g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+    gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
+    g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "VERY_HIGH");
+
+    menu_item = gtk_menu_item_new_with_label (("Priority"));
+    gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_item), menu_priority);
+    gtk_container_add (GTK_CONTAINER (taskpopup), menu_item);
+
+
+    gtk_widget_show_all (taskpopup);
 
     return taskpopup;
 }

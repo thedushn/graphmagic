@@ -372,7 +372,8 @@ void *init_timeout() {
                 if((gint)tmp->ppid != (gint)new_tmp->ppid || strcmp(tmp->state,new_tmp->state)!=0 ||
                         (unsigned int)tmp->cpu_system != (unsigned int)new_tmp->cpu_system ||
                         (unsigned int)tmp->cpu_user != (unsigned int)new_tmp->cpu_user ||
-                        (unsigned int)tmp->rss != (unsigned int)new_tmp->rss) //||
+                        (unsigned int)tmp->rss != (unsigned int)new_tmp->rss ||
+                         (unsigned int)tmp->prio != (unsigned int)new_tmp->prio)
                        // (unsigned int)tmp->time != (unsigned int)tmp->old_time)
                 {
                     tmp->ppid = new_tmp->ppid;
@@ -380,6 +381,7 @@ void *init_timeout() {
                     tmp->cpu_user = new_tmp->cpu_user;
                     tmp->cpu_system = new_tmp->cpu_system;
                     tmp->rss = new_tmp->rss;
+                    tmp->prio = new_tmp->prio;
 
                     refresh_list_item(i);
                 }

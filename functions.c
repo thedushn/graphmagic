@@ -201,6 +201,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
             //  break;
             exit(1);
         }
+              printf("prio ffs %f %d %d %d %hi\n",data.task.cpu_user,data.task.pid,data.task.uid,data.task.rss,data.task.prio);
         g_array_append_val(array_tasks,data.task);
 
     }

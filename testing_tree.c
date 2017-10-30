@@ -17,7 +17,7 @@ GtkTreeStore * create_list_store(void)
     GtkCellRenderer *cell_renderer;
     GtkTreeViewColumn *column;
 
-    list_store = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+    list_store = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
 
     cell_renderer = gtk_cell_renderer_text_new();
 
@@ -70,6 +70,11 @@ GtkTreeStore * create_list_store(void)
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, COL_CPU);
     gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_CPU, compare_int_list_item, (void *)COL_CPU, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+    column = gtk_tree_view_column_new_with_attributes(("Prio"), cell_renderer, "text", COL_PRIO, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_PRIO);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_PRIO, compare_int_list_item, (void *)COL_PRIO, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 
 
@@ -128,6 +133,8 @@ GtkTreeStore * create_list_store_dev(void)
     gtk_tree_view_column_set_sort_column_id(column, COL_FREE);
     gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store1), COL_FREE, compare_int_list_item_size, (void *)COL_FREE, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview1), column);
+
+
 
 
 
@@ -242,9 +249,13 @@ void change_list_store_view_process(GtkWidget *widget, gboolean visible)
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 6), visible);
     }
 
-    else /*(button_device_free==widget)*/{
+    else if (button_process_cpu==widget){
 
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 7), visible);
+    }
+    else{
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 8), visible);
     }
 
 }
@@ -267,6 +278,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         Task *task = &g_array_index(task_array, Task, i);
         gchar cpu[16], value[14];
         gchar *rss, *vsz;
+        gchar *prio;
 
         rss = g_format_size_full(task->rss, G_FORMAT_SIZE_IEC_UNITS);
         vsz = g_format_size_full(task->vsz, G_FORMAT_SIZE_IEC_UNITS);
@@ -280,6 +292,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
 
         gchar *name = g_strdup_printf("%s", task->name);
         gchar *uname = g_strdup_printf("%s", task->uid_name);
+        prio=  g_strdup_printf("%hi", task->prio);
 
 
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_TASK, name, -1);
@@ -290,8 +303,10 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_RSS, rss, -1);
 
 
+
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_CPU, cpu, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_UNAME, uname, -1);
+        gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_PRIO, prio, -1);
 
 
         g_free(pid);
@@ -301,6 +316,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         g_free(uname);
         g_free(rss);
         g_free(vsz);
+        g_free(prio);
     }
 }
 
@@ -324,6 +340,7 @@ void fill_list_item_device(gint i, GtkTreeIter *iter)
         free = g_format_size_full((guint64) devices->free, G_FORMAT_SIZE_IEC_UNITS);
         directory=g_strdup_printf("%s", devices->directory);
         type=g_strdup_printf("%s", devices->type);
+
 
 
         gtk_tree_store_set(GTK_TREE_STORE(list_store1), iter, COL_DEV, name, -1);

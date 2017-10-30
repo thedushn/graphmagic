@@ -21,6 +21,7 @@ static gboolean device_all=FALSE;
 
 static gboolean process_task=TRUE;
 static gboolean process_user=TRUE;
+static gboolean process_prio=TRUE;
 static gboolean process_pid=TRUE;
 static gboolean process_ppid=TRUE;
 static gboolean process_cpu=TRUE;
