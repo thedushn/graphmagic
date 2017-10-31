@@ -26,11 +26,12 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include "functions.h"
+#include <time.h>
 #define BUF_SIZE 2000
 #define CLADDR_LEN 100
 #define PACKET_SIZE 1400
 #define PORT_NUM 5004
-
+long int clock_ticks;
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
@@ -479,7 +480,23 @@ gtk_init(&argc, &argv);
         }
   //  pthread_create(&t1,NULL,conekcija,(void*)argv[1]);
     conekcija(argv[1]);
+    int ret =(int) recvfrom(newsockfd,&clock_ticks,sizeof(long int),0,0,0 );
+    if(ret<0){
 
+        printf("failed to get clock ticks %d \n",ret);
+        exit(1);
+    }
+    printf("clock ticks %ld \n",clock_ticks);
+    struct tm tm ;
+
+
+    ret = (int) recvfrom(newsockfd, &tm, sizeof(tm), 0,0,0);
+    if (ret<0) {
+        printf("ERROR: Return Code  is %d\n", ret);
+        exit(1);
+    }
+    printf("now: %d-%d-%d %d:%d:%d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    
 
     dev_swindow = gtk_scrolled_window_new(NULL,
                                           NULL);

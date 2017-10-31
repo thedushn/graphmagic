@@ -277,6 +277,7 @@ void start_stop(int show,gchar *signal ,gchar *task_id){
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
+        exit(1);
 
     }
     printf("poslali smo cond\n");

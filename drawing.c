@@ -214,12 +214,12 @@ void crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i){
     cairo_fill(cr);
     //procent linije
     cairo_set_source_rgba(cr,.7,.7,.7,0.5);
-    cairo_move_to(cr,i*font_size,height/4);//75%
-    cairo_line_to(cr,width-i*font_size,height/4);
-    cairo_move_to(cr,i*font_size,height/4*2);//50
-    cairo_line_to(cr,width-i*font_size,height/4*2);
-    cairo_move_to(cr,i*font_size,height/4*3);//25
-    cairo_line_to(cr,width-i*font_size,height/4*3);
+    cairo_move_to(cr,i*font_size,(height-font_size)/4);//75%
+    cairo_line_to(cr,width-i*font_size,(height-font_size)/4);
+    cairo_move_to(cr,i*font_size,(height-font_size)/4*2);//50
+    cairo_line_to(cr,width-i*font_size,(height-font_size)/4*2);
+    cairo_move_to(cr,i*font_size,(height-font_size)/4*3);//25
+    cairo_line_to(cr,width-i*font_size,(height-font_size)/4*3);
     cairo_stroke(cr);
   //  return cr;
 
@@ -231,11 +231,11 @@ void crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size){
     cairo_move_to(cr, 0,font_size);
     cairo_set_source_rgb(cr,0,0,0);
     cairo_show_text(cr,"100%");
-    cairo_move_to(cr,0,height/4);
+    cairo_move_to(cr,0,(height-font_size)/4);
     cairo_show_text(cr,"75%");
-    cairo_move_to(cr,0,height/4*2);
+    cairo_move_to(cr,0,(height-font_size)/4*2);
     cairo_show_text(cr,"50%");
-    cairo_move_to(cr,0,height/4*3);
+    cairo_move_to(cr,0,(height-font_size)/4*3);
     cairo_show_text(cr,"25%");
     cairo_move_to(cr,0,height-font_size);
     cairo_show_text(cr,"0%");
@@ -506,7 +506,8 @@ void do_drawing4(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array){
         }
 
     }
-    max_broj+=100;//100
+   // max_broj+=100;
+    max_broj= max_broj*5/4;
     cairo_move_to(cr, 0,font_size);
     sprintf(broj,"%li",max_broj);
     cairo_show_text(cr,broj);

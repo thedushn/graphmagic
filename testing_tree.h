@@ -59,6 +59,7 @@ enum
     COL_PPID,
     COL_STATE,
     COL_UNAME,
+    COL_STIME,
     NUM_COLS
 } ;
 

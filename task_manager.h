@@ -43,6 +43,7 @@ struct _Task
     guint64		vsz;
     guint64		rss;
     gshort		prio;
+    guint64     start_time;
     gboolean checked;
 };
 
