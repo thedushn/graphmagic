@@ -32,6 +32,7 @@
 #define PACKET_SIZE 1400
 #define PORT_NUM 5004
 long int clock_ticks;
+
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
@@ -235,7 +236,7 @@ void *init_timeout() {
 
     guint i=0,j=0;
 
-
+    struct tm tm;
 
 
     //GArray *new_task_list;
@@ -248,7 +249,7 @@ void *init_timeout() {
     Network network;
 
 
-    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network);
+    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network,&tm);
    // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
     //primanje_interrupta(&newsockfd);
      start_stop(0,"" ,"");
@@ -265,6 +266,7 @@ void *init_timeout() {
 
 //    received_transfered();
     network_change_rc(label7,&network);
+    time_change(label_time, &tm);
 //    network_change_ts(label8);
     bjorg2++;
 
@@ -471,6 +473,8 @@ void *init_timeout() {
 int main(int argc, char *argv[]) {
 
     pthread_t t1,t2;
+    char timebuffer[BUF_SIZE];
+    long int uptime;
 
 gtk_init(&argc, &argv);
         if(argc<2){
@@ -487,16 +491,58 @@ gtk_init(&argc, &argv);
         exit(1);
     }
     printf("clock ticks %ld \n",clock_ticks);
-    struct tm tm ;
+    ret =(int) recvfrom(newsockfd,&uptime,sizeof(unsigned long),0,0,0 );
+    if(ret<0){
 
-
-    ret = (int) recvfrom(newsockfd, &tm, sizeof(tm), 0,0,0);
+        printf("failed to get uptime %d \n",ret);
+        exit(1);
+    }
+    struct tm tm1;
+    ret = (int) recvfrom(newsockfd, &tm1, sizeof(tm1), 0,0,0);
     if (ret<0) {
         printf("ERROR: Return Code  is %d\n", ret);
         exit(1);
     }
-    printf("now: %d-%d-%d %d:%d:%d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-    
+    printf("uptime %lu \n",uptime);
+    int sec, hr, min, t;
+    int sec0, hr0, min0, t0;
+    printf("\nEnter time in seconds: ");
+    struct TIME startTime, stopTime;
+   /* hr = uptime/3600;
+    t = uptime%3600;
+    min = t/60;
+    sec = t%60;*/
+    startTime.hours=tm1.tm_hour;
+    startTime.minutes=tm1.tm_min;
+    startTime.seconds=tm1.tm_sec;
+
+
+
+
+
+
+    hr0 = uptime/3600;
+    t0 = uptime%3600;
+    min0 = t0/60;
+    sec0 = t0%60;
+    stopTime.hours=hr0;
+    stopTime.minutes=min0;
+    stopTime.seconds=sec0;
+    differenceBetweenTimePeriod(startTime, stopTime, &pocetno);
+    printf("\nTIME DIFFERENCE: %d:%d:%d - ", startTime.hours, startTime.minutes, startTime.seconds);
+    printf("%d:%d:%d ", stopTime.hours, stopTime.minutes, stopTime.seconds);
+    printf("= %d:%d:%d\n", pocetno.hours, pocetno.minutes, pocetno.seconds);
+
+
+/*hr = sec/3600;
+This program follows the general logic of converting second to hour.ie divide the total second by 3600 thus we get the Hour,
+t = sec%3600
+Then make a modular division on the total second ,thus we get the remaining seconds that can not form a hour.
+min = t/60;
+divide the 't' (seconds)with 60 ,then we get the remaining minutes.
+sec = t%60;
+modular division on the 't' result in the remaining seconds....*/
+
 
     dev_swindow = gtk_scrolled_window_new(NULL,
                                           NULL);

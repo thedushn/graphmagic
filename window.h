@@ -15,6 +15,7 @@ void quit_activated() ;
 gboolean  cpu_change(Cpu_usage1 *cpu_usage1);
 void memory_change(gpointer data);
 void swap_change(gpointer data);
+gboolean time_change(gpointer data,struct tm *tm);
 GtkWidget *main_window(GtkWidget *des_swindow,GtkWidget *proc_swindow);
 
 GtkWidget *menubar;

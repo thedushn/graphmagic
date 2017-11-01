@@ -159,6 +159,7 @@ struct _Cpu_usage cpu[4];
     label6 = gtk_label_new(NULL);//cpu4
     label7 = gtk_label_new(NULL);//network_received
     label8 = gtk_label_new(NULL);//network_transimited
+    label_time = gtk_label_new(NULL);//time(local)
 
 
 
@@ -193,7 +194,7 @@ struct _Cpu_usage cpu[4];
 //  gtk_box_pack_start(GTK_BOX(hbox2), button4, 0, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(hbox2), label, 0, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(hbox2), label1, 0, FALSE, 1);
-//    gtk_box_pack_start(GTK_BOX(hbox2), label8, 1, 0, 1);
+    gtk_box_pack_start(GTK_BOX(hbox2), label_time, 0, 0,1 );
 //    gtk_box_pack_start(GTK_BOX(hbox2), label7, 1, TRUE, 1);
 
 
@@ -211,6 +212,7 @@ struct _Cpu_usage cpu[4];
 
     gtk_box_pack_start(GTK_BOX(vbox), dev_swindow, TRUE, TRUE, 1);
     gtk_box_pack_start(GTK_BOX(vbox), process_swindow, TRUE, TRUE, 1);
+
 
 
 
@@ -281,6 +283,16 @@ void memory_change(gpointer data){
  g_free(memory_usage_text1);
  g_free(total);
  g_free(used);
+
+}
+gboolean time_change(gpointer data,struct tm *tm){
+
+
+  gchar *time = g_strdup_printf(("Year: %d Month-%d Day-%d  Hour:%d Min:%d Sec:%d"), tm->tm_year ,
+                                tm->tm_mon , tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+ gtk_label_set_text (GTK_LABEL (data),time);
+ g_free(time);
+ return TRUE;
 
 }
 gboolean  cpu_change(Cpu_usage1 *cpu_usage1){

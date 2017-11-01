@@ -43,7 +43,7 @@ void add_new_list_item_dev(gint i);
 GtkTreeStore * create_list_store(void);
 gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
-
+gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 
 
 GtkTreeStore * create_list_store_dev(void);

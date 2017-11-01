@@ -80,7 +80,7 @@ void* primanje_interrupta(void * socket){
 
 }
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1){
-void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network){
+void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network,struct tm *tm){
    // printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
    // Memory_usage memory_usage;
@@ -201,7 +201,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
             //  break;
             exit(1);
         }
-              printf("prio ffs %lu \n",data.task.start_time);
+            //  printf("prio ffs %lu \n",data.task.start_time);
         g_array_append_val(array_tasks,data.task);
 
     }
@@ -237,6 +237,22 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
     network->transmited_bytes=data.network.transmited_bytes;
   //  printf("%lli %lli \n",network->transmited_bytes,network->received_bytes);
 
+
+struct tm tm1;
+    ret = (int) recvfrom(newsockfd, &tm1, sizeof(tm1), 0,0,0);
+    if (ret<0) {
+        printf("ERROR: Return Code  is %d\n", ret);
+        exit(1);
+    }
+    tm->tm_year= tm1.tm_year + 1900;
+    tm->tm_mon = tm1.tm_mon+ 1 ;
+            tm->tm_mday= tm1.tm_mday;
+            tm->tm_hour=tm1.tm_hour;
+            tm->tm_min= tm1.tm_min;
+            tm->tm_sec=tm1.tm_sec;
+
+    printf("now: %d-%d-%d %d:%d:%d\n", tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+   // printf("now: %d-%d-%d %d:%d:%d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
 
 }
