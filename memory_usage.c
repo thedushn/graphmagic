@@ -5,11 +5,11 @@
 #include "memory_usage.h"
 
 
-Memory_usage memory_usage;
+//Memory_usage memory_usage;
 
 
 
-void	get_memory_usage(){
+/*void	get_memory_usage(){
 
     guint64 memory_total=0; guint64 memory_free=0; guint64 memory_cache=0; guint64 memory_buffers=0; guint64 swap_total=0; guint64 swap_free=0;
 
@@ -57,12 +57,12 @@ void	get_memory_usage(){
 
 
     float   percentage =(memory_total != 0) ? memory_used * 100 / (float)memory_total : 0;
-            /*(float)memory_used/(float)memory_total *100 ;*/
+            *//*(float)memory_used/(float)memory_total *100 ;*//*
     memory_usage.percentage = percentage;
 
 
 
 
 
-}
+}*/
 

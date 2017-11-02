@@ -18,7 +18,7 @@ GtkTreeStore * create_list_store(void)
     GtkTreeViewColumn *column;
 
     list_store = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING
-            ,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+            ,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
 
     cell_renderer = gtk_cell_renderer_text_new();
 
@@ -83,6 +83,12 @@ GtkTreeStore * create_list_store(void)
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, COL_STIME);
     gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_STIME, compare_int_list_item_time, (void *)COL_STIME, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    column = gtk_tree_view_column_new_with_attributes(("Duration "), cell_renderer, "text", COL_DUR, NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_sort_column_id(column, COL_DUR);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_DUR, compare_int_list_item_time, (void *)COL_DUR, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 
 
@@ -261,10 +267,16 @@ void change_list_store_view_process(GtkWidget *widget, gboolean visible)
 
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 7), visible);
     }
-    else{
+    else if (button_process_prio==widget){
 
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 8), visible);
+
     }
+    else{
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 9), visible);
+    }
+
 
 }
 
@@ -276,21 +288,21 @@ void change_list_store_view_process(GtkWidget *widget, gboolean visible)
 
 
 
-void differenceBetweenTimePeriod(struct TIME start, struct TIME stop, struct TIME *diff)
+void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff)
 {
-    if(stop.seconds > start.seconds){
-        --start.minutes;
-        start.seconds += 60;
+    if(stop.tm_sec > start.tm_sec){
+        --start.tm_min;
+        start.tm_sec += 60;
     }
 
-    diff->seconds = start.seconds - stop.seconds;
-    if(stop.minutes > start.minutes){
-        --start.hours;
-        start.minutes += 60;
+    diff->tm_sec = start.tm_sec - stop.tm_sec;
+    if(stop.tm_min > start.tm_min){
+        --start.tm_hour;
+        start.tm_min += 60;
     }
 
-    diff->minutes = start.minutes - stop.minutes;
-    diff->hours = start.hours - stop.hours;
+    diff->tm_min = start.tm_min - stop.tm_min;
+    diff->tm_hour = start.tm_hour - stop.tm_hour;
 }
 
 void fill_list_item(gint i, GtkTreeIter *iter)
@@ -303,6 +315,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gchar *rss, *vsz;
         gchar *prio;
         gchar *stime;
+        gchar *duration;
 
         rss = g_format_size_full(task->rss, G_FORMAT_SIZE_IEC_UNITS);
         vsz = g_format_size_full(task->vsz, G_FORMAT_SIZE_IEC_UNITS);
@@ -334,46 +347,38 @@ void fill_list_item(gint i, GtkTreeIter *iter)
 
 
         s=h=m=0;
-        s=sec+pocetno.seconds;
+        s=sec+pocetno.tm_sec;
         if(s>60)
         {
             m=s/60;
             s=s%60;
         }
-        m=m+min+pocetno.minutes;
+        m=m+min+pocetno.tm_min;
         if(m>60)
         {
             h=m/60;
             m=m%60;
         }
-        h=h+pocetno.hours+hr;
-       // printf("Hour:%d Minutes:%d Sec:%d",h,m,s);
+        h=h+pocetno.tm_hour+hr;
+
+
         stime= g_strdup_printf("%d:%d:%d",h,m,s);
-  /*      startTime.hours=diff.tm_hour;
-        startTime.minutes=tm.tm_min;
-        startTime.seconds=tm.tm_sec;*/
-
-    /*    tm1.tm_hour=hr;
-        tm1.tm_min=min;
-        tm1.tm_sec=sec;
-        double hour =difftime(tm.tm_hour,tm1.tm_hour);
-        double minute =difftime(tm.tm_min,tm1.tm_min);
-        double second=difftime(tm.tm_sec,tm1.tm_sec);*/
+      //  duration= g_strdup_printf("%d:%d:%d",h,m,s);
+     /*   struct tm  start_time, diff;
 
 
+        start_time.tm_sec=s;
+        start_time.tm_min=m;
+        start_time.tm_hour=h;
+        differenceBetweenTimePeriod(tm, start_time, &diff);*/
 
 
-/*        hr0 = uptime/3600;
-        t0 = uptime%3600;
-        min0 = t0/60;
-        sec0 = t0%60;
-        stopTime.hours=hr0;
-        stopTime.minutes=min0;
-        stopTime.seconds=sec0;
-        differenceBetweenTimePeriod(startTime, stopTime, &diff);
-        printf("\nTIME DIFFERENCE: %d:%d:%d - ", startTime.hours, startTime.minutes, startTime.seconds);
-        printf("%d:%d:%d ", stopTime.hours, stopTime.minutes, stopTime.seconds);
-        printf("= %d:%d:%d\n", diff.hours, diff.minutes, diff.seconds);*/
+        duration=g_strdup_printf("%d:%d:%d",task->duration.tm_hour,task->duration.tm_min,task->duration.tm_sec);
+
+
+
+
+
 
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_TASK, name, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_PID, pid, -1);
@@ -385,6 +390,8 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_UNAME, uname, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_PRIO, prio, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_STIME, stime, -1);
+        gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_DUR, duration, -1);
+
 
 
         g_free(pid);
@@ -396,6 +403,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         g_free(vsz);
         g_free(prio);
         g_free(stime);
+        g_free(duration);
     }
 }
 
@@ -731,9 +739,11 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 
     if(s1 != NULL)
         i1 = atoi(s1);
+    g_free(s1);
 
     if(s2 != NULL)
         i2 = atoi(s2);
+    g_free(s2);
 
     ret = i1 - i2;
     ret1 = i3 - i4;
@@ -743,10 +753,8 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     }
 
 
-    if(s1 != NULL)
-        g_free(s1);
-    if(s2 != NULL)
-        g_free(s2);
+
+
 
 
     return ret;
@@ -767,27 +775,27 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     gint ret2 = 0;
 
 
+
+
     gtk_tree_model_get(model, iter1, column, &s1, -1);
     gtk_tree_model_get(model, iter2, column, &s2, -1);
 
-    dt=  g_strrstr (s1, ":");//minuti
-    dt1=  g_strrstr (s2, ":");//minuti
-   dt= g_strstr_len (s1, 10, ":");
-    dt1= g_strstr_len (s2, 10, ":");
+    //minuti postavi pointer na prve : na koje naidje u broju karatktera koje mu postavimo
+   dt= g_strstr_len (s1, strlen(s1), ":");
+    dt1= g_strstr_len (s2, strlen(s2), ":");
 
     dt=dt+1;//preskacemo 2 tacke
     dt1=dt1+1;
     dt2= g_strrstr (dt, ":");//sekunde
-    dt3= g_strrstr (dt1, ":");//sekunde
-    dt2=dt2+1;//preskacemo 2 tacke
+    dt3= g_strrstr (dt1, ":");//sekunde postavi pointer na :
+    dt2=dt2+1;//preskacemo :
     dt3=dt3+1;
 
     gint i1 = 0;
     gint i2 = 0;
     gint i3 = 0;
     gint i4 = 0;
-    gint isize=0;
-    gint  isize1=0;
+
 
     if(s1!=NULL){
         i1=atoi(s1); //koliko je sati
@@ -800,49 +808,45 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     ret=i1-i2;
     if(ret==0){ //ako je u isto sati
 
-        if(dt!=NULL) {
+      //  if(dt!=NULL) {
 
             i3 = atoi(dt);
-        }
+       // }
 
 
-        if(dt1!=NULL)
+      //  if(dt1!=NULL)
             i4 = atoi(dt1);
+        ret1= i3-i4;
     }
-    ret= i3-i4;
-    if(ret==0){ //ako je u isto minuta
+    else {
+        g_free(s1);
+        g_free(s2);
+        return ret;
+    }
+
+    if(ret1==0){ //ako je u isto minuta
         i3=0;
         i4=0;
 
-     /*   dt=dt+1;//preskacemo 2 tacke
+     /*   dt=dt+1;//preskacemo :
         dt1=dt1+1;*/
-        if(dt2!=NULL) {
+     //   if(dt2!=NULL) {
 
             i3 = atoi(dt2);
-        }
+      //  }
 
 
-        if(dt3!=NULL)
+     //   if(dt3!=NULL)
             i4 = atoi(dt3);
+        ret2=i3-i4;
     }
-    ret=i3-i4;
-
-
-
-
-
-
-
-
-
-
-
-    if(s1 != NULL)
+    else {
         g_free(s1);
-    if(s2 != NULL)
         g_free(s2);
+        return ret1;
 
-
-
-    return ret;
+    }
+    g_free(s1);
+    g_free(s2);
+    return ret2;
 }

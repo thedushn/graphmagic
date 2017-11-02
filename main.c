@@ -236,7 +236,7 @@ void *init_timeout() {
 
     guint i=0,j=0;
 
-    struct tm tm;
+
 
 
     //GArray *new_task_list;
@@ -247,9 +247,11 @@ void *init_timeout() {
   //  new_device_list   = device(device_all);
     Cpu_usage1 cpu_usage1;
     Network network;
+    Memory_usage memory_usage;
 
 
-    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network,&tm);
+
+    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network,&tm,&memory_usage);
    // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
     //primanje_interrupta(&newsockfd);
      start_stop(0,"" ,"");
@@ -360,6 +362,7 @@ void *init_timeout() {
 
 ////////////
 
+
     for(i = 0; i < task_array->len; i++)
     {
        Task *tmp = &g_array_index(task_array, Task, i);
@@ -376,8 +379,10 @@ void *init_timeout() {
                         (unsigned int)tmp->cpu_system != (unsigned int)new_tmp->cpu_system ||
                         (unsigned int)tmp->cpu_user != (unsigned int)new_tmp->cpu_user ||
                         (unsigned int)tmp->rss != (unsigned int)new_tmp->rss ||
-                         (unsigned int)tmp->prio != (unsigned int)new_tmp->prio)
-                       // (unsigned int)tmp->time != (unsigned int)tmp->old_time)
+                         (unsigned int)tmp->prio != (unsigned int)new_tmp->prio|| tmp->duration.tm_hour!= new_tmp->duration.tm_hour||
+                tmp->duration.tm_min!= new_tmp->duration.tm_min||
+                tmp->duration.tm_sec!= new_tmp->duration.tm_sec)
+                           // )
                 {
                     tmp->ppid = new_tmp->ppid;
                     strcpy(tmp->state, new_tmp->state);
@@ -385,6 +390,9 @@ void *init_timeout() {
                     tmp->cpu_system = new_tmp->cpu_system;
                     tmp->rss = new_tmp->rss;
                     tmp->prio = new_tmp->prio;
+                    tmp->duration.tm_hour= new_tmp->duration.tm_hour;
+                    tmp->duration.tm_min= new_tmp->duration.tm_min;
+                    tmp->duration.tm_sec= new_tmp->duration.tm_sec;
 
                     refresh_list_item(i);
                 }
@@ -437,8 +445,8 @@ void *init_timeout() {
     cpu_change(&cpu_usage1);
 
 
-   memory_change(label);// nije ovde
-    swap_change(label1); // nije ovde
+   memory_change(label,&memory_usage);// nije ovde
+    swap_change(label1,&memory_usage); // nije ovde
 
     time_handler(window);
     g_array_free(new_task_list, TRUE);
@@ -472,8 +480,7 @@ void *init_timeout() {
 
 int main(int argc, char *argv[]) {
 
-    pthread_t t1,t2;
-    char timebuffer[BUF_SIZE];
+
     long int uptime;
 
 gtk_init(&argc, &argv);
@@ -482,7 +489,7 @@ gtk_init(&argc, &argv);
             printf("port not providec \n");
             exit(1);
         }
-  //  pthread_create(&t1,NULL,conekcija,(void*)argv[1]);
+
     conekcija(argv[1]);
     int ret =(int) recvfrom(newsockfd,&clock_ticks,sizeof(long int),0,0,0 );
     if(ret<0){
@@ -497,24 +504,17 @@ gtk_init(&argc, &argv);
         printf("failed to get uptime %d \n",ret);
         exit(1);
     }
-    struct tm tm1;
-    ret = (int) recvfrom(newsockfd, &tm1, sizeof(tm1), 0,0,0);
+    struct tm start_time;
+    ret = (int) recvfrom(newsockfd, &start_time, sizeof(start_time), 0,0,0); //lokalno vreme
     if (ret<0) {
         printf("ERROR: Return Code  is %d\n", ret);
         exit(1);
     }
     printf("uptime %lu \n",uptime);
-    int sec, hr, min, t;
+
     int sec0, hr0, min0, t0;
-    printf("\nEnter time in seconds: ");
-    struct TIME startTime, stopTime;
-   /* hr = uptime/3600;
-    t = uptime%3600;
-    min = t/60;
-    sec = t%60;*/
-    startTime.hours=tm1.tm_hour;
-    startTime.minutes=tm1.tm_min;
-    startTime.seconds=tm1.tm_sec;
+
+    struct tm  stop_time;
 
 
 
@@ -525,14 +525,14 @@ gtk_init(&argc, &argv);
     t0 = uptime%3600;
     min0 = t0/60;
     sec0 = t0%60;
-    stopTime.hours=hr0;
-    stopTime.minutes=min0;
-    stopTime.seconds=sec0;
-    differenceBetweenTimePeriod(startTime, stopTime, &pocetno);
-    printf("\nTIME DIFFERENCE: %d:%d:%d - ", startTime.hours, startTime.minutes, startTime.seconds);
-    printf("%d:%d:%d ", stopTime.hours, stopTime.minutes, stopTime.seconds);
+    stop_time.tm_hour=hr0;
+    stop_time.tm_min=min0;
+    stop_time.tm_sec=sec0;
+    differenceBetweenTimePeriod(start_time, stop_time, &pocetno);// vreme kada je poceo da radi linux
+    printf("\nTIME DIFFERENCE: %d:%d:%d - ", start_time.tm_hour, start_time.tm_min, start_time.tm_sec);
+ /*   printf("%d:%d:%d ", stopTime.hours, stopTime.minutes, stopTime.seconds);
     printf("= %d:%d:%d\n", pocetno.hours, pocetno.minutes, pocetno.seconds);
-
+*/
 
 /*hr = sec/3600;
 This program follows the general logic of converting second to hour.ie divide the total second by 3600 thus we get the Hour,

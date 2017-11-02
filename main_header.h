@@ -55,15 +55,10 @@ GtkWidget *decrease_refresh;
 GtkWidget *file_system;
 int newsockfd;
 
+struct tm tm;
 
-struct TIME
-{
-    int seconds;
-    int minutes;
-    int hours;
-};
-struct TIME pocetno;
-void differenceBetweenTimePeriod(struct TIME t1, struct TIME t2, struct TIME *diff);
+struct tm pocetno;
+void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff);
 
 
 

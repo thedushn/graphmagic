@@ -22,11 +22,10 @@
 #define CLADDR_LEN 100
 #define PACKET_SIZE 1400
 char * test="Type the name  of the file u want to receive\n";
-char *message= "Iste su extensions mozemo da nastavimo sa slanjem";
-int num_packets;
+
 char *message2= "reci kako oces da se zove file koji ti primas\n";
 char *end ="\nend of file";
-struct _Memory_usage memory_usage;
+
 int rezultat=1;
 
 
@@ -80,7 +79,7 @@ void* primanje_interrupta(void * socket){
 
 }
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1){
-void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network,struct tm *tm){
+void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network,struct tm *tm,Memory_usage *memory_usage){
    // printf("\nusli smo tu gde treba: primanje \n");
     int  ret;
    // Memory_usage memory_usage;
@@ -107,12 +106,12 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
         // printf("slanje broja paketa nije uspelo %s\n ",buffer);
     }
     else{
-        memory_usage.percentage=data.Memory.percentage;
-        memory_usage.memory_total=data.Memory.memory_total;
-        memory_usage.swap_used=data.Memory.swap_used;
-        memory_usage.swap_percentage=data.Memory.swap_percentage;
-        memory_usage.swap_total=data.Memory.swap_total;
-        memory_usage.memory_used=data.Memory.memory_used;
+        memory_usage->percentage=data.Memory.percentage;
+        memory_usage->memory_total=data.Memory.memory_total;
+        memory_usage->swap_used=data.Memory.swap_used;
+        memory_usage->swap_percentage=data.Memory.swap_percentage;
+        memory_usage->swap_total=data.Memory.swap_total;
+        memory_usage->memory_used=data.Memory.memory_used;
     //    printf("uspelo slanje%f %lli %lli %lli \n", data.Memory.swap_percentage,data.Memory.swap_used
     //            ,data.Memory.memory_total,data.Memory.memory_used);
 

@@ -28,4 +28,5 @@ static gboolean process_cpu=TRUE;
 static gboolean process_vm_size=TRUE;
 static gboolean process_rss=TRUE;
 static gboolean process_state=TRUE;
+static gboolean process_stime=TRUE;
 #endif //GTKWORLD_BUTTONS_S_H_H

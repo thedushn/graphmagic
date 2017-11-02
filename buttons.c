@@ -21,6 +21,7 @@ void process_window(){
     button_process_vm_size=gtk_check_button_new_with_label ("VM_size");
     button_process_user=gtk_check_button_new_with_label ("User");
     button_process_prio=gtk_check_button_new_with_label ("Prio");
+    button_process_stime=gtk_check_button_new_with_label ("Stime");
 
     if(process_cpu==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_cpu),TRUE);
@@ -50,7 +51,9 @@ void process_window(){
     if(process_prio==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_prio),TRUE);
     }
-
+    if(process_stime==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_stime),TRUE);
+    }
 
 
 
@@ -67,6 +70,7 @@ void process_window(){
     gtk_box_pack_start(GTK_BOX(box2),button_process_rss,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_cpu,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_prio,1,1,0);
+    gtk_box_pack_start(GTK_BOX(box2),button_process_stime,1,1,0);
     g_signal_connect(button_process_user,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_rss,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_task,"toggled", G_CALLBACK(process_clicked), NULL);
@@ -76,6 +80,7 @@ void process_window(){
     g_signal_connect(button_process_pid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_ppid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_prio,"toggled", G_CALLBACK(process_clicked), NULL);
+    g_signal_connect(button_process_stime,"toggled", G_CALLBACK(process_clicked), NULL);
 
 
     gtk_window_set_position(GTK_WINDOW(proc_window), GTK_WIN_POS_CENTER);
@@ -507,6 +512,11 @@ void process_clicked(GtkWidget *widget){
             change_list_store_view_process(widget, process_state);
           //  process_refresh(widget,process_state );
         }
+            else if(widget==button_process_stime){
+            process_stime=TRUE;
+
+            change_list_store_view_process(widget, process_stime);
+        }
         else{
 
             process_user= TRUE;
@@ -564,6 +574,11 @@ void process_clicked(GtkWidget *widget){
             process_state= FALSE;
             change_list_store_view_process(widget, process_state);
            // process_refresh(widget,process_state );
+        }
+        else if(widget==button_process_stime){
+            process_stime=FALSE;
+
+            change_list_store_view_process(widget, process_stime);
         }
         else{
 

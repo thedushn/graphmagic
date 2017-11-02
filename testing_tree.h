@@ -60,6 +60,7 @@ enum
     COL_STATE,
     COL_UNAME,
     COL_STIME,
+    COL_DUR,
     NUM_COLS
 } ;
 
