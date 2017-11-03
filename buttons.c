@@ -8,7 +8,8 @@
 #include "testing_tree.h"
 #include "main_header.h"
 #include "buttons_s.h"
-
+#include "common.h"
+static gboolean  show_before=FALSE;
 void process_window(){
     proc_window =gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_default_size(GTK_WINDOW(proc_window), 200, 200);
@@ -232,53 +233,32 @@ void close_window() {
 
 
 };
-static gboolean  show_before=FALSE;
+
 void start_stop(int show,gchar *signal ,gchar *task_id){
-    static int gut=0;
    int ret;
+data_s data;
 
 
-    struct Sending_stuff{
-
-       int mem;
-        gboolean show;
-        gchar signal [10];
-        gchar task_id [256];
-
-    }stuff;
-//    if(gut % 2 == 0){
-//        ret=(int) send (newsockfd,mem,BUFSIZ,NULL);
-//        if(ret<0){
-//
-//            printf("nije uspelo slanje cond \n");
-//
-//        }
-//    }
-//    else
     if(show==1){
 
         show_before= !show_before;
     }
-//    else{
-//        show_before=FALSE;
-//    }
-    stuff.mem=0;
-    //printf("%s\n",stuff.mem);
-   // stuff.show=show_before;
-    stuff.show=device_all;
+
+    data.stuff.mem=0;
+    data.stuff.show=device_all;
     if(signal!="" && task_id!=""){
         for(int i=0; i<sizeof(signal);i++){
 
-            stuff.signal[i]=signal[i];
+            data.stuff.command[i]=signal[i];
         }
         for(int i=0; i<sizeof(task_id);i++){
 
-            stuff.task_id[i]=task_id[i];
+            data.stuff.task_id[i]=task_id[i];
         }
     }
 
-    printf("sHOW %s\n", stuff.show==TRUE ? "TRUE" : "FALSE");
-        ret=(int) send (newsockfd,&stuff,sizeof(stuff),0);
+    printf("sHOW %s\n", data.stuff.show==TRUE ? "TRUE" : "FALSE");
+        ret=(int) send (newsockfd,&data,sizeof(data),0);
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
@@ -352,11 +332,7 @@ void show_all(GtkWidget *widget){
         device_all=FALSE;
      start_stop(1,"","");
 
-//    int ret=(int)send(newsockfd,&device_all,sizeof(gboolean),NULL);
-//    if(ret<0){
-//
-//        printf("boolean wasnt sent \n");
-//    }
+
     printf("boolean was sent \n");
     timeout_refresh();
 
@@ -911,7 +887,7 @@ gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *even
     }
     return FALSE;
 }
-void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
+void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step) {
     int width, height;
     float font_size = 12;
     double step;
@@ -936,7 +912,7 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     cairo_set_font_size(cr, font_size);
 
 
-    graph_surface= crtaj_surface(cr,width,height);
+    graph_surface=cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
 
     //okvir
     //   crtaj_procent_linije(cr, width,height, font_size, 3);
@@ -947,7 +923,7 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     //procenti
     crtaj_procente(cr, height, font_size);
     //sekunde //secund linije
-    crtaj_sekunde(cr, width, height, font_size, 3);
+    crtaj_sekunde(cr, width, height, font_size, 3,6);
 
 
 //    printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
@@ -957,16 +933,16 @@ void do_drawing2(GtkWidget *widget,cairo_t *cr,guint bjorg,guint time_step) {
     if(CPU0_line==TRUE){
 
 
-        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size, step,0);
     }
     if(CPU1_line==TRUE){
-        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size, step,0);
     }
     if(CPU2_line==TRUE){
-        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size, step,0);
     }
     if(CPU3_line==TRUE){
-        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size, step);
+        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size, step,0);
     }
 
 

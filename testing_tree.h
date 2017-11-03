@@ -64,4 +64,19 @@ enum
     NUM_COLS
 } ;
 
+enum{
+
+    COL_DEV=0,
+    COL_DIR,
+    COL_TYPE,
+    COL_TOTAL,
+    COL_AVAILABLE,
+    COL_USED,
+    COL_FREE,
+    NUM_COLS_DEV
+
+
+};
+
+
 #endif //GTKWORLD_TESTING_TREE_H

@@ -6,11 +6,9 @@
 
 #include "testing_tree.h"
 #include "buttons.h"
-#include "memory_usage.h"
-#include "cpu_usage.h"
 
-//struct _Memory_usage memory_usage;
-struct _Cpu_usage cpu[4];
+
+
   GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
 
@@ -249,7 +247,7 @@ void swap_change(gpointer data,Memory_usage *memory_usage){
  g_array_prepend_val(history[7],  j);
  if (history[7]->len > 1)
   g_array_remove_index (history[7], history[7]->len - 1);
- swap_usage_text = g_strdup_printf(("SWAP: %0.2f%% (%s) %s"),memory_usage->swap_percentage,swap_used,swap_total);
+    gchar* swap_usage_text = g_strdup_printf(("SWAP: %0.2f%% (%s) %s"),memory_usage->swap_percentage,swap_used,swap_total);
  gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
  g_free(swap_usage_text);
  g_free(swap_total);
@@ -285,23 +283,46 @@ void memory_change(gpointer data,Memory_usage *memory_usage){
  g_free(used);
 
 }
-gboolean time_change(gpointer data,struct tm *tm){
+void time_change(gpointer data,struct tm *tm){
 
 
   gchar *time = g_strdup_printf(("Year: %d Month-%d Day-%d  Hour:%d Min:%d Sec:%d"), tm->tm_year ,
                                 tm->tm_mon , tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
  gtk_label_set_text (GTK_LABEL (data),time);
  g_free(time);
- return TRUE;
+
 
 }
-gboolean  cpu_change(Cpu_usage1 *cpu_usage1){
+void  cpu_change(Cpu_usage1 *cpu_usage1){
+
+
+
+
+
+    g_array_prepend_val(history[0], cpu_usage1->percentage0);
+    if (history[0]->len > 1)
+        g_array_remove_index (history[0], history[0]->len - 1);
+
+    g_array_prepend_val(history[1], cpu_usage1->percentage1);
+    if (history[1]->len > 1)
+        g_array_remove_index (history[1], history[1]->len - 1);
+
+    g_array_prepend_val(history[2], cpu_usage1->percentage2);
+    if (history[2]->len > 1)
+        g_array_remove_index (history[2], history[2]->len - 1);
+
+    g_array_prepend_val(history[3], cpu_usage1->percentage3);
+    if (history[3]->len > 1)
+        g_array_remove_index (history[3], history[3]->len - 1);
+
+
+
 
     ////vratiti nazad
-    cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 0, cpu_usage1->percentage0);
-    cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
-    cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 2,  cpu_usage1->percentage2);
-    cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);
+  gchar*  cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 0, cpu_usage1->percentage0);
+    gchar*   cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
+    gchar*   cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 2,  cpu_usage1->percentage2);
+    gchar*  cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);
 
     gtk_label_set_text (GTK_LABEL (label3),cpu0_usage_text);
     gtk_label_set_text (GTK_LABEL (label4),cpu1_usage_text);
@@ -313,9 +334,35 @@ gboolean  cpu_change(Cpu_usage1 *cpu_usage1){
     g_free(cpu2_usage_text);
     g_free(cpu3_usage_text);
     ////vratiti nazad
-    return TRUE;
+
 
 };
+void network_change_rc(gpointer data,gpointer data2,Network *network){
 
+
+
+    float net_kb =  network->received_bytes/1024;
+    float net_kb_tr=network->transmited_bytes/1024;
+
+    g_array_prepend_val(history[5], net_kb_tr);
+    if (history[5]->len > 1)
+        g_array_remove_index (history[5], history[5]->len - 1);
+    g_array_prepend_val(history[4], net_kb);
+    if (history[4]->len > 1)
+        g_array_remove_index (history[4], history[4]->len - 1);
+
+    gchar *  rec_bytes = g_format_size_full(network->received_bytes, G_FORMAT_SIZE_IEC_UNITS);
+    gchar *    rec_tr_bytes=g_format_size_full(network->transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
+    gchar*   network_usage_received_text =g_strdup_printf("RECEIVED:  %s/s",rec_bytes);
+    gchar*  network_usage_transimited_text =g_strdup_printf("TRANSMITED: %s/s",rec_tr_bytes);
+    gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
+
+    gtk_label_set_text (GTK_LABEL (data2),network_usage_transimited_text);
+    g_free(rec_bytes);
+    g_free(rec_tr_bytes);
+    g_free(network_usage_received_text);
+    g_free(network_usage_transimited_text);
+
+}
 
 

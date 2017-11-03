@@ -4,9 +4,9 @@
 
 #include "testing_tree.h"
 #include "buttons.h"
-#include "devices.h"
+
 #include "main_header.h"
-#include "task_manager.h"
+#include "common.h"
 
 
 
@@ -320,7 +320,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         rss = g_format_size_full(task->rss, G_FORMAT_SIZE_IEC_UNITS);
         vsz = g_format_size_full(task->vsz, G_FORMAT_SIZE_IEC_UNITS);
 
-        g_snprintf(value, 14, (more_precision) ? "%.2f" : "%.f", task->cpu_user + task->cpu_system);
+        g_snprintf(value, 14, "%.f", task->cpu_user + task->cpu_system);
 
         g_snprintf(cpu, 16, ("%s%%"), value);
         gchar *pid = g_strdup_printf("%i", task->pid);
@@ -331,7 +331,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gchar *uname = g_strdup_printf("%s", task->uid_name);
         prio=  g_strdup_printf("%hi", task->prio);
      //   stime= g_strdup_printf("%ld", task->start_time/100);//sec
-        int sec, hr, min, t;
+        /*int sec, hr, min, t;
 
 
 
@@ -359,10 +359,10 @@ void fill_list_item(gint i, GtkTreeIter *iter)
             h=m/60;
             m=m%60;
         }
-        h=h+pocetno.tm_hour+hr;
+        h=h+pocetno.tm_hour+hr;*/
 
 
-        stime= g_strdup_printf("%d:%d:%d",h,m,s);
+        stime= g_strdup_printf("%d:%d:%d",task->stime.tm_hour,task->stime.tm_min,task->stime.tm_sec);
       //  duration= g_strdup_printf("%d:%d:%d",h,m,s);
      /*   struct tm  start_time, diff;
 
@@ -728,6 +728,8 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
             }
 
             ret2=isize- isize1;
+            g_free(s1);
+            g_free(s2);
             return ret2;
         }
 

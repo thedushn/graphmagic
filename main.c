@@ -1,59 +1,47 @@
-#include "cpu_usage.h"
-#include "network_bandwith.h"
+
 #include "interrupts.h"
-#include "task_manager.h"
+
 
 #include "drawing.h"
 
 
 #include "testing_tree.h"
-#include "memory_usage.h"
 #include "window.h"
-#include "common.h"
+
 #include "buttons.h"
-#include "buttons_s.h"
-#include"sys/types.h"
+
 #include"sys/socket.h"
-#include"stdio.h"
-#include"stdlib.h"
-#include"sys/types.h"
-#include"sys/socket.h"
-#include"string.h"
+
 #include"netinet/in.h"
-#include"pthread.h"
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
+
 #include <arpa/inet.h>
 #include "functions.h"
-#include <time.h>
 #define BUF_SIZE 2000
 #define CLADDR_LEN 100
-#define PACKET_SIZE 1400
-#define PORT_NUM 5004
-long int clock_ticks;
 
-pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+
+
+
+
 
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
     if (widget == graph1) {
 
-        do_drawing2(widget, cr, bjorg, time_step);
+        do_drawing_cpu(widget, cr, bjorg, time_step);
     }
     else if (widget == graph2) {
 
-        do_drawing(widget, cr, bjorg2);
+        do_drawing_net(widget, cr, bjorg, time_step);
     }
     else if (widget == graph3) {
 
-        do_drawing3(widget, cr, bjorg, time_step);
+        do_drawing_mem(widget, cr, bjorg, time_step);
     }
     else  if (widget == graph4) {
 
-        //do_drawing4(widget, cr);
-        do_drawing4(widget, cr,interrupt_array_d);
+        do_drawing_int(widget, cr);
+       // do_drawing_int(widget, cr,interrupt_array_d);
     }
 return TRUE;
 
@@ -176,9 +164,9 @@ void conekcija(gchar * argv){
     struct sockaddr_in addr ,cl_addr;
     int sockfd, len ,ret, ret1;
     char buffer[BUF_SIZE];
-    char buffer2[BUF_SIZE];
+
     char clientAddr[CLADDR_LEN];
-    pthread_t t1,t2;
+
 //    if(argc <2){
 //
 //        printf("no port provided");
@@ -259,15 +247,21 @@ void *init_timeout() {
     //new_interrupt_list=interrupt_usage();
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
    g_array_free(interrupt_array_temp,TRUE);
+   // g_array_unref(interrupt_array_temp);
     interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
 
+
+
+
     upis(new_interrupt_list,interrupt_array_temp);
+
+
   //  interrupt_array_temp=interrupt_usage();
     //   printf("%d\n",interrupt_array_temp->len);
 
 
 //    received_transfered();
-    network_change_rc(label7,&network);
+    network_change_rc(label7,label8,&network);
     time_change(label_time, &tm);
 //    network_change_ts(label8);
     bjorg2++;
@@ -437,8 +431,7 @@ void *init_timeout() {
             tasks_num++;
         }
     }
-    cpu_percent_change(&cpu_usage1);//nije ovde
-//get_memory_usage();//nije ovde
+
 
 
 
@@ -481,7 +474,7 @@ void *init_timeout() {
 int main(int argc, char *argv[]) {
 
 
-    long int uptime;
+
 
 gtk_init(&argc, &argv);
         if(argc<2){
@@ -491,57 +484,8 @@ gtk_init(&argc, &argv);
         }
 
     conekcija(argv[1]);
-    int ret =(int) recvfrom(newsockfd,&clock_ticks,sizeof(long int),0,0,0 );
-    if(ret<0){
-
-        printf("failed to get clock ticks %d \n",ret);
-        exit(1);
-    }
-    printf("clock ticks %ld \n",clock_ticks);
-    ret =(int) recvfrom(newsockfd,&uptime,sizeof(unsigned long),0,0,0 );
-    if(ret<0){
-
-        printf("failed to get uptime %d \n",ret);
-        exit(1);
-    }
-    struct tm start_time;
-    ret = (int) recvfrom(newsockfd, &start_time, sizeof(start_time), 0,0,0); //lokalno vreme
-    if (ret<0) {
-        printf("ERROR: Return Code  is %d\n", ret);
-        exit(1);
-    }
-    printf("uptime %lu \n",uptime);
-
-    int sec0, hr0, min0, t0;
-
-    struct tm  stop_time;
 
 
-
-
-
-
-    hr0 = uptime/3600;
-    t0 = uptime%3600;
-    min0 = t0/60;
-    sec0 = t0%60;
-    stop_time.tm_hour=hr0;
-    stop_time.tm_min=min0;
-    stop_time.tm_sec=sec0;
-    differenceBetweenTimePeriod(start_time, stop_time, &pocetno);// vreme kada je poceo da radi linux
-    printf("\nTIME DIFFERENCE: %d:%d:%d - ", start_time.tm_hour, start_time.tm_min, start_time.tm_sec);
- /*   printf("%d:%d:%d ", stopTime.hours, stopTime.minutes, stopTime.seconds);
-    printf("= %d:%d:%d\n", pocetno.hours, pocetno.minutes, pocetno.seconds);
-*/
-
-/*hr = sec/3600;
-This program follows the general logic of converting second to hour.ie divide the total second by 3600 thus we get the Hour,
-t = sec%3600
-Then make a modular division on the total second ,thus we get the remaining seconds that can not form a hour.
-min = t/60;
-divide the 't' (seconds)with 60 ,then we get the remaining minutes.
-sec = t%60;
-modular division on the 't' result in the remaining seconds....*/
 
 
     dev_swindow = gtk_scrolled_window_new(NULL,
@@ -555,20 +499,20 @@ modular division on the 't' result in the remaining seconds....*/
 
 
 
-    ncpu = cpu_number();
 
-    interface_name();
-    //array_interrupts();
+
+
+
 
 
 
     task_array=g_array_new (FALSE, FALSE, sizeof (Task));
 
     interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
-    interrupt_array_d=g_array_new (FALSE, TRUE, sizeof (Interrupts));
+    interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
+    g_array_set_size(interrupt_array_d, 10);
 
 
-    //names_temp=g_array_new (FALSE, FALSE, sizeof (Devices));
     names_array=g_array_new (FALSE, FALSE, sizeof (Devices));
 
 
@@ -583,7 +527,7 @@ modular division on the 't' result in the remaining seconds....*/
     }
     for (int i = 4; i <= 5; i++) {
 
-        g_array_set_size(history[i], 60);
+        g_array_set_size(history[i], 240);
     }
     for (int i = 6; i <= 7; i++) {
 
@@ -613,9 +557,9 @@ modular division on the 't' result in the remaining seconds....*/
 
 
     g_signal_connect(button_graph, "clicked", G_CALLBACK(graph_button_clicked), NULL);
- //   g_signal_connect(button_condition, "clicked", G_CALLBACK(start_stop), NULL);
-    g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
 
+    g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
+    init_timeout();
 
     g_signal_connect(G_OBJECT(graph1), "draw",
                      G_CALLBACK(on_draw_event), NULL);
@@ -627,9 +571,8 @@ modular division on the 't' result in the remaining seconds....*/
                      G_CALLBACK(on_draw_event), NULL);
 
 
-
   //  g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
-        init_timeout();
+
 
 
 // pthread_create(&t1,NULL,init_timeout,NULL);

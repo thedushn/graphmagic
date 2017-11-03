@@ -70,14 +70,10 @@ GtkWidget *view2;
 
 
 
-gchar *memory_usage_text;
-gchar *swap_usage_text;
-gchar *cpu0_usage_text;
-gchar *cpu1_usage_text;
-gchar *cpu2_usage_text;
-gchar *cpu3_usage_text;
-gchar *network_usage_received_text;
-gchar *network_usage_transimited_text;
+
+
+
+
 
 GArray *history[9];
 GArray *task_array;
@@ -86,7 +82,7 @@ GArray *names_array;
 GArray *interrupt_array_d;
  GArray *interrupt_array_temp;
 
-//static cairo_surface_t *surface = NULL;
+
 
 void *init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
@@ -98,10 +94,8 @@ static gboolean time_handler(GtkWidget *widget);
 
 
 
-gboolean show_user_tasks;
-gboolean show_root_tasks;
-gboolean show_other_tasks;
-gint own_uid;
+
+
 void dec_refresh();
 void inc_refresh();
 
@@ -112,26 +106,14 @@ void timeout_refresh();
 gint tasks_num;
 gint dev_num;
 
-enum{
 
-    COL_DEV=0,
-    COL_DIR,
-    COL_TYPE,
-    COL_TOTAL,
-    COL_AVAILABLE,
-    COL_USED,
-    COL_FREE,
-    NUM_COLS_DEV
-
-
-};
 
 
 GtkTreeStore *list_store;
 GtkTreeStore *list_store1;
 
 
-gboolean show_cached_as_free; /* Show memory used Cache as free memory */
+
 
 
 GtkWidget *taskpopup;
