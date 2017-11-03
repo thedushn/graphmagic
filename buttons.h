@@ -13,20 +13,8 @@ typedef struct _Signal  Signal;
 
             };
 
-typedef  struct _Sending_stuff Sending_stuff;
-struct _Sending_stuff{
-
-    int mem;
-    gboolean show;
-
-};
-union Stuff {
 
 
-    Sending_stuff sending_stuff;
-    Signal signal1;
-
-};
 
 
 

@@ -82,12 +82,13 @@ void upis(GArray *array,GArray *array2){
 
 //   for (int r = 0; r <= ginterrupts->len; r++) {//// staviti samo manje
    for (guint r = 0; r < array->len; r++) {
-        //Interrupts interrupts3={0};
+
         Interrupts interrupts3={0};
-        Interrupts *interrupts1;
-    //    interrupts1 = &g_array_index(array, Interrupts, r);
-        interrupts1 = &g_array_index(array, Interrupts, r);
-        //  printf("%lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+     //   Interrupts *interrupts1;
+
+       // interrupts1 = &g_array_index(array, Interrupts, r);
+        interrupts3 = g_array_index(array, Interrupts, r);
+    /*
         interrupts3.name[0]=interrupts1->name[0];
         interrupts3.name[1]=interrupts1->name[1];
         interrupts3.name[2]=interrupts1->name[2];
@@ -98,7 +99,8 @@ void upis(GArray *array,GArray *array2){
         interrupts3.CPU2=interrupts1->CPU2;
         interrupts3.CPU3=interrupts1->CPU3;
 
-       upis_imena( interrupts1 , &interrupts3);
+       upis_imena( interrupts1 , &interrupts3);*/
+
 
         g_array_insert_val(array2,r,interrupts3);
        // g_array_append_val(array2,interrupts3);
@@ -116,7 +118,8 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
     Interrupts *interruptstest = &g_array_index(array2,Interrupts,i);//uzmemo vrednost
 
     if(interruptstest==NULL){
-        upis(array,array2);
+        //upis(array,array2);
+        array2=array;
 
     }
 //    if(array2->len<1){
@@ -127,6 +130,11 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
 
         g_array_remove_index(array3, 0);
     }
+ /*   if(array3->len>0){
+
+        g_array_free(array3,TRUE);
+        array3=g_array_new(FALSE,FALSE,sizeof(Interrupts));
+    }*/
     for (int r = 0; r < array->len; r++) {
         Interrupts interrupts3={0};
         Interrupts *interrupts1=&g_array_index(array,Interrupts,r);
