@@ -7,11 +7,38 @@
 #include "testing_tree.h"
 #include "buttons.h"
 
+GtkWidget *vbox;
+GtkWidget *hbox;
+GtkWidget *hbox1;
+GtkWidget *hbox3;
+GtkWidget *hbox2;
+
+GtkWidget *label_rec;
+GtkWidget *label_trans;
+
+GtkWidget *label_cpu0;
+
+GtkWidget *label_mem;
+GtkWidget *label_swap;
+GtkWidget *label_time;
 
 
   GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
 
+      GtkWidget *menubar;
+      GtkWidget *filemenu;
+      GtkWidget *speed;
+      GtkWidget *devices_menu;
+      GtkWidget *filemenu2;
+      GtkWidget *quit;
+      GtkWidget *increase_refresh;
+      GtkWidget *decrease_refresh;
+      GtkWidget *file_system;
 
+      GtkWidget *frame1;
+      GtkWidget *frame2;
+      GtkWidget *frame3;
+      GtkWidget *frame4;
    GtkWidget *window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_position(GTK_WINDOW(window1), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window1), 1400, 800);
@@ -45,8 +72,8 @@
     increase_refresh = gtk_menu_item_new_with_label("+250");
     decrease_refresh = gtk_menu_item_new_with_label("-250");
     file_system = gtk_menu_item_new_with_label("file_systems");
-    GtkWidget *new = gtk_menu_item_new_with_label("return");
-    GtkWidget *test = gtk_menu_item_new_with_label("flush");
+   // GtkWidget *new = gtk_menu_item_new_with_label("return");
+   // GtkWidget *test = gtk_menu_item_new_with_label("flush");
     quit = gtk_menu_item_new_with_label("Quit");
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(speed), filemenu);
@@ -72,8 +99,8 @@
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(process_menu), filemenu3);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), file_system);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu3), process_item);
-    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), new);
-    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), test);
+ //   gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), new);
+  //  gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), test);
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), devices_menu);
 
@@ -83,8 +110,8 @@
     g_signal_connect(increase_refresh, "activate", G_CALLBACK(inc_refresh), NULL);
     g_signal_connect(decrease_refresh, "activate", G_CALLBACK(dec_refresh), NULL);
     g_signal_connect(file_system, "activate", G_CALLBACK(device_window), NULL);
-    g_signal_connect(new, "activate", G_CALLBACK(new_button_clicked2), NULL);
-    g_signal_connect(test, "activate", G_CALLBACK(clean_button), NULL);
+  //  g_signal_connect(new, "activate", G_CALLBACK(new_button_clicked2), NULL);
+  //  g_signal_connect(test, "activate", G_CALLBACK(clean_button), NULL);
     g_signal_connect(process_item, "activate", G_CALLBACK(process_window), NULL);
 //   g_signal_connect(graph_window, "activate", G_CALLBACK(graph_button_clicked), NULL);
 
@@ -149,14 +176,14 @@
     frame4 = gtk_frame_new(NULL);
 
 
-    label = gtk_label_new(NULL);//memory
-    label1 = gtk_label_new(NULL);//swap
-    label3 = gtk_label_new(NULL);//cpu1
-    label4 = gtk_label_new(NULL);//cpu2
-    label5 = gtk_label_new(NULL);//cpu3
-    label6 = gtk_label_new(NULL);//cpu4
-    label7 = gtk_label_new(NULL);//network_received
-    label8 = gtk_label_new(NULL);//network_transimited
+    label_rec = gtk_label_new(NULL);//memory
+    label_trans = gtk_label_new(NULL);//swap
+    label_cpu0 = gtk_label_new(NULL);//cpu1
+/*    label_cpu1 = gtk_label_new(NULL);//cpu2
+    label_cpu2 = gtk_label_new(NULL);//cpu3
+    label_cpu3 = gtk_label_new(NULL);//cpu4*/
+    label_mem = gtk_label_new(NULL);//network_received
+    label_swap = gtk_label_new(NULL);//network_transimited
     label_time = gtk_label_new(NULL);//time(local)
 
 
@@ -171,12 +198,12 @@
     gtk_box_pack_start(GTK_BOX(hbox), button_dev, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_graph, 0, 0, 0);
   //  gtk_box_pack_start(GTK_BOX(hbox), button_condition, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label3, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label4, 0, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(hbox), label5, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label6, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label8, 1, 1, 1);
-    gtk_box_pack_start(GTK_BOX(hbox), label7, 1, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(hbox), label_cpu0, 0, 0, 0);
+  /*  gtk_box_pack_start(GTK_BOX(hbox), label_cpu1, 0, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(hbox), label_cpu2, 0, 0, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), label_cpu3, 0, 0, 0);*/
+    gtk_box_pack_start(GTK_BOX(hbox), label_rec, 1, 1, 1);
+    gtk_box_pack_start(GTK_BOX(hbox), label_trans, 1, TRUE, 1);
 
 
 
@@ -190,10 +217,10 @@
     gtk_box_pack_start(GTK_BOX(vbox), hbox2, 0, FALSE, 0);
 
 //  gtk_box_pack_start(GTK_BOX(hbox2), button4, 0, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(hbox2), label, 0, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(hbox2), label1, 0, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(hbox2), label_mem, 0, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(hbox2), label_swap, 0, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(hbox2), label_time, 0, 0,1 );
-//    gtk_box_pack_start(GTK_BOX(hbox2), label7, 1, TRUE, 1);
+//    gtk_box_pack_start(GTK_BOX(hbox2), label_mem, 1, TRUE, 1);
 
 
 
@@ -233,7 +260,7 @@ void quit_activated() {
     gtk_main_quit();
 };
 
-void swap_change(gpointer data,Memory_usage *memory_usage){
+void swap_change(Memory_usage *memory_usage){
 
 
 
@@ -248,13 +275,13 @@ void swap_change(gpointer data,Memory_usage *memory_usage){
  if (history[7]->len > 1)
   g_array_remove_index (history[7], history[7]->len - 1);
     gchar* swap_usage_text = g_strdup_printf(("SWAP: %0.2f%% (%s) %s"),memory_usage->swap_percentage,swap_used,swap_total);
- gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
+ gtk_label_set_text (GTK_LABEL (label_swap), swap_usage_text);
  g_free(swap_usage_text);
  g_free(swap_total);
  g_free(swap_used);
 
 }
-void memory_change(gpointer data,Memory_usage *memory_usage){
+void memory_change(Memory_usage *memory_usage){
 
 
  gchar *used,*total,*memory_usage_text1;
@@ -277,18 +304,18 @@ void memory_change(gpointer data,Memory_usage *memory_usage){
 
 
  memory_usage_text1 = g_strdup_printf (("Memory: %0.2f%%(%s)%s"),memory_usage->percentage,used,total);
- gtk_label_set_text (GTK_LABEL (data), memory_usage_text1);
+ gtk_label_set_text (GTK_LABEL (label_mem), memory_usage_text1);
  g_free(memory_usage_text1);
  g_free(total);
  g_free(used);
 
 }
-void time_change(gpointer data,struct tm *tm){
+void time_change(struct tm *tm){
 
 
   gchar *time = g_strdup_printf(("Year: %d Month-%d Day-%d  Hour:%d Min:%d Sec:%d"), tm->tm_year ,
                                 tm->tm_mon , tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
- gtk_label_set_text (GTK_LABEL (data),time);
+ gtk_label_set_text (GTK_LABEL (label_time),time);
  g_free(time);
 
 
@@ -319,25 +346,29 @@ void  cpu_change(Cpu_usage1 *cpu_usage1){
 
 
     ////vratiti nazad
-  gchar*  cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 0, cpu_usage1->percentage0);
-    gchar*   cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
+  gchar*  cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%% CPU%d: %2.f%%CPU%d: %2.f%%CPU%d: %2.f%%"), 0, cpu_usage1->percentage0,
+                                            1,  cpu_usage1->percentage1
+          , 2,  cpu_usage1->percentage2
+          , 3,  cpu_usage1->percentage3
+  );
+    /*gchar*   cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
     gchar*   cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 2,  cpu_usage1->percentage2);
-    gchar*  cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);
+    gchar*  cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);*/
 
-    gtk_label_set_text (GTK_LABEL (label3),cpu0_usage_text);
-    gtk_label_set_text (GTK_LABEL (label4),cpu1_usage_text);
-    gtk_label_set_text (GTK_LABEL (label5),cpu2_usage_text);
-    gtk_label_set_text (GTK_LABEL (label6),cpu3_usage_text);
+    gtk_label_set_text (GTK_LABEL (label_cpu0),cpu0_usage_text);
+ /*   gtk_label_set_text (GTK_LABEL (label_cpu1),cpu1_usage_text);
+    gtk_label_set_text (GTK_LABEL (label_cpu2),cpu2_usage_text);
+    gtk_label_set_text (GTK_LABEL (label_cpu3),cpu3_usage_text);*/
 
     g_free(cpu0_usage_text);
-    g_free(cpu1_usage_text);
+   /* g_free(cpu1_usage_text);
     g_free(cpu2_usage_text);
-    g_free(cpu3_usage_text);
+    g_free(cpu3_usage_text);*/
     ////vratiti nazad
 
 
 };
-void network_change_rc(gpointer data,gpointer data2,Network *network){
+void network_change_rc(Network *network){
 
 
 
@@ -355,9 +386,9 @@ void network_change_rc(gpointer data,gpointer data2,Network *network){
     gchar *    rec_tr_bytes=g_format_size_full(network->transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
     gchar*   network_usage_received_text =g_strdup_printf("RECEIVED:  %s/s",rec_bytes);
     gchar*  network_usage_transimited_text =g_strdup_printf("TRANSMITED: %s/s",rec_tr_bytes);
-    gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
+    gtk_label_set_text (GTK_LABEL (label_rec),network_usage_received_text);
 
-    gtk_label_set_text (GTK_LABEL (data2),network_usage_transimited_text);
+    gtk_label_set_text (GTK_LABEL (label_trans),network_usage_transimited_text);
     g_free(rec_bytes);
     g_free(rec_tr_bytes);
     g_free(network_usage_received_text);

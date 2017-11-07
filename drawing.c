@@ -8,7 +8,7 @@
 
 
 
-cairo_t *ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2){
+void ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2){
 
     size_t j;
     size_t g=11;//toliko slova moze da stane u jedan red
@@ -118,7 +118,7 @@ cairo_t *ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar 
     }
 
 
-return cr;
+//return cr;
 }
 void ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4){
 
@@ -126,13 +126,13 @@ void ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1
 
     if(ime4[0]!='\0'){
 
-       cr= ispis_interrupta2(cr,font_size,duzina,i,ime3,ime4);
+      /* cr=*/ ispis_interrupta2(cr,font_size,duzina,i,ime3,ime4);
     }
 
     if(ime4[0]=='\0'){
 
         if(ime3[0]!='\0'){
-           cr= ispis_interrupta2(cr,font_size,duzina,i ,ime2,ime3);
+         /*  cr=*/ ispis_interrupta2(cr,font_size,duzina,i ,ime2,ime3);
 
         }
 
@@ -156,6 +156,8 @@ void ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1
             }
         }
     }
+
+
 
 
 
@@ -545,6 +547,7 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr){
         crtaj_interrupte(cr, i, peak, height, font_size, max_broj, duzina);
 
     }
+
     if (graph_surface != NULL)
     {
         cairo_set_source_surface (cr, graph_surface, 0.0, 0.0);

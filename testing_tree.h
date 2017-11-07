@@ -20,6 +20,10 @@ GtkTreeSelection *selection1;
 GtkWidget *treeview;
 GtkWidget *treeview1;
 
+GtkTreeStore *list_store;
+GtkTreeStore *list_store1;
+
+
 gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 
 
@@ -27,7 +31,7 @@ gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter 
 
 
 void remove_list_item(gint pid);
-void remove_list_item_device(gchar *directory,gchar *name,gchar *type);
+void remove_list_item_device(gchar *directory,gchar *name);
 void refresh_list_item(gint i);
 void refresh_list_item_device(gint i);
 void fill_list_item(gint i, GtkTreeIter *iter);

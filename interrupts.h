@@ -20,7 +20,7 @@
 
 
 #include <stdlib.h>
-#include "interrupts_s.h"
+#include "common.h"
 //typedef struct _Interrupts Interrupts;
 GArray * interrupt_usage();
 void upis(GArray *array,GArray *array2);

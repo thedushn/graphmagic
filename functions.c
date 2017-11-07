@@ -10,68 +10,20 @@
 #include"pthread.h"
 
 #include "functions.h"
-#include "main_header.h"
+
 #define BUF_SIZE 2000
 #define CLADDR_LEN 100
 
 
-int rezultat=1;
-
-
-/*void* primanje_interrupta(void * socket){
-    printf("\nusli smo tu gde treba: primanje_inter \n");
-    int  ret;
-    // Memory_usage memory_usage;
-    char buffer[BUF_SIZE];
-    memset(buffer, 0, BUF_SIZE);
-
-    char buffer2[BUF_SIZE];
-    char buffer_file[BUF_SIZE];
-    char num_packets[BUF_SIZE];
-    memset(num_packets, 0, BUF_SIZE);
-    memset(buffer_file, 0, BUF_SIZE);
-    memset(buffer2, 0, BUF_SIZE);
-    ssize_t dataReceived;
-    int NUM;
-    struct	my_thread_info *info = socket;
-    data_s interrupts;
-    Interrupts interrupts1;
-    ret=(int )recvfrom(info->thread_socket,&NUM, sizeof(int), 0,NULL,NULL);
-    if(ret<0){
-
-        printf("Error receving data! %d",NUM);
-    }
-    printf("BROJ INT %d",NUM);
-    for(int i=0 ;i<NUM;i++){
-        ret = (int )recvfrom(info->thread_socket,&interrupts, sizeof(data_s), 0,NULL,NULL);
-        // ret = (int )recv(info->thread_socket,buffer, BUF_SIZE, 0);
-        if (ret < 0) {
-            printf("Error receving data!\n\t %lu  %s %s %s   \n", interrupts.interrupts.CPU0,interrupts.interrupts.name,
-                   interrupts.interrupts.ime1,interrupts.interrupts.ime2);
-            // printf("slanje broja paketa nije uspelo %s\n ",buffer);
-        }
-        else
-            printf(" Receving data!\n\t %lu %lu %lu %lu %s %s %s \n", interrupts.interrupts.CPU0,
-                   interrupts.interrupts.CPU1,
-                   interrupts.interrupts.CPU2,
-                   interrupts.interrupts.CPU3,interrupts.interrupts.name,
-                   interrupts.interrupts.ime1,interrupts.interrupts.ime2);
-
-
-        //   }
-
-        interrupts1.CPU0=interrupts.interrupts.CPU0;
-    }
 
 
 
 
-}*/
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1){
 void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network,struct tm *tm,Memory_usage *memory_usage){
 
     int  ret;
-    int num;
+    guint num;
 
     struct	my_thread_info *info = socket;
     data_s data;
@@ -165,7 +117,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
  // GArray  * array_tasks=g_array_new (FALSE, FALSE, sizeof (Task));
 
 //
-    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),0,NULL,NULL);
+    ret= (int)recvfrom(info->thread_socket,&num,sizeof(guint),0,NULL,NULL);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
 
@@ -185,7 +137,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
         g_array_append_val(array_tasks,data.task);
 
     }
-    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),0,NULL,NULL);
+    ret= (int)recvfrom(info->thread_socket,&num,sizeof(guint),0,NULL,NULL);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
 
@@ -219,7 +171,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
 
 
 struct tm tm1;
-    ret = (int) recvfrom(newsockfd, &tm1, sizeof(tm1), 0,0,0);
+    ret = (int) recvfrom(info->thread_socket, &tm1, sizeof(tm1), 0,0,0);
     if (ret<0) {
         printf("ERROR: Return Code  is %d\n", ret);
         exit(1);

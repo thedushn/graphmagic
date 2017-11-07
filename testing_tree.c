@@ -272,10 +272,14 @@ void change_list_store_view_process(GtkWidget *widget, gboolean visible)
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 8), visible);
 
     }
-    else{
+    else if(button_process_stime==widget){
 
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 9), visible);
     }
+    else {
+
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 10), visible);
+    }
 
 
 }
@@ -288,22 +292,7 @@ void change_list_store_view_process(GtkWidget *widget, gboolean visible)
 
 
 
-void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff)
-{
-    if(stop.tm_sec > start.tm_sec){
-        --start.tm_min;
-        start.tm_sec += 60;
-    }
 
-    diff->tm_sec = start.tm_sec - stop.tm_sec;
-    if(stop.tm_min > start.tm_min){
-        --start.tm_hour;
-        start.tm_min += 60;
-    }
-
-    diff->tm_min = start.tm_min - stop.tm_min;
-    diff->tm_hour = start.tm_hour - stop.tm_hour;
-}
 
 void fill_list_item(gint i, GtkTreeIter *iter)
 {
@@ -532,7 +521,7 @@ void remove_list_item(gint pid)
         valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(list_store), &iter);
     }
 }
-void remove_list_item_device(gchar *directory,gchar *name,gchar *type)
+void remove_list_item_device(gchar *directory,gchar *name)
 {
     GtkTreeIter iter;
     gboolean valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(list_store1), &iter);

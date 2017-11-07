@@ -84,10 +84,11 @@ void upis(GArray *array,GArray *array2){
    for (guint r = 0; r < array->len; r++) {
 
         Interrupts interrupts3={0};
-     //   Interrupts *interrupts1;
+
 
        // interrupts1 = &g_array_index(array, Interrupts, r);
         interrupts3 = g_array_index(array, Interrupts, r);
+
     /*
         interrupts3.name[0]=interrupts1->name[0];
         interrupts3.name[1]=interrupts1->name[1];
@@ -101,6 +102,8 @@ void upis(GArray *array,GArray *array2){
 
        upis_imena( interrupts1 , &interrupts3);*/
 
+
+        //g_array_insert_val(array2,r,interrupts3);
 
         g_array_insert_val(array2,r,interrupts3);
        // g_array_append_val(array2,interrupts3);

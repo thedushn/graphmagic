@@ -10,7 +10,10 @@
 #include "buttons_s.h"
 #include "common.h"
 static gboolean  show_before=FALSE;
+
 void process_window(){
+    GtkWidget *box2;
+    GtkWidget *proc_window;
     proc_window =gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_default_size(GTK_WINDOW(proc_window), 200, 200);
     button_process_cpu=gtk_check_button_new_with_label ("CPU");
@@ -23,6 +26,7 @@ void process_window(){
     button_process_user=gtk_check_button_new_with_label ("User");
     button_process_prio=gtk_check_button_new_with_label ("Prio");
     button_process_stime=gtk_check_button_new_with_label ("Stime");
+    button_process_duration=gtk_check_button_new_with_label ("Duration");
 
     if(process_cpu==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_cpu),TRUE);
@@ -55,6 +59,9 @@ void process_window(){
     if(process_stime==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_stime),TRUE);
     }
+    if(process_duration==TRUE){
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_duration),TRUE);
+    }
 
 
 
@@ -72,6 +79,7 @@ void process_window(){
     gtk_box_pack_start(GTK_BOX(box2),button_process_cpu,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_prio,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_stime,1,1,0);
+    gtk_box_pack_start(GTK_BOX(box2),button_process_duration,1,1,0);
     g_signal_connect(button_process_user,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_rss,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_task,"toggled", G_CALLBACK(process_clicked), NULL);
@@ -82,6 +90,7 @@ void process_window(){
     g_signal_connect(button_process_ppid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_prio,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_stime,"toggled", G_CALLBACK(process_clicked), NULL);
+    g_signal_connect(button_process_duration,"toggled", G_CALLBACK(process_clicked), NULL);
 
 
     gtk_window_set_position(GTK_WINDOW(proc_window), GTK_WIN_POS_CENTER);
@@ -94,7 +103,8 @@ void process_window(){
 }
 void device_window(){
 
-
+    GtkWidget *box2;
+    GtkWidget *dev_window;
         dev_window =gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_default_size(GTK_WINDOW(dev_window), 200, 200);
         button_device_devices=gtk_check_button_new_with_label ("Devices");
@@ -269,7 +279,7 @@ data_s data;
 }
 void graph_button_clicked(GtkWidget *widget){
 
-
+    GtkWidget *box2;
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
     {
         window2 =gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -677,36 +687,8 @@ void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
 
 
 };
-void new_button_clicked2(){
 
 
-    gtk_widget_hide(hbox1);
-    gtk_widget_hide(hbox3);
-    gtk_widget_hide(hbox2);
-}
-void clean_button(){
-    // gtk_widget_unparent(view2);
-    //
-    if(view2==NULL){
-
-
-    }
-    else{
-
-
-        gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
-        view2=NULL;
-    }
-    // gtk_container_remove(GTK_CONTAINER(dev_swindow),view2);
-
-    // view2=NULL;
-
-//    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (button4))) {
-//
-//        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button4),FALSE);
-//    }
-
-}
 void handle_task_menu(GtkWidget *widget, gchar *signal)
 {
     printf("signal %s\n",signal);
