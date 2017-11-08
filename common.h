@@ -8,8 +8,24 @@
 #include "gtk/gtk.h"
 
 
-#include "interrupts_s.h"
 
+
+
+
+typedef struct _Interrupts Interrupts;
+struct _Interrupts{
+
+    char name[4];
+    signed long CPU0;
+    signed long CPU1;
+    signed long CPU2;
+    signed long CPU3;
+    char ime1[256];
+    char ime2[256];
+    char ime3[256];
+    char ime4[256];
+
+};
 typedef struct _Memory_usage Memory_usage;
 
 struct _Memory_usage {
@@ -27,9 +43,9 @@ typedef struct _Devices Devices;
 struct _Devices {
 
 
-    gchar		name[256];
-    gchar       type[256];
-    gchar       directory[256];
+    char		name[256];
+    char       type[256];
+    char       directory[256];
     glong used;
     glong total;
     glong free;

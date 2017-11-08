@@ -21,7 +21,16 @@
 
 
 
+static guint t = 1000;
+static guint bjorg = 1;//prvi ispis
+static guint bjorg2 = 1;
 
+gint tasks_num;
+gint dev_num;
+GtkWidget *label_cpu0;
+GArray *interrupt_array_temp;
+
+static guint time_step = 0;
 
 
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
@@ -142,8 +151,8 @@ void timeout_refresh() {
 
 void init_timeout2() {
 //    received_transfered();
-//    network_change_rc(label7);
-//    network_change_ts(label8);
+//    network_change_rc(label_mem);
+//    network_change_ts(label_swap);
     bjorg2++;
 
     if (bjorg2 >= 60) {
@@ -225,7 +234,7 @@ void *init_timeout() {
     guint i=0,j=0;
 
 
-
+    struct tm tm;
 
     //GArray *new_task_list;
     GArray *new_task_list=g_array_new (FALSE, FALSE, sizeof (Task));
@@ -261,17 +270,19 @@ void *init_timeout() {
 
 
 //    received_transfered();
-    network_change_rc(label7,label8,&network);
-    time_change(label_time, &tm);
-//    network_change_ts(label8);
-    bjorg2++;
+    network_change_rc(&network);
+   // network_change_rc(label_mem,label_swap,&network);
+    time_change( &tm);
+   // time_change(label_time, &tm);
+//    network_change_ts(label_swap);
+  /*  bjorg2++;
 
     if (bjorg2 >= 60) {
 
 
         bjorg2 = 60;
     }
-
+*/
 
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
@@ -326,7 +337,7 @@ void *init_timeout() {
      //   printf("name %s I %d checked %s \n",tmp->name,i,tmp->checked  ? "TRUE" : "FALSE");
         if(!tmp->checked)//element niza koji se ne nalazi vise u novom nizu
         {
-            remove_list_item_device(tmp->directory,tmp->name,tmp->type);
+            remove_list_item_device(tmp->directory,tmp->name);
             g_array_remove_index(names_array, i);
            // printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
             dev_num--;
@@ -438,8 +449,10 @@ void *init_timeout() {
     cpu_change(&cpu_usage1);
 
 
-   memory_change(label,&memory_usage);// nije ovde
-    swap_change(label1,&memory_usage); // nije ovde
+  // memory_change(label_rec,&memory_usage);// nije ovde
+   memory_change(&memory_usage);// nije ovde
+    swap_change(&memory_usage); // nije ovde
+   // swap_change(label_trans,&memory_usage); // nije ovde
 
     time_handler(window);
     g_array_free(new_task_list, TRUE);
@@ -595,6 +608,8 @@ gtk_init(&argc, &argv);
 
     if (refresh > 0){
         g_source_remove (refresh);
+
+
 
     }
 

@@ -29,7 +29,7 @@ set(SOURCE_FILES main.c
         # process-window.c process-window.h
         testing_tree.c testing_tree.h window.c window.h
         #lines.h
-        common.h interrupts_s.h buttons_s.h functions.c functions.h)
+        common.h buttons_s.h functions.c functions.h)
 
 
 

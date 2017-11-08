@@ -48,10 +48,10 @@ RM = /home/dushn/clion/clion-2017.1.3/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dushn/CLionProjects/gtkworld
+CMAKE_SOURCE_DIR = /home/dushn/Desktop/Project/graphmagic-master
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dushn/CLionProjects/gtkworld/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dushn/Desktop/Project/graphmagic-master/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dushn/CLionProjects/gtkworld/cmake-build-debug/CMakeFiles /home/dushn/CLionProjects/gtkworld/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dushn/Desktop/Project/graphmagic-master/cmake-build-debug/CMakeFiles /home/dushn/Desktop/Project/graphmagic-master/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dushn/CLionProjects/gtkworld/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dushn/Desktop/Project/graphmagic-master/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,44 +111,125 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named gktworld
+# Target rules for targets named gtkworld
 
 # Build rule for target.
-gktworld: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gktworld
-.PHONY : gktworld
+gtkworld: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtkworld
+.PHONY : gtkworld
 
 # fast build rule for target.
-gktworld/fast:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/build
-.PHONY : gktworld/fast
+gtkworld/fast:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/build
+.PHONY : gtkworld/fast
 
-cpu_usage.o: cpu_usage.c.o
+buttons.o: buttons.c.o
 
-.PHONY : cpu_usage.o
+.PHONY : buttons.o
 
 # target to build an object file
-cpu_usage.c.o:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/cpu_usage.c.o
-.PHONY : cpu_usage.c.o
+buttons.c.o:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/buttons.c.o
+.PHONY : buttons.c.o
 
-cpu_usage.i: cpu_usage.c.i
+buttons.i: buttons.c.i
 
-.PHONY : cpu_usage.i
+.PHONY : buttons.i
 
 # target to preprocess a source file
-cpu_usage.c.i:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/cpu_usage.c.i
-.PHONY : cpu_usage.c.i
+buttons.c.i:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/buttons.c.i
+.PHONY : buttons.c.i
 
-cpu_usage.s: cpu_usage.c.s
+buttons.s: buttons.c.s
 
-.PHONY : cpu_usage.s
+.PHONY : buttons.s
 
 # target to generate assembly for a file
-cpu_usage.c.s:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/cpu_usage.c.s
-.PHONY : cpu_usage.c.s
+buttons.c.s:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/buttons.c.s
+.PHONY : buttons.c.s
+
+drawing.o: drawing.c.o
+
+.PHONY : drawing.o
+
+# target to build an object file
+drawing.c.o:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/drawing.c.o
+.PHONY : drawing.c.o
+
+drawing.i: drawing.c.i
+
+.PHONY : drawing.i
+
+# target to preprocess a source file
+drawing.c.i:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/drawing.c.i
+.PHONY : drawing.c.i
+
+drawing.s: drawing.c.s
+
+.PHONY : drawing.s
+
+# target to generate assembly for a file
+drawing.c.s:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/drawing.c.s
+.PHONY : drawing.c.s
+
+functions.o: functions.c.o
+
+.PHONY : functions.o
+
+# target to build an object file
+functions.c.o:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/functions.c.o
+.PHONY : functions.c.o
+
+functions.i: functions.c.i
+
+.PHONY : functions.i
+
+# target to preprocess a source file
+functions.c.i:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/functions.c.i
+.PHONY : functions.c.i
+
+functions.s: functions.c.s
+
+.PHONY : functions.s
+
+# target to generate assembly for a file
+functions.c.s:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/functions.c.s
+.PHONY : functions.c.s
+
+interrupts.o: interrupts.c.o
+
+.PHONY : interrupts.o
+
+# target to build an object file
+interrupts.c.o:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/interrupts.c.o
+.PHONY : interrupts.c.o
+
+interrupts.i: interrupts.c.i
+
+.PHONY : interrupts.i
+
+# target to preprocess a source file
+interrupts.c.i:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/interrupts.c.i
+.PHONY : interrupts.c.i
+
+interrupts.s: interrupts.c.s
+
+.PHONY : interrupts.s
+
+# target to generate assembly for a file
+interrupts.c.s:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/interrupts.c.s
+.PHONY : interrupts.c.s
 
 main.o: main.c.o
 
@@ -156,7 +237,7 @@ main.o: main.c.o
 
 # target to build an object file
 main.c.o:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/main.c.o
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/main.c.o
 .PHONY : main.c.o
 
 main.i: main.c.i
@@ -165,7 +246,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/main.c.i
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -174,35 +255,62 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/main.c.s
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/main.c.s
 .PHONY : main.c.s
 
-memory_usage.o: memory_usage.c.o
+testing_tree.o: testing_tree.c.o
 
-.PHONY : memory_usage.o
+.PHONY : testing_tree.o
 
 # target to build an object file
-memory_usage.c.o:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/memory_usage.c.o
-.PHONY : memory_usage.c.o
+testing_tree.c.o:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/testing_tree.c.o
+.PHONY : testing_tree.c.o
 
-memory_usage.i: memory_usage.c.i
+testing_tree.i: testing_tree.c.i
 
-.PHONY : memory_usage.i
+.PHONY : testing_tree.i
 
 # target to preprocess a source file
-memory_usage.c.i:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/memory_usage.c.i
-.PHONY : memory_usage.c.i
+testing_tree.c.i:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/testing_tree.c.i
+.PHONY : testing_tree.c.i
 
-memory_usage.s: memory_usage.c.s
+testing_tree.s: testing_tree.c.s
 
-.PHONY : memory_usage.s
+.PHONY : testing_tree.s
 
 # target to generate assembly for a file
-memory_usage.c.s:
-	$(MAKE) -f CMakeFiles/gktworld.dir/build.make CMakeFiles/gktworld.dir/memory_usage.c.s
-.PHONY : memory_usage.c.s
+testing_tree.c.s:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/testing_tree.c.s
+.PHONY : testing_tree.c.s
+
+window.o: window.c.o
+
+.PHONY : window.o
+
+# target to build an object file
+window.c.o:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/window.c.o
+.PHONY : window.c.o
+
+window.i: window.c.i
+
+.PHONY : window.i
+
+# target to preprocess a source file
+window.c.i:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/window.c.i
+.PHONY : window.c.i
+
+window.s: window.c.s
+
+.PHONY : window.s
+
+# target to generate assembly for a file
+window.c.s:
+	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/window.c.s
+.PHONY : window.c.s
 
 # Help Target
 help:
@@ -212,16 +320,28 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... gktworld"
-	@echo "... cpu_usage.o"
-	@echo "... cpu_usage.i"
-	@echo "... cpu_usage.s"
+	@echo "... gtkworld"
+	@echo "... buttons.o"
+	@echo "... buttons.i"
+	@echo "... buttons.s"
+	@echo "... drawing.o"
+	@echo "... drawing.i"
+	@echo "... drawing.s"
+	@echo "... functions.o"
+	@echo "... functions.i"
+	@echo "... functions.s"
+	@echo "... interrupts.o"
+	@echo "... interrupts.i"
+	@echo "... interrupts.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... memory_usage.o"
-	@echo "... memory_usage.i"
-	@echo "... memory_usage.s"
+	@echo "... testing_tree.o"
+	@echo "... testing_tree.i"
+	@echo "... testing_tree.s"
+	@echo "... window.o"
+	@echo "... window.i"
+	@echo "... window.s"
 .PHONY : help
 
 
