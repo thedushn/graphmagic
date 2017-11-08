@@ -6,7 +6,7 @@
 
 
 
-struct _Cpu_usage cpu[4];
+
 
 
 
@@ -33,14 +33,15 @@ int cpu_number (){
 
 
     }
+    fclose(file);
   //  printf("(%d) number of cores \n \n ", c);
  //   ncpu = c;
 
     return c;
 }
-Cpu_usage  cpu_percentage(int cpu_count){
+void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
 
-        Cpu_usage cpu_usage;
+
 
     gfloat cpu_user[4];
     gfloat cpu_system[4];
@@ -86,10 +87,10 @@ Cpu_usage  cpu_percentage(int cpu_count){
 
     }
     fclose (file);
-    float cpu_percentage[4];
+  //  float cpu_percentage[4];
 
     for(int i=0 ; i< cpu_count;i++) {
-        cpu[i].number=cpu_number1[i];
+
      //   printf("Numbers do you see them %d %d \n",cpu_number1[i],i);
         jiffies_user_old[i] = jiffies_user[i];
         jiffies_system_old[i] = jiffies_system[i];
@@ -112,7 +113,7 @@ Cpu_usage  cpu_percentage(int cpu_count){
         percentage[i] =cpu_user[i] + cpu_system[i];
 
 
-        cpu_percentage[i] =percentage[i];
+
 
 
 
@@ -120,40 +121,20 @@ Cpu_usage  cpu_percentage(int cpu_count){
 
 
     }
-    cpu_usage.percentage0 =cpu_percentage[0];
-        cpu_usage.percentage1 =cpu_percentage[1];
-        cpu_usage.percentage2 =cpu_percentage[2];
-        cpu_usage.percentage3 =cpu_percentage[3];
+    cpu_usage->percentage0 =percentage[0];
+        cpu_usage->percentage1 =percentage[1];
+        cpu_usage->percentage2 =percentage[2];
+        cpu_usage->percentage3 =percentage[3];
 
 
     jiffies_total_delta[4]= jiffies_total_delta[0]+jiffies_total_delta[1]+jiffies_total_delta[2]+jiffies_total_delta[3];
 
 
-return cpu_usage;
+
 
 }
 
-//void cpu_percent_change(int ncpu){
-//
-//    Cpu_usage *cpu1[4];
-//    cpu_percentage(ncpu);
-//
-//    gfloat j;
-//
-//    for(int s=0;s<ncpu;s++) {
-//
-//        j = cpu[s].percentage;
-//        //   j=4*j;
-//
-//        g_array_prepend_val(history[s],  j);
-//      //  printf("array size %d\n",history[s]->len);
-//        if (history[s]->len > 1)
-//            g_array_remove_index (history[s], history[s]->len - 1);
-//
-//
-//    }
-//
-//};
+
 void
 get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffies_system, gfloat *cpu_system)
 {

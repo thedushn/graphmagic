@@ -177,6 +177,33 @@ cpu_usage.c.s:
 	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/cpu_usage.c.s
 .PHONY : cpu_usage.c.s
 
+devices.o: devices.c.o
+
+.PHONY : devices.o
+
+# target to build an object file
+devices.c.o:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/devices.c.o
+.PHONY : devices.c.o
+
+devices.i: devices.c.i
+
+.PHONY : devices.i
+
+# target to preprocess a source file
+devices.c.i:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/devices.c.i
+.PHONY : devices.c.i
+
+devices.s: devices.c.s
+
+.PHONY : devices.s
+
+# target to generate assembly for a file
+devices.c.s:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/devices.c.s
+.PHONY : devices.c.s
+
 functions.o: functions.c.o
 
 .PHONY : functions.o
@@ -258,6 +285,60 @@ memory_usage.c.s:
 	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/memory_usage.c.s
 .PHONY : memory_usage.c.s
 
+network_bandwith.o: network_bandwith.c.o
+
+.PHONY : network_bandwith.o
+
+# target to build an object file
+network_bandwith.c.o:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.o
+.PHONY : network_bandwith.c.o
+
+network_bandwith.i: network_bandwith.c.i
+
+.PHONY : network_bandwith.i
+
+# target to preprocess a source file
+network_bandwith.c.i:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.i
+.PHONY : network_bandwith.c.i
+
+network_bandwith.s: network_bandwith.c.s
+
+.PHONY : network_bandwith.s
+
+# target to generate assembly for a file
+network_bandwith.c.s:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.s
+.PHONY : network_bandwith.c.s
+
+task_manager.o: task_manager.c.o
+
+.PHONY : task_manager.o
+
+# target to build an object file
+task_manager.c.o:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/task_manager.c.o
+.PHONY : task_manager.c.o
+
+task_manager.i: task_manager.c.i
+
+.PHONY : task_manager.i
+
+# target to preprocess a source file
+task_manager.c.i:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/task_manager.c.i
+.PHONY : task_manager.c.i
+
+task_manager.s: task_manager.c.s
+
+.PHONY : task_manager.s
+
+# target to generate assembly for a file
+task_manager.c.s:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/task_manager.c.s
+.PHONY : task_manager.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -273,6 +354,9 @@ help:
 	@echo "... cpu_usage.o"
 	@echo "... cpu_usage.i"
 	@echo "... cpu_usage.s"
+	@echo "... devices.o"
+	@echo "... devices.i"
+	@echo "... devices.s"
 	@echo "... functions.o"
 	@echo "... functions.i"
 	@echo "... functions.s"
@@ -282,6 +366,12 @@ help:
 	@echo "... memory_usage.o"
 	@echo "... memory_usage.i"
 	@echo "... memory_usage.s"
+	@echo "... network_bandwith.o"
+	@echo "... network_bandwith.i"
+	@echo "... network_bandwith.s"
+	@echo "... task_manager.o"
+	@echo "... task_manager.i"
+	@echo "... task_manager.s"
 .PHONY : help
 
 

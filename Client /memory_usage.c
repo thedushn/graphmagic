@@ -3,15 +3,14 @@
 //
 
 #include "memory_usage.h"
-#include "functions.h"
-#include "common.h"
+
 struct _Memory_usage memory_usage;
 
 
 
 //void 	get_memory_usage(){
 void 	get_memory_usage(data_s *memory){
-    printf("made it in memory_usage\n");
+  //  printf("made it in memory_usage\n");
     guint64 memory_total=0; guint64 memory_free=0; guint64 memory_cache=0; guint64 memory_buffers=0; guint64 swap_total=0; guint64 swap_free=0;
 
     FILE *file;

@@ -17,8 +17,14 @@ set(SOURCE_FILES
         interrupts.h
         interrupts.c
         interrupts_s.h
-        cpu_usage.c
+        task_manager.c
+        task_manager.h
+        devices.c
+        devices.h
+        network_bandwith.c
+        network_bandwith.h
         cpu_usage.h
+        cpu_usage.c
         )
 include_directories(${GTK3_INCLUDE_DIRS})
 include_directories(${})

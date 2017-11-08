@@ -20,9 +20,12 @@
 
 
 #include <stdlib.h>
-#include "interrupts_s.h"
+#include "common.h"
 //typedef struct _Interrupts Interrupts;
-GArray * interrupt_usage();
+//GArray * interrupt_usage(Interrupts *array,guint *j );
+
+void interrupt_usage(int info );
+void interrupt_usage2(Interrupts  * *array,int *j );
 void upis(GArray *array,GArray *array2);
 void poredjenje(GArray *array,GArray *array2,GArray *array3);
 //GArray * poredjenje(GArray *array,GArray *array2);

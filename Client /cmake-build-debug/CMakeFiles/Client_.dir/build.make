@@ -153,9 +153,81 @@ CMakeFiles/Client_.dir/interrupts.c.o.provides: CMakeFiles/Client_.dir/interrupt
 CMakeFiles/Client_.dir/interrupts.c.o.provides.build: CMakeFiles/Client_.dir/interrupts.c.o
 
 
+CMakeFiles/Client_.dir/task_manager.c.o: CMakeFiles/Client_.dir/flags.make
+CMakeFiles/Client_.dir/task_manager.c.o: ../task_manager.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Client_.dir/task_manager.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Client_.dir/task_manager.c.o   -c "/home/dushn/Desktop/Client /task_manager.c"
+
+CMakeFiles/Client_.dir/task_manager.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Client_.dir/task_manager.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/Client /task_manager.c" > CMakeFiles/Client_.dir/task_manager.c.i
+
+CMakeFiles/Client_.dir/task_manager.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Client_.dir/task_manager.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/Client /task_manager.c" -o CMakeFiles/Client_.dir/task_manager.c.s
+
+CMakeFiles/Client_.dir/task_manager.c.o.requires:
+
+.PHONY : CMakeFiles/Client_.dir/task_manager.c.o.requires
+
+CMakeFiles/Client_.dir/task_manager.c.o.provides: CMakeFiles/Client_.dir/task_manager.c.o.requires
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/task_manager.c.o.provides.build
+.PHONY : CMakeFiles/Client_.dir/task_manager.c.o.provides
+
+CMakeFiles/Client_.dir/task_manager.c.o.provides.build: CMakeFiles/Client_.dir/task_manager.c.o
+
+
+CMakeFiles/Client_.dir/devices.c.o: CMakeFiles/Client_.dir/flags.make
+CMakeFiles/Client_.dir/devices.c.o: ../devices.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Client_.dir/devices.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Client_.dir/devices.c.o   -c "/home/dushn/Desktop/Client /devices.c"
+
+CMakeFiles/Client_.dir/devices.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Client_.dir/devices.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/Client /devices.c" > CMakeFiles/Client_.dir/devices.c.i
+
+CMakeFiles/Client_.dir/devices.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Client_.dir/devices.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/Client /devices.c" -o CMakeFiles/Client_.dir/devices.c.s
+
+CMakeFiles/Client_.dir/devices.c.o.requires:
+
+.PHONY : CMakeFiles/Client_.dir/devices.c.o.requires
+
+CMakeFiles/Client_.dir/devices.c.o.provides: CMakeFiles/Client_.dir/devices.c.o.requires
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/devices.c.o.provides.build
+.PHONY : CMakeFiles/Client_.dir/devices.c.o.provides
+
+CMakeFiles/Client_.dir/devices.c.o.provides.build: CMakeFiles/Client_.dir/devices.c.o
+
+
+CMakeFiles/Client_.dir/network_bandwith.c.o: CMakeFiles/Client_.dir/flags.make
+CMakeFiles/Client_.dir/network_bandwith.c.o: ../network_bandwith.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Client_.dir/network_bandwith.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Client_.dir/network_bandwith.c.o   -c "/home/dushn/Desktop/Client /network_bandwith.c"
+
+CMakeFiles/Client_.dir/network_bandwith.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Client_.dir/network_bandwith.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/Client /network_bandwith.c" > CMakeFiles/Client_.dir/network_bandwith.c.i
+
+CMakeFiles/Client_.dir/network_bandwith.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Client_.dir/network_bandwith.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/Client /network_bandwith.c" -o CMakeFiles/Client_.dir/network_bandwith.c.s
+
+CMakeFiles/Client_.dir/network_bandwith.c.o.requires:
+
+.PHONY : CMakeFiles/Client_.dir/network_bandwith.c.o.requires
+
+CMakeFiles/Client_.dir/network_bandwith.c.o.provides: CMakeFiles/Client_.dir/network_bandwith.c.o.requires
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.o.provides.build
+.PHONY : CMakeFiles/Client_.dir/network_bandwith.c.o.provides
+
+CMakeFiles/Client_.dir/network_bandwith.c.o.provides.build: CMakeFiles/Client_.dir/network_bandwith.c.o
+
+
 CMakeFiles/Client_.dir/cpu_usage.c.o: CMakeFiles/Client_.dir/flags.make
 CMakeFiles/Client_.dir/cpu_usage.c.o: ../cpu_usage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Client_.dir/cpu_usage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Client_.dir/cpu_usage.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Client_.dir/cpu_usage.c.o   -c "/home/dushn/Desktop/Client /cpu_usage.c"
 
 CMakeFiles/Client_.dir/cpu_usage.c.i: cmake_force
@@ -183,6 +255,9 @@ Client__OBJECTS = \
 "CMakeFiles/Client_.dir/client.c.o" \
 "CMakeFiles/Client_.dir/memory_usage.c.o" \
 "CMakeFiles/Client_.dir/interrupts.c.o" \
+"CMakeFiles/Client_.dir/task_manager.c.o" \
+"CMakeFiles/Client_.dir/devices.c.o" \
+"CMakeFiles/Client_.dir/network_bandwith.c.o" \
 "CMakeFiles/Client_.dir/cpu_usage.c.o"
 
 # External object files for target Client_
@@ -192,10 +267,13 @@ Client_: CMakeFiles/Client_.dir/functions.c.o
 Client_: CMakeFiles/Client_.dir/client.c.o
 Client_: CMakeFiles/Client_.dir/memory_usage.c.o
 Client_: CMakeFiles/Client_.dir/interrupts.c.o
+Client_: CMakeFiles/Client_.dir/task_manager.c.o
+Client_: CMakeFiles/Client_.dir/devices.c.o
+Client_: CMakeFiles/Client_.dir/network_bandwith.c.o
 Client_: CMakeFiles/Client_.dir/cpu_usage.c.o
 Client_: CMakeFiles/Client_.dir/build.make
 Client_: CMakeFiles/Client_.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable Client_"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable Client_"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Client_.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -207,6 +285,9 @@ CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/functions.c.o.requires
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/client.c.o.requires
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/memory_usage.c.o.requires
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/interrupts.c.o.requires
+CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/task_manager.c.o.requires
+CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/devices.c.o.requires
+CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/network_bandwith.c.o.requires
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/cpu_usage.c.o.requires
 
 .PHONY : CMakeFiles/Client_.dir/requires

@@ -27,8 +27,10 @@ arpa/inet.h
 /home/dushn/Desktop/Client /common.h
 gtk/gtk.h
 /home/dushn/Desktop/Client /gtk/gtk.h
-cpu_usage.h
-/home/dushn/Desktop/Client /cpu_usage.h
+task_manager.h
+/home/dushn/Desktop/Client /task_manager.h
+devices.h
+/home/dushn/Desktop/Client /devices.h
 interrupts_s.h
 /home/dushn/Desktop/Client /interrupts_s.h
 
@@ -47,11 +49,55 @@ string.h
 -
 gtk/gtk.h
 -
-cairo.h
+math.h
+-
+stdlib.h
+-
+common.h
+/home/dushn/Desktop/Client /common.h
+
+/home/dushn/Desktop/Client /devices.c
+devices.h
+/home/dushn/Desktop/Client /devices.h
+common.h
+/home/dushn/Desktop/Client /common.h
+errno.h
+-
+
+/home/dushn/Desktop/Client /devices.h
+setjmp.h
+-
+unistd.h
+-
+string.h
+-
+stdio.h
+-
+stdlib.h
 -
 gtk/gtk.h
 -
 math.h
+-
+sys/stat.h
+-
+pwd.h
+-
+stdio.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+unistd.h
+-
+sys/statvfs.h
+-
+stdint.h
+-
+string.h
+-
+dirent.h
 -
 stdlib.h
 -
@@ -77,30 +123,32 @@ fcntl.h
 -
 functions.h
 /home/dushn/Desktop/Client /functions.h
-unistd.h
--
-arpa/inet.h
--
-stdio.h
--
-stdlib.h
--
-string.h
-/home/dushn/Desktop/Client /string.h
-interrupts_s.h
-/home/dushn/Desktop/Client /interrupts_s.h
 interrupts.h
 /home/dushn/Desktop/Client /interrupts.h
+sys/resource.h
+-
+cpu_usage.h
+/home/dushn/Desktop/Client /cpu_usage.h
 
 /home/dushn/Desktop/Client /functions.h
 memory_usage.h
 /home/dushn/Desktop/Client /memory_usage.h
 common.h
 /home/dushn/Desktop/Client /common.h
+task_manager.h
+/home/dushn/Desktop/Client /task_manager.h
+devices.h
+/home/dushn/Desktop/Client /devices.h
+network_bandwith.h
+/home/dushn/Desktop/Client /network_bandwith.h
 
 /home/dushn/Desktop/Client /interrupts.c
 interrupts.h
 /home/dushn/Desktop/Client /interrupts.h
+sys/socket.h
+/home/dushn/Desktop/Client /sys/socket.h
+string.h
+/home/dushn/Desktop/Client /string.h
 
 /home/dushn/Desktop/Client /interrupts.h
 gtk/gtk.h
@@ -123,18 +171,14 @@ string.h
 -
 stdlib.h
 -
-interrupts_s.h
-/home/dushn/Desktop/Client /interrupts_s.h
+common.h
+/home/dushn/Desktop/Client /common.h
 
 /home/dushn/Desktop/Client /interrupts_s.h
 
 /home/dushn/Desktop/Client /memory_usage.c
 memory_usage.h
 /home/dushn/Desktop/Client /memory_usage.h
-functions.h
-/home/dushn/Desktop/Client /functions.h
-common.h
-/home/dushn/Desktop/Client /common.h
 
 /home/dushn/Desktop/Client /memory_usage.h
 gtk/gtk.h
@@ -155,6 +199,72 @@ stdlib.h
 -
 common.h
 /home/dushn/Desktop/Client /common.h
+
+/home/dushn/Desktop/Client /network_bandwith.c
+network_bandwith.h
+/home/dushn/Desktop/Client /network_bandwith.h
+
+/home/dushn/Desktop/Client /network_bandwith.h
+stdio.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+gtk/gtk.h
+-
+gtk/gtk.h
+-
+math.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+stdio.h
+-
+stdlib.h
+-
+dirent.h
+-
+common.h
+/home/dushn/Desktop/Client /common.h
+
+/home/dushn/Desktop/Client /task_manager.c
+task_manager.h
+/home/dushn/Desktop/Client /task_manager.h
+cpu_usage.h
+/home/dushn/Desktop/Client /cpu_usage.h
+functions.h
+/home/dushn/Desktop/Client /functions.h
+
+/home/dushn/Desktop/Client /task_manager.h
+gtk/gtk.h
+-
+math.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+stdio.h
+-
+stdlib.h
+-
 
 /usr/include/atk-1.0/atk/atk-enum-types.h
 atk/atkversion.h

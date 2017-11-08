@@ -8,539 +8,395 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "functions.h"
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include"string.h"
-#include "interrupts_s.h"
+
 #include "interrupts.h"
+#include <sys/resource.h>
+#include "cpu_usage.h"
 
 #define PORT 4440
 #define BUF_SIZE 2000
-#define PACKET_SIZE 1400
+
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t   cond = PTHREAD_COND_INITIALIZER;
-char *test ="send\n";
-char *test2 =".";
-char *test3= "Type the name  of the file u want to receive\n";
-char *message= "Iste su extensions mozemo da nastavimo sa slanjem\n";
-char *message2= "reci kako oces da se zove file koji ti primas\n";
 
-char *end ="end of file";
-int rezultat =1;
 
+//int rezultat =1;
+gboolean devices_show=FALSE;
+
+void send_prio_to_task(gchar *task_id, gchar *signal)
+{
+    int prio=0;
+    if(strcmp(signal,"VERY_LOW")==0){
+        prio = 15;
+
+    }
+    if(strcmp(signal,"LOW")==0){
+        prio = 5;
+
+    }
+    if(strcmp(signal,"NORMAL")==0){
+        prio = 0;
+
+    }
+    if(strcmp(signal,"VERY_HIGH")==0){
+        prio = -15;
+
+    }
+    if(strcmp(signal,"HIGH")==0){
+        prio = -5;
+
+    }
+
+
+    gchar str[4];
+
+    sprintf(str,"%d",prio);
+    gchar command[64] = "renice -n ";
+    g_strlcat(command,str, sizeof command);
+    g_strlcat(command," -p ", sizeof command);
+    g_strlcat(command,task_id, sizeof command);
+    printf("COMMAND %s\n",command);
+    if(system(command) != 0){
+
+        printf("comand failed\n");
+    }
+
+    //return (res== 0 ) ? TRUE : FALSE;
+
+}
+void send_signal_to_task(gchar *task_id, gchar *signal)
+{
+    printf("SIGNAL %s the task with ID %s\n", signal, task_id);
+    if(task_id != "" && signal != NULL)
+    {
+        gchar command[64] = "kill -";
+        g_strlcat(command,signal, sizeof command);
+        g_strlcat(command," ", sizeof command);
+        g_strlcat(command,task_id, sizeof command);
+        printf("Task id %s",task_id);
+        if(system(command) != 0)
+            printf("comand failed\n");
+//            xfce_err("Couldn't %s the task with ID %s", signal, task_id);
+    }
+}
 void *accept_c(void *socket){
     printf("usli smo u accpet\n");
     struct	my_thread_info *info = socket;
-    char *mem="salji mem\n";
-    char buffer[BUF_SIZE];
+   /*static*/ int rezultat =1;
+/*    char buffer[BUF_SIZE];
+    gboolean res=FALSE;*/
+    data_s data;
+  /*  struct Sending_stuff{
+
+       int mem;
+        gboolean show;
+        gchar command [10];
+        gchar task_id [256];
+    }stuff;*/
     while (1) {
-       int ret = (int )recvfrom(info->thread_socket, buffer, BUF_SIZE, 0, NULL, NULL);
-       rezultat= strcmp(buffer,mem);
-        if(rezultat==0){
-            pthread_cond_wait(&cond,&m);
-            printf("condition WAS met\n");
-        }
-        else
-        printf("condition wasnt met\n");
-    }
-
-};
-void * chat(void * socket) {
-	 int sockfd, ret;
-	 char buffer[BUF_SIZE];
-	 struct	my_thread_info *info = socket;
-	pthread_t t;
-	int new;
- memset(buffer, 0, BUF_SIZE);
-	printf("chat \n");
- while (1) {
-	printf("we are in chat (receiving messages) \n");
-  ret = recvfrom(info->thread_socket, buffer, BUF_SIZE, 0, NULL, NULL);
-  if (ret < 0) {
-   printf("Error receiving data!\n");
-  } else {
-   printf("server: ");
-   fputs(buffer, stdout);
-   //printf("\n");
-	printf("\ndosli smo \n");
-	printf("sta pise u bufferu %s \n",buffer);
-	printf("sta pise u test %s\n",test);
-		 rezultat=strcmp(buffer, test);
-	printf("rezultat %d\n",rezultat);
-	if (rezultat==0){
-    	printf("it worked oce da primi file\n");
-		printf("izlazimo iz chat\n");
-	conformation(info->thread_socket);
-	}
-	else{
-	printf("u didnt type it right u lemon \n");
-	}
-
-
-  }
- }
-}
-
-void * chat2(void * socket){
-    int sockfd, ret;
-    char buffer[BUF_SIZE];
-
-    struct sockaddr_in addr;
-
-    printf("we are in chat2,(sending messages)  \n");
-	struct	my_thread_info *info = socket;
-
-    while(1){
-        printf("we made it to chat2(sending messages)\n");
-        if(rezultat==0){
-            pthread_cond_wait(&cond,&m);
-            printf("condtion was met\n");
-        }
-        else{
-            while (fgets(buffer,BUF_SIZE,stdin) != NULL) {
-                //pthread_mutex_lock(&mut);
-                //while(rezultat==0){pthread_cond_wait(&cond,&m);
-                //}
-
-                printf("YOU : %s\n",buffer);
-                ret = send(info->thread_socket,buffer,BUF_SIZE,0);
-
-                if (ret < 0) {
-                    printf("Error sending data!\n\t-%s", buffer);
-                }
-                // pthread_mutex_unlock(&mut);
-                break;
-            }
-        }
-        //sleep(10);
-    }
-  /*  while (fgets(buffer, BUF_SIZE, stdin) != NULL) {
-        printf("YOU : %s",buffer);
-        ret = send(sockfd,buffer,BUF_SIZE,0);
-        if (ret < 0) {
-            printf("Error sending data!\n\t-%s", buffer);
-        }
-    }*/
-
-
-
-}
-
-void *conformation (int socket){
- int sockfd, ret;
- char buffer[BUF_SIZE];
- sockfd =  socket;
-
-printf("we made it conformation\n");
-
-ret = send(sockfd,test3,BUF_SIZE,0);
-
-		if (ret < 0) {
-	   	printf("Error sending data!\n\t-%s", test3);
-		exit(1);
-	 	}
-	printf("sending server to tell him to type the name of the new file \n");
-	send_some_files(sockfd);
-}
-
-
-void  *send_some_files(int socket){
-	int sockfd, ret;
- 	char buffer[BUF_SIZE];
-	char buffer_test[BUF_SIZE];
-	char buffer_file[PACKET_SIZE];
- 	sockfd =  socket;
-	struct sockaddr_in addr;
-	FILE *filefd ;
-	//ssize_t i;
-    	//ssize_t read_return;
-	char test_buffer[BUF_SIZE];
-	double	file_size;
-
-
-	printf("usli smo u send_some_files \n");
-	//zakljucamo chat da ne mozemo da primamo vise poruka od servera dok se ne zavrsi slanje
-	pthread_mutex_lock (&m);
-	ret =(int) recvfrom(sockfd, buffer, BUF_SIZE, 0, NULL, NULL);
-	printf("primio je ime file od servera\n");
-	if (ret < 0) {
-	   printf("Error sending data!\n\t-%s", buffer);
-	  }
-	//upisujemo u buffer_test ime file koji server oce da primi
-	printf("buffer %s\n",buffer);
-    strncpy(buffer_test,buffer,strlen(buffer)-1);
-	//strcat(buffer_test, buffer);
-	printf("buffer_test %s\n",buffer_test);
-	//proveravamo da li file postoji
-	filefd= fopen(buffer_test,"r");
-	if (&filefd == NULL) {
-		perror("open");
-		exit(EXIT_FAILURE);
-	}
-	 //ispis prve linije u file
-	fgets(test_buffer, 1000, filefd);
-		  printf("\n%s\n",test_buffer);
-
-
-	printf("we opened the file \n");
-	printf("sending to server that we found the file\n");
-	ret =(int) send(sockfd,message2,BUF_SIZE,0);
-	if(ret<0){
-		printf("Error sending data!\n\t-%s", message2);
-		}
-	fseek(filefd, 0, SEEK_END);
-//da vidimo koliki je file
-	file_size = ftell(filefd);
-	fseek(filefd, SEEK_SET, 0);// da postavimo pokazivac na pocetak file
-	//Provera da li je isti extension lakse bi bilo u server ali ajde da se igramo
-	ret =(int) recv(sockfd,buffer,BUF_SIZE,0);
-	printf("kako server oce da nazove file %s \n",buffer);
-	if(ret<0){
-		printf("Error sending data!\n\t-%s", buffer);
-		}
-    strncpy(buffer_file,buffer,strlen(buffer)-1);
-	printf("da li je primio ime file %s\n", buffer);
-
- 	 char test2 ='.';
-	const char *buffer_const=  (const char *) buffer_file;
-	const char *buffer_test_c=  (const char *)buffer_test;
-
-	char *r;
-	char *r2;
-	r= strchr(buffer_test_c,'.');
-	r2= strchr(buffer_const,'.');
-	int compare;
-	compare=strcmp(r,r2);
-	printf("buffer_test: %s buffer: %s r:%s r2:%s \n",buffer_test,buffer,r ,r2);
-	if(compare!=0){
-	printf("the extensions arent the same we fucked up \n");
-
-	printf("comparing %d ",compare);
-	printf("return to begging of the program");
-		pthread_mutex_unlock(&m);
-		chat(&sockfd);
-
-	}
-	memset(buffer_test,0,BUF_SIZE);
-	printf("comparing %d \n",compare);
-	ret=(int)send(sockfd,buffer,BUF_SIZE,0);//dodato 6.5
-	ret=(int) send(sockfd,message,BUF_SIZE,0);
-	if(ret<0){
-		printf("Error sending data!\n\t-%s", message);
-
-		}
-
-
-	printf("file size is %f mb\n",file_size/1000000);
-	double packets = (file_size/PACKET_SIZE+1);
-	int ipackets = (int)packets;
-	printf("number of packets %d\n",ipackets);
-	int cpackets = htonl(packets);
-	//upisivanje velicinu file tj broj packeta i slanje serveru
-	snprintf(buffer, BUF_SIZE, "%d", ipackets);
-		ret=0;
-	printf("%s\n",buffer);
-	ret=(int)send(sockfd,buffer,BUF_SIZE,0);
-	printf("%s\n",buffer);
-	if(ret<0){
-	 	printf("Error sending data!\n\t-%s", buffer);
-
-	}
-
-
-
-
-
-	memset(buffer_file,0,BUF_SIZE);
-    int count=0;
-	while(1){
-
-		//printf("usli smo u nread while petlju\n");
-	size_t nread =fread(buffer_file,1,PACKET_SIZE,filefd);
-
-	if(nread >0){
-
-	write(sockfd,buffer_file,nread);
-	//printf("%s",buffer_file);
-	//printf("nread %d\n",nread);
-	count++;
-	}
-	if(nread < PACKET_SIZE){
-
-		if(feof(filefd)){
-			printf("end of file \n");
-			printf("the file was sent to %d\n",sockfd);
-			//ret= send(sockfd,end,BUF_SIZE,0);
-               // write(sockfd,end,PACKET_SIZE);
-				if(ret<0){
-					printf("Error sending data!\n\t-%s", end);
-
-				}
-
-		}
-		if (ferror(filefd)){
-                    printf("Error reading\n");
-		}
-
-        printf("%d",count);
-                break;
-        }
-	}
-
-	fclose(filefd);//6.6
-    pthread_mutex_unlock(&m);
-    pthread_cond_signal(&cond);
-	printf("Closing file\n");
-    memset(buffer_file,0,BUF_SIZE);
-	sleep(1);
-	/*while(1){
-	read_return = read(filefd,buffer,BUF_SIZE);
-	if(read_return ==0)
-		printf("neuspesna mizija za izija\n");
-		break;
-		if(read_return==-1){
-			 perror("read");
-            		exit(EXIT_FAILURE);
-		}
-		 if (write(sockfd, buffer, read_return) == -1) {
-           	 perror("write");
-           	 exit(EXIT_FAILURE);
-        	}
-
-	close(filefd);
-	}*/
-
-}
-
-//void *slanje(void *socket){
-//
-//
-//    data_s memory;
-//    int sockfd= (int) socket;
-//    char buffer[BUF_SIZE];
-//    struct	my_thread_info *info = socket;
-//    while(1){
-//        get_memory_usage(&memory);
-//
-//        int ret=(int) send(info->thread_socket,&memory,sizeof(data_s),NULL);
-//        if(ret<0){
-//
-//            printf("Error sending data!\n\t %f %lli %lli %lli \n", memory.memory_usage.swap_percentage,
-//                   memory.memory_usage.swap_used
-//                    ,memory.memory_usage.memory_total,
-//                   memory.memory_usage.memory_used);
-//        }
-//
-//
-//
-//    }
-//
-//}
-
-void *slanje_interrupta(void *socket){
-
-
-    int ret;
-    int num_packets;
-    printf("we are in slanje(sending messages)  \n");
-    struct	my_thread_info *info = socket;
-
-    while(1){
-        data_s interrupts;
-
-        GArray * ginterrupts=interrupt_usage();
-         num_packets=ginterrupts->len;
-        printf("we made it to slanje(sending stuff)\n");
-        ret= (int)send(info->thread_socket,&num_packets,sizeof(int),NULL);
-        if (ret < 0) {
-            printf("Error sending num_packets!\n\t");
-            //  break;
+     //  pthread_mutex_lock (&m);
+       int ret = (int )recvfrom(info->thread_socket, &data.stuff, sizeof(data), 0, NULL, NULL);
+        if(ret<0){
+            printf("error condition didnt get received\n");
             exit(1);
         }
-        for(int i=0 ;i<ginterrupts->len;i++){
+       rezultat=data.stuff.mem;
+        devices_show=data.stuff.show;
 
-           Interrupts *interrupts1;
-                interrupts1=&g_array_index(ginterrupts,Interrupts,i);
-            interrupts.interrupts.CPU0=interrupts1->CPU0;
-            interrupts.interrupts.CPU1=interrupts1->CPU1;
-            interrupts.interrupts.CPU2=interrupts1->CPU2;
-            interrupts.interrupts.CPU3=interrupts1->CPU3;
-                    for(int j=0;j<sizeof(interrupts1->name);j++){
-                        interrupts.interrupts.name[j]=interrupts1->name[j];
-                    }
+        printf("sHOW %s\n", data.stuff.show==TRUE ? "TRUE" : "FALSE");
+        printf("SHOW %s\n", devices_show==TRUE ? "TRUE" : "FALSE");
 
-            upis_imena(interrupts1,&interrupts.interrupts);
+        printf("command %s\n ",data.stuff.command);
+        printf("id %s\n ",data.stuff.task_id);
 
-            ret = (int )send(info->thread_socket,&interrupts,sizeof(data_s),0);
-
-            if (ret < 0) {
-                printf("Error sending data!\n\t");
-                //  break;
-                exit(1);
+        if(strcmp(data.stuff.task_id, "") != 0 && strcmp(data.stuff.command, "") != 0){
+            if(strcmp(data.stuff.command, "STOP") == 0 ||
+                    strcmp(data.stuff.command, "CONT") == 0 ||
+                    strcmp(data.stuff.command, "KILL") == 0 ||
+                    strcmp(data.stuff.command, "TERM") == 0){
+                send_signal_to_task(data.stuff.task_id,data.stuff.command);
             }
             else{
 
-            printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", interrupts.interrupts.CPU0,interrupts.interrupts.CPU1,interrupts.interrupts.CPU2,
-                 interrupts.interrupts.CPU3,  interrupts.interrupts.name,interrupts.interrupts.ime1,interrupts.interrupts.ime2,interrupts.interrupts.ime3,interrupts.interrupts.ime4);
-
+               /*res= */ send_prio_to_task(data.stuff.task_id,data.stuff.command);
             }
-
+           // printf("DA li smo uspeli %s\n", res==TRUE ? "TRUE" : "FALSE");
         }
+        if(rezultat==0){
+         //   pthread_cond_wait(&cond,&m);
+            rezultat=1;
 
-//        ret = (int )send(info->thread_socket,&interrupts,sizeof(data_s),0);
-//
-//        if (ret < 0) {
-//            printf("Error sending data!\n\t");
-//            //  break;
-//            exit(1);
-//        }
-//        else{
-//
-////            printf(" sending data!\n\t %f %lli %lli %lli \n", memory.memory_usage.swap_percentage,
-////                   memory.memory_usage.swap_used
-////                    ,memory.memory_usage.memory_total,
-////                   memory.memory_usage.memory_used);
-//
-//        }
+            pthread_cond_signal(&cond);
+          //  pthread_mutex_unlock (&m);
+           printf("condition WAS met\n");
 
+       } /*else{
 
+       //     pthread_cond_signal(&cond);
+         //   printf("condition signal was sent\n");
+        }*/
 
-        sleep(1);
+      //  pthread_mutex_unlock (&m);
     }
 
+};
 
-}
+
+
 void *slanje(void *socket){
 
-    int sockfd, ret;
-    char buffer[BUF_SIZE];
-    int num_packets;
-    struct sockaddr_in addr;
+    int  ret;
 
-    printf("we are in slanje(sending messages)  \n");
+    guint num_packets;
+
     struct	my_thread_info *info = socket;
-    char *mem="salji mem";
-    while(1){
-        data_s data;
-     //   recv(info->thread_socket,buffer, BUF_SIZE,0);
-    //    if(buffer==mem){
 
-            get_memory_usage(&data);
-            printf("we made it to slanje(sending stuff)\n");
+    while(1) {
+          // pthread_mutex_lock(&m);
+//        if(rezultat==1){
+//            pthread_cond_wait(&cond,&m);
+//            printf("condition WAS met\n");
+//        }
+        data_s data;
+
+
+        get_memory_usage(&data);
+        time_t time1 = time(NULL);
+        /*    struct tm*/ tm1 = *localtime(&time1);
 //        if(rezultat==0){
 //            pthread_cond_wait(&cond,&m);
 //           printf("condtion was met\n");
 //       }
 
 
-            ret = (int)send(info->thread_socket,&data,sizeof(data_s),0);
+        ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
 
-            if (ret < 0) {
-                printf("Error sending data!\n\t");
-              //  break;
-                exit(1);
-            }
-    else{
+        if (ret < 0) {
+            printf("Error sending data!\n\t");
+            //  break;
+            exit(1);
+        } else {
 
-                printf(" sending data!\n\t %f %lli %lli %lli \n", data.memory_usage.swap_percentage,
-                       data.memory_usage.swap_used
-                        ,data.memory_usage.memory_total,
-                       data.memory_usage.memory_used);
+//                printf(" sending data!\n\t %f %lli %lli %lli \n", data.memory_usage.swap_percentage,
+//                       data.memory_usage.swap_used
+//                        ,data.memory_usage.memory_total,
+//                       data.memory_usage.memory_used);
 
-            }
+        }
+        Interrupts  *array;
+        int h=0;
+        interrupt_usage2(&array,&h);
 
-        GArray * ginterrupts=interrupt_usage();
-        num_packets=ginterrupts->len;
-        printf("we made it to slanje(sending stuff)\n");
-      //  char num_packtes_c[BUF_SIZE];
-      //          sprintf(num_packtes_c, "%d", num_packets);.
-        printf("num of packets %d\n",num_packets);
-        ret= (int)send(info->thread_socket,&num_packets,sizeof(int),NULL);
+
+        int j=h;
+
+        for(int r=0;r<j;r++){
+
+            printf("hello[%s %li %li %li %li %s %s %s %s]\n",array[r].name, array[r].CPU0, array[r].CPU1,
+                   array[r].CPU2,
+                   array[r].CPU3,
+                   array[r].ime1,
+                   array[r].ime2,
+                   array[r].ime3,
+                   array[r].ime4 );
+
+        }
+
+
+
+        ret = (int) send(info->thread_socket, &j, sizeof(int), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
             //  break;
             exit(1);
         }
-        for(int i=0 ;i<ginterrupts->len;i++){
+        for (int i = 0; i < j; i++) {
 
             Interrupts *interrupts1;
-            interrupts1=&g_array_index(ginterrupts,Interrupts,i);
-            data.interrupts.CPU0=interrupts1->CPU0;
-            data.interrupts.CPU1=interrupts1->CPU1;
-            data.interrupts.CPU2=interrupts1->CPU2;
-            data.interrupts.CPU3=interrupts1->CPU3;
-            for(int j=0;j<sizeof(interrupts1->name);j++){
-                data.interrupts.name[j]=interrupts1->name[j];
+            interrupts1 = &array[i];
+            data.interrupts.CPU0 = interrupts1->CPU0;
+            data.interrupts.CPU1 = interrupts1->CPU1;
+            data.interrupts.CPU2 = interrupts1->CPU2;
+            data.interrupts.CPU3 = interrupts1->CPU3;
+            for (int n = 0; n < sizeof(interrupts1->name); n++) {
+                data.interrupts.name[n] = interrupts1->name[n];
             }
 
-            upis_imena(interrupts1,&data.interrupts);
-
-            ret = (int )send(info->thread_socket,&data,sizeof(data_s),0);
+            upis_imena(interrupts1, &data.interrupts);
+            printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", data.interrupts.CPU0,data.interrupts.CPU1,data.interrupts.CPU2,
+                   data.interrupts.CPU3,  data.interrupts.name,data.interrupts.ime1,data.interrupts.ime2,data.interrupts.ime3,data.interrupts.ime4);
+            ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
                 //  break;
                 exit(1);
             }
-            else{
-
-                printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", data.interrupts.CPU0,data.interrupts.CPU1,data.interrupts.CPU2,
-                       data.interrupts.CPU3,  data.interrupts.name,data.interrupts.ime1,data.interrupts.ime2,data.interrupts.ime3,data.interrupts.ime4);
-
-            }
-
         }
 
-      int  ncpu = cpu_number();
-       data.cpu_usage = cpu_percentage(ncpu);
-            ret=(int )send(info->thread_socket,&data,sizeof(data_s),0);
+        free(array);
+
+
+
+        int ncpu = cpu_number();
+          cpu_percentage(ncpu,&data.cpu_usage);
+
+        ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
+        if (ret < 0) {
+            printf("Error sending data!\n\t");
+            //  break;
+            exit(1);
+        } else {
+//            printf("CPU usage %f %f %f %f\n",data.cpu_usage.percentage0,
+//                   data.cpu_usage.percentage1,
+//                   data.cpu_usage.percentage2,
+//                   data.cpu_usage.percentage3);
+        }
+        GArray *task_list =g_array_new(FALSE,FALSE,sizeof(Task));
+
+        get_task_list(task_list);
+        num_packets = task_list->len;
+//
+       ret = (int) send(info->thread_socket, &num_packets, sizeof(int), 0);
+        if (ret < 0) {
+            printf("Error sending num_packets!\n\t");
+
+            exit(1);
+        }
+        for (int i = 0; i < task_list->len; i++) {
+
+            Task *tasks;
+
+            tasks = &g_array_index(task_list, Task, i);
+            size_t g = strlen(tasks->name);
+            for (int r = 0; r <= g; r++) {
+
+                data.task.name[r] = tasks->name[r];
+
+            }
+            g = strlen(tasks->state);
+            for (int r = 0; r <= g; r++) {
+
+               data.task.state[r] = tasks->state[r];
+
+            }
+            g = strlen(tasks->uid_name);
+            for (int r = 0; r <= g; r++) {
+
+               data.task.uid_name[r] = tasks->uid_name[r];
+
+            }
+            data.task.uid = tasks->uid;
+            data.task.cpu_system = tasks->cpu_system;
+            data.task.cpu_user = tasks->cpu_user;
+            data.task.vsz = tasks->vsz;
+            data.task.rss = tasks->rss;
+            data.task.prio = tasks->prio;
+
+            data.task.pid = tasks->pid;
+            data.task.ppid = tasks->ppid;
+            data.task.start_time=tasks->start_time;
+            data.task.duration.tm_sec =tasks->duration.tm_sec;
+            data.task.duration.tm_min =tasks->duration.tm_min;
+            data.task.duration.tm_hour =tasks->duration.tm_hour;
+            data.task.stime.tm_sec =tasks->stime.tm_sec;
+            data.task.stime.tm_min =tasks->stime.tm_min;
+            data.task.stime.tm_hour =tasks->stime.tm_hour;
+            data.task.checked=FALSE;
+         //   printf( "vreme trajanja rada %d %d %d\n",tasks->duration.tm_hour,
+          //          tasks->duration.tm_min,
+          //          tasks->duration.tm_sec);
+            ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
+
+            if (ret < 0) {
+                printf("Error sending data!\n\t");
+                //  break;
+                exit(1);
+            }
+          }
+
+
+    GArray *devices_list= device(devices_show);
+        num_packets = devices_list->len;
+//
+        ret = (int) send(info->thread_socket, &num_packets, sizeof(int), 0);
+        if (ret < 0) {
+            printf("Error sending num_packets!\n\t");
+
+            exit(1);
+        }
+        for (int i = 0; i < devices_list->len; i++) {
+
+            Devices *devices;
+
+            devices = &g_array_index(devices_list, Devices, i);
+            size_t g = strlen(devices->name);
+            for (int r = 0; r <= g; r++) {
+
+                data.devices.name[r] = devices->name[r];
+
+            }
+            g = strlen(devices->directory);
+            for (int r = 0; r <= g; r++) {
+
+                data.devices.directory[r] = devices->directory[r];
+
+            }
+            g = strlen(devices->type);
+            for (int r = 0; r <= g; r++) {
+
+                data.devices.type[r] = devices->type[r];
+
+            }
+            data.devices.avail = devices->avail;
+            data.devices.fid = devices->fid;
+            data.devices.free = devices->free;
+            data.devices.total = devices->total;
+            data.devices.used = devices->used;
+            data.devices.checked=FALSE;
+
+         //    printf("%lu, %lu,%lu,%lu %lu, %s %s %s\n",data.devices.used,data.devices.avail,data.devices.fid,data.devices.free,data.devices.total,data.devices.name,data.devices.directory,data.devices.type);
+            ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
+
+            if (ret < 0) {
+                printf("Error sending data!\n\t");
+                //  break;
+                exit(1);
+            }
+        }
+
+        data.network=received_transfered();
+        ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
+       // printf("%lli, %lli",data.network.received_bytes,data.network.transmited_bytes);
         if (ret < 0) {
             printf("Error sending data!\n\t");
             //  break;
             exit(1);
         }
-        else{
-            printf("CPU usage %f %f %f %f\n",data.cpu_usage.percentage0,data.cpu_usage.percentage1,data.cpu_usage.percentage2,data.cpu_usage.percentage3);
+
+
+
+
+        tm1.tm_year+=1900;
+        tm1.tm_mon+=1;
+        ret = (int) send(info->thread_socket, &tm1, sizeof(tm1), 0);
+        if (ret<0) {
+            printf("ERROR: Return Code  is %d\n", ret);
+            exit(1);
+        }
+       g_array_free(devices_list,TRUE);
+        g_array_free(task_list,TRUE);
+//      gchar *  rec_bytes = g_format_size_full(data.network.received_bytes, G_FORMAT_SIZE_IEC_UNITS);
+//        gchar *  transmitted_bytes = g_format_size_full(data.network.transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
+
+//            printf("%s %s \n",rec_bytes,transmitted_bytes);
+//            g_free(rec_bytes);
+//            g_free(transmitted_bytes);
+        //    pthread_mutex_unlock(&m);
+            pthread_cond_wait(&cond, &m);
+
+         //  sleep(1); //treba uvesti cond variable koja kaze sada salji sada ne salji :P  #thread2
         }
 
 
-    sleep(1); //treba uvesti cond variable koja kaze sada salji sada ne salji :P  #thread2
-    }
-
-
 }
-void * stop_start(void *socket){
-
-
-    struct	my_thread_info *info = socket;
-int ret;
-    printf("we are in stop start HELLO \n");
-    char buffer[BUF_SIZE];
-
-    char *mem="salji mem\n";
-    while(1){
-
-        recv(info->thread_socket,buffer, BUF_SIZE,0);
-        rezultat= strcmp(buffer,mem);
-
-
-        if(rezultat==0){
-            pthread_mutex_lock (&m);
-           // pthread_cond_wait(&cond,&m);
-//            printf("condtion was met\n");
-        }
-
-
-
-
-
-
-
-
-
-    }
-
-}
-
