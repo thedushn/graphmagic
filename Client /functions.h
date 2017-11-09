@@ -14,8 +14,7 @@ void *chat2(void * socket);
 void *slanje(void * socket);
 void *accept_c (void *socket);
 
-void *slanje_interrupta(void *socket);
-void * stop_start(void *socket);
+void send_signal_to_task(char *task_id, char *signal);
 struct my_thread_info {
     int thread_socket;
 };

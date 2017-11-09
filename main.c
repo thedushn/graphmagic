@@ -1,622 +1,1335 @@
-
+#include <cairo.h>
+#include <gtk/gtk.h>
+#include <math.h>
+#include <sys/stat.h>
+#include <pwd.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "memory_usage.h"
+#include <glib.h>
+#include "cpu_usage.h"
+#include "network_bandwith.h"
 #include "interrupts.h"
+#include "task_manager.h"
+
+struct Memory_usage memory_usage;
+struct Cpu_usage cpu[4];
+struct Network net;
+//gchar *text;
+gchar *memory_usage_text;
+gchar *swap_usage_text;
+gchar *cpu_usage_text;
+gchar *network_usage_received_text;
+gchar *network_usage_transimited_text;
+static char *track;
+static GtkWidget *window;
+static GtkWidget *swindow1;
+static GtkWidget *window1;
+GtkWidget *graph1;
+GtkWidget *graph2;
+GtkWidget *graph3;
+GtkWidget *graph4;
+GtkWidget *vbox;
+GtkWidget *hbox;
+GtkWidget *hbox1;
+GtkWidget *hbox2;
+GtkWidget *hbox3;
+GtkWidget *label;
+GtkWidget *label1;
+GtkWidget *label2;
+GtkWidget *label3;
+GtkWidget *label4;
+GtkWidget *label5;
+GtkWidget *label6;
+GtkWidget *label7;
+GtkWidget *label8;
+GtkWidget *grid;
+GtkWidget *frame1;
+GtkWidget *frame2;
+GtkWidget *frame3;
+GtkWidget *frame4;
+
+GtkWidget *button;
+GtkWidget *button2;
+GtkWidget *button3;
+
+GtkWidget *tree;
+GtkWidget *view;
+GtkTreeModel *model;
+GtkTreeIter *iter;
+
+GArray *history[9];
 
 
-#include "drawing.h"
+
+GtkWidget *vseparator;
+GtkWidget *hseparator;
 
 
-#include "testing_tree.h"
-#include "window.h"
-
-#include "buttons.h"
-
-#include"sys/socket.h"
-
-#include"netinet/in.h"
-
-#include <arpa/inet.h>
-#include "functions.h"
-#define BUF_SIZE 2000
-#define CLADDR_LEN 100
+void init_timeout();
+void init_timeout2();
+void timeout_refresh();
+void measurements();
 
 
 
-static guint t = 1000;
-static guint bjorg = 1;//prvi ispis
-static guint bjorg2 = 1;
-
-gint tasks_num;
-gint dev_num;
-GtkWidget *label_cpu0;
-GArray *interrupt_array_temp;
-
-static guint time_step = 0;
 
 
-static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
-    if (widget == graph1) {
 
-        do_drawing_cpu(widget, cr, bjorg, time_step);
+static void do_drawing(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing2(GtkWidget *widget,cairo_t *cr, int l);
+static void do_drawing3(GtkWidget *widget,cairo_t *cr, int l);
+static gboolean network_change_rc(gpointer data);
+static gboolean network_change_ts(gpointer data);
+void percent_ffs();
+void button_clicked3(GtkWidget *widget);
+static  guint  t =250;
+  static  guint bjorg=1;//prvi ispis
+    static guint bjorg2=1;
+guint refresh=0;
+int width2,height2;
+static gboolean more_precision;
+static int time_step=0;
+static GtkWidget *
+create_view_and_model (void);
+static GtkTreeModel *
+create_and_fill_model (void);
+#define COLUMN_PROPERTIES "expand", TRUE, "clickable", TRUE, "reorderable", TRUE, "resizable", TRUE, "visible", TRUE
+enum
+{
+    COL_TASK = 0,
+    COL_PID,
+    COL_RSS,
+    COL_CPU,
+    NUM_COLS
+} ;
+static void
+
+model_update_tree_iter (GtkTreeModel *model, GtkTreeIter *iter, Task *task)
+
+{
+    gchar *vsz, *rss, cpu[16];
+    gchar value[14];
+    glong old_timestamp;
+    gchar *old_state;
+    gchar *background, *foreground;
+#ifdef HAVE_WNCK
+    GdkPixbuf *icon;
+#endif
+
+    vsz = g_format_size_full (task->vsz, G_FORMAT_SIZE_IEC_UNITS);
+    rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
+
+    g_snprintf (value, 14, (more_precision) ? "%.2f" : "%.0f", task->cpu_user + task->cpu_system);
+    g_snprintf (cpu, 16, ("%s%%"), value);
+
+
+
+
+
+
+    gtk_list_store_set (GTK_LIST_STORE (model), iter,
+                        COL_TASK, task->name,
+                        COL_PID, task->pid,
+                        COL_RSS, task->rss,
+                        COL_CPU, task->cpu_user,
+                        -1);
+
+
+
+    g_free (vsz);
+    g_free (rss);
+}
+static GtkWidget *create_view_and_model (void)
+{
+    GtkCellRenderer     *renderer;
+   // GtkTreeModel        *model;
+    GtkWidget           *view;
+    GtkTreeViewColumn *column;
+    column = gtk_tree_view_column_new ();
+    view = gtk_tree_view_new ();
+    g_object_set (column, COLUMN_PROPERTIES, NULL);
+    /* --- Column #1 --- */
+
+    renderer = gtk_cell_renderer_text_new ();
+    //gtk_tree_view_insert_column(GTK_TREE_VIEW (view),column,)
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "Task",
+                                                 renderer,
+                                                 "text", COL_TASK,
+                                                 NULL);
+
+    /* --- Column #2 --- */
+
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "PID",
+                                                 renderer,
+                                                 "text", COL_PID,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "RSS",
+                                                 renderer,
+                                                 "text", COL_RSS,
+                                                 NULL);
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (view),
+                                                 -1,
+                                                 "CPU",
+                                                 renderer,
+                                                 "text", COL_CPU,
+                                                 NULL);
+
+
+    model = create_and_fill_model ();
+
+    gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
+
+    /* The tree view has acquired its own reference to the
+     *  model, so we can drop ours. That way the model will
+     *  be freed automatically when the tree view is destroyed */
+
+    g_object_unref (model);
+
+    return view;
+}
+static GtkTreeModel *
+create_and_fill_model (void)
+{
+    GtkListStore  *store;
+ //   GtkTreeIter    iter;
+
+    store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, G_TYPE_UINT,G_TYPE_UINT,G_TYPE_FLOAT);
+gchar *rss;
+    /* Append a row and fill in some data */
+    printf("TASKs-array : len: %d\n",tasks->len);
+   for(int j=0 ;j<tasks->len;j++) {
+       Task *task = &g_array_index(tasks, Task, j);
+       rss = g_format_size_full (task->rss, G_FORMAT_SIZE_IEC_UNITS);
+       gtk_list_store_append(store, &iter);
+       gtk_list_store_set(store, &iter,
+                          COL_TASK, task->name,
+                          COL_PID, task->pid,
+                          COL_RSS, task->rss,
+                          COL_CPU, task->cpu_user,
+
+                          -1);
+
+
+       /* append another row and fill in some data */
+
+       /* ... and a third row */
+
+   }
+    return GTK_TREE_MODEL (store);
+}
+void button_clicked3(GtkWidget *widget){
+
+   // tree= gtk_tree_view_new ();
+    view= create_view_and_model();
+    swindow1=gtk_scrolled_window_new (NULL,
+                                      NULL);
+    window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+    {
+        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow1), GTK_POLICY_AUTOMATIC,
+                                       GTK_POLICY_ALWAYS);
+        gtk_box_pack_start(GTK_BOX(vbox), swindow1, TRUE, TRUE, 1);
+        //  gtk_window_set_title(GTK_WINDOW(window1), "2222 ");
+//    gtk_widget_destroy(vbox);
+        gtk_container_add(GTK_CONTAINER(swindow1), view);
+        gtk_widget_show_all(swindow1);
+
+    } else {
+
+        printf("I TRYYY SO HARD");
+        gtk_widget_destroy(swindow1);
+        gtk_container_remove(GTK_CONTAINER(vbox),swindow1);
+        gtk_container_remove(GTK_CONTAINER(swindow1),view);
+
+        gtk_widget_destroy(view);
+
+    /*    g_signal_connect(G_OBJECT(window), "destroy",
+                         G_CALLBACK(gtk_main_quit), NULL);
+        g_signal_connect(G_OBJECT(view), "destroy",
+                         G_CALLBACK(gtk_main_quit), NULL);*/
     }
-    else if (widget == graph2) {
-
-        do_drawing_net(widget, cr, bjorg, time_step);
-    }
-    else if (widget == graph3) {
-
-        do_drawing_mem(widget, cr, bjorg, time_step);
-    }
-    else  if (widget == graph4) {
-
-        do_drawing_int(widget, cr);
-       // do_drawing_int(widget, cr,interrupt_array_d);
-    }
-return TRUE;
-
 }
 
 
 
 
-void inc_refresh() {
 
-    if (t >= 10000) {
 
-        t = 10000;
+
+
+
+
+
+
+
+
+
+void measurements(){
+
+
+    height2= gtk_widget_get_allocated_height(hbox2);
+    width2= gtk_widget_get_allocated_width(hbox2);
+
+}
+void button_clicked(){
+
+    if(t>=10000){
+
+        t=10000;
     }
     else
-    {
-        t += 250;
-    }
-
+    t+=250;
+    printf("I clicked a button %d", t);
     timeout_refresh();
-
-
+    //refresh= 0;
+  /*  gint id;
+    // gpointer q=GINT_TO_POINTER(t);
+    id= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
+    g_source_remove (id);
+    t+=500;
+    id= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
+    */
 
 };
+void button_clicked2(){
 
-void dec_refresh() {
 
-
-    if (t <= 250) {
-        t = 250;
-        //  printf("promena refresh rate \n");
-
+    if(t<500){
+        t=500;
+        printf("promena refresh rate \n");
     }
-    else {
-        t -= 250;
-    }
+   else
+        t-=250;
+    printf("I clicked a button2 %d", t);
     timeout_refresh();
+    //refresh= 0;
+    /*  gint id;
+      // gpointer q=GINT_TO_POINTER(t);
+      id= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
+      g_source_remove (id);
+      t+=500;
+      id= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
+      */
 
 };
-
-
-void graph_refresh(GtkWidget *widget, gboolean CPU) {
-
-//    if (widget == button_graph0) {
-//
-//
-//        CPU0_line = CPU;
-//        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
-//
-//
-//    }
-//    else if (widget == button_graph1) {
-//
-//
-//        CPU1_line = CPU;
-//
-//        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
-//
-//    }
-//    else if (widget == button_graph2) {
-//
-//        CPU2_line = CPU;
-//        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
-//
-//
-//    }
-//    else /* (widget == button_graph3)*/ {
-//
-//        CPU3_line = CPU;
-//        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
-//
-//    }
-
-    timeout_refresh();
-   // time_handler(window);
-
-
-};
-
-static gboolean time_handler(GtkWidget *widget) {
+static gboolean time_handler(GtkWidget *widget)
+{
 
     gtk_widget_queue_draw(widget);
 
     return TRUE;
 }
 
+static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer *user_data){
+    double t ;
 
-void timeout_refresh() {
+   int data;
+   data= GPOINTER_TO_INT(user_data);
 
-    if (!g_source_remove(refresh)) {
+
+    if(widget==graph1){
+
+        do_drawing2(widget,cr,data);
+    }
+    if(widget==graph2){
+
+        do_drawing(widget,cr,data);
+    }
+    if(widget==graph3){
+
+        do_drawing3(widget,cr,data);
+    }
+    if(widget==graph4){
+
+        do_drawing(widget,cr,data);
+    }
+
+
+
+
+
+
+}
+
+static void do_drawing3(GtkWidget *widget,cairo_t *cr,int l){
+    int width, height;
+    height= gtk_widget_get_allocated_height(widget);
+    width= gtk_widget_get_allocated_width(widget);
+
+    /* width=width2/2;
+     height=height2/2;*/
+
+    /*  cairo_surface_t *graph_surface;
+      graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height2);
+      cr = cairo_create (graph_surface);*/
+    //
+
+
+    //   cairo_set_source_rgb(cr,1,.05,1);
+    cairo_set_line_width(cr,1);
+    float font_size=12;
+    double step =(width-3*font_size-3*font_size)/time_step;
+
+    cairo_set_font_size(cr, font_size);
+
+    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
+    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
+
+    gfloat *peak;
+
+
+
+    cairo_set_font_size(cr, font_size);
+
+
+    //procent linije
+    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
+    cairo_move_to(cr,0,height/4);//75%
+    cairo_line_to(cr,width-3*font_size,height/4);
+    cairo_move_to(cr,0,height/4*2);//50
+    cairo_line_to(cr,width-3*font_size,height/4*2);
+    cairo_move_to(cr,0,height/4*3);//25
+    cairo_line_to(cr,width-3*font_size,height/4*3);
+    //secund linije
+
+    for(int i =1;i<=5;i++){
+        cairo_move_to(cr,(width-2*3*font_size)/6*i+3*font_size,height-font_size);
+        cairo_line_to(cr,(width-2*3*font_size)/6*i+3*font_size,0);
+    }
+
+
+
+    cairo_stroke(cr);
+    //okvir
+    cairo_move_to(cr,3*font_size,0);
+    cairo_line_to(cr,width-3*font_size,0);
+    cairo_move_to(cr,3*font_size,0);
+    cairo_line_to(cr,3*font_size,height-font_size);
+    //   cairo_move_to(cr,3*font_size,height-font_size);
+    cairo_line_to(cr,width-3*font_size,height-font_size);
+    cairo_move_to(cr,width-3*font_size,height-font_size);
+    cairo_line_to(cr,width-3*font_size,0);
+
+    //procenti
+    cairo_move_to(cr, 0,font_size);
+    cairo_set_source_rgb(cr,0,0,0);
+    cairo_show_text(cr,"100%");
+    cairo_move_to(cr,0,height/4);
+    cairo_show_text(cr,"75%");
+    cairo_move_to(cr,0,height/4*2);
+    cairo_show_text(cr,"50%");
+    cairo_move_to(cr,0,height/4*3);
+    cairo_show_text(cr,"25%");
+    cairo_move_to(cr,0,height-font_size);
+    cairo_show_text(cr,"0%");
+    cairo_stroke(cr);
+    //sekunde
+    cairo_move_to(cr,3*font_size,height);
+    cairo_show_text(cr,"0 sec");
+    cairo_move_to(cr,(width-6*font_size)/6+3*font_size,height);
+    cairo_show_text(cr,"10 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*2+3*font_size,height);
+    cairo_show_text(cr,"20 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*3+3*font_size,height);
+    cairo_show_text(cr,"30 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*4+3*font_size,height);
+    cairo_show_text(cr,"40 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*5+3*font_size,height);
+    cairo_show_text(cr,"50 sec");
+    cairo_move_to(cr,width-3*font_size,height);
+    cairo_show_text(cr,"60 s");
+    cairo_stroke(cr);
+
+
+
+
+
+
+
+
+
+
+
+    double prev[2]={height-font_size};
+
+    for (int j = 0; j < bjorg; j++) {
+
+        //cairo_move_to(cr,0,400);
+
+        for(int r=0;r<=1;r++) {
+
+            if(j==0)
+                prev[r]=height-font_size;
+            cairo_move_to(cr,3*font_size,prev[r]);
+
+            if(r==0){
+                peak = &g_array_index(history[6], gfloat, j);
+                cairo_set_source_rgb(cr,1,0,0);
+            }
+            if(r==1){
+                peak = &g_array_index(history[7], gfloat, j);
+
+                cairo_set_source_rgba(cr,1,.5,1,.5);
+            }
+            gfloat procent =*peak;
+            procent=((height-font_size)/100)*procent;
+
+          //  printf("PEAK: %0.2f\n",*peak);
+            // prev[r]= height-font_size - *peak;
+            //prev[r]= height-font_size - procent;
+            prev[r]= height-font_size - procent;
+
+
+            cairo_line_to(cr, (3 * font_size), height-font_size - procent);
+
+            cairo_line_to(cr, step+(3 * font_size), height-font_size - procent);
+
+
+
+            cairo_stroke(cr);
+        }
+        cairo_translate(cr, step, 0);
+    }
+
+
+
+
+
+
+
+
+}
+static void do_drawing(GtkWidget *widget,cairo_t *cr,int l){
+    float width, height;
+     height= gtk_widget_get_allocated_height(widget);
+       width= gtk_widget_get_allocated_width(widget);
+
+    /*width=width2/2;
+    height=height2/2;*/
+/*width= width2;
+height= height2;*/
+
+    // cairo_surface_t *graph_surface;
+    // graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 400, 400);
+    // cr = cairo_create (graph_surface);
+    //
+
+    printf("%f width %f height",width,height);
+    printf("%d width2 %d height2\n",width2,height2);
+    //   cairo_set_source_rgb(cr,1,.05,1);
+    cairo_set_line_width(cr,1);
+
+
+    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
+    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
+
+    gfloat *peak;
+
+    float font_size=10;
+    double step =(width-5*font_size-5*font_size)/60;
+
+    cairo_set_font_size(cr, font_size);
+
+
+    //procent linije
+    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
+    cairo_move_to(cr,5*font_size,height/4);//75%
+    cairo_line_to(cr,width-5*font_size,height/4);
+    cairo_move_to(cr,5*font_size,height/4*2);//50
+    cairo_line_to(cr,width-5*font_size,height/4*2);
+    cairo_move_to(cr,5*font_size,height/4*3);//25
+    cairo_line_to(cr,width-5*font_size,height/4*3);
+    //secund linije
+
+    cairo_move_to(cr,step*10+5*font_size,height);
+    cairo_line_to(cr,step*10+5*font_size,0);
+    for(int i=2 ;i<=5;i++){
+        cairo_move_to(cr,step*10*i+5*font_size,height-font_size);
+        cairo_line_to(cr,step*10*i+5*font_size,0);
+    }
+
+
+
+
+
+
+    cairo_stroke(cr);
+    //okvir
+    cairo_move_to(cr,5*font_size,0);
+    cairo_line_to(cr,width-5*font_size,0);
+    cairo_move_to(cr,5*font_size,0);
+    cairo_line_to(cr,5*font_size,height-font_size);
+    //   cairo_move_to(cr,3*font_size,height-font_size);
+    cairo_line_to(cr,width-5*font_size,height-font_size);
+    cairo_move_to(cr,width-5*font_size,height-font_size);
+    cairo_line_to(cr,width-5*font_size,0);
+
+    //procenti
+    char *rec;
+    char *broj;
+    float big_bytes;
+    float rec_bytes;
+
+    char *kb="kb/s";
+    char *mb="mb/s";
+    char *b="b/s";
+      gfloat max_broj=0;
+    gfloat max_broj3=0;
+
+    rec=g_strdup_printf("%s",net.network_size_rc);
+
+    /*if(0==strcmp(rec,mb)){
+
+
+        track=rec;
+    }*/
+
+     float max_broj2;
+   /* for(int i=0;i<bjorg2;i++){
+
+        peak = &g_array_index(history[4], gfloat, i);// kb
+        if(max_broj2>=*peak){
+
+            max_broj2=*peak;
+
+        }
+
+
+    }
+
+    if(max_broj<=max_broj2){
+
+
+       max_broj==max_broj2;
+    }
+*/  for(int j=4; j<=5;j++) {
+        for (int i = 0; i < bjorg2; i++) {
+
+            peak = &g_array_index(history[j], gfloat, i);// kb
+            if (max_broj2 <= *peak) {
+
+                max_broj2 = *peak;
+            }
+        }
+    }
+        if(max_broj<=max_broj2){
+
+            max_broj=max_broj2;
+
+
+            printf("MAX_borj peak : %f\n",*peak);
+            printf("MAX_borj : %f\n",max_broj);
+        }
+
+
+
+    float temp;
+    cairo_set_source_rgb(cr,0,0,0);
+
+    if(max_broj>1024){
+
+
+        rec_bytes = max_broj / 1024;//mb
+        rec_bytes += 1;
+        track=mb;
+        max_broj3=max_broj+1024;
+
+    }
+    if(max_broj<=1024 && max_broj >1){
+
+        rec_bytes = max_broj;//kb
+
+        rec_bytes+=100;
+        track=kb;
+        max_broj3=max_broj+100;
+
+
+    }
+    if(max_broj<=1){
+
+        rec_bytes= max_broj*1024;//bytes
+
+        track=rec;
+        track=b;
+        max_broj3=max_broj+1024;
+
+    }
+
+
+        cairo_move_to(cr, 0,font_size);//najveci broj
+        sprintf(broj,"%.1f",rec_bytes);
+
+        cairo_show_text(cr,broj);
+        cairo_show_text(cr,track);
+        for(int i=1;i<=3;i++){
+
+
+            temp= rec_bytes/4*i;
+
+            cairo_move_to(cr,0,(height-font_size)/4*(4-i));
+            sprintf(broj,"%.1f",temp);
+            cairo_show_text(cr,broj);
+            cairo_show_text(cr,track);
+
+
+        }
+    cairo_move_to(cr,0,(height-font_size));
+    cairo_show_text(cr,"0");
+    cairo_show_text(cr,track);
+
+
+cairo_stroke(cr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //sekunde
+    cairo_move_to(cr,5*font_size,height);
+    cairo_show_text(cr,"0 sec");
+    cairo_move_to(cr,(width-8*font_size)/6+5*font_size,height);
+    cairo_show_text(cr,"10 sec");
+    cairo_move_to(cr,(width-8*font_size)/6*2+5*font_size,height);
+    cairo_show_text(cr,"20 sec");
+    cairo_move_to(cr,(width-8*font_size)/6*3+5*font_size,height);
+    cairo_show_text(cr,"30 sec");
+    cairo_move_to(cr,(width-8*font_size)/6*4+5*font_size,height);
+    cairo_show_text(cr,"40 sec");
+    cairo_move_to(cr,(width-8*font_size)/6*5+5*font_size,height);
+    cairo_show_text(cr,"50 sec");
+    cairo_move_to(cr,width-5*font_size,height);
+    cairo_show_text(cr,"60 s");
+    cairo_stroke(cr);
+
+
+
+    gfloat procent=0;
+
+    double prev[2]={height-font_size,height-font_size};
+
+    for (int j = 0; j < bjorg2; j++) {
+
+
+        for(int r=0;r<=1;r++) {
+
+//            if(j==0)
+//                prev[r]=height-font_size;
+
+            //cairo_move_to(cr,3*font_size,prev[r]);
+            cairo_move_to(cr,5*font_size,prev[r]);
+
+            if(r==0){
+                peak = &g_array_index(history[4], gfloat, j);
+                // procent = *peak;
+            }
+            if(r==1){
+                peak = &g_array_index(history[5], gfloat, j);
+
+
+            }
+          //  procent= *peak;
+            procent=((height-font_size)/max_broj3)* *peak;
+
+          //  printf("PEAK: %0.2f\n",*peak);
+            // prev[r]= height-font_size - *peak;
+            prev[r]= height-font_size - procent;
+
+          //  prev[r]= height-font_size - *peak;
+
+//            if(j==0)
+//                cairo_line_to(cr, 3*font_size, height-font_size - *peak);
+
+          //  cairo_line_to(cr, step+3*font_size, height-font_size - procent);
+            cairo_line_to(cr, step+5*font_size, height-font_size - procent);
+            if(r==0)
+                cairo_set_source_rgb(cr,1,0,0);
+            if(r==1)
+                cairo_set_source_rgba(cr,1,.5,1,.5);
+
+            cairo_stroke(cr);
+
+
+        }
+        cairo_translate(cr, step, 0);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+static void do_drawing2(GtkWidget *widget,cairo_t *cr,int l){
+    int width, height;
+    height= gtk_widget_get_allocated_height(widget);
+    width= gtk_widget_get_allocated_width(widget);
+
+   /* width=width2/2;
+    height=height2/2;*/
+
+   /*  cairo_surface_t *graph_surface;
+     graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height2);
+     cr = cairo_create (graph_surface);*/
+    //
+
+
+    //   cairo_set_source_rgb(cr,1,.05,1);
+    cairo_set_line_width(cr,1);
+  float font_size=12;
+    double step =(width-3*font_size-3*font_size)/time_step;
+
+cairo_set_font_size(cr, font_size);
+
+    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);
+    //  cairo_set_antialias (cr, CAIRO_ANTIALIAS_DEFAULT);
+
+
+    gfloat *peak;
+
+
+
+    cairo_set_font_size(cr, font_size);
+
+
+    //procent linije
+    cairo_set_source_rgba(cr,.7,.7,.7,0.5);
+    cairo_move_to(cr,0,height/4);//75%
+    cairo_line_to(cr,width-3*font_size,height/4);
+    cairo_move_to(cr,0,height/4*2);//50
+    cairo_line_to(cr,width-3*font_size,height/4*2);
+    cairo_move_to(cr,0,height/4*3);//25
+    cairo_line_to(cr,width-3*font_size,height/4*3);
+    //secund linije
+
+    for(int i =1;i<=5;i++){
+    cairo_move_to(cr,(width-2*3*font_size)/6*i+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-2*3*font_size)/6*i+3*font_size,0);
+    }
+    /*cairo_move_to(cr,(width)/6+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-6*font_size)/5+3*font_size,0);
+    cairo_move_to(cr,(width-6*font_size)/5*2+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-6*font_size)/5*2+3*font_size,0);
+    cairo_move_to(cr,(width-6*font_size)/5*3+3*font_size,height-font_size);
+    cairo_line_to(cr,(width-6*font_size)/5*3+3*font_size,0);*/
+  /*  for(int i=2 ;i<=5;i++){
+        cairo_move_to(cr,(width-6*font_size)/5*i,height-font_size);
+        cairo_line_to(cr,(width-6*font_size)/5*i,height-font_size);
+    }
+*/
+
+
+    /* cairo_move_to(cr,(width-3*font_size)/6*3,height);
+     cairo_line_to(cr,(width-3*font_size)/6*3,0);
+
+     cairo_move_to(cr,(width-3*font_size)/6*4,height);
+     cairo_line_to(cr,(width-3*font_size)/6*4,0);
+
+     cairo_move_to(cr,(width-3*font_size)/6*5,height);
+     cairo_line_to(cr,(width-3*font_size)/6*5,0);*/
+
+
+
+    cairo_stroke(cr);
+    //okvir
+    cairo_move_to(cr,3*font_size,0);
+    cairo_line_to(cr,width-3*font_size,0);
+    cairo_move_to(cr,3*font_size,0);
+    cairo_line_to(cr,3*font_size,height-font_size);
+    //   cairo_move_to(cr,3*font_size,height-font_size);
+    cairo_line_to(cr,width-3*font_size,height-font_size);
+    cairo_move_to(cr,width-3*font_size,height-font_size);
+    cairo_line_to(cr,width-3*font_size,0);
+
+    //procenti
+    cairo_move_to(cr, 0,font_size);
+    cairo_set_source_rgb(cr,0,0,0);
+    cairo_show_text(cr,"100%");
+    cairo_move_to(cr,0,height/4);
+    cairo_show_text(cr,"75%");
+    cairo_move_to(cr,0,height/4*2);
+    cairo_show_text(cr,"50%");
+    cairo_move_to(cr,0,height/4*3);
+    cairo_show_text(cr,"25%");
+    cairo_move_to(cr,0,height-font_size);
+    cairo_show_text(cr,"0%");
+    cairo_stroke(cr);
+    //sekunde
+    cairo_move_to(cr,3*font_size,height);
+    cairo_show_text(cr,"0 sec");
+    cairo_move_to(cr,(width-6*font_size)/6+3*font_size,height);
+    cairo_show_text(cr,"10 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*2+3*font_size,height);
+    cairo_show_text(cr,"20 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*3+3*font_size,height);
+    cairo_show_text(cr,"30 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*4+3*font_size,height);
+    cairo_show_text(cr,"40 sec");
+    cairo_move_to(cr,(width-6*font_size)/6*5+3*font_size,height);
+    cairo_show_text(cr,"50 sec");
+    cairo_move_to(cr,width-3*font_size,height);
+    cairo_show_text(cr,"60 s");
+    cairo_stroke(cr);
+
+
+     double prev[4]={height-font_size,height-font_size,height-font_size,height-font_size};
+
+    for (int j = 0; j < bjorg; j++) {
+
+        //cairo_move_to(cr,0,400);
+        for(int r=0;r<=3;r++) {
+
+
+            cairo_move_to(cr,3*font_size,prev[r]);
+
+            peak = &g_array_index(history[r], gfloat, j);
+
+           // int height_temp=height;
+            gfloat procent =*peak;
+            procent=((height-font_size)/100)*procent;
+
+        //    printf("PEAK: %0.2f\n",*peak);
+           // prev[r]= height-font_size - *peak;
+            prev[r]= height-font_size - procent;
+            if(procent==height) {
+                procent = height - 1;
+            }
+            cairo_line_to(cr, step+3*font_size, height-font_size - procent);
+
+
+
+            if(r==0)
+                cairo_set_source_rgb(cr,0,0,1);
+            if(r==1)
+                cairo_set_source_rgb(cr,0,1,0);
+            if(r==2)
+                cairo_set_source_rgb(cr,1,0,0);
+            if(r==3)
+                cairo_set_source_rgb(cr,0,0,0);
+            cairo_stroke(cr);
+
+
+        }
+        cairo_translate(cr, step, 0);
+
+    }
+
+
+
+}
+static gboolean network_change_ts(gpointer data){
+
+
+
+    float net1= net.transmited_bytes;
+    float net_kb = net.transmited_kb;
+    static guint i =0;
+    bjorg2++;
+
+    if(bjorg2>=60){
+
+
+        bjorg2=60;
+    }
+   // printf("STO NECE: %f",net1);
+    g_array_insert_val(history[5], i, net_kb);
+
+
+
+    network_usage_transimited_text =g_strdup_printf("TRANSMITED: %2.f %s",net.transmited_bytes,net.network_size_ts);
+
+    gtk_label_set_text (GTK_LABEL (data),network_usage_transimited_text);
+
+}
+static gboolean network_change_rc(gpointer data){
+
+
+   // received_transfered();
+    float net1= net.received_bytes;
+    float net_kb = net.received_kb;
+   // net_kb/=100;
+    static guint i =0;
+   // printf("STO NECE: %f",net1);
+    g_array_insert_val(history[4], i, net_kb);
+
+
+
+    network_usage_received_text =g_strdup_printf("RECEIVED: %2.f %s",net.received_bytes,net.network_size_rc);
+
+    gtk_label_set_text (GTK_LABEL (data),network_usage_received_text);
+}
+static gboolean cpu_change(gpointer data){
+
+    if(data== label3) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[0].number, cpu[0].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+    if(data== label4) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[1].number, cpu[1].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+    if(data== label5) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[2].number, cpu[2].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+    if(data== label6) {
+
+        cpu_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), cpu[3].number, cpu[3].percentage);
+        gtk_label_set_text (GTK_LABEL (data),cpu_usage_text);
+    }
+
+
+};
+static gboolean memory_change(gpointer data){
+
+
+    //get_memory_usage();
+
+    static int i =0;
+    gfloat  j = memory_usage.percentage;
+
+    g_array_insert_val(history[6], i, j);
+    bjorg++;
+   time_step=60000/t;
+    printf("Time step: %d\n",time_step);
+    if(bjorg>=time_step){
+
+        bjorg=time_step;
+    }
+
+
+    memory_usage_text = g_strdup_printf (("Memory: %0.2f%%"),memory_usage.percentage);
+    gtk_label_set_text (GTK_LABEL (data), memory_usage_text);
+    return TRUE;
+}
+static gboolean swap_change(gpointer data){
+
+
+
+    //get_memory_usage();
+
+
+    static guint i =0;
+    gfloat  j = memory_usage.swap_used;
+
+    g_array_insert_val(history[7], i, j);
+    swap_usage_text = g_strdup_printf(("SWAP: %lu%%"),memory_usage.swap_used);
+    gtk_label_set_text (GTK_LABEL (data), swap_usage_text);
+}
+
+void percent_ffs(){
+
+
+    cpu_percentage(ncpu);
+    static guint i= 0;
+    gfloat j;
+  //  gfloat *peak;
+    for(int s=0;s<ncpu;s++) {
+
+        j = cpu[s].percentage;
+     //   j=4*j;
+
+        g_array_insert_val(history[s], i, j);
+       // peak=&g_array_index(history[s],gfloat,i);
+
+       // printf("peak problems: %f \n",*peak);
+
+
+    }
+
+};
+void timeout_refresh(){
+
+    if (!g_source_remove (refresh))
+    {
         g_critical ("Unable to remove source");
         return;
     }
     refresh = 0;
-    init_timeout();
+    init_timeout ();
 
 }
+void init_timeout2(){
+    received_transfered();
+    network_change_rc( label7);
+  network_change_ts (label8);
+   /* time_handler(graph2);
+    time_handler(graph4);*/
 
-void init_timeout2() {
-//    received_transfered();
-//    network_change_rc(label_mem);
-//    network_change_ts(label_swap);
-    bjorg2++;
-
-    if (bjorg2 >= 60) {
-
-
-        bjorg2 = 60;
-    }
-//    if (refresh == 0) {
-//
-//        refresh = g_timeout_add(t, (GSourceFunc) init_timeout2, NULL);
-//    }
 
 }
+ void init_timeout(){
+
+     measurements();
+     percent_ffs();
+     get_memory_usage();
+
+     interrupt_usage();
+
+    cpu_change(label1);
+    cpu_change(label3);
+    cpu_change(label4);
+    cpu_change(label5);
+    cpu_change(label6);
+     memory_change(label);
+     swap_change(label1);
+   /* time_handler(graph1);
+    time_handler(graph3);*/
+     get_task_list(tasks);
+     time_handler(window);
 
 
-void conekcija(gchar * argv){
+    // ninja();
+   //  g_timeout_add(t,(GSourceFunc) time_handler,window);
 
-    struct sockaddr_in addr ,cl_addr;
-    int sockfd, len ,ret, ret1;
-    char buffer[BUF_SIZE];
-
-    char clientAddr[CLADDR_LEN];
-
-//    if(argc <2){
-//
-//        printf("no port provided");
-//        exit(1);
-//    }
-    int portnum=atoi(argv);
-    // int portnum=5555;
-    printf("port number %d ",portnum);
-    sockfd =socket(AF_INET,SOCK_STREAM,0);
-    if(sockfd<0){
-        printf("Error creating socket!\n");
-        exit(1);
-    }
-    printf("Socket created \n");
-
-    memset(&addr,0,sizeof(addr));
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = INADDR_ANY;
-    addr.sin_port = htons(portnum);
-
-
-    ret = bind(sockfd,(struct sockaddr *) &addr, sizeof(addr));
-    if (ret < 0){
-        printf("Error binding!\n");
-        exit(1);
-    }
-    printf("Binding done...\n");
-
-    printf("Waiting for a connection...\n");
-
-    listen(sockfd, 5); //hello is anybody going to call me :{
-    printf("da li smo prosli \n");
-    len =sizeof(cl_addr);
-    newsockfd = accept(sockfd,(struct sockaddr *) &cl_addr, &len);
-    if (newsockfd < 0) {
-        printf("Error accepting connection!\n");
-        exit(1);
-    }
-
-    inet_ntop(AF_INET, &(cl_addr.sin_addr), clientAddr, CLADDR_LEN);
-    printf("Connection accepted from %s...\n", clientAddr);
-
-    memset(buffer,0,BUF_SIZE);
-    printf("time to send some shit over the ethernet\n");
-//    if(pthread_mutex_init(&mut, NULL)!=0){
-//        printf("mutex init failed \n");
-//        exit(1);
-//    }
-
-    printf("making threads\n");
-
-}
-
-void *init_timeout() {
-
-    guint i=0,j=0;
-
-
-    struct tm tm;
-
-    //GArray *new_task_list;
-    GArray *new_task_list=g_array_new (FALSE, FALSE, sizeof (Task));
-    GArray *new_device_list=g_array_new (FALSE, FALSE, sizeof (Devices));
-    GArray *new_interrupt_list= g_array_new (FALSE, FALSE, sizeof (Interrupts));
-  //  new_task_list =  get_task_list2();
-  //  new_device_list   = device(device_all);
-    Cpu_usage1 cpu_usage1;
-    Network network;
-    Memory_usage memory_usage;
-
-
-
-    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network,&tm,&memory_usage);
-   // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
-    //primanje_interrupta(&newsockfd);
-     start_stop(0,"" ,"");
-
-    //new_interrupt_list=interrupt_usage();
-    poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
-   g_array_free(interrupt_array_temp,TRUE);
-   // g_array_unref(interrupt_array_temp);
-    interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
-
-
-
-
-    upis(new_interrupt_list,interrupt_array_temp);
-
-
-  //  interrupt_array_temp=interrupt_usage();
-    //   printf("%d\n",interrupt_array_temp->len);
-
-
-//    received_transfered();
-    network_change_rc(&network);
-   // network_change_rc(label_mem,label_swap,&network);
-    time_change( &tm);
-   // time_change(label_time, &tm);
-//    network_change_ts(label_swap);
-  /*  bjorg2++;
-
-    if (bjorg2 >= 60) {
-
-
-        bjorg2 = 60;
-    }
-*/
-
-    for(i = 0; i < names_array->len; i++) //uzimamo element niza
+    if(refresh==0)
     {
-        Devices *tmp = &g_array_index(names_array, Devices, i);
-        tmp->checked = FALSE;
-        // printf("%s\n",tmp->name);
-        for(j = 0; j < new_device_list->len; j++)
-        {
-            Devices *new_tmp = &g_array_index(new_device_list, Devices, j);
+      //  refresh=g_timeout_add(t,(GSourceFunc)init_timeout,NULL);
+       // gint id;
+      // gpointer q=GINT_TO_POINTER(t);
 
-            if(strcmp(new_tmp->directory, tmp->directory)==0 &&strcmp(new_tmp->name, tmp->name)==0 && strcmp(new_tmp->type, tmp->type)==0&&
-                        new_tmp->fid==tmp->fid && new_tmp->total ==tmp->total
-                    )  //poredimo elemente nizova
-            {
-              //  if(strcmp(new_tmp->name, tmp->name)==0) {
-
-                    if((gint)tmp->avail != (gint)new_tmp->avail //ako ima razlika
-                       /* || strcmp(tmp->used,new_tmp->used)*/ ||
-                   //    strcmp(tmp->type,new_tmp->type)!=0 ||
-                     //  strcmp(tmp->name,new_tmp->name)!=0 ||
-                       (unsigned int)tmp->used != (unsigned int)new_tmp->used ||
-                       (unsigned int)tmp->free != (unsigned int)new_tmp->free ||
-                       (unsigned int)tmp->total != (unsigned int)new_tmp->total) //||
-                        // (unsigned int)tmp->time != (unsigned int)tmp->old_time)
-                    {
-                        tmp->avail = new_tmp->avail;
-                        //strcpy(tmp->name, new_tmp->name);
-                     //   strcpy(tmp->type, new_tmp->type);
-                        tmp->used = new_tmp->used;
-                        tmp->total = new_tmp->total;
-                        tmp->free = new_tmp->free;
-
-                        refresh_list_item_device(i);
-                      //  printf("I %d name %s directory %s size %lu\n",i,tmp->name,tmp->directory,tmp->total);
-                    }
-                    tmp->checked = TRUE; //
-                    new_tmp->checked = TRUE;
-                    break;
-             //   }
-
-            }
-            else
-                tmp->checked = FALSE;
-        }
-    }
-    /* check for unchecked old-tasks for deleting */
-    i = 0;
-    while( i < names_array->len)
-    {
-
-        Devices *tmp = &g_array_index(names_array, Devices, i);
-     //   printf("name %s I %d checked %s \n",tmp->name,i,tmp->checked  ? "TRUE" : "FALSE");
-        if(!tmp->checked)//element niza koji se ne nalazi vise u novom nizu
-        {
-            remove_list_item_device(tmp->directory,tmp->name);
-            g_array_remove_index(names_array, i);
-           // printf("we removed a item from the list I [%d] name: %s directry: %s\n",i,tmp->name,tmp->directory);
-            dev_num--;
-        }
-        else
-            i++;
-
-    }
-
-
-    /* check for unchecked new tasks for inserting */
-    for(i = 0; i < new_device_list->len; i++)
-    {
-        Devices *new_tmp = &g_array_index(new_device_list, Devices, i);
-
-        if(!new_tmp->checked)
-        {
-            Devices *new_device = new_tmp;
-
-            g_array_append_val(names_array, *new_device);
-            //   if(( new_task->uid == own_uid))
-            add_new_list_item_dev(dev_num);
-          //  printf("new item added for no reason %d name %s\n",i,new_device->name);
-            dev_num++;
-        }
-    }
-
-////////////
-
-
-    for(i = 0; i < task_array->len; i++)
-    {
-       Task *tmp = &g_array_index(task_array, Task, i);
-        tmp->checked = FALSE;
-           // printf("%s\n",tmp->name);
-        for(j = 0; j < new_task_list->len; j++)
-        {
-            Task *new_tmp = &g_array_index(new_task_list, Task, j);
-
-            if(new_tmp->pid == tmp->pid)
-            {
-
-                if((gint)tmp->ppid != (gint)new_tmp->ppid || strcmp(tmp->state,new_tmp->state)!=0 ||
-                        (unsigned int)tmp->cpu_system != (unsigned int)new_tmp->cpu_system ||
-                        (unsigned int)tmp->cpu_user != (unsigned int)new_tmp->cpu_user ||
-                        (unsigned int)tmp->rss != (unsigned int)new_tmp->rss ||
-                         (unsigned int)tmp->prio != (unsigned int)new_tmp->prio|| tmp->duration.tm_hour!= new_tmp->duration.tm_hour||
-                tmp->duration.tm_min!= new_tmp->duration.tm_min||
-                tmp->duration.tm_sec!= new_tmp->duration.tm_sec)
-                           // )
-                {
-                    tmp->ppid = new_tmp->ppid;
-                    strcpy(tmp->state, new_tmp->state);
-                    tmp->cpu_user = new_tmp->cpu_user;
-                    tmp->cpu_system = new_tmp->cpu_system;
-                    tmp->rss = new_tmp->rss;
-                    tmp->prio = new_tmp->prio;
-                    tmp->duration.tm_hour= new_tmp->duration.tm_hour;
-                    tmp->duration.tm_min= new_tmp->duration.tm_min;
-                    tmp->duration.tm_sec= new_tmp->duration.tm_sec;
-
-                    refresh_list_item(i);
-                }
-                tmp->checked = TRUE;
-                new_tmp->checked = TRUE;
-                break;
-            }
-            else
-                tmp->checked = FALSE;
-        }
-    }
-
-    /* check for unchecked old-tasks for deleting */
-    i = 0;
-    while( i < task_array->len)
-    {
-
-       Task *tmp = &g_array_index(task_array, Task, i);
-
-        if(!tmp->checked)
-        {
-            remove_list_item((gint)tmp->pid);
-            g_array_remove_index(task_array, i);
-            tasks_num--;
-        }
-        else
-            i++;
-
-    }
-
-
-    /* check for unchecked new tasks for inserting */
-    for(i = 0; i < new_task_list->len; i++) {
-        Task *new_tmp = &g_array_index(new_task_list, Task, i);
-
-        if (!new_tmp->checked) {
-            Task *new_task = new_tmp;
-
-            g_array_append_val(task_array, *new_task);
-            //   if(( new_task->uid == own_uid))
-            add_new_list_item(tasks_num);
-            tasks_num++;
-        }
+       // refresh= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
+       // g_source_remove (refresh);
+        refresh= g_timeout_add (t,(GSourceFunc) init_timeout, NULL);
     }
 
 
 
 
-    cpu_change(&cpu_usage1);
-
-
-  // memory_change(label_rec,&memory_usage);// nije ovde
-   memory_change(&memory_usage);// nije ovde
-    swap_change(&memory_usage); // nije ovde
-   // swap_change(label_trans,&memory_usage); // nije ovde
-
-    time_handler(window);
-    g_array_free(new_task_list, TRUE);
-
-     //g_array_free(interrupt_array_temp, TRUE);
-    g_array_free(new_interrupt_list,TRUE);
-   // g_array_unref(interrupt_array_d);
-
-
-    g_array_free(new_device_list,TRUE);
-    bjorg++;
 
 
 
-    time_step = 60000 / t;
+  //  g_timeout_add(t,(GSourceFunc) init_timeout,NULL);
 
-    if (bjorg >= time_step) {
-
-
-        bjorg = time_step;
-    }
-
-
-    if (refresh == 0) {
-
-        refresh = g_timeout_add(t, (GSourceFunc) init_timeout, NULL);
-    }
 
 };
 
 
-int main(int argc, char *argv[]) {
+
+int main (int argc, char *argv[]) {
 
 
+    gtk_init(&argc, &argv);
 
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-gtk_init(&argc, &argv);
-        if(argc<2){
-
-            printf("port not providec \n");
-            exit(1);
-        }
-
-    conekcija(argv[1]);
-
-
-
-
-    dev_swindow = gtk_scrolled_window_new(NULL,
-                                          NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(dev_swindow), GTK_POLICY_AUTOMATIC,
-                                   GTK_POLICY_ALWAYS);
-    process_swindow = gtk_scrolled_window_new(NULL,
-                                              NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(process_swindow), GTK_POLICY_AUTOMATIC,
-                                   GTK_POLICY_ALWAYS);
-
-
-
-
-
-
-
-
-
-
-    task_array=g_array_new (FALSE, FALSE, sizeof (Task));
-
-    interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
-    interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
-    g_array_set_size(interrupt_array_d, 10);
-
-
-    names_array=g_array_new (FALSE, FALSE, sizeof (Devices));
-
+    ncpu = cpu_number();
+    interface_name();
+    array();
+    //test
 
 
     for (int i = 0; i < 8; i++) {
-        history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
+    history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
+    g_array_set_size(history[i], 60);
+}
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
 
-    }
-    for (int i = 0; i <= 3; i++) {
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
 
-        g_array_set_size(history[i], 240);//max steps
-    }
-    for (int i = 4; i <= 5; i++) {
+    button =gtk_button_new_with_label("refresh rate");
+    button2 =gtk_button_new_with_label("refresh rate");
+   // button3 =gtk_button_new_with_label("process");
+  button3=  gtk_toggle_button_new_with_label( "Process");
+    gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button3),
+                                FALSE);
 
-        g_array_set_size(history[i], 240);
-    }
-    for (int i = 6; i <= 7; i++) {
-
-
-        g_array_set_size(history[i], 240);
-    }
-
-  //  GArray *new_interrupt_list;
-
-  //  interrupt_array_temp=interrupt_usage();
+    graph1 = gtk_drawing_area_new();
+    graph2 = gtk_drawing_area_new();
+    graph3 = gtk_drawing_area_new();
+    graph4 = gtk_drawing_area_new();
 
 
 
 
-
-       // upis(new_interrupt_list,interrupt_array_temp);
-
-     //   g_array_free(new_interrupt_list,TRUE);
-
-    window= main_window(dev_swindow,process_swindow);
-    g_signal_connect(button, "clicked", G_CALLBACK(inc_refresh), NULL);
-    g_signal_connect(button2, "clicked", G_CALLBACK(dec_refresh), NULL);
-    g_signal_connect(button_proc, "toggled", G_CALLBACK(button_clicked_view_process), NULL);
-
-    g_signal_connect(button_dev, "toggled", G_CALLBACK(dev_button_clicked2), NULL);
+  //  gtk_widget_set_size_request(graph1,800,400);
+   /* gtk_widget_set_size_request(graph2,800,400);
+    gtk_widget_set_size_request(graph3,800,400);
+    gtk_widget_set_size_request(graph4,800,400);
+*/
 
 
+    label= gtk_label_new(NULL);//memory
+    label1= gtk_label_new(NULL);//swap
+   // label2= gtk_label_new(NULL);//CPU
+    label3= gtk_label_new(NULL);//cpu1
+    label4= gtk_label_new(NULL);//cpu2
+    label5= gtk_label_new(NULL);//cpu3
+    label6= gtk_label_new(NULL);//cpu4
+    label7= gtk_label_new(NULL);//network_received
+    label8= gtk_label_new(NULL);//network_transimited
 
-    g_signal_connect(button_graph, "clicked", G_CALLBACK(graph_button_clicked), NULL);
 
-    g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
-    init_timeout();
 
+
+
+
+
+
+
+
+    hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  //  gtk_box_pack_start(GTK_BOX(vbox),hbox,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(vbox),hbox,0,FALSE,0);
+    //gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
+  //testing frames
+   // gtk_box_pack_start(GTK_BOX(vbox),hseparator,0,FALSE,0);
+
+
+
+
+    gtk_box_pack_start(GTK_BOX(hbox),button,FALSE,FALSE,FALSE);//expand,fill,padding
+   gtk_box_pack_start(GTK_BOX(hbox),button2,0,0,0);
+   gtk_box_pack_start(GTK_BOX(hbox),button3,0,0,0);
+   gtk_box_pack_start(GTK_BOX(hbox),label3,0,0,0);
+    gtk_box_pack_start(GTK_BOX(hbox),label4,0,FALSE,1);
+    gtk_box_pack_start(GTK_BOX(hbox),label5,0,0,0);
+    gtk_box_pack_start(GTK_BOX(hbox),label6,0,0,0);
+    gtk_box_pack_start(GTK_BOX(hbox),label8,1,1,1);
+    gtk_box_pack_start(GTK_BOX(hbox),label7,1,TRUE,1);
+
+
+
+    hbox1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
+    hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
+    hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
+    //gtk_box_pack_start(GTK_BOX(vbox),hbox1,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(vbox),hbox1,1,1,0);
+//testing frames
+    frame1=gtk_frame_new(NULL);
+    gtk_container_add(GTK_CONTAINER(frame1),graph1);
+    gtk_box_pack_start(GTK_BOX(hbox1),frame1,1,TRUE,0);
+    //
+   // gtk_box_pack_start(GTK_BOX(hbox1),graph1,1,TRUE,0);
+
+
+
+   // hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+    //gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(vbox),hseparator,0,0,0);
+  //  gtk_box_pack_start(GTK_BOX(vbox),hbox3,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(vbox),hbox3,0,FALSE,0);
+ //   hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+    //frame testing
+   // gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(hbox3),label,0,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(hbox3),label1,0,FALSE,1);
+  //  gtk_box_pack_start(GTK_BOX(hbox3),label2,1,TRUE,0);
+  //  gtk_box_pack_start(GTK_BOX(hbox3),label6,1,TRUE,0);
+
+
+
+
+ //   vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+ //testing frames
+
+   // gtk_box_pack_start(GTK_BOX(hbox1),vseparator,1,TRUE,0);
+    frame2=gtk_frame_new(NULL);
+    gtk_container_add(GTK_CONTAINER(frame2),graph2);
+
+    gtk_box_pack_start(GTK_BOX(hbox1),frame2,1,TRUE,0);
+    // gtk_box_pack_start(GTK_BOX(hbox1),graph2,1,TRUE,0);
+    //
+  //  hseparator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+
+  //testing
+  //  gtk_box_pack_start(GTK_BOX(vbox),hseparator,1,TRUE,0);
+
+
+    hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,1);
+    gtk_box_pack_start(GTK_BOX(vbox),hbox2,1,TRUE,0);
+    //testing frames
+    frame3=gtk_frame_new(NULL);
+    frame4=gtk_frame_new(NULL);
+    gtk_container_add(GTK_CONTAINER(frame3),graph3);
+    gtk_container_add(GTK_CONTAINER(frame4),graph4);
+    gtk_box_pack_start(GTK_BOX(hbox2),frame3,1,TRUE,0);
+
+
+   // vseparator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+  //testing frames
+    //gtk_box_pack_start(GTK_BOX(hbox2),vseparator,1,TRUE,0);
+
+
+    gtk_box_pack_start(GTK_BOX(hbox2),frame4,1,TRUE,0);
+
+
+
+
+    g_signal_connect(G_OBJECT(window), "destroy",
+                     G_CALLBACK(gtk_main_quit), NULL);
+
+    g_signal_connect(button,"clicked", G_CALLBACK(button_clicked), NULL);
+    g_signal_connect(button2,"clicked", G_CALLBACK(button_clicked2), NULL);
+    g_signal_connect(button3,"toggled", G_CALLBACK(button_clicked3), NULL);
     g_signal_connect(G_OBJECT(graph1), "draw",
-                     G_CALLBACK(on_draw_event), NULL);
+                     G_CALLBACK(on_draw_event),NULL);
     g_signal_connect(G_OBJECT(graph2), "draw",
-                     G_CALLBACK(on_draw_event), NULL);
+                     G_CALLBACK(on_draw_event),NULL);
     g_signal_connect(G_OBJECT(graph3), "draw",
-                     G_CALLBACK(on_draw_event), NULL);
+                     G_CALLBACK(on_draw_event),NULL);
     g_signal_connect(G_OBJECT(graph4), "draw",
-                     G_CALLBACK(on_draw_event), NULL);
-
-
-  //  g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
+                     G_CALLBACK(on_draw_event),NULL);
 
 
 
-// pthread_create(&t1,NULL,init_timeout,NULL);
-//pthread_create(&t2,NULL,init_timeout2,NULL);
+
+
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    gtk_window_set_default_size(GTK_WINDOW(window), 1400, 800);
+  //  gtk_window_get_resizable (window);
+    measurements();
+    init_timeout();
+    g_timeout_add(1000,(GSourceFunc)init_timeout2,NULL);
+    gtk_container_add(GTK_CONTAINER(window), vbox);
+
+    gtk_window_set_title(GTK_WINDOW(window), "lines mother do you see it ");
 
 
     gtk_widget_show_all(window);
 
-//
-//    gtk_widget_hide(dev_swindow);
-//   gtk_widget_hide(process_swindow);
-//    gtk_widget_hide(hbox1);
-//    gtk_widget_hide(hbox3);
-//    gtk_widget_hide(hbox2);
 
 
     gtk_main();
- //   g_thread_join(tg);
-
-
-    if (refresh > 0){
-        g_source_remove (refresh);
-
-
-
-    }
-
-
-
-
-
 
     return 0;
 }

@@ -5,7 +5,7 @@
 #include "cpu_usage.h"
 
 
-
+#include "gtk/gtk.h"
 
 
 
@@ -16,8 +16,8 @@ int cpu_number (){
 
     int c=0;
     FILE *file;
-    gchar *filename = "/proc/cpuinfo";
-    gchar buffer[1024];
+    char *filename = "/proc/cpuinfo";
+    char buffer[1024];
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
         exit(1);
     while (fgets (buffer, 1024, file) != NULL) {
@@ -43,8 +43,8 @@ void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
 
 
 
-    gfloat cpu_user[4];
-    gfloat cpu_system[4];
+    float cpu_user[4];
+    float cpu_system[4];
     unsigned  long user[4]={0,0,0,0};
     unsigned  long user_nice[4]={0,0,0,0};
     unsigned  long idle[4]={0,0,0,0};
@@ -58,8 +58,8 @@ void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
     static unsigned long jiffies_user_old [4]={0,0,0,0}, jiffies_system_old [4]={0,0,0,0}, jiffies_total_old [4]={0,0,0,0};;
      unsigned long test=0;
     FILE *file;
-    gchar *filename = "/proc/stat";
-    gchar buffer[1024];
+    char *filename = "/proc/stat";
+    char buffer[1024];
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
 
         exit(1);
@@ -136,11 +136,11 @@ void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
 
 
 void
-get_cpu_percent (guint pid, gulong jiffies_user, gfloat *cpu_user, gulong jiffies_system, gfloat *cpu_system)
+get_cpu_percent (unsigned int pid, long jiffies_user, float *cpu_user, long jiffies_system, float *cpu_system)
 {
     static GHashTable *hash_cpu_user = NULL;
     static GHashTable *hash_cpu_system = NULL;
-    gulong jiffies_user_old, jiffies_system_old;
+     unsigned long jiffies_user_old, jiffies_system_old;
 
     if (hash_cpu_user == NULL)
     {

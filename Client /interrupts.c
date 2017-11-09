@@ -471,8 +471,8 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
 
 
     //   GArray * ginterrupts=g_array_new(FALSE,FALSE,sizeof(Interrupts));
-    Interrupts /**array,*/ *temp;
-    Interrupts *array, *temp2;
+    Interrupts  *temp;
+    Interrupts *array;
     array=malloc(sizeof(Interrupts));
 
     static  int g=0;
@@ -485,23 +485,9 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
 
     while (fgets(buffer, 1024, file) != NULL) {
         int i = 0;
-        Interrupts interrupts={0};
 
-/*
-        sscanf(buffer, "%s %li %li %li %li %255s %255s %255s %255s",interrupts.name, &interrupts.CPU0, &interrupts.CPU1,
-               &interrupts.CPU2,
-               &interrupts.CPU3,
-               interrupts.ime1,
-               interrupts.ime2,
-               interrupts.ime3,
-               interrupts.ime4 );*/
-        /*    sscanf(buffer, "%s %li %li %li %li %255s %255s %255s %255s",array->name, &array->CPU0, &array->CPU1,
-                   &array->CPU2,
-                   &array->CPU3,
-                   array->ime1,
-                   array->ime2,
-                   array->ime3,
-                   array->ime4 );*/
+
+
         for(int n=0;n<sizeof(array->name);n++){
 
             array[*j].name[n]='\0';
@@ -528,13 +514,7 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
 
 
 
-        /*    while(interrupts.name[i] != ':'){
 
-
-                i++;
-
-            }*/
-        interrupts.name[i]='\0';
         i=0;
         while(array[*j].name[i] != ':'){
 
@@ -546,21 +526,15 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
         i=0;
 
         //   printf("j %d\t",j);
-        printf("PRvi[%s %li %li %li %li %s %s %s %s]\n",array[*j].name, array[*j].CPU0, array[*j].CPU1,
+     /*   printf("PRvi[%s %li %li %li %li %s %s %s %s]\n",array[*j].name, array[*j].CPU0, array[*j].CPU1,
                array[*j].CPU2,
                array[*j].CPU3,
                array[*j].ime1,
                array[*j].ime2,
                array[*j].ime3,
                array[*j].ime4 );
+*/
 
-        /*printf("[%s %li %li %li %li %s %s %s %s]\n",array->name, array->CPU0, array->CPU1,
-                 array->CPU2,
-                 array->CPU3,
-                 array->ime1,
-                 array->ime2,
-                 array->ime3,
-                 array->ime4 );*/
 
         //   array=(Interrupts *) realloc(array,(j+1)*sizeof(Interrupts)); //mora da se inicijalizuje
         temp=realloc(array,( /**j*/ g+2)*sizeof(Interrupts));

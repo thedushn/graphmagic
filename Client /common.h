@@ -5,12 +5,32 @@
 #ifndef GTKWORLD_COMMON_H
 #define GTKWORLD_COMMON_H
 
-#include "gtk/gtk.h"
+#include <stdbool.h>
 
 
-#include "task_manager.h"
-#include "devices.h"
 
+
+
+typedef struct _Task Task;
+struct _Task
+{
+    unsigned int		uid;
+    char		uid_name[256];
+    unsigned int		pid;
+    unsigned int		ppid;
+    char		name[256];
+    // gchar		cmdline[1024];
+    char		state[16];
+    float		cpu_user;
+    float		cpu_system;
+    unsigned long long	vsz;
+    unsigned long long	rss;
+    short		prio;
+    long long     start_time;
+    struct tm duration;
+    struct tm stime;
+    bool checked;
+};
 typedef struct _Network Network;
 struct _Network{
 
@@ -24,14 +44,14 @@ typedef struct _Cpu_usage Cpu_usage;
 struct _Cpu_usage {
 
 
-    gfloat percentage0;
-    gfloat percentage1;
-    gfloat percentage2;
-    gfloat percentage3;
+    float percentage0;
+    float percentage1;
+    float percentage2;
+    float percentage3;
     int number;
 
 };
-//#include "memory_usage.h"
+
 #include "interrupts_s.h"
 
 typedef struct _Memory_usage Memory_usage;
@@ -64,24 +84,24 @@ typedef struct  _Sending_stuff Sending_stuff;
 struct _Sending_stuff{
 
     int mem;
-    gboolean show;
-    gchar command [10];
-    gchar task_id [256];
+    bool show;
+    char command [10];
+    char task_id [256];
 };
 
 typedef struct _Devices Devices;
 struct _Devices {
 
 
-    gchar		name[256];
-    gchar       type[256];
-    gchar       directory[256];
-    glong used;
-    glong total;
-    glong free;
-    glong avail;
-    glong fid;
-    gboolean checked;
+    char		name[256];
+    char       type[256];
+    char       directory[256];
+    long used;
+    long total;
+    long free;
+    long avail;
+    long fid;
+    bool checked;
 };
 typedef union DATA_S data_s;
 union DATA_S {

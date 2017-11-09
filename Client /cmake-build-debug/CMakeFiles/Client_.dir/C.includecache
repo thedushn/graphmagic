@@ -25,12 +25,8 @@ arpa/inet.h
 -
 
 /home/dushn/Desktop/Client /common.h
-gtk/gtk.h
-/home/dushn/Desktop/Client /gtk/gtk.h
-task_manager.h
-/home/dushn/Desktop/Client /task_manager.h
-devices.h
-/home/dushn/Desktop/Client /devices.h
+stdbool.h
+-
 interrupts_s.h
 /home/dushn/Desktop/Client /interrupts_s.h
 
@@ -59,8 +55,6 @@ common.h
 /home/dushn/Desktop/Client /devices.c
 devices.h
 /home/dushn/Desktop/Client /devices.h
-common.h
-/home/dushn/Desktop/Client /common.h
 errno.h
 -
 
@@ -101,6 +95,10 @@ dirent.h
 -
 stdlib.h
 -
+stdbool.h
+-
+common.h
+/home/dushn/Desktop/Client /common.h
 
 /home/dushn/Desktop/Client /functions.c
 stdio.h
@@ -247,6 +245,8 @@ cpu_usage.h
 /home/dushn/Desktop/Client /cpu_usage.h
 functions.h
 /home/dushn/Desktop/Client /functions.h
+errno.h
+/home/dushn/Desktop/Client /errno.h
 
 /home/dushn/Desktop/Client /task_manager.h
 gtk/gtk.h
@@ -265,6 +265,8 @@ stdio.h
 -
 stdlib.h
 -
+common.h
+/home/dushn/Desktop/Client /common.h
 
 /usr/include/atk-1.0/atk/atk-enum-types.h
 atk/atkversion.h

@@ -14,12 +14,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "common.h"
 
 
-typedef struct _Task Task;
-gboolean	get_task_list		(GArray *task_list);
+void get_task_list (Task * * array,int *niz);
 GArray *get_task_list2(void);
-static gboolean get_task_details (guint pid, Task *task);
+static gboolean get_task_details (int pid, Task *task);
 static inline long get_pagesize (void);
 
 //static void	model_update_tree_iter				(GtkTreeModel *model, GtkTreeIter *iter, Task *task);
@@ -30,24 +30,5 @@ static gboolean more_precision;
 void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff);
 
 
-struct _Task
-{
-    guint		uid;
-    gchar		uid_name[256];
-    guint		pid;
-    guint		ppid;
-    gchar		name[256];
-    // gchar		cmdline[1024];
-    gchar		state[16];
-    gfloat		cpu_user;
-    gfloat		cpu_system;
-    guint64		vsz;
-    guint64		rss;
-    gshort		prio;
-    unsigned long long     start_time;
-    struct tm duration;
-    struct tm stime;
-    gboolean checked;
-};
 
 #endif //GTKWORLD_TASKS_C_H

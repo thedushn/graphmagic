@@ -21,7 +21,7 @@ pthread_cond_t   cond = PTHREAD_COND_INITIALIZER;
 
 
 //int rezultat =1;
-gboolean devices_show=FALSE;
+bool devices_show=FALSE;
 
 void send_prio_to_task(gchar *task_id, gchar *signal)
 {
@@ -48,7 +48,7 @@ void send_prio_to_task(gchar *task_id, gchar *signal)
     }
 
 
-    gchar str[4];
+    char str[4];
 
     sprintf(str,"%d",prio);
     gchar command[64] = "renice -n ";
@@ -64,12 +64,12 @@ void send_prio_to_task(gchar *task_id, gchar *signal)
     //return (res== 0 ) ? TRUE : FALSE;
 
 }
-void send_signal_to_task(gchar *task_id, gchar *signal)
+void send_signal_to_task(char *task_id, char *signal)
 {
     printf("SIGNAL %s the task with ID %s\n", signal, task_id);
     if(task_id != "" && signal != NULL)
     {
-        gchar command[64] = "kill -";
+        char command[64] = "kill -";
         g_strlcat(command,signal, sizeof command);
         g_strlcat(command," ", sizeof command);
         g_strlcat(command,task_id, sizeof command);
@@ -190,7 +190,7 @@ void *slanje(void *socket){
 
         int j=h;
 
-        for(int r=0;r<j;r++){
+      /*  for(int r=0;r<j;r++){
 
             printf("hello[%s %li %li %li %li %s %s %s %s]\n",array[r].name, array[r].CPU0, array[r].CPU1,
                    array[r].CPU2,
@@ -200,7 +200,7 @@ void *slanje(void *socket){
                    array[r].ime3,
                    array[r].ime4 );
 
-        }
+        }*/
 
 
 
@@ -223,8 +223,8 @@ void *slanje(void *socket){
             }
 
             upis_imena(interrupts1, &data.interrupts);
-            printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", data.interrupts.CPU0,data.interrupts.CPU1,data.interrupts.CPU2,
-                   data.interrupts.CPU3,  data.interrupts.name,data.interrupts.ime1,data.interrupts.ime2,data.interrupts.ime3,data.interrupts.ime4);
+         /*   printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", data.interrupts.CPU0,data.interrupts.CPU1,data.interrupts.CPU2,
+                   data.interrupts.CPU3,  data.interrupts.name,data.interrupts.ime1,data.interrupts.ime2,data.interrupts.ime3,data.interrupts.ime4);*/
             ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
 
             if (ret < 0) {
@@ -252,60 +252,65 @@ void *slanje(void *socket){
 //                   data.cpu_usage.percentage2,
 //                   data.cpu_usage.percentage3);
         }
-        GArray *task_list =g_array_new(FALSE,FALSE,sizeof(Task));
+      //  GArray *task_list =g_array_new(FALSE,FALSE,sizeof(Task));
+        Task *task_array;
 
-        get_task_list(task_list);
-        num_packets = task_list->len;
+        int niz_task=0;
+        get_task_list(&task_array,&niz_task);
+      //  num_packets = task_list->len;
+      //  int broj_koji_treba_promenit=(int)num_packets;
 //
-       ret = (int) send(info->thread_socket, &num_packets, sizeof(int), 0);
+       ret = (int) send(info->thread_socket, &niz_task, sizeof(int), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
 
             exit(1);
         }
-        for (int i = 0; i < task_list->len; i++) {
+        for (int i = 0; i < niz_task; i++) {
 
-            Task *tasks;
 
-            tasks = &g_array_index(task_list, Task, i);
-            size_t g = strlen(tasks->name);
+            size_t g = strlen(task_array[i].name);
             for (int r = 0; r <= g; r++) {
 
-                data.task.name[r] = tasks->name[r];
+                data.task.name[r] = task_array[i].name[r];
 
             }
-            g = strlen(tasks->state);
+            g = strlen(task_array[i].state);
             for (int r = 0; r <= g; r++) {
 
-               data.task.state[r] = tasks->state[r];
+               data.task.state[r] =task_array[i].state[r];
 
             }
-            g = strlen(tasks->uid_name);
+            g = strlen(task_array[i].uid_name);
             for (int r = 0; r <= g; r++) {
 
-               data.task.uid_name[r] = tasks->uid_name[r];
+               data.task.uid_name[r] = task_array[i].uid_name[r];
 
             }
-            data.task.uid = tasks->uid;
-            data.task.cpu_system = tasks->cpu_system;
-            data.task.cpu_user = tasks->cpu_user;
-            data.task.vsz = tasks->vsz;
-            data.task.rss = tasks->rss;
-            data.task.prio = tasks->prio;
+            data.task.uid = task_array[i].uid;
+            data.task.cpu_system = task_array[i].cpu_system;
+            data.task.cpu_user = task_array[i].cpu_user;
+            data.task.vsz = task_array[i].vsz;
+            data.task.rss =task_array[i].rss;
+            data.task.prio = task_array[i].prio;
 
-            data.task.pid = tasks->pid;
-            data.task.ppid = tasks->ppid;
-            data.task.start_time=tasks->start_time;
-            data.task.duration.tm_sec =tasks->duration.tm_sec;
-            data.task.duration.tm_min =tasks->duration.tm_min;
-            data.task.duration.tm_hour =tasks->duration.tm_hour;
-            data.task.stime.tm_sec =tasks->stime.tm_sec;
-            data.task.stime.tm_min =tasks->stime.tm_min;
-            data.task.stime.tm_hour =tasks->stime.tm_hour;
+            data.task.pid = task_array[i].pid;
+            data.task.ppid = task_array[i].ppid;
+            data.task.start_time=task_array[i].start_time;
+            data.task.duration.tm_sec =task_array[i].duration.tm_sec;
+            data.task.duration.tm_min =task_array[i].duration.tm_min;
+            data.task.duration.tm_hour =task_array[i].duration.tm_hour;
+            data.task.stime.tm_sec =task_array[i].stime.tm_sec;
+            data.task.stime.tm_min =task_array[i].stime.tm_min;
+            data.task.stime.tm_hour =task_array[i].stime.tm_hour;
             data.task.checked=FALSE;
-         //   printf( "vreme trajanja rada %d %d %d\n",tasks->duration.tm_hour,
-          //          tasks->duration.tm_min,
-          //          tasks->duration.tm_sec);
+        /*    printf( "vreme trajanja rada %d %d %d\n",tasks->duration.tm_hour,
+                    tasks->duration.tm_min,
+                    tasks->duration.tm_sec);
+            printf( "start time %d %d %d\n",tasks->stime.tm_hour,
+                    tasks->stime.tm_min,
+                    tasks->stime.tm_sec);*/
+
             ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
 
             if (ret < 0) {
@@ -315,16 +320,75 @@ void *slanje(void *socket){
             }
           }
 
+        Devices  *devices;
 
-    GArray *devices_list= device(devices_show);
-        num_packets = devices_list->len;
-//
-        ret = (int) send(info->thread_socket, &num_packets, sizeof(int), 0);
+        int niz=0;
+        device2(&devices,devices_show,&niz);
+
+
+
+      //  printf("main %d\n",niz);
+        j=niz;
+        ret = (int) send(info->thread_socket, &niz, sizeof(int), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
 
             exit(1);
         }
+    /*    for(int r=0;r<j;r++){
+
+            printf("MAIN %lu, %lu,%lu,%lu %lu, %s %s %s\n",
+                   devices[r].used,devices[r].avail,
+                   devices[r].fid,devices[r].free,devices[r].total,
+                   devices[r].name,devices[r].directory,devices[r].type);
+
+        }*/
+        for (int i = 0; i < niz; i++) {
+
+
+
+
+            size_t g = strlen(devices[i].name);
+            for (int r = 0; r <= g; r++) {
+
+                data.devices.name[r] = devices[i].name[r];
+
+            }
+            g = strlen(devices[i].directory);
+            for (int r = 0; r <= g; r++) {
+
+                data.devices.directory[r] = devices[i].directory[r];
+
+            }
+            g = strlen(devices[i].type);
+            for (int r = 0; r <= g; r++) {
+
+                data.devices.type[r] = devices[i].type[r];
+
+            }
+            data.devices.avail =devices[i].avail;
+            data.devices.fid = devices[i].fid;
+            data.devices.free = devices[i].free;
+            data.devices.total = devices[i].total;
+            data.devices.used =devices[i].used;
+            data.devices.checked=FALSE;
+
+            //    printf("%lu, %lu,%lu,%lu %lu, %s %s %s\n",data.devices.used,data.devices.avail,data.devices.fid,data.devices.free,data.devices.total,data.devices.name,data.devices.directory,data.devices.type);
+            ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
+
+            if (ret < 0) {
+                printf("Error sending data!\n\t");
+                //  break;
+                exit(1);
+            }
+        }
+
+        free(devices);
+    //GArray *devices_list= device(devices_show);
+
+      /*  num_packets = devices_list->len;
+//
+
         for (int i = 0; i < devices_list->len; i++) {
 
             Devices *devices;
@@ -363,7 +427,7 @@ void *slanje(void *socket){
                 //  break;
                 exit(1);
             }
-        }
+        }*/
 
         data.network=received_transfered();
         ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
@@ -384,9 +448,9 @@ void *slanje(void *socket){
             printf("ERROR: Return Code  is %d\n", ret);
             exit(1);
         }
-       g_array_free(devices_list,TRUE);
-        g_array_free(task_list,TRUE);
-//      gchar *  rec_bytes = g_format_size_full(data.network.received_bytes, G_FORMAT_SIZE_IEC_UNITS);
+       //g_array_free(devices_list,TRUE);
+      //  g_array_free(task_list,TRUE);
+//    /  gchar *  rec_bytes = g_format_size_full(data.network.received_bytes, G_FORMAT_SIZE_IEC_UNITS);
 //        gchar *  transmitted_bytes = g_format_size_full(data.network.transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
 
 //            printf("%s %s \n",rec_bytes,transmitted_bytes);

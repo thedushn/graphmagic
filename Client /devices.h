@@ -26,19 +26,23 @@
 #include <string.h>
 #include <dirent.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
-
+#include "common.h"
 
 //void try();
 void readDir(char *path);
-GArray * device(gboolean show);
+
+
+void device2(Devices * * array,bool show,int *niz2);
+
 //void get_names();
 void mountlist(char *path,size_t j,gboolean mount);
+void mountlist3(Devices **array,bool mount,int *fake);
 //void array_devices();
 
-//void printanje_dev(GArray *array);
-GArray *names;
+
 
 
 

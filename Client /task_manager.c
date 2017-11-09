@@ -6,6 +6,7 @@
 
 #include "cpu_usage.h"
 #include "functions.h"
+#include "errno.h"
 
 
 void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff)
@@ -44,12 +45,11 @@ static inline long get_pagesize (void)
 
 
 static gboolean
-get_task_details (guint pid, Task *task)
+get_task_details (int pid, Task *task)
 {
     FILE *file;
-    gchar filename[96];
-    gchar buffer[1024];
-
+    char filename[96];
+    char buffer[1024];
     snprintf (filename, 96, "/proc/%d/stat", pid);
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
         return FALSE;
@@ -59,10 +59,10 @@ get_task_details (guint pid, Task *task)
       spaces, retrieve it manually and fill the buffer
 */
     {
-        gchar *p1, *po, *p2;
-        guint i = 0;
+        char *p1, *po, *p2;
+        int i = 0;
         p1 = po = g_strstr_len (buffer, -1, "(");
-        p2 = g_strrstr (buffer, ")");
+        p2 = strrchr (buffer, ')');
         while (po <= p2)
         {
             if (po > p1 && po < p2)
@@ -78,10 +78,10 @@ get_task_details (guint pid, Task *task)
  //Parse the stat file
 
     {
-        gchar dummy[256];
-        gint idummy;
+        char dummy[256];
+        int idummy;
 
-        gulong jiffies_user = 0, jiffies_system = 0;
+        long jiffies_user = 0, jiffies_system = 0;
         struct passwd *pw;
         struct stat sstat;
         unsigned  long long stime;
@@ -114,8 +114,8 @@ get_task_details (guint pid, Task *task)
                &idummy,	// itrealvalue time in jiffies to next SIGALRM send to this process
                //&stime,	// starttime jiffies the process started after system boot //clock ticks 100 ticks=1sec
                &task->start_time,	// starttime jiffies the process started after system boot //clock ticks 100 ticks=1sec
-               (unsigned long long*)&task->vsz, // vsize in bytes
-               (unsigned long long*)&task->rss, // rss (number of pages in real memory)
+              /* (unsigned long long*)*/&task->vsz, // vsize in bytes
+              /* (unsigned long long*)*/&task->rss, // rss (number of pages in real memory)
                dummy,		// rlim limit in bytes for rss
 
                dummy,		// startcode
@@ -146,13 +146,13 @@ get_task_details (guint pid, Task *task)
         stat (filename, &sstat);
         pw = getpwuid (sstat.st_uid);
         task->uid = sstat.st_uid;
-        g_strlcpy (task->uid_name, (pw != NULL) ? pw->pw_name : "nobody", sizeof (task->uid_name));
-        int sec, hr, min, t;
-        int h,m,s;
-        struct tm  start_time, diff;
+        strncpy (task->uid_name, (pw != NULL) ? pw->pw_name : "nobody", sizeof (task->uid_name));
+         long long  sec, hr, min, t;
+         long long h,m,s;
+        struct tm   diff;
 
 
-        sec=(int)task->start_time/100;
+        sec=task->start_time/100;
         hr =sec /3600;
         t = sec%3600;
         min = t/60;
@@ -182,15 +182,23 @@ get_task_details (guint pid, Task *task)
 
 
 
-        task->stime.tm_hour=h;
-        task->stime.tm_min=m;
-        task->stime.tm_sec=s;
+        task->stime.tm_hour=0;
+        task->stime.tm_min=0;
+        task->stime.tm_sec=0;
+        task->stime.tm_hour=(int)h;
+        task->stime.tm_min=(int)m;
+        task->stime.tm_sec=(int)s;
 
 
        /* start_time.tm_sec=s;
         start_time.tm_min=m;
         start_time.tm_hour=h;*/
-
+     /*   printf( "start %d %d %d\n",task->stime.tm_hour,
+                task->stime.tm_min,
+                task->stime.tm_sec);
+        printf( "lokalno %d %d %d\n",tm1.tm_hour,
+                tm1.tm_min,
+                tm1.tm_sec);*/
         differenceBetweenTimePeriod(tm1, task->stime, &diff);
         task->duration.tm_hour=diff.tm_hour;
         task->duration.tm_min=diff.tm_min;
@@ -209,26 +217,42 @@ get_task_details (guint pid, Task *task)
 
     return TRUE;
 }
-gboolean
-get_task_list (GArray *tasks)
+void
+get_task_list (Task * * array,int *niz)
 {
 
-    GDir *dir;
-    const gchar *name;
-    guint pid;
+    Task *tasks_array, *temp;
+    tasks_array=malloc(sizeof(Task));
+    DIR *dir;
+    struct dirent *d_file;
+    char *directory="/proc";
+    int pid;
+    int g=0;
     Task task = { 0 };
 
 
-    if ((dir = g_dir_open ("/proc", 0, NULL)) == NULL)
-        return FALSE;
+        if((dir=opendir(directory))==NULL){
+                printf("error task dir %d\n",errno);
+        }
 
-    while ((name = g_dir_read_name(dir)) != NULL)
+
+    while ((d_file = readdir(dir)) != NULL)
     {
-        if ((pid = (guint)g_ascii_strtoull (name, NULL, 0)) > 0)
+        if ((pid = atoi(d_file->d_name)) > 0)
         {
-            if (get_task_details (pid, &task))
+            if (get_task_details (pid, &tasks_array[g]))
             {
-                g_array_prepend_val (tasks, task);
+                temp=realloc(tasks_array,( /**j*/ g+2)*sizeof(Task));
+                if ( temp != NULL ) {
+                    tasks_array=temp;
+                } else {
+                    free(tasks_array);
+                }
+                g++;
+                *niz=g;
+
+
+
 
 
             }
@@ -236,11 +260,18 @@ get_task_list (GArray *tasks)
         }
 
     }
+    printf("g %d",g);
+    for(int i=0;i<g;i++){
 
-    g_dir_close (dir);
+
+        printf("%s %d \n",tasks_array[i].name,tasks_array[i].pid);
+    }
+    g=0;
+    *array=tasks_array;
+   closedir(dir);
 
    // compare_lists(tasks);
-    return TRUE;
+
 }
 GArray *get_task_list2(void) {
     GDir *dir;

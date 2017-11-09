@@ -608,9 +608,7 @@ CMakeFiles/Client_.dir/client.c.o: /usr/lib/x86_64-linux-gnu/glib-2.0/include/gl
 CMakeFiles/Client_.dir/cpu_usage.c.o: ../common.h
 CMakeFiles/Client_.dir/cpu_usage.c.o: ../cpu_usage.c
 CMakeFiles/Client_.dir/cpu_usage.c.o: ../cpu_usage.h
-CMakeFiles/Client_.dir/cpu_usage.c.o: ../devices.h
 CMakeFiles/Client_.dir/cpu_usage.c.o: ../interrupts_s.h
-CMakeFiles/Client_.dir/cpu_usage.c.o: ../task_manager.h
 CMakeFiles/Client_.dir/cpu_usage.c.o: /usr/include/atk-1.0/atk/atk-enum-types.h
 CMakeFiles/Client_.dir/cpu_usage.c.o: /usr/include/atk-1.0/atk/atk.h
 CMakeFiles/Client_.dir/cpu_usage.c.o: /usr/include/atk-1.0/atk/atkaction.h
@@ -1211,7 +1209,6 @@ CMakeFiles/Client_.dir/devices.c.o: ../common.h
 CMakeFiles/Client_.dir/devices.c.o: ../devices.c
 CMakeFiles/Client_.dir/devices.c.o: ../devices.h
 CMakeFiles/Client_.dir/devices.c.o: ../interrupts_s.h
-CMakeFiles/Client_.dir/devices.c.o: ../task_manager.h
 CMakeFiles/Client_.dir/devices.c.o: /usr/include/atk-1.0/atk/atk-enum-types.h
 CMakeFiles/Client_.dir/devices.c.o: /usr/include/atk-1.0/atk/atk.h
 CMakeFiles/Client_.dir/devices.c.o: /usr/include/atk-1.0/atk/atkaction.h
@@ -2415,11 +2412,9 @@ CMakeFiles/Client_.dir/functions.c.o: /usr/include/pango-1.0/pango/pangocairo.h
 CMakeFiles/Client_.dir/functions.c.o: /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h
 
 CMakeFiles/Client_.dir/interrupts.c.o: ../common.h
-CMakeFiles/Client_.dir/interrupts.c.o: ../devices.h
 CMakeFiles/Client_.dir/interrupts.c.o: ../interrupts.c
 CMakeFiles/Client_.dir/interrupts.c.o: ../interrupts.h
 CMakeFiles/Client_.dir/interrupts.c.o: ../interrupts_s.h
-CMakeFiles/Client_.dir/interrupts.c.o: ../task_manager.h
 CMakeFiles/Client_.dir/interrupts.c.o: /usr/include/atk-1.0/atk/atk-enum-types.h
 CMakeFiles/Client_.dir/interrupts.c.o: /usr/include/atk-1.0/atk/atk.h
 CMakeFiles/Client_.dir/interrupts.c.o: /usr/include/atk-1.0/atk/atkaction.h
@@ -3017,11 +3012,9 @@ CMakeFiles/Client_.dir/interrupts.c.o: /usr/include/pango-1.0/pango/pangocairo.h
 CMakeFiles/Client_.dir/interrupts.c.o: /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h
 
 CMakeFiles/Client_.dir/memory_usage.c.o: ../common.h
-CMakeFiles/Client_.dir/memory_usage.c.o: ../devices.h
 CMakeFiles/Client_.dir/memory_usage.c.o: ../interrupts_s.h
 CMakeFiles/Client_.dir/memory_usage.c.o: ../memory_usage.c
 CMakeFiles/Client_.dir/memory_usage.c.o: ../memory_usage.h
-CMakeFiles/Client_.dir/memory_usage.c.o: ../task_manager.h
 CMakeFiles/Client_.dir/memory_usage.c.o: /usr/include/atk-1.0/atk/atk-enum-types.h
 CMakeFiles/Client_.dir/memory_usage.c.o: /usr/include/atk-1.0/atk/atk.h
 CMakeFiles/Client_.dir/memory_usage.c.o: /usr/include/atk-1.0/atk/atkaction.h
@@ -3619,11 +3612,9 @@ CMakeFiles/Client_.dir/memory_usage.c.o: /usr/include/pango-1.0/pango/pangocairo
 CMakeFiles/Client_.dir/memory_usage.c.o: /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h
 
 CMakeFiles/Client_.dir/network_bandwith.c.o: ../common.h
-CMakeFiles/Client_.dir/network_bandwith.c.o: ../devices.h
 CMakeFiles/Client_.dir/network_bandwith.c.o: ../interrupts_s.h
 CMakeFiles/Client_.dir/network_bandwith.c.o: ../network_bandwith.c
 CMakeFiles/Client_.dir/network_bandwith.c.o: ../network_bandwith.h
-CMakeFiles/Client_.dir/network_bandwith.c.o: ../task_manager.h
 CMakeFiles/Client_.dir/network_bandwith.c.o: /usr/include/atk-1.0/atk/atk-enum-types.h
 CMakeFiles/Client_.dir/network_bandwith.c.o: /usr/include/atk-1.0/atk/atk.h
 CMakeFiles/Client_.dir/network_bandwith.c.o: /usr/include/atk-1.0/atk/atkaction.h
