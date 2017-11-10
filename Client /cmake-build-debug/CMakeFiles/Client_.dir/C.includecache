@@ -27,12 +27,16 @@ arpa/inet.h
 /home/dushn/Desktop/Client /common.h
 stdbool.h
 -
+time.h
+/home/dushn/Desktop/Client /time.h
 interrupts_s.h
 /home/dushn/Desktop/Client /interrupts_s.h
 
 /home/dushn/Desktop/Client /cpu_usage.c
 cpu_usage.h
 /home/dushn/Desktop/Client /cpu_usage.h
+gtk/gtk.h
+/home/dushn/Desktop/Client /gtk/gtk.h
 
 /home/dushn/Desktop/Client /cpu_usage.h
 stdio.h
@@ -42,8 +46,6 @@ pwd.h
 unistd.h
 -
 string.h
--
-gtk/gtk.h
 -
 math.h
 -

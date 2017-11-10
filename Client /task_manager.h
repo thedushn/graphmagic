@@ -5,7 +5,7 @@
 #ifndef GTKWORLD_TASKS_C_H
 #define GTKWORLD_TASKS_C_H
 
-#include <gtk/gtk.h>
+
 #include <math.h>
 #include <sys/stat.h>
 #include <pwd.h>

@@ -81,7 +81,7 @@ get_task_details (int pid, Task *task)
         char dummy[256];
         int idummy;
 
-        long jiffies_user = 0, jiffies_system = 0;
+        unsigned  long jiffies_user = 0, jiffies_system = 0;
         struct passwd *pw;
         struct stat sstat;
         unsigned  long long stime;
@@ -228,7 +228,7 @@ get_task_list (Task * * array,int *niz)
     char *directory="/proc";
     int pid;
     int g=0;
-    Task task = { 0 };
+
 
 
         if((dir=opendir(directory))==NULL){
@@ -260,12 +260,12 @@ get_task_list (Task * * array,int *niz)
         }
 
     }
-    printf("g %d",g);
-    for(int i=0;i<g;i++){
+ //   printf("g %d",g);
+/*    for(int i=0;i<g;i++){
 
 
-        printf("%s %d \n",tasks_array[i].name,tasks_array[i].pid);
-    }
+   //     printf("%s %d \n",tasks_array[i].name,tasks_array[i].pid);
+    }*/
     g=0;
     *array=tasks_array;
    closedir(dir);
@@ -273,36 +273,7 @@ get_task_list (Task * * array,int *niz)
    // compare_lists(tasks);
 
 }
-GArray *get_task_list2(void) {
-    GDir *dir;
 
-    guint pid;
-    const gchar *name;
-    GArray *task_list;
-    Task task = {0};
-
-    task_list = g_array_new(FALSE, FALSE, sizeof(Task));
-
-    if ((dir = g_dir_open ("/proc", 0, NULL)) == NULL)
-        return FALSE;
-
-    while ((name = g_dir_read_name(dir)) != NULL)
-    {
-        if ((pid = (guint)g_ascii_strtoull (name, NULL, 0)) > 0)
-        {
-            if (get_task_details (pid, &task))
-            {
-                g_array_prepend_val (task_list, task);
-            }
-        }
-    }
-
-    g_dir_close (dir);
-
-    return task_list;
-
-
-}
 //void compare_lists(GArray *array){
 //
 //    GArray *temp;

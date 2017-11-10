@@ -10,9 +10,9 @@
 #include <pwd.h>
 #include <unistd.h>
 #include <string.h>
-#include <gtk/gtk.h>
 
-#include <gtk/gtk.h>
+
+
 #include <math.h>
 #include <sys/stat.h>
 #include <pwd.h>
@@ -26,8 +26,7 @@
 
 Network received_transfered() ;
 int interface_name();
-gboolean network_change_rc(gpointer data);
-gboolean network_change_ts(gpointer data);
+
 
 
 

@@ -29,8 +29,12 @@ gtk/gtk.h
 /home/dushn/Desktop/Project/graphmagic-master/buttons_s.h
 
 /home/dushn/Desktop/Project/graphmagic-master/common.h
+stdbool.h
+-
 gtk/gtk.h
 /home/dushn/Desktop/Project/graphmagic-master/gtk/gtk.h
+time.h
+-
 
 /home/dushn/Desktop/Project/graphmagic-master/drawing.c
 drawing.h

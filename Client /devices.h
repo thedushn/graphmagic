@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <gtk/gtk.h>
+
 #include <math.h>
 #include <sys/stat.h>
 #include <pwd.h>

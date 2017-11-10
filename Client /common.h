@@ -6,7 +6,7 @@
 #define GTKWORLD_COMMON_H
 
 #include <stdbool.h>
-
+#include "time.h"
 
 
 
@@ -51,7 +51,7 @@ struct _Cpu_usage {
     int number;
 
 };
-
+//#include "memory_usage.h"
 #include "interrupts_s.h"
 
 typedef struct _Memory_usage Memory_usage;

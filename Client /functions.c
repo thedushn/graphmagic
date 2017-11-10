@@ -2,17 +2,16 @@
 #include"stdlib.h"
 #include"sys/types.h"
 #include"sys/socket.h"
-#include"string.h"
 #include"netinet/in.h"
 #include"pthread.h"
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "functions.h"
-
 #include "interrupts.h"
-#include <sys/resource.h>
 #include "cpu_usage.h"
+#include <string.h>
 
+#include "gtk/gtk.h"
 #define PORT 4440
 #define BUF_SIZE 2000
 
@@ -23,7 +22,7 @@ pthread_cond_t   cond = PTHREAD_COND_INITIALIZER;
 //int rezultat =1;
 bool devices_show=FALSE;
 
-void send_prio_to_task(gchar *task_id, gchar *signal)
+void send_prio_to_task(char *task_id, char *signal)
 {
     int prio=0;
     if(strcmp(signal,"VERY_LOW")==0){
@@ -51,7 +50,7 @@ void send_prio_to_task(gchar *task_id, gchar *signal)
     char str[4];
 
     sprintf(str,"%d",prio);
-    gchar command[64] = "renice -n ";
+    char command[64] = "renice -n ";
     g_strlcat(command,str, sizeof command);
     g_strlcat(command," -p ", sizeof command);
     g_strlcat(command,task_id, sizeof command);
@@ -183,22 +182,22 @@ void *slanje(void *socket){
 //                       data.memory_usage.memory_used);
 
         }
-        Interrupts  *array;
+        Interrupts  *interrupts;
         int h=0;
-        interrupt_usage2(&array,&h);
+        interrupt_usage2(&interrupts,&h);
 
 
         int j=h;
 
       /*  for(int r=0;r<j;r++){
 
-            printf("hello[%s %li %li %li %li %s %s %s %s]\n",array[r].name, array[r].CPU0, array[r].CPU1,
-                   array[r].CPU2,
-                   array[r].CPU3,
-                   array[r].ime1,
-                   array[r].ime2,
-                   array[r].ime3,
-                   array[r].ime4 );
+            printf("hello[%s %li %li %li %li %s %s %s %s]\n",interrupts[r].name, interrupts[r].CPU0, interrupts[r].CPU1,
+                   interrupts[r].CPU2,
+                   interrupts[r].CPU3,
+                   interrupts[r].ime1,
+                   interrupts[r].ime2,
+                   interrupts[r].ime3,
+                   interrupts[r].ime4 );
 
         }*/
 
@@ -213,7 +212,7 @@ void *slanje(void *socket){
         for (int i = 0; i < j; i++) {
 
             Interrupts *interrupts1;
-            interrupts1 = &array[i];
+            interrupts1 = &interrupts[i];
             data.interrupts.CPU0 = interrupts1->CPU0;
             data.interrupts.CPU1 = interrupts1->CPU1;
             data.interrupts.CPU2 = interrupts1->CPU2;
@@ -234,7 +233,7 @@ void *slanje(void *socket){
             }
         }
 
-        free(array);
+        free(interrupts);
 
 
 
@@ -320,6 +319,7 @@ void *slanje(void *socket){
             }
           }
 
+
         Devices  *devices;
 
         int niz=0;
@@ -383,7 +383,7 @@ void *slanje(void *socket){
             }
         }
 
-        free(devices);
+
     //GArray *devices_list= device(devices_show);
 
       /*  num_packets = devices_list->len;
@@ -448,15 +448,8 @@ void *slanje(void *socket){
             printf("ERROR: Return Code  is %d\n", ret);
             exit(1);
         }
-       //g_array_free(devices_list,TRUE);
-      //  g_array_free(task_list,TRUE);
-//    /  gchar *  rec_bytes = g_format_size_full(data.network.received_bytes, G_FORMAT_SIZE_IEC_UNITS);
-//        gchar *  transmitted_bytes = g_format_size_full(data.network.transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
-
-//            printf("%s %s \n",rec_bytes,transmitted_bytes);
-//            g_free(rec_bytes);
-//            g_free(transmitted_bytes);
-        //    pthread_mutex_unlock(&m);
+        free(task_array);
+        free(devices);
             pthread_cond_wait(&cond, &m);
 
          //  sleep(1); //treba uvesti cond variable koja kaze sada salji sada ne salji :P  #thread2

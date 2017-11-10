@@ -128,7 +128,7 @@ void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *ar
         g_array_append_val(array_tasks,data.task);
 
     }
-    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),0,NULL,NULL);
+   ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),0,NULL,NULL);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
 

@@ -244,7 +244,7 @@ void close_window() {
 
 };
 
-void start_stop(int show,gchar *signal ,gchar *task_id){
+void start_stop(int show,char *signal ,char *task_id){
    int ret;
 data_s data;
 
@@ -689,7 +689,7 @@ void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
 };
 
 
-void handle_task_menu(GtkWidget *widget, gchar *signal)
+void handle_task_menu(GtkWidget *widget, char *signal)
 {
     printf("signal %s\n",signal);
     if(signal != NULL)
@@ -703,7 +703,7 @@ void handle_task_menu(GtkWidget *widget, gchar *signal)
 
         if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 || strcmp(signal, "KILL") == 0  || strcmp(signal, "TERM") == 0)
         {
-            gchar *task_id = "";
+            char *task_id = "";
             GtkTreeModel *model;
             GtkTreeIter iter;
 
@@ -717,7 +717,7 @@ void handle_task_menu(GtkWidget *widget, gchar *signal)
         }
     }
 }
-void handle_task_prio(GtkWidget *widget, gchar *signal)
+void handle_task_prio(GtkWidget *widget, char *signal)
 {
     printf("signal %s\n",signal);
     if(signal != NULL)
@@ -732,7 +732,7 @@ void handle_task_prio(GtkWidget *widget, gchar *signal)
         if(strcmp(signal, "VERY_LOW") == 0 || strcmp(signal, "VERY_HIGH") == 0 || strcmp(signal, "NORMAL") == 0
            || strcmp(signal, "LOW") == 0 || strcmp(signal, "HIGH") == 0)
         {
-            gchar *task_id = "";
+            char *task_id = "";
             GtkTreeModel *model;
             GtkTreeIter iter;
 

@@ -17,7 +17,7 @@ static gboolean device_used=TRUE;
 static gboolean device_free=TRUE;
 static gboolean device_total=TRUE;
 static gboolean device_avail=TRUE;
-static gboolean device_all=FALSE;
+static bool device_all=FALSE;
 
 static gboolean process_task=TRUE;
 static gboolean process_user=TRUE;

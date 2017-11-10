@@ -4,7 +4,7 @@
 
 #ifndef GKTWORLD_MEMORY_USAGE_H
 #define GKTWORLD_MEMORY_USAGE_H
-#include <gtk/gtk.h>
+
 #include <math.h>
 #include <sys/stat.h>
 #include <pwd.h>

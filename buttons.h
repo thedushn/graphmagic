@@ -51,7 +51,8 @@ static guint refresh = 0;
 gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *event);
 GtkWidget* create_taskpopup (void);
 
-void handle_task_menu(GtkWidget *widget, gchar *signal);
+void handle_task_menu(GtkWidget *widget, char *signal);
+void handle_task_prio(GtkWidget *widget, char *signal);
 void button_clicked_view_process(GtkWidget *widget);
 //void dev_button_clicked(GtkWidget *widget);
 void graph_button_clicked(GtkWidget *widget);
@@ -69,6 +70,6 @@ void process_window();
 void process_clicked(GtkWidget *widget);
 void device_clicked(GtkWidget *widget);
 void graph_clicked(GtkWidget *widget);
-void start_stop(int show,gchar *signal ,gchar *task_id);
+void start_stop(int show,char *signal ,char *task_id);
 void show_all(GtkWidget *widget);
 #endif //GTKWORLD_BUTTONS_H

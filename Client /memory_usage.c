@@ -11,12 +11,12 @@ struct _Memory_usage memory_usage;
 //void 	get_memory_usage(){
 void 	get_memory_usage(data_s *memory){
   //  printf("made it in memory_usage\n");
-    guint64 memory_total=0; guint64 memory_free=0; guint64 memory_cache=0; guint64 memory_buffers=0; guint64 swap_total=0; guint64 swap_free=0;
+    unsigned long long memory_total=0; unsigned long long memory_free=0; unsigned long long memory_cache=0; unsigned long long memory_buffers=0; unsigned long long swap_total=0; unsigned long long swap_free=0;
 
     FILE *file;
-    gchar buffer[1024];
+    char buffer[1024];
     char *filename = "/proc/meminfo";
-    gushort found = 0;
+    short found = 0;
    // printf("opening file %s",filename);
     file = fopen (filename, "r ");
 
@@ -24,15 +24,15 @@ void 	get_memory_usage(data_s *memory){
 
     while (found < 6 && fgets (buffer, 1024, file) != NULL)
     {
-        found += sscanf (buffer, "MemTotal:\t%llu kB", (unsigned long long*)&memory_total);
+        found += sscanf (buffer, "MemTotal:\t%llu kB", &memory_total);
         //printf("%c",found);
       //  printf("%llu\n",memory_total);
-        found += sscanf (buffer, "MemFree:\t%llu kB", (unsigned long long*)&memory_free);
-        found += sscanf (buffer, "Cached:\t%llu kB", (unsigned long long*)&memory_cache);
+        found += sscanf (buffer, "MemFree:\t%llu kB", &memory_free);
+        found += sscanf (buffer, "Cached:\t%llu kB", &memory_cache);
       //  printf("%c",found);
-        found += sscanf (buffer, "Buffers:\t%llu kB", (unsigned long long*)&memory_buffers);
-        found += sscanf (buffer, "SwapTotal:\t%llu kB", (unsigned long long*)&swap_total);
-        found += sscanf (buffer, "SwapFree:\t%llu kB", (unsigned long long*)&swap_free);
+        found += sscanf (buffer, "Buffers:\t%llu kB", &memory_buffers);
+        found += sscanf (buffer, "SwapTotal:\t%llu kB", &swap_total);
+        found += sscanf (buffer, "SwapFree:\t%llu kB", &swap_free);
     }
     fclose (file);
 
