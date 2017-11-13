@@ -37,8 +37,8 @@ void readDir(char *path);
 
 void device2(Devices * * array,bool show,int *niz2);
 
-//void get_names();
-void mountlist(char *path,size_t j,gboolean mount);
+
+
 void mountlist3(Devices **array,bool mount,int *fake);
 //void array_devices();
 

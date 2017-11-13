@@ -33,8 +33,8 @@ int main(int argc, char *argv[]){
 	printf("port number fail\n");
 	exit(1);
 	}
-    uint16_t portnum= atoi(argv[1]);
- serverAddr = "127.0.0.1";
+    uint16_t portnum= (uint16_t)atoi(argv[1]);
+ 	serverAddr = "127.0.0.1";
 
 	 sockfd = socket(AF_INET, SOCK_STREAM, 0);
 		if (sockfd < 0) {
@@ -49,6 +49,7 @@ int main(int argc, char *argv[]){
 	 addr.sin_family = AF_INET;
 	 addr.sin_addr.s_addr = inet_addr(serverAddr);
 	 addr.sin_port =(uint16_t) htons(portnum);
+
 //inicijalizunjemo mutex za zakljucavanje slanja
    // pthread_mutex_init(&m, NULL);
 	ret = connect(sockfd, (struct sockaddr *) &addr, sizeof(addr));

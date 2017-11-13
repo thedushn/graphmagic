@@ -18,15 +18,12 @@
 
 
 void get_task_list (Task * * array,int *niz);
-GArray *get_task_list2(void);
-static gboolean get_task_details (int pid, Task *task);
+
+static bool get_task_details (int pid, Task *task);
 static inline long get_pagesize (void);
 
-//static void	model_update_tree_iter				(GtkTreeModel *model, GtkTreeIter *iter, Task *task);
 
-void compare_lists(GArray *array);
 
-static gboolean more_precision;
 void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff);
 
 

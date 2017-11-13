@@ -4,7 +4,7 @@
 
 #include "cpu_usage.h"
 
-
+#include <stdbool.h>
 
 
 
@@ -133,7 +133,7 @@ void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
 
 
 }
-#define SIZE 20
+
 
 struct DataItem {
     unsigned  long data;
@@ -142,9 +142,7 @@ struct DataItem {
 
 
 
-int hashCode(int key) {
-    return key % SIZE;
-}
+
 
 unsigned long search(unsigned int key,struct DataItem  *hashArray,int hash_size ,bool *ima, unsigned long data) {
 
@@ -152,7 +150,7 @@ unsigned long search(unsigned int key,struct DataItem  *hashArray,int hash_size 
     for(int hashIndex=0;hashIndex<hash_size;hashIndex++){
 
         if(hashArray[hashIndex].key==key){
-            *ima=TRUE;
+            *ima=true;
             printf("data in search %lu key %i\n", hashArray[hashIndex].data, hashArray[hashIndex].key);
             unsigned long temp =hashArray[hashIndex].data;
             hashArray[hashIndex].data=data;
@@ -163,134 +161,12 @@ unsigned long search(unsigned int key,struct DataItem  *hashArray,int hash_size 
 
     }
 
-    *ima=FALSE;
+    *ima=false;
     return 0;
 }
 
-void insert(int key,unsigned long data,struct DataItem * * hashArray,int *hash_size) {
-
-    struct DataItem *temp ;
- //   item->data = data;
-  //  item->key = key;
-
-    //get the hash
-  //  int hashIndex = hashCode(key);
-    int g=0;
-    //move in array until an empty or deleted cell
-    int hashIndex=0;
-/*    for(  hashIndex;hashIndex<*hash_size;hashIndex++){
-        if(hashArray[hashIndex]->key==key){
-
-            hashArray[hashIndex]->data=data;
-            printf("nadjen kljuc %d\n",key);
-            break;
-        }
-        g++;
-
-    }*/
-    while(hashIndex<*hash_size){
-        if(hashArray[hashIndex]->key==key){
-
-            hashArray[hashIndex]->data=data;
-            printf("nadjen kljuc %d\n",key);
-            break;
-        }
-        hashIndex++;
 
 
-    }
-    if(hashIndex==*hash_size){
-        temp=realloc(*hashArray,( /**j*/ *hash_size+2)*sizeof(struct DataItem));
-        if ( temp != NULL ) {
-            *hashArray=temp;
-        } else {
-            free(hashArray);
-        }
-          hashArray[hashIndex]->data = data;
-   hashArray[hashIndex]->key = key;
-        *hash_size=hashIndex+1;
-    }
-
-
-
-  /*  hashArray[hashIndex]->data = data;
-    hashArray[hashIndex]->key = key;*/
-}
-/*
-struct DataItem* delete(struct DataItem* item) {
-    int key = item->key;
-
-    //get the hash
-    int hashIndex = hashCode(key);
-
-    //move in array until an empty
-    while(hashArray[hashIndex] != NULL) {
-
-        if(hashArray[hashIndex]->key == key) {
-            struct DataItem* temp = hashArray[hashIndex];
-
-            //assign a dummy item at deleted position
-            hashArray[hashIndex] = dummyItem;
-            return temp;
-        }
-
-        //go to next cell
-        ++hashIndex;
-
-        //wrap around the table
-        hashIndex %= SIZE;
-    }
-
-    return NULL;
-}*/
-/*
-void display() {
-    int i = 0;
-
-    for(i = 0; i<SIZE; i++) {
-
-        if(hashArray[i] != NULL)
-            printf(" (%d,%d)",hashArray[i]->key,hashArray[i]->data);
-        else
-            printf(" ~~ ");
-    }
-
-    printf("\n");
-}*/
-
-/*int main() {
-    dummyItem = (struct DataItem*) malloc(sizeof(struct DataItem));
-    dummyItem->data = -1;
-    dummyItem->key = -1;
-
-    insert(1, 20);
-    insert(2, 70);
-    insert(42, 80);
-    insert(4, 25);
-    insert(12, 44);
-    insert(14, 32);
-    insert(17, 11);
-    insert(13, 78);
-    insert(37, 97);
-
-  //  display();
- //   item = search(37);
-
-    if(item != NULL) {
-        printf("Element found: %d\n", item->data);
-    } else {
-        printf("Element not found\n");
-    }
-
-    delete(item);
-  //  item = search(37);
-
-    if(item != NULL) {
-        printf("Element found: %d\n", item->data);
-    } else {
-        printf("Element not found\n");
-    }
-}*/
 
 void
 get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, unsigned long jiffies_system, float *cpu_system)
@@ -300,7 +176,7 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
     unsigned  long jiffies_user_old=0, jiffies_system_old=0;
     static int hash_size=0;
     static int fluffy=1;
-    bool ima= FALSE;
+    bool ima= false;
     if (hash_cpu_user == NULL)
     {
         hash_cpu_user  = (struct DataItem*) malloc(sizeof(struct DataItem));
@@ -313,7 +189,7 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
 
 
 
-        if(ima==FALSE){
+        if(ima==false){
 
             hash_size++;
             struct DataItem * temp=realloc(hash_cpu_user,( /**j*/ hash_size+1)*sizeof(struct DataItem));
@@ -348,11 +224,6 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
 
 
 
-    //insert(pid,jiffies_user,&hash_cpu_user,&hash_size);
-
-
-  //  g_hash_table_insert (hash_cpu_user, GUINT_TO_POINTER (pid), GUINT_TO_POINTER (jiffies_user));
-  //  g_hash_table_insert (hash_cpu_system, GUINT_TO_POINTER (pid), GUINT_TO_POINTER (jiffies_system));
 
     if (jiffies_user < jiffies_user_old || jiffies_system < jiffies_system_old)
         return;

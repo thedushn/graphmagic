@@ -11,7 +11,8 @@
 #include "cpu_usage.h"
 #include <string.h>
 
-#include "gtk/gtk.h"
+
+
 #define PORT 4440
 #define BUF_SIZE 2000
 
@@ -20,7 +21,7 @@ pthread_cond_t   cond = PTHREAD_COND_INITIALIZER;
 
 
 //int rezultat =1;
-bool devices_show=FALSE;
+bool devices_show=false;
 
 void send_prio_to_task(char *task_id, char *signal)
 {
@@ -51,9 +52,9 @@ void send_prio_to_task(char *task_id, char *signal)
 
     sprintf(str,"%d",prio);
     char command[64] = "renice -n ";
-    g_strlcat(command,str, sizeof command);
-    g_strlcat(command," -p ", sizeof command);
-    g_strlcat(command,task_id, sizeof command);
+    strncat(command,str, sizeof command);
+    strncat(command," -p ", sizeof command);
+    strncat(command,task_id, sizeof command);
     printf("COMMAND %s\n",command);
     if(system(command) != 0){
 
@@ -69,9 +70,9 @@ void send_signal_to_task(char *task_id, char *signal)
     if(task_id != "" && signal != NULL)
     {
         char command[64] = "kill -";
-        g_strlcat(command,signal, sizeof command);
-        g_strlcat(command," ", sizeof command);
-        g_strlcat(command,task_id, sizeof command);
+        strncat(command,signal, sizeof command);
+        strncat(command," ", sizeof command);
+        strncat(command,task_id, sizeof command);
         printf("Task id %s",task_id);
         if(system(command) != 0)
             printf("comand failed\n");
@@ -102,8 +103,8 @@ void *accept_c(void *socket){
        rezultat=data.stuff.mem;
         devices_show=data.stuff.show;
 
-        printf("sHOW %s\n", data.stuff.show==TRUE ? "TRUE" : "FALSE");
-        printf("SHOW %s\n", devices_show==TRUE ? "TRUE" : "FALSE");
+        printf("sHOW %s\n", data.stuff.show==false ? "TRUE" : "FALSE");
+        printf("SHOW %s\n", devices_show==true ? "TRUE" : "FALSE");
 
         printf("command %s\n ",data.stuff.command);
         printf("id %s\n ",data.stuff.task_id);
@@ -146,7 +147,7 @@ void *slanje(void *socket){
 
     int  ret;
 
-    guint num_packets;
+    unsigned int num_packets;
 
     struct	my_thread_info *info = socket;
 
@@ -233,7 +234,7 @@ void *slanje(void *socket){
             }
         }
 
-        free(interrupts);
+
 
 
 
@@ -302,7 +303,7 @@ void *slanje(void *socket){
             data.task.stime.tm_sec =task_array[i].stime.tm_sec;
             data.task.stime.tm_min =task_array[i].stime.tm_min;
             data.task.stime.tm_hour =task_array[i].stime.tm_hour;
-            data.task.checked=FALSE;
+            data.task.checked=false;
         /*    printf( "vreme trajanja rada %d %d %d\n",tasks->duration.tm_hour,
                     tasks->duration.tm_min,
                     tasks->duration.tm_sec);
@@ -328,7 +329,7 @@ void *slanje(void *socket){
 
 
       //  printf("main %d\n",niz);
-        j=niz;
+
         ret = (int) send(info->thread_socket, &niz, sizeof(int), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
@@ -371,7 +372,7 @@ void *slanje(void *socket){
             data.devices.free = devices[i].free;
             data.devices.total = devices[i].total;
             data.devices.used =devices[i].used;
-            data.devices.checked=FALSE;
+            data.devices.checked=false;
 
             //    printf("%lu, %lu,%lu,%lu %lu, %s %s %s\n",data.devices.used,data.devices.avail,data.devices.fid,data.devices.free,data.devices.total,data.devices.name,data.devices.directory,data.devices.type);
             ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
@@ -384,52 +385,10 @@ void *slanje(void *socket){
         }
 
 
-    //GArray *devices_list= device(devices_show);
 
-      /*  num_packets = devices_list->len;
-//
 
-        for (int i = 0; i < devices_list->len; i++) {
-
-            Devices *devices;
-
-            devices = &g_array_index(devices_list, Devices, i);
-            size_t g = strlen(devices->name);
-            for (int r = 0; r <= g; r++) {
-
-                data.devices.name[r] = devices->name[r];
-
-            }
-            g = strlen(devices->directory);
-            for (int r = 0; r <= g; r++) {
-
-                data.devices.directory[r] = devices->directory[r];
-
-            }
-            g = strlen(devices->type);
-            for (int r = 0; r <= g; r++) {
-
-                data.devices.type[r] = devices->type[r];
-
-            }
-            data.devices.avail = devices->avail;
-            data.devices.fid = devices->fid;
-            data.devices.free = devices->free;
-            data.devices.total = devices->total;
-            data.devices.used = devices->used;
-            data.devices.checked=FALSE;
-
-         //    printf("%lu, %lu,%lu,%lu %lu, %s %s %s\n",data.devices.used,data.devices.avail,data.devices.fid,data.devices.free,data.devices.total,data.devices.name,data.devices.directory,data.devices.type);
-            ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
-
-            if (ret < 0) {
-                printf("Error sending data!\n\t");
-                //  break;
-                exit(1);
-            }
-        }*/
-
-        data.network=received_transfered();
+      //  data.network=received_transfered();
+        received_transfered2(&data.network);
         ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
        // printf("%lli, %lli",data.network.received_bytes,data.network.transmited_bytes);
         if (ret < 0) {
@@ -450,9 +409,10 @@ void *slanje(void *socket){
         }
         free(task_array);
         free(devices);
+        free(interrupts);
             pthread_cond_wait(&cond, &m);
 
-         //  sleep(1); //treba uvesti cond variable koja kaze sada salji sada ne salji :P  #thread2
+
         }
 
 

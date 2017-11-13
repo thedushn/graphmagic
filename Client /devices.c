@@ -91,7 +91,7 @@ void mountlist3(Devices **array,bool mount,int *fake){
     }
     fseek(file, 0, SEEK_SET);
   //  int g=0;
-    if(mount==TRUE){
+    if(mount==true){
         while( fgets (buffer, 1024, file) != NULL) {
 
 

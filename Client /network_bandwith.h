@@ -25,6 +25,7 @@
 
 
 Network received_transfered() ;
+void received_transfered2(Network *network) ;
 int interface_name();
 
 

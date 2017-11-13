@@ -44,7 +44,7 @@ static inline long get_pagesize (void)
 
 
 
-static gboolean
+static bool
 get_task_details (int pid, Task *task)
 {
     FILE *file;
@@ -52,7 +52,7 @@ get_task_details (int pid, Task *task)
     char buffer[1024];
     snprintf (filename, 96, "/proc/%d/stat", pid);
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
-        return FALSE;
+        return false;
     fclose (file);
 
  /*Scanning the short process name is unreliable with scanf when it contains
@@ -61,7 +61,7 @@ get_task_details (int pid, Task *task)
     {
         char *p1, *po, *p2;
         int i = 0;
-        p1 = po = g_strstr_len (buffer, -1, "(");
+        p1 = po = strchr (buffer, '(');
         p2 = strrchr (buffer, ')');
         while (po <= p2)
         {
@@ -209,13 +209,7 @@ get_task_details (int pid, Task *task)
     }
 
 
-
- /*Read the full command line
-    if (!get_task_cmdline (task))
-        return FALSE;
-*/
-
-    return TRUE;
+    return true;
 }
 void
 get_task_list (Task * * array,int *niz)
@@ -260,13 +254,8 @@ get_task_list (Task * * array,int *niz)
         }
 
     }
- //   printf("g %d",g);
-/*    for(int i=0;i<g;i++){
 
 
-   //     printf("%s %d \n",tasks_array[i].name,tasks_array[i].pid);
-    }*/
-    g=0;
     *array=tasks_array;
    closedir(dir);
 
@@ -274,11 +263,4 @@ get_task_list (Task * * array,int *niz)
 
 }
 
-//void compare_lists(GArray *array){
-//
-//    GArray *temp;
-//   temp= g_array_new (FALSE, FALSE, sizeof (Task));
-//
-//
-//}
 
