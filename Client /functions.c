@@ -13,7 +13,7 @@
 
 
 
-#define PORT 4440
+
 #define BUF_SIZE 2000
 
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
@@ -93,6 +93,7 @@ void *accept_c(void *socket){
         gchar command [10];
         gchar task_id [256];
     }stuff;*/
+
     while (1) {
      //  pthread_mutex_lock (&m);
        int ret = (int )recvfrom(info->thread_socket, &data.stuff, sizeof(data), 0, NULL, NULL);
@@ -143,24 +144,32 @@ void *accept_c(void *socket){
 
 
 
-void *slanje(void *socket){
+void *slanje(int *socket){
 
-    int  ret;
+    int  ret=0;
 
-    unsigned int num_packets;
+    printf("usli smo u slanje\n");
+        //unsigned int num_packets;
 
     struct	my_thread_info *info = socket;
+    data_s data;
 
     while(1) {
-          // pthread_mutex_lock(&m);
+
 //        if(rezultat==1){
 //            pthread_cond_wait(&cond,&m);
 //            printf("condition WAS met\n");
 //        }
-        data_s data;
 
 
-        get_memory_usage(&data);
+        data.memory_usage.percentage=0;
+        data.memory_usage.memory_used=0;
+        data.memory_usage.swap_total=0;
+        data.memory_usage.swap_percentage=0;
+        data.memory_usage.memory_total=0;
+        data.memory_usage.swap_used=0;
+
+        get_memory_usage(&data.memory_usage);
         time_t time1 = time(NULL);
         /*    struct tm*/ tm1 = *localtime(&time1);
 //        if(rezultat==0){
@@ -254,7 +263,6 @@ void *slanje(void *socket){
         }
       //  GArray *task_list =g_array_new(FALSE,FALSE,sizeof(Task));
         Task *task_array;
-
         int niz_task=0;
         get_task_list(&task_array,&niz_task);
       //  num_packets = task_list->len;
@@ -303,7 +311,7 @@ void *slanje(void *socket){
             data.task.stime.tm_sec =task_array[i].stime.tm_sec;
             data.task.stime.tm_min =task_array[i].stime.tm_min;
             data.task.stime.tm_hour =task_array[i].stime.tm_hour;
-            data.task.checked=false;
+          //  data.task.checked=false;
         /*    printf( "vreme trajanja rada %d %d %d\n",tasks->duration.tm_hour,
                     tasks->duration.tm_min,
                     tasks->duration.tm_sec);
@@ -410,6 +418,7 @@ void *slanje(void *socket){
         free(task_array);
         free(devices);
         free(interrupts);
+
             pthread_cond_wait(&cond, &m);
 
 

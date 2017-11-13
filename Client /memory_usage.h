@@ -15,7 +15,7 @@
 #include "common.h"
 
 
-void get_memory_usage(data_s *memory);
+void get_memory_usage(Memory_usage *memory_usage);
 //void get_memory_usage();
 
 #endif //GKTWORLD_MEMORY_USAGE_H

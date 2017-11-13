@@ -8,7 +8,7 @@
 #include "testing_tree.h"
 #include "main_header.h"
 #include "buttons_s.h"
-#include "common.h"
+
 static gboolean  show_before=FALSE;
 
 void process_window(){
@@ -272,7 +272,8 @@ data_s data;
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
-        exit(1);
+        gtk_main_quit();
+ //       exit(1);
 
     }
     printf("poslali smo cond\n");
@@ -746,46 +747,7 @@ void handle_task_prio(GtkWidget *widget, char *signal)
         }
     }
 }
-void send_signal_to_task(gchar *task_id, gchar *signal)
-{
-    printf("SIGNAL %s the task with ID %s\n", signal, task_id);
-    if(task_id != "" && signal != NULL)
-    {
-//            struct Signal{
-//                    gchar signal[5];
-//                    gchar task_id[256];
-//
-//            }signal1;
-//
-//        for(int i=0 ;i<(int)sizeof(signal);i++){
-//
-//              signal1.signal[i]=signal[i];
-//
-//        }
-//        for(int i=0 ;i<(int)sizeof(task_id);i++){
-//
-//            signal1.task_id[i]=task_id[i];
-//
-//        }
-//
-//
-//        int ret=(int) send(newsockfd,&signal1,sizeof(signal1),0);
-//        if(ret<0){
-//
-//
-//            printf("nece da posalje signal %s %s \n",signal1.signal,signal1.task_id);
-//        }
-//        printf(" posalje signal [%s] [%s] \n",signal1.signal,signal1.task_id);
-        gchar command[64] = "kill -";
-        g_strlcat(command,signal, sizeof command);
-        g_strlcat(command," ", sizeof command);
-        g_strlcat(command,task_id, sizeof command);
-        printf("Task id %s",task_id);
-        if(system(command) != 0)
-            printf("comand failed\n");
 
-    }
-}
 GtkWidget* create_taskpopup (void)
 {
     GtkWidget *taskpopup;
@@ -860,7 +822,7 @@ gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *even
     if(event->button == 3)
     {
         printf("i was here\n");
-        GdkEventButton *mouseevent = (GdkEventButton *)event;
+        GdkEventButton *mouseevent = event;
         printf("moseevent button %d\n",mouseevent->button);
         if(taskpopup == NULL)
             taskpopup = create_taskpopup ();
@@ -869,70 +831,3 @@ gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *even
     }
     return FALSE;
 }
-void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step) {
-    int width, height;
-    float font_size = 12;
-    double step;
-    cairo_surface_t *graph_surface;
-
-    height = gtk_widget_get_allocated_height(widget);
-    width = gtk_widget_get_allocated_width(widget);
-
-
-
-
-    //  cairo_set_line_width(cr, 1);
-
-    step = (width - 3 * font_size - 3 * font_size) / time_step;
-
-    cairo_set_font_size(cr, font_size);
-
-    cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
-    cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
-
-
-    cairo_set_font_size(cr, font_size);
-
-
-    graph_surface=cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
-
-    //okvir
-    //   crtaj_procent_linije(cr, width,height, font_size, 3);
-    crtaj_okvir(cr, width, height, font_size, 3);
-    cairo_set_source_rgba(cr, .7, .7, .7, 0.5);
-    cairo_stroke(cr);
-
-    //procenti
-    crtaj_procente(cr, height, font_size);
-    //sekunde //secund linije
-    crtaj_sekunde(cr, width, height, font_size, 3,6);
-
-
-//    printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
-//    printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
-//    printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
-//    printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
-    if(CPU0_line==TRUE){
-
-
-        crtanje_graph(cr, history[0], 0, bjorg, 3, height, font_size, step,0);
-    }
-    if(CPU1_line==TRUE){
-        crtanje_graph(cr, history[1], 1, bjorg, 3, height, font_size, step,0);
-    }
-    if(CPU2_line==TRUE){
-        crtanje_graph(cr, history[2], 2, bjorg, 3, height, font_size, step,0);
-    }
-    if(CPU3_line==TRUE){
-        crtanje_graph(cr, history[3], 3, bjorg, 3, height, font_size, step,0);
-    }
-
-
-
-    if (graph_surface != NULL)
-    {
-        cairo_set_source_surface (cr, graph_surface, 0.0, 0.0);
-        cairo_paint (cr);
-        cairo_surface_destroy (graph_surface);
-    }
-};

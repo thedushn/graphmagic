@@ -34,7 +34,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
         printf("Error receving data!\n\t-%f %lli %lli %lli \n", data.Memory.swap_percentage,data.Memory.swap_used
                 ,data.Memory.memory_total,data.Memory.memory_used);
         // printf("slanje broja paketa nije uspelo %s\n ",buffer);
-        exit(1);
+        gtk_main_quit();
+      //  exit(1);
     }
     else{
         memory_usage->percentage=data.Memory.percentage;
@@ -56,8 +57,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
     if(ret<0){
 
         printf("Error receving data! %d",num);
-
-        exit(1);
+        gtk_main_quit();
+      //  exit(1);
     }
 
     for(int i=0 ;i<num;i++){
@@ -67,14 +68,15 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
             printf("Error receving data!\n\t %lu  %s %s %s   \n", data.interrupts.CPU0,data.interrupts.name,
                    data.interrupts.ime1,data.interrupts.ime2);
             // printf("slanje broja paketa nije uspelo %s\n ",buffer);
-            exit(1);
+            gtk_main_quit();
+           // exit(1);
         }
         else
-            printf(" Receving data!\n\t %lu %lu %lu %lu %s %s %s \n", data.interrupts.CPU0,
+          /*  printf(" Receving data!\n\t %lu %lu %lu %lu %s %s %s \n", data.interrupts.CPU0,
                    data.interrupts.CPU1,
                    data.interrupts.CPU2,
                    data.interrupts.CPU3,data.interrupts.name,
-                   data.interrupts.ime1,data.interrupts.ime2);
+                   data.interrupts.ime1,data.interrupts.ime2);*/
 
 
 
@@ -91,7 +93,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
     ret=(int )recvfrom(info->thread_socket,&data, sizeof(data_s), 0,NULL,NULL);
     if (ret < 0) {
         printf("Error receving data!\n");
-        exit(1);
+        gtk_main_quit();
+      //  exit(1);
     }
     else{
 
@@ -112,7 +115,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
 
-        exit(1);
+        gtk_main_quit();
+       // exit(1);
     }
     //   printf("num %d\n",num);
     for(int i=0 ;i<num;i++) {
@@ -122,7 +126,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
             //  break;
-            exit(1);
+            gtk_main_quit();
+           // exit(1);
         }
         //  printf("prio ffs %lu \n",data.task.start_time);
         g_array_append_val(array_tasks,data.task);
@@ -131,8 +136,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
    ret= (int)recvfrom(info->thread_socket,&num,sizeof(int),0,NULL,NULL);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
-
-        exit(1);
+        gtk_main_quit();
+      //  exit(1);
     }
     //   printf("num %d\n",num);
     for(int i=0 ;i<num;i++) {
@@ -142,7 +147,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
             //  break;
-            exit(1);
+            gtk_main_quit();
+           // exit(1);
         }
 
         //  printf("%s %s %s \n",data.devices.directory,data.devices.name,data.devices.type);
@@ -154,7 +160,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
         //  break;
-        exit(1);
+        gtk_main_quit();
+       // exit(1);
     }
     network->received_bytes= data.network.received_bytes;
     network->transmited_bytes=data.network.transmited_bytes;
@@ -165,7 +172,8 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
     ret = (int) recvfrom(info->thread_socket, &tm1, sizeof(tm1), 0,0,0);
     if (ret<0) {
         printf("ERROR: Return Code  is %d\n", ret);
-        exit(1);
+        gtk_main_quit();
+      //  exit(1);
     }
     tm->tm_year= tm1.tm_year ;
     tm->tm_mon = tm1.tm_mon ;

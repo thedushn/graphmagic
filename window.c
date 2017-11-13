@@ -241,8 +241,6 @@ GtkWidget *label_time;
 
 
 
-    g_signal_connect(G_OBJECT(window1), "destroy",
-                     G_CALLBACK(gtk_main_quit), NULL);
 
 
 
@@ -250,7 +248,7 @@ GtkWidget *label_time;
 
     gtk_container_add(GTK_CONTAINER(window1), vbox);
 
-    gtk_window_set_title(GTK_WINDOW(window1), "lines mother do you see it ");
+    gtk_window_set_title(GTK_WINDOW(window1), "College lines");
 
     return window1;
 };
@@ -271,14 +269,18 @@ void swap_change(Memory_usage *memory_usage){
  gfloat  j = memory_usage->swap_percentage;
  swap_used = g_format_size_full((guint64) memory_usage->swap_used, G_FORMAT_SIZE_IEC_UNITS);
  swap_total = g_format_size_full((guint64) memory_usage->swap_total, G_FORMAT_SIZE_IEC_UNITS);
+
  g_array_prepend_val(history[7],  j);
  if (history[7]->len > 1)
   g_array_remove_index (history[7], history[7]->len - 1);
+
+
     gchar* swap_usage_text = g_strdup_printf(("SWAP: %0.2f%% (%s) %s"),memory_usage->swap_percentage,swap_used,swap_total);
- gtk_label_set_text (GTK_LABEL (label_swap), swap_usage_text);
- g_free(swap_usage_text);
- g_free(swap_total);
- g_free(swap_used);
+    gtk_label_set_text (GTK_LABEL (label_swap), swap_usage_text);
+
+    g_free(swap_usage_text);
+    g_free(swap_total);
+    g_free(swap_used);
 
 }
 void memory_change(Memory_usage *memory_usage){
@@ -299,12 +301,9 @@ void memory_change(Memory_usage *memory_usage){
   g_array_remove_index (history[6], history[6]->len - 1);
 
 
-
-
-
-
  memory_usage_text1 = g_strdup_printf (("Memory: %0.2f%%(%s)%s"),memory_usage->percentage,used,total);
  gtk_label_set_text (GTK_LABEL (label_mem), memory_usage_text1);
+
  g_free(memory_usage_text1);
  g_free(total);
  g_free(used);
@@ -313,8 +312,8 @@ void memory_change(Memory_usage *memory_usage){
 void time_change(struct tm *tm){
 
 
-  gchar *time = g_strdup_printf(("Year: %d Month-%d Day-%d  Hour:%d Min:%d Sec:%d"), tm->tm_year ,
-                                tm->tm_mon , tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+    gchar *time = g_strdup_printf(("Year: %d Month-%d Day-%d  Hour:%d Min:%d Sec:%d"), tm->tm_year,
+                                  tm->tm_mon, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
  gtk_label_set_text (GTK_LABEL (label_time),time);
  g_free(time);
 
@@ -346,14 +345,15 @@ void  cpu_change(Cpu_usage1 *cpu_usage1){
 
 
     ////vratiti nazad
-  gchar*  cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%% CPU%d: %2.f%%CPU%d: %2.f%%CPU%d: %2.f%%"), 0, cpu_usage1->percentage0,
-                                            1,  cpu_usage1->percentage1
-          , 2,  cpu_usage1->percentage2
-          , 3,  cpu_usage1->percentage3
-  );
     /*gchar*   cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
     gchar*   cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 2,  cpu_usage1->percentage2);
     gchar*  cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);*/
+    gchar*  cpu0_usage_text = g_strdup_printf(("CPU%d: %2.f%% CPU%d: %2.f%%CPU%d: %2.f%%CPU%d: %2.f%%"),
+                                              0,cpu_usage1->percentage0,
+                                              1,  cpu_usage1->percentage1,
+                                              2,  cpu_usage1->percentage2,
+                                              3,  cpu_usage1->percentage3
+    );
 
     gtk_label_set_text (GTK_LABEL (label_cpu0),cpu0_usage_text);
  /*   gtk_label_set_text (GTK_LABEL (label_cpu1),cpu1_usage_text);
@@ -383,10 +383,11 @@ void network_change_rc(Network *network){
         g_array_remove_index (history[4], history[4]->len - 1);
 
     gchar *  rec_bytes = g_format_size_full(network->received_bytes, G_FORMAT_SIZE_IEC_UNITS);
-    gchar *    rec_tr_bytes=g_format_size_full(network->transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
+    gchar *  rec_tr_bytes=g_format_size_full(network->transmited_bytes, G_FORMAT_SIZE_IEC_UNITS);
     gchar*   network_usage_received_text =g_strdup_printf("RECEIVED:  %s/s",rec_bytes);
     gchar*  network_usage_transimited_text =g_strdup_printf("TRANSMITED: %s/s",rec_tr_bytes);
     gtk_label_set_text (GTK_LABEL (label_rec),network_usage_received_text);
+
 
     gtk_label_set_text (GTK_LABEL (label_trans),network_usage_transimited_text);
     g_free(rec_bytes);

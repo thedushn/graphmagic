@@ -19,7 +19,8 @@
 
 
 void do_drawing_net(GtkWidget *widget, cairo_t *cr, guint bjorg2, guint time_step);
-void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step);
+void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step,gboolean CPU0_line
+        ,gboolean CPU1_line,gboolean CPU2_line,gboolean CPU3_line);
 
 void do_drawing_mem(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step);
 void do_drawing_int(GtkWidget *widget, cairo_t *cr);

@@ -4,7 +4,7 @@
 
 #include "cpu_usage.h"
 
-#include <stdbool.h>
+
 
 
 
@@ -151,7 +151,7 @@ unsigned long search(unsigned int key,struct DataItem  *hashArray,int hash_size 
 
         if(hashArray[hashIndex].key==key){
             *ima=true;
-            printf("data in search %lu key %i\n", hashArray[hashIndex].data, hashArray[hashIndex].key);
+        //    printf("data in search %lu key %i\n", hashArray[hashIndex].data, hashArray[hashIndex].key);
             unsigned long temp =hashArray[hashIndex].data;
             hashArray[hashIndex].data=data;
             return temp;
@@ -175,7 +175,7 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
     static struct DataItem *hash_cpu_system = NULL;
     unsigned  long jiffies_user_old=0, jiffies_system_old=0;
     static int hash_size=0;
-    static int fluffy=1;
+
     bool ima= false;
     if (hash_cpu_user == NULL)
     {
@@ -183,7 +183,7 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
         hash_cpu_system = (struct DataItem*) malloc(sizeof(struct DataItem));
         hash_size++;
     }
-    printf("search\n");
+  //  printf("search\n");
        jiffies_user_old =search(pid,hash_cpu_user,hash_size,&ima,jiffies_user);
     jiffies_system_old = search(pid,hash_cpu_system,hash_size,&ima,jiffies_system);
 
@@ -198,7 +198,7 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
             if ( temp != NULL && temp1!=NULL ) {
                 hash_cpu_user=temp;
                 hash_cpu_system=temp1;
-                printf("povecali smo niz\n");
+           //     printf("povecali smo niz\n");
 
             } else {
                 free(hash_cpu_user);

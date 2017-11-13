@@ -19,8 +19,6 @@ main_header.h
 /home/dushn/Desktop/Project/graphmagic-master/main_header.h
 buttons_s.h
 /home/dushn/Desktop/Project/graphmagic-master/buttons_s.h
-common.h
-/home/dushn/Desktop/Project/graphmagic-master/common.h
 
 /home/dushn/Desktop/Project/graphmagic-master/buttons.h
 gtk/gtk.h
@@ -69,8 +67,6 @@ stdio.h
 /home/dushn/Desktop/Project/graphmagic-master/stdio.h
 stdlib.h
 /home/dushn/Desktop/Project/graphmagic-master/stdlib.h
-sys/types.h
-/home/dushn/Desktop/Project/graphmagic-master/sys/types.h
 sys/socket.h
 /home/dushn/Desktop/Project/graphmagic-master/sys/socket.h
 pthread.h

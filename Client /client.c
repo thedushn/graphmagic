@@ -16,61 +16,81 @@
 
 // pthread_mutex_t m;
 
-
+#define CLADDR_LEN 100
 
 
 int main(int argc, char *argv[]){
 
-	struct sockaddr_in addr;
-	int sockfd, ret,ret2;
-	char buffer[BUF_SIZE];
-	char * serverAddr;
-	pthread_t t2,t3;
-	struct my_thread_info *info;
-    printf("for the love of god\n");
-	 interface_name();
-	if(argc <2){
-	printf("port number fail\n");
-	exit(1);
-	}
-    uint16_t portnum= (uint16_t)atoi(argv[1]);
- 	serverAddr = "127.0.0.1";
 
-	 sockfd = socket(AF_INET, SOCK_STREAM, 0);
-		if (sockfd < 0) {
+	struct sockaddr_in addr ,cl_addr;
+	int sockfd ,ret;
+	char buffer[BUF_SIZE];
+
+	char clientAddr[CLADDR_LEN];
+
+//    if(argc <2){
+//
+//        printf("no port provided");
+//        exit(1);
+//    }
+	uint16_t portnum=(uint16_t)atoi(argv[1]);
+	// int portnum=5555;
+	printf("port number %d ",portnum);
+	sockfd =socket(AF_INET,SOCK_STREAM,0);
+	if(sockfd<0){
 		printf("Error creating socket!\n");
 		exit(1);
-		}
-	printf("Socket created...\n");
-	printf("socket %d\n",sockfd);
-   // printf ("_SC_CLK_TCK = %ld\n", sysconf (_SC_CLK_TCK));
- //   long int clock_ticks=sysconf (_SC_CLK_TCK);
-	 memset(&addr, 0, sizeof(addr));
-	 addr.sin_family = AF_INET;
-	 addr.sin_addr.s_addr = inet_addr(serverAddr);
-	 addr.sin_port =(uint16_t) htons(portnum);
+	}
+	printf("Socket created \n");
 
-//inicijalizunjemo mutex za zakljucavanje slanja
-   // pthread_mutex_init(&m, NULL);
-	ret = connect(sockfd, (struct sockaddr *) &addr, sizeof(addr));
-	 if (ret < 0) {
-	  printf("Error connecting to the server!\n");
-	  exit(1);
-	 }
-	 printf("Connected to the server...\n");
+	memset(&addr,0,sizeof(addr));
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr = INADDR_ANY;
+	addr.sin_port = (uint16_t)htons(portnum);
+
+
+	ret = bind(sockfd,(struct sockaddr *) &addr, sizeof(addr));
+	if (ret < 0){
+		printf("Error binding!\n");
+		exit(1);
+	}
+	printf("Binding done...\n");
+
+	printf("Waiting for a connection...\n");
+
+	listen(sockfd, 5); //hello is anybody going to call me :{
+	printf("da li smo prosli \n");
+	socklen_t len =sizeof(cl_addr);
+	sockfd = accept(sockfd,(struct sockaddr *) &cl_addr, &len);
+	if (sockfd < 0) {
+		printf("Error accepting connection!\n");
+		exit(1);
+	}
+
+	inet_ntop(AF_INET, &(cl_addr.sin_addr), clientAddr, CLADDR_LEN);
+	printf("Connection accepted from %s...\n", clientAddr);
+
+	memset(buffer,0,BUF_SIZE);
+	printf("time to send some shit over the ethernet\n");
+//    if(pthread_mutex_init(&mut, NULL)!=0){
+//        printf("mutex init failed \n");
+//        exit(1);
+//    }
+
+	printf("making threads\n");
+
+
+
+	int ret2;
+
+	pthread_t t2,t3;
+	struct my_thread_info *info;
+
 
 	info = malloc(sizeof(struct my_thread_info));
 	info->thread_socket = sockfd;
 
-/*	 printf("Enter your messages one by one and press return key!\n");*/
 
- /*   ret = (int) send(sockfd, &clock_ticks, sizeof(long int), 0);
-
-	 if (ret<0) {
-	  printf("ERROR: Return Code  is %d\n", ret);
-	  exit(1);
-	 }
-*/
 
 
 
@@ -90,11 +110,6 @@ int main(int argc, char *argv[]){
       fclose (fp);
 
 
-  /*  ret =(int)send(sockfd,&uptime1,sizeof(unsigned long),0);
-    	if (ret<0) {
-	  printf("ERROR: Return Code from pthread_create() is %d\n", ret);
-	  exit(1);
-	 }*/
 
 
 	time_t time1 = time(NULL);
@@ -126,7 +141,7 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}*/
 
-    ret2 = pthread_create(&t2, NULL, slanje, info);
+    ret2 = pthread_create(&t2, NULL, slanje, &sockfd);
    if(ret2){
   // if( pthread_create(&t2, NULL, slanje, &info)){
        printf("ERROR: Return Code from pthread_create() is %d\n",ret2);
@@ -134,7 +149,7 @@ int main(int argc, char *argv[]){
 
    }
 
-    ret= pthread_create(&t3,NULL,accept_c,info);
+    ret= pthread_create(&t3,NULL,accept_c,&sockfd);
 
     if(ret){
 

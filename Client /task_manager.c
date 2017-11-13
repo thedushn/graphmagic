@@ -84,7 +84,7 @@ get_task_details (int pid, Task *task)
         unsigned  long jiffies_user = 0, jiffies_system = 0;
         struct passwd *pw;
         struct stat sstat;
-        unsigned  long long stime;
+       // unsigned  long long stime;
 
         sscanf(buffer, "%i %255s %1s %i %i %i %i %i %255s %255s %255s %255s %255s %lu %lu %i %i %i %hi %i %i %llu %llu %llu %255s %255s %255s %i %255s %255s %255s %255s %255s %255s %255s %255s %255s %255s %i %255s %255s",
                &task->pid,	// processid
@@ -162,7 +162,7 @@ get_task_details (int pid, Task *task)
 
 
 
-        s=0;
+     //   s=0;
         h=0;
         m=0;
         s=sec+pocetno.tm_sec;
@@ -203,6 +203,7 @@ get_task_details (int pid, Task *task)
         task->duration.tm_hour=diff.tm_hour;
         task->duration.tm_min=diff.tm_min;
         task->duration.tm_sec=diff.tm_sec;
+        task->checked=false;
      /*   printf( "vreme trajanja rada %d %d %d\n",task->duration.tm_hour,
         task->duration.tm_min,
         task->duration.tm_sec);*/
@@ -236,13 +237,14 @@ get_task_list (Task * * array,int *niz)
         {
             if (get_task_details (pid, &tasks_array[g]))
             {
-                temp=realloc(tasks_array,( /**j*/ g+2)*sizeof(Task));
+                g++;
+                temp=realloc(tasks_array,( /**j*/ g+1)*sizeof(Task));
                 if ( temp != NULL ) {
                     tasks_array=temp;
                 } else {
                     free(tasks_array);
                 }
-                g++;
+
                 *niz=g;
 
 

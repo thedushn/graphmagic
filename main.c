@@ -23,12 +23,16 @@
 
 static guint t = 1000;
 static guint bjorg = 1;//prvi ispis
-static guint bjorg2 = 1;
+
 
 gint tasks_num;
 gint dev_num;
 GtkWidget *label_cpu0;
 GArray *interrupt_array_temp;
+static gboolean CPU0_line =TRUE;
+static gboolean CPU1_line =TRUE;
+static gboolean CPU2_line =TRUE;
+static gboolean CPU3_line =TRUE;
 
 static guint time_step = 0;
 
@@ -37,7 +41,7 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
     if (widget == graph1) {
 
-        do_drawing_cpu(widget, cr, bjorg, time_step);
+        do_drawing_cpu(widget, cr, bjorg, time_step,CPU0_line,CPU1_line,CPU2_line,CPU3_line);
     }
     else if (widget == graph2) {
 
@@ -94,35 +98,35 @@ void dec_refresh() {
 
 void graph_refresh(GtkWidget *widget, gboolean CPU) {
 
-//    if (widget == button_graph0) {
-//
-//
-//        CPU0_line = CPU;
-//        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
-//
-//
-//    }
-//    else if (widget == button_graph1) {
-//
-//
-//        CPU1_line = CPU;
-//
-//        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
-//
-//    }
-//    else if (widget == button_graph2) {
-//
-//        CPU2_line = CPU;
-//        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
-//
-//
-//    }
-//    else /* (widget == button_graph3)*/ {
-//
-//        CPU3_line = CPU;
-//        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
-//
-//    }
+    if (widget == button_graph0) {
+
+
+        CPU0_line = CPU;
+        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
+
+
+    }
+    else if (widget == button_graph1) {
+
+
+        CPU1_line = CPU;
+
+        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
+
+    }
+    else if (widget == button_graph2) {
+
+        CPU2_line = CPU;
+        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+
+
+    }
+    else /* (widget == button_graph3)*/ {
+
+        CPU3_line = CPU;
+        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
+
+    }
 
     timeout_refresh();
    // time_handler(window);
@@ -149,29 +153,52 @@ void timeout_refresh() {
 
 }
 
-void init_timeout2() {
-//    received_transfered();
-//    network_change_rc(label_mem);
-//    network_change_ts(label_swap);
-    bjorg2++;
 
-    if (bjorg2 >= 60) {
+void conekcija2(gchar * argv){
+
+    struct sockaddr_in addr ;
+    int ret;
+
+    char * serverAddr;
 
 
-        bjorg2 = 60;
+   uint16_t portnum=(uint16_t)atoi(argv);
+
+    printf("port number %d ",portnum);
+    newsockfd =socket(AF_INET,SOCK_STREAM,0);
+    if(newsockfd<0){
+        printf("Error creating socket!\n");
+        exit(1);
     }
-//    if (refresh == 0) {
-//
-//        refresh = g_timeout_add(t, (GSourceFunc) init_timeout2, NULL);
-//    }
+    printf("Socket created \n");
+    serverAddr = "127.0.0.1";
+    memset(&addr,0,sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = inet_addr(serverAddr);
+    addr.sin_port =(uint16_t) htons(portnum);
+
+
+    ret = connect(newsockfd,(struct sockaddr *) &addr, sizeof(addr));
+    if (ret < 0){
+        printf("Error connecting !\n");
+        exit(1);
+    }
+
+
+    printf("Connected to the server...\n");
+
+
+
+
+
+
 
 }
-
 
 void conekcija(gchar * argv){
 
     struct sockaddr_in addr ,cl_addr;
-    int sockfd, len ,ret, ret1;
+    int sockfd ,ret, ret1;
     char buffer[BUF_SIZE];
 
     char clientAddr[CLADDR_LEN];
@@ -181,7 +208,7 @@ void conekcija(gchar * argv){
 //        printf("no port provided");
 //        exit(1);
 //    }
-    int portnum=atoi(argv);
+    uint16_t portnum=(uint16_t)atoi(argv);
     // int portnum=5555;
     printf("port number %d ",portnum);
     sockfd =socket(AF_INET,SOCK_STREAM,0);
@@ -208,7 +235,7 @@ void conekcija(gchar * argv){
 
     listen(sockfd, 5); //hello is anybody going to call me :{
     printf("da li smo prosli \n");
-    len =sizeof(cl_addr);
+   socklen_t len =sizeof(cl_addr);
     newsockfd = accept(sockfd,(struct sockaddr *) &cl_addr, &len);
     if (newsockfd < 0) {
         printf("Error accepting connection!\n");
@@ -482,6 +509,12 @@ void *init_timeout() {
     }
 
 };
+static void
+destroy_window (void)
+{
+    if (gtk_main_level () > 0)
+        gtk_main_quit ();
+}
 
 
 int main(int argc, char *argv[]) {
@@ -496,7 +529,7 @@ gtk_init(&argc, &argv);
             exit(1);
         }
 
-    conekcija(argv[1]);
+    conekcija2(argv[1]);
 
 
 
@@ -586,6 +619,7 @@ gtk_init(&argc, &argv);
 
   //  g_timeout_add(1000, (GSourceFunc) init_timeout2, NULL);
 
+    g_signal_connect (window, "destroy", G_CALLBACK (destroy_window), NULL);
 
 
 // pthread_create(&t1,NULL,init_timeout,NULL);

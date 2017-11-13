@@ -33,8 +33,6 @@ time.h
 /home/dushn/Desktop/Client /cpu_usage.c
 cpu_usage.h
 /home/dushn/Desktop/Client /cpu_usage.h
-stdbool.h
--
 
 /home/dushn/Desktop/Client /cpu_usage.h
 stdio.h
