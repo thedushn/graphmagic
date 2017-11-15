@@ -35,7 +35,7 @@ set(SOURCE_FILES main.c
 
 
 include_directories(${GTK3_INCLUDE_DIRS})
-include_directories(${})
+
 link_directories(${GTK3_LIBRARY_DIRS})
 link_libraries(${GTK3_LIBRARIES})
 add_executable(gtkworld ${SOURCE_FILES})

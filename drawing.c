@@ -9,7 +9,7 @@
 
 
 
-void ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2){
+void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,gchar *ime1,gchar *ime2){
 
     size_t j;
     size_t g=11;//toliko slova moze da stane u jedan red
@@ -84,7 +84,7 @@ void ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar *ime
 
             text_int[s]=ime2[s];
         }
-        //  text_int[11]='\0';
+         // text_int[g-1]='\0';
         cairo_show_text(cr,text_int);
     }
     else  /*if(q>=1)*/{
@@ -121,7 +121,7 @@ void ispis_interrupta2(cairo_t *cr,float font_size,float duzina,int i,gchar *ime
 
 //return cr;
 }
-void ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4){
+void ispis_interrupta(cairo_t *cr,double font_size,double duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4){
 
 
 
@@ -170,7 +170,7 @@ void ispis_interrupta(cairo_t *cr,float font_size,float duzina,int i,gchar *ime1
 
 };
 
-void crtaj_sekunde(cairo_t *cr,float width,float height,float font_size,int i,int j){
+void crtaj_sekunde(cairo_t *cr,double width,double height,double font_size,int i,int j){
    cairo_set_source_rgb(cr,0,0,0);
     cairo_move_to(cr,i*font_size,height);
     cairo_show_text(cr,"0 sec");
@@ -198,7 +198,7 @@ cairo_stroke(cr);
 
 }
 
-void crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i){
+void crtaj_okvir(cairo_t *cr,double width,double height,double font_size,int i){
 
 
 
@@ -229,9 +229,10 @@ void crtaj_okvir(cairo_t *cr,float width,float height,float font_size,int i){
 
 
 };
-void crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size){
+void crtaj_procente(cairo_t *cr,double height,double font_size){
 
   //  cairo_set_source_rgb(cr,0,0,0);
+    cairo_set_font_size(cr, font_size);
     cairo_move_to(cr, 0,font_size);
     cairo_set_source_rgb(cr,0,0,0);
     cairo_show_text(cr,"100%");
@@ -258,9 +259,9 @@ void crtaj_procente(cairo_t *cr,gfloat height,gfloat font_size){
     return graph_surface;
 
 }*/
-void  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,float font_size,long max_broj,float duzina){
+void  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,double height,double font_size,long max_broj,double duzina){
 
-    gfloat procent=0;
+    double procent=0;
 
     cairo_set_line_width(cr,1);
 
@@ -307,8 +308,8 @@ void  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,float height,float fon
 
 }
 
-//cairo_t *crtanje_graph(cairo_t *cr,GArray *history,int r,int y,int width,int height, gfloat font_size, double step){
-void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int height, gfloat font_size, double step,gfloat max_broj3){
+
+void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, double height, double font_size, double step,double max_broj3){
 
 
     double prev=height-font_size; //nula
@@ -338,7 +339,7 @@ void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int height
 
 
         // int height_temp=height;
-        gfloat procent = 0;// = *peak;
+        double procent = 0;// = *peak;
         if(r==4 || r==5){
             procent=((height-font_size)/max_broj3)* *peak;
         }
@@ -375,17 +376,17 @@ void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, int height
    // return cr;
 };
 
-void do_drawing_mem(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step){
-    int width, height;
-    height= gtk_widget_get_allocated_height(widget);
-    width= gtk_widget_get_allocated_width(widget);
+void do_drawing_mem(GtkWidget *widget, cairo_t *cr, int bjorg, guint time_step){
+    double width, height;
+    height =(double) gtk_widget_get_allocated_height(widget);
+    width =(double) gtk_widget_get_allocated_width(widget);
 
     cairo_surface_t *graph_surface;
-    graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+    graph_surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, (int)width, (int)height);
 
     //   cairo_set_source_rgb(cr,1,.05,1);
     cairo_set_line_width(cr,1);
-    float font_size=10;
+    double font_size=10;
     double step =(width-3*font_size-3*font_size)/time_step;
 
     cairo_set_font_size(cr, font_size);
@@ -438,12 +439,12 @@ void do_drawing_mem(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step
 void do_drawing_int(GtkWidget *widget, cairo_t *cr){
 //void do_drawing_int(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array){
 //void do_drawing_int(GtkWidget *widget,cairo_t *cr){
-    int width, height;
+    double width, height;
 
     gchar ime2[3];
     long max_broj=0;
-    signed long temp=0;
-    float duzina=0;
+     long temp=0;
+    double duzina=0;
     Interrupts *peak;
     gchar broj[5];
     cairo_surface_t *graph_surface;
@@ -451,9 +452,9 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr){
 
 
 
-    height= gtk_widget_get_allocated_height(widget);
-    width= gtk_widget_get_allocated_width(widget);
-    float font_size=10;
+    height =(double) gtk_widget_get_allocated_height(widget);
+    width =(double) gtk_widget_get_allocated_width(widget);
+    double font_size=10;
 //    if(width>height)  {
 //        font_size=(float)width/height;
 //
@@ -481,7 +482,7 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr){
     cairo_set_line_width(cr,1);
     cairo_set_font_size(cr, font_size);
 
-    graph_surface= cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+    graph_surface= cairo_image_surface_create (CAIRO_FORMAT_ARGB32, (int)width, (int)height);
  //   crtaj_procent_linije(cr, width,height, font_size, 5);
 
      crtaj_okvir(cr,width,height,font_size,5);
@@ -512,7 +513,7 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr){
         }
 
     }
-   // max_broj+=100;
+
     max_broj= max_broj*5/4;
     cairo_move_to(cr, 0,font_size);
     sprintf(broj,"%li",max_broj);
@@ -558,8 +559,8 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr){
 
 
 };
-void do_drawing_net(GtkWidget *widget, cairo_t *cr, guint bjorg2, guint time_step){
-    int width, height;
+void do_drawing_net(GtkWidget *widget, cairo_t *cr, int bjorg2, guint time_step){
+    double width, height;
    // gchar *rec;
     gchar broj[5];
     gchar *track;
@@ -575,9 +576,8 @@ void do_drawing_net(GtkWidget *widget, cairo_t *cr, guint bjorg2, guint time_ste
 
     gfloat *peak=0;
     float font_size=10;
-    height= gtk_widget_get_allocated_height(widget);
-    width= gtk_widget_get_allocated_width(widget);
-
+    height =(double) gtk_widget_get_allocated_height(widget);
+    width =(double) gtk_widget_get_allocated_width(widget);
 
 
     float temp;
@@ -587,7 +587,7 @@ void do_drawing_net(GtkWidget *widget, cairo_t *cr, guint bjorg2, guint time_ste
 
      cairo_surface_t *graph_surface;
    // graph_surface= crtaj_surface(cr,width,height);
-    graph_surface= cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+    graph_surface= cairo_image_surface_create (CAIRO_FORMAT_ARGB32,(int) width, (int)height);
 
     cairo_set_line_width(cr,1);
 
@@ -603,6 +603,9 @@ void do_drawing_net(GtkWidget *widget, cairo_t *cr, guint bjorg2, guint time_ste
     crtaj_okvir(cr,width,height,font_size,5);
     //secund linije
     //sekunde
+
+
+
     crtaj_sekunde(cr,width,height,font_size,5,10);
     cairo_stroke(cr);
     //okvir
@@ -708,14 +711,14 @@ void do_drawing_net(GtkWidget *widget, cairo_t *cr, guint bjorg2, guint time_ste
 
 
 }
-void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step,gboolean CPU0_line,gboolean CPU1_line,gboolean CPU2_line,gboolean CPU3_line) {
-    int width, height;
-    float font_size = 12;
+void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, int bjorg, guint time_step,gboolean CPU0_line,gboolean CPU1_line,gboolean CPU2_line,gboolean CPU3_line) {
+    double width, height;
+    double font_size = 12;
     double step;
     cairo_surface_t *graph_surface;
 
-    height = gtk_widget_get_allocated_height(widget);
-    width = gtk_widget_get_allocated_width(widget);
+    height =(double) gtk_widget_get_allocated_height(widget);
+    width =(double) gtk_widget_get_allocated_width(widget);
 
 
 
@@ -730,10 +733,10 @@ void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, guint bjorg, guint time_step
     cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
 
 
-    cairo_set_font_size(cr, font_size);
 
 
-    graph_surface=cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+
+    graph_surface=cairo_image_surface_create (CAIRO_FORMAT_ARGB32,(int) width,(int) height);
 
     //okvir
     //   crtaj_procent_linije(cr, width,height, font_size, 3);

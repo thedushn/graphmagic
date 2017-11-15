@@ -7,11 +7,7 @@
 #include "testing_tree.h"
 #include "buttons.h"
 
-GtkWidget *vbox;
-GtkWidget *hbox;
-GtkWidget *hbox1;
-GtkWidget *hbox3;
-GtkWidget *hbox2;
+
 
 GtkWidget *label_rec;
 GtkWidget *label_trans;
@@ -24,6 +20,11 @@ GtkWidget *label_time;
 
 
   GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
+      GtkWidget *vbox;
+      GtkWidget *hbox;
+      GtkWidget *hbox1;
+      GtkWidget *hbox3;
+      GtkWidget *hbox2;
 
       GtkWidget *menubar;
       GtkWidget *filemenu;
@@ -169,12 +170,13 @@ GtkWidget *label_time;
     graph2 = gtk_drawing_area_new();
     graph3 = gtk_drawing_area_new();
     graph4 = gtk_drawing_area_new();
+      printf("graph is floating %s\n", g_object_is_floating (graph1)==TRUE ? "TRUE" : "FALSE");
 
     frame1 = gtk_frame_new(NULL);
     frame2 = gtk_frame_new(NULL);
     frame3 = gtk_frame_new(NULL);
     frame4 = gtk_frame_new(NULL);
-
+      printf("frame is floating %s\n", g_object_is_floating (frame1)==TRUE ? "TRUE" : "FALSE");
 
     label_rec = gtk_label_new(NULL);//memory
     label_trans = gtk_label_new(NULL);//swap
@@ -212,6 +214,7 @@ GtkWidget *label_time;
 
     gtk_container_add(GTK_CONTAINER(frame1), graph1);
     gtk_box_pack_start(GTK_BOX(hbox1), frame1, 1, TRUE, 0);
+      printf("graph is floating %s\n", g_object_is_floating (graph1)==TRUE ? "TRUE" : "FALSE");
 
 
     gtk_box_pack_start(GTK_BOX(vbox), hbox2, 0, FALSE, 0);
@@ -247,6 +250,7 @@ GtkWidget *label_time;
 
 
     gtk_container_add(GTK_CONTAINER(window1), vbox);
+
 
     gtk_window_set_title(GTK_WINDOW(window1), "College lines");
 

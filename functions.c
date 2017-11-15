@@ -186,4 +186,4 @@ void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *a
     // printf("now: %d-%d-%d %d:%d:%d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
 
-}
+};
