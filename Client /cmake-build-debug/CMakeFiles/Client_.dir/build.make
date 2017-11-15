@@ -81,28 +81,28 @@ CMakeFiles/Client_.dir/functions.c.o.provides: CMakeFiles/Client_.dir/functions.
 CMakeFiles/Client_.dir/functions.c.o.provides.build: CMakeFiles/Client_.dir/functions.c.o
 
 
-CMakeFiles/Client_.dir/client.c.o: CMakeFiles/Client_.dir/flags.make
-CMakeFiles/Client_.dir/client.c.o: ../client.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Client_.dir/client.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Client_.dir/client.c.o   -c "/home/dushn/Desktop/Client /client.c"
+CMakeFiles/Client_.dir/server.c.o: CMakeFiles/Client_.dir/flags.make
+CMakeFiles/Client_.dir/server.c.o: ../server.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Client_.dir/server.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Client_.dir/server.c.o   -c "/home/dushn/Desktop/Client /server.c"
 
-CMakeFiles/Client_.dir/client.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Client_.dir/client.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/Client /client.c" > CMakeFiles/Client_.dir/client.c.i
+CMakeFiles/Client_.dir/server.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Client_.dir/server.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/Client /server.c" > CMakeFiles/Client_.dir/server.c.i
 
-CMakeFiles/Client_.dir/client.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Client_.dir/client.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/Client /client.c" -o CMakeFiles/Client_.dir/client.c.s
+CMakeFiles/Client_.dir/server.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Client_.dir/server.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/Client /server.c" -o CMakeFiles/Client_.dir/server.c.s
 
-CMakeFiles/Client_.dir/client.c.o.requires:
+CMakeFiles/Client_.dir/server.c.o.requires:
 
-.PHONY : CMakeFiles/Client_.dir/client.c.o.requires
+.PHONY : CMakeFiles/Client_.dir/server.c.o.requires
 
-CMakeFiles/Client_.dir/client.c.o.provides: CMakeFiles/Client_.dir/client.c.o.requires
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/client.c.o.provides.build
-.PHONY : CMakeFiles/Client_.dir/client.c.o.provides
+CMakeFiles/Client_.dir/server.c.o.provides: CMakeFiles/Client_.dir/server.c.o.requires
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/server.c.o.provides.build
+.PHONY : CMakeFiles/Client_.dir/server.c.o.provides
 
-CMakeFiles/Client_.dir/client.c.o.provides.build: CMakeFiles/Client_.dir/client.c.o
+CMakeFiles/Client_.dir/server.c.o.provides.build: CMakeFiles/Client_.dir/server.c.o
 
 
 CMakeFiles/Client_.dir/memory_usage.c.o: CMakeFiles/Client_.dir/flags.make
@@ -252,7 +252,7 @@ CMakeFiles/Client_.dir/cpu_usage.c.o.provides.build: CMakeFiles/Client_.dir/cpu_
 # Object files for target Client_
 Client__OBJECTS = \
 "CMakeFiles/Client_.dir/functions.c.o" \
-"CMakeFiles/Client_.dir/client.c.o" \
+"CMakeFiles/Client_.dir/server.c.o" \
 "CMakeFiles/Client_.dir/memory_usage.c.o" \
 "CMakeFiles/Client_.dir/interrupts.c.o" \
 "CMakeFiles/Client_.dir/task_manager.c.o" \
@@ -264,7 +264,7 @@ Client__OBJECTS = \
 Client__EXTERNAL_OBJECTS =
 
 Client_: CMakeFiles/Client_.dir/functions.c.o
-Client_: CMakeFiles/Client_.dir/client.c.o
+Client_: CMakeFiles/Client_.dir/server.c.o
 Client_: CMakeFiles/Client_.dir/memory_usage.c.o
 Client_: CMakeFiles/Client_.dir/interrupts.c.o
 Client_: CMakeFiles/Client_.dir/task_manager.c.o
@@ -282,7 +282,7 @@ CMakeFiles/Client_.dir/build: Client_
 .PHONY : CMakeFiles/Client_.dir/build
 
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/functions.c.o.requires
-CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/client.c.o.requires
+CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/server.c.o.requires
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/memory_usage.c.o.requires
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/interrupts.c.o.requires
 CMakeFiles/Client_.dir/requires: CMakeFiles/Client_.dir/task_manager.c.o.requires

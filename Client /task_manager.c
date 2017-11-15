@@ -58,7 +58,7 @@ get_task_details (int pid, Task *task)
  /*Scanning the short process name is unreliable with scanf when it contains
       spaces, retrieve it manually and fill the buffer
 */
-    {
+
         char *p1, *po, *p2;
         int i = 0;
         p1 = po = strchr (buffer, '(');
@@ -73,11 +73,12 @@ get_task_details (int pid, Task *task)
             *po = 'x';
             po++;
         }
-    }
+
+
 
  //Parse the stat file
 
-    {
+
         char dummy[256];
         int idummy;
 
@@ -207,7 +208,7 @@ get_task_details (int pid, Task *task)
      /*   printf( "vreme trajanja rada %d %d %d\n",task->duration.tm_hour,
         task->duration.tm_min,
         task->duration.tm_sec);*/
-    }
+
 
 
     return true;

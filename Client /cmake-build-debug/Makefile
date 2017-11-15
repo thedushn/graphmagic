@@ -123,33 +123,6 @@ Client_/fast:
 	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/build
 .PHONY : Client_/fast
 
-client.o: client.c.o
-
-.PHONY : client.o
-
-# target to build an object file
-client.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/client.c.o
-.PHONY : client.c.o
-
-client.i: client.c.i
-
-.PHONY : client.i
-
-# target to preprocess a source file
-client.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/client.c.i
-.PHONY : client.c.i
-
-client.s: client.c.s
-
-.PHONY : client.s
-
-# target to generate assembly for a file
-client.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/client.c.s
-.PHONY : client.c.s
-
 cpu_usage.o: cpu_usage.c.o
 
 .PHONY : cpu_usage.o
@@ -312,6 +285,33 @@ network_bandwith.c.s:
 	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.s
 .PHONY : network_bandwith.c.s
 
+server.o: server.c.o
+
+.PHONY : server.o
+
+# target to build an object file
+server.c.o:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/server.c.o
+.PHONY : server.c.o
+
+server.i: server.c.i
+
+.PHONY : server.i
+
+# target to preprocess a source file
+server.c.i:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/server.c.i
+.PHONY : server.c.i
+
+server.s: server.c.s
+
+.PHONY : server.s
+
+# target to generate assembly for a file
+server.c.s:
+	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/server.c.s
+.PHONY : server.c.s
+
 task_manager.o: task_manager.c.o
 
 .PHONY : task_manager.o
@@ -348,9 +348,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Client_"
-	@echo "... client.o"
-	@echo "... client.i"
-	@echo "... client.s"
 	@echo "... cpu_usage.o"
 	@echo "... cpu_usage.i"
 	@echo "... cpu_usage.s"
@@ -369,6 +366,9 @@ help:
 	@echo "... network_bandwith.o"
 	@echo "... network_bandwith.i"
 	@echo "... network_bandwith.s"
+	@echo "... server.o"
+	@echo "... server.i"
+	@echo "... server.s"
 	@echo "... task_manager.o"
 	@echo "... task_manager.i"
 	@echo "... task_manager.s"

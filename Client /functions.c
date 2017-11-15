@@ -104,7 +104,7 @@ void *accept_c(void *socket){
        rezultat=data.stuff.mem;
         devices_show=data.stuff.show;
 
-        printf("sHOW %s\n", data.stuff.show==false ? "TRUE" : "FALSE");
+        printf("sHOW %s\n", data.stuff.show==true ? "TRUE" : "FALSE");
         printf("SHOW %s\n", devices_show==true ? "TRUE" : "FALSE");
 
         printf("command %s\n ",data.stuff.command);
@@ -144,14 +144,18 @@ void *accept_c(void *socket){
 
 
 
-void *slanje(int *socket){
+void *slanje(void *socket){
 
     int  ret=0;
 
     printf("usli smo u slanje\n");
         //unsigned int num_packets;
 
-    struct	my_thread_info *info = socket;
+
+    static struct	my_thread_info *info;
+    info = malloc(sizeof(struct my_thread_info));
+    info->thread_socket= *(int*)socket;
+
     data_s data;
 
     while(1) {
@@ -398,7 +402,7 @@ void *slanje(int *socket){
       //  data.network=received_transfered();
         received_transfered2(&data.network);
         ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
-       // printf("%lli, %lli",data.network.received_bytes,data.network.transmited_bytes);
+       // printf("Network %lu, %lu\n ",data.network.received_bytes,data.network.transmited_bytes);
         if (ret < 0) {
             printf("Error sending data!\n\t");
             //  break;
@@ -418,6 +422,7 @@ void *slanje(int *socket){
         free(task_array);
         free(devices);
         free(interrupts);
+
 
             pthread_cond_wait(&cond, &m);
 

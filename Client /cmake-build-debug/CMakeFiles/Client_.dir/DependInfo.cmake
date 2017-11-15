@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/dushn/Desktop/Client /client.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/client.c.o"
   "/home/dushn/Desktop/Client /cpu_usage.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/cpu_usage.c.o"
   "/home/dushn/Desktop/Client /devices.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/devices.c.o"
   "/home/dushn/Desktop/Client /functions.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/functions.c.o"
   "/home/dushn/Desktop/Client /interrupts.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/interrupts.c.o"
   "/home/dushn/Desktop/Client /memory_usage.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/memory_usage.c.o"
   "/home/dushn/Desktop/Client /network_bandwith.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/network_bandwith.c.o"
+  "/home/dushn/Desktop/Client /server.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/server.c.o"
   "/home/dushn/Desktop/Client /task_manager.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/task_manager.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

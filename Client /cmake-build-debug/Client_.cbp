@@ -122,9 +122,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/dushn/Desktop/Client /client.c">
-			<Option target="Client_"/>
-		</Unit>
 		<Unit filename="/home/dushn/Desktop/Client /common.h">
 			<Option target="Client_"/>
 		</Unit>
@@ -152,9 +149,6 @@
 		<Unit filename="/home/dushn/Desktop/Client /interrupts.h">
 			<Option target="Client_"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /interrupts_s.h">
-			<Option target="Client_"/>
-		</Unit>
 		<Unit filename="/home/dushn/Desktop/Client /memory_usage.c">
 			<Option target="Client_"/>
 		</Unit>
@@ -165,6 +159,9 @@
 			<Option target="Client_"/>
 		</Unit>
 		<Unit filename="/home/dushn/Desktop/Client /network_bandwith.h">
+			<Option target="Client_"/>
+		</Unit>
+		<Unit filename="/home/dushn/Desktop/Client /server.c">
 			<Option target="Client_"/>
 		</Unit>
 		<Unit filename="/home/dushn/Desktop/Client /task_manager.c">

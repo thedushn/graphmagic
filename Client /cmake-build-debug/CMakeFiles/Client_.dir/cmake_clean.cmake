@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Client_.dir/functions.c.o"
-  "CMakeFiles/Client_.dir/client.c.o"
+  "CMakeFiles/Client_.dir/server.c.o"
   "CMakeFiles/Client_.dir/memory_usage.c.o"
   "CMakeFiles/Client_.dir/interrupts.c.o"
   "CMakeFiles/Client_.dir/task_manager.c.o"

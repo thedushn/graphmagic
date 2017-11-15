@@ -6,24 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/dushn/Desktop/Client /client.c
-stdio.h
-/home/dushn/Desktop/Client /stdio.h
-stdlib.h
-/home/dushn/Desktop/Client /stdlib.h
-sys/socket.h
-/home/dushn/Desktop/Client /sys/socket.h
-string.h
-/home/dushn/Desktop/Client /string.h
-netinet/in.h
-/home/dushn/Desktop/Client /netinet/in.h
-pthread.h
-/home/dushn/Desktop/Client /pthread.h
-functions.h
-/home/dushn/Desktop/Client /functions.h
-arpa/inet.h
--
-
 /home/dushn/Desktop/Client /common.h
 stdbool.h
 -
@@ -217,6 +199,24 @@ dirent.h
 -
 common.h
 /home/dushn/Desktop/Client /common.h
+
+/home/dushn/Desktop/Client /server.c
+stdio.h
+/home/dushn/Desktop/Client /stdio.h
+stdlib.h
+/home/dushn/Desktop/Client /stdlib.h
+sys/socket.h
+/home/dushn/Desktop/Client /sys/socket.h
+string.h
+/home/dushn/Desktop/Client /string.h
+netinet/in.h
+/home/dushn/Desktop/Client /netinet/in.h
+pthread.h
+/home/dushn/Desktop/Client /pthread.h
+functions.h
+/home/dushn/Desktop/Client /functions.h
+arpa/inet.h
+-
 
 /home/dushn/Desktop/Client /task_manager.c
 task_manager.h

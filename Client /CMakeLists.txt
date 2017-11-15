@@ -10,13 +10,12 @@ pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 set(SOURCE_FILES
         functions.c
         functions.c
-        client.c
+        server.c
         memory_usage.c
         memory_usage.h
         common.h
         interrupts.h
         interrupts.c
-        interrupts_s.h
         task_manager.c
         task_manager.h
         devices.c

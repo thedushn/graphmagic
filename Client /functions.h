@@ -11,7 +11,7 @@ void * chat(void * socket);
 void *conformation (int socket);
 void *send_some_files(int socket);
 void *chat2(void * socket);
-void *slanje(int * socket);
+void *slanje(void * socket);
 void *accept_c (void *socket);
 
 void send_signal_to_task(char *task_id, char *signal);
