@@ -20,7 +20,7 @@
 
 
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1){
-void * primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network,struct tm *tm,Memory_usage *memory_usage){
+void  primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network,struct tm *tm,Memory_usage *memory_usage){
 
     int  ret;
     int num;

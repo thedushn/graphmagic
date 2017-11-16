@@ -33,6 +33,7 @@ CMakeFiles/Client_.dir/network_bandwith.c.o
  /home/dushn/Desktop/Client /network_bandwith.h
 CMakeFiles/Client_.dir/server.c.o
  /home/dushn/Desktop/Client /common.h
+ /home/dushn/Desktop/Client /cpu_usage.h
  /home/dushn/Desktop/Client /devices.h
  /home/dushn/Desktop/Client /functions.h
  /home/dushn/Desktop/Client /memory_usage.h

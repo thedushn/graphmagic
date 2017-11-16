@@ -23,7 +23,7 @@ GArray *names_array;
 GArray *interrupt_array_d;
 
 
-void *init_timeout();
+void init_timeout();
 void graph_refresh(GtkWidget *widget,gboolean);
 
 void dec_refresh();

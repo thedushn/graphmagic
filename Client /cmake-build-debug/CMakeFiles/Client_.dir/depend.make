@@ -32,6 +32,7 @@ CMakeFiles/Client_.dir/network_bandwith.c.o: ../network_bandwith.c
 CMakeFiles/Client_.dir/network_bandwith.c.o: ../network_bandwith.h
 
 CMakeFiles/Client_.dir/server.c.o: ../common.h
+CMakeFiles/Client_.dir/server.c.o: ../cpu_usage.h
 CMakeFiles/Client_.dir/server.c.o: ../devices.h
 CMakeFiles/Client_.dir/server.c.o: ../functions.h
 CMakeFiles/Client_.dir/server.c.o: ../memory_usage.h

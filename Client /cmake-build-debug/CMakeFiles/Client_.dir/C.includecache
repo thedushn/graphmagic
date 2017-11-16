@@ -215,6 +215,8 @@ pthread.h
 /home/dushn/Desktop/Client /pthread.h
 functions.h
 /home/dushn/Desktop/Client /functions.h
+cpu_usage.h
+/home/dushn/Desktop/Client /cpu_usage.h
 arpa/inet.h
 -
 

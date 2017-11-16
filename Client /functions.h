@@ -21,6 +21,6 @@ struct my_thread_info {
 struct tm tm1;
 
 struct tm pocetno;
-
+pthread_t t2,t3;
 
 #endif

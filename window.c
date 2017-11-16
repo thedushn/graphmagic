@@ -19,6 +19,7 @@ GtkWidget *label_swap;
 GtkWidget *label_time;
 
 
+
   GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
       GtkWidget *vbox;
       GtkWidget *hbox;
@@ -40,6 +41,7 @@ GtkWidget *label_time;
       GtkWidget *frame2;
       GtkWidget *frame3;
       GtkWidget *frame4;
+      GtkTreeSelection *selection1;
    GtkWidget *window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_position(GTK_WINDOW(window1), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window1), 1400, 800);

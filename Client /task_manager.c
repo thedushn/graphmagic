@@ -222,7 +222,7 @@ get_task_list (Task * * array,int *niz)
     DIR *dir;
     struct dirent *d_file;
     char *directory="/proc";
-    int pid;
+    int pid=0;
     int g=0;
 
 
@@ -234,18 +234,18 @@ get_task_list (Task * * array,int *niz)
 
     while ((d_file = readdir(dir)) != NULL)
     {
-        if ((pid = atoi(d_file->d_name)) > 0)
+        if ((pid = (int)strtoul (d_file->d_name,NULL,0)) > 0)
         {
             if (get_task_details (pid, &tasks_array[g]))
             {
-                g++;
-                temp=realloc(tasks_array,( /**j*/ g+1)*sizeof(Task));
+
+                temp=realloc(tasks_array,( /**j*/ g+2)*sizeof(Task));
                 if ( temp != NULL ) {
                     tasks_array=temp;
                 } else {
                     free(tasks_array);
                 }
-
+                g++;
                 *niz=g;
 
 

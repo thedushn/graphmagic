@@ -136,13 +136,6 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
 
 
 
-
-
-
-        //g_array_append_val(ginterrupts,interrupts);
-
-
-
     }
     //j=0;
 

@@ -15,11 +15,12 @@
 #include"netinet/in.h"
 
 #include <arpa/inet.h>
+#include <netdb.h>
 #include "functions.h"
 #define BUF_SIZE 2000
 #define CLADDR_LEN 100
 
-static GtkWidget *window;
+ GtkWidget *window;
 
 static guint t = 1000;
 static int bjorg = 1;//prvi ispis
@@ -38,28 +39,28 @@ static guint time_step = 0;
 
 
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
-    cairo_t *cr1;
-    cr1 = gdk_cairo_create (gtk_widget_get_window(GTK_WIDGET(widget)));
+   // cairo_t *cr1;
+  //  cr1 = gdk_cairo_create (gtk_widget_get_window(GTK_WIDGET(widget)));
 
     if (widget == graph1) {
 
-        do_drawing_cpu(widget, cr1, bjorg, time_step,CPU0_line,CPU1_line,CPU2_line,CPU3_line);
+        do_drawing_cpu(widget, cr, bjorg, time_step,CPU0_line,CPU1_line,CPU2_line,CPU3_line);
     }
     else if (widget == graph2) {
 
-        do_drawing_net(widget, cr1, bjorg, time_step);
+        do_drawing_net(widget, cr, bjorg, time_step);
     }
     else if (widget == graph3) {
 
-        do_drawing_mem(widget, cr1, bjorg, time_step);
+        do_drawing_mem(widget, cr, bjorg, time_step);
     }
     else  if (widget == graph4) {
 
-        do_drawing_int(widget, cr1);
+        do_drawing_int(widget, cr);
        // do_drawing_int(widget, cr,interrupt_array_d);
     }
-    cairo_destroy (cr1);
-   // cairo_destroy(cr);
+   // cairo_destroy (cr1);
+
 return TRUE;
 
 }
@@ -165,11 +166,11 @@ void conekcija2(gchar * argv){
 
     char * serverAddr;
 
-
    uint16_t portnum=(uint16_t)atoi(argv);
 
     printf("port number %d ",portnum);
     newsockfd =socket(AF_INET,SOCK_STREAM,0);
+
     if(newsockfd<0){
         printf("Error creating socket!\n");
         exit(1);
@@ -235,7 +236,7 @@ void conekcija(gchar * argv){
     printf("Connected to the server...\n");
 }
 
-void *init_timeout() {
+void init_timeout() {
 
     guint i=0,j=0;
 
@@ -508,6 +509,11 @@ gtk_init(&argc, &argv);
             exit(1);
         }
 
+    if(argv[1]==NULL){
+        printf("argv failed %s",argv[1]);
+        exit(1);
+
+    }
     conekcija2(argv[1]);
 
 
@@ -622,6 +628,7 @@ gtk_init(&argc, &argv);
     //refresh=1;
     if (refresh > 0){
         g_source_remove (refresh);
+
         g_array_unref(task_array);
         g_array_unref(names_array);
         g_array_unref(interrupt_array_d);
@@ -629,9 +636,11 @@ gtk_init(&argc, &argv);
        for(int i=0;i<8;i++){
            g_array_unref(history[i]);
        }
+
+
+        g_object_unref((gpointer) treeview);
        // gtk_widget_destroy(window);
        // g_object_unref(graph1);
-
 
 
 

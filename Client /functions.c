@@ -99,7 +99,9 @@ void *accept_c(void *socket){
        int ret = (int )recvfrom(info->thread_socket, &data.stuff, sizeof(data), 0, NULL, NULL);
         if(ret<0){
             printf("error condition didnt get received\n");
-            exit(1);
+            //exit(1);
+            pthread_cancel(t2);
+            pthread_exit(&ret);
         }
        rezultat=data.stuff.mem;
         devices_show=data.stuff.show;
@@ -151,15 +153,16 @@ void *slanje(void *socket){
     printf("usli smo u slanje\n");
         //unsigned int num_packets;
 
-
+    time_t time1;
     static struct	my_thread_info *info;
-    info = malloc(sizeof(struct my_thread_info));
-    info->thread_socket= *(int*)socket;
+
+
 
     data_s data;
 
     while(1) {
-
+        info = malloc(sizeof(struct my_thread_info));
+        info->thread_socket= *(int*)socket;
 //        if(rezultat==1){
 //            pthread_cond_wait(&cond,&m);
 //            printf("condition WAS met\n");
@@ -174,7 +177,7 @@ void *slanje(void *socket){
         data.memory_usage.swap_used=0;
 
         get_memory_usage(&data.memory_usage);
-        time_t time1 = time(NULL);
+        time1 = time(NULL);
         /*    struct tm*/ tm1 = *localtime(&time1);
 //        if(rezultat==0){
 //            pthread_cond_wait(&cond,&m);
@@ -198,10 +201,11 @@ void *slanje(void *socket){
         }
         Interrupts  *interrupts;
         int h=0;
+
         interrupt_usage2(&interrupts,&h);
 
 
-        int j=h;
+
 
       /*  for(int r=0;r<j;r++){
 
@@ -215,7 +219,7 @@ void *slanje(void *socket){
 
         }*/
 
-
+        int j=h;
 
         ret = (int) send(info->thread_socket, &j, sizeof(int), 0);
         if (ret < 0) {
@@ -422,12 +426,13 @@ void *slanje(void *socket){
         free(task_array);
         free(devices);
         free(interrupts);
-
-
+        free(info);
+            printf("pre\n");
             pthread_cond_wait(&cond, &m);
+            printf("posle\n");
 
 
         }
 
 
-}
+};
