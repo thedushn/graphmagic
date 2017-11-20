@@ -99,12 +99,14 @@ void *accept_c(void *socket){
        int ret = (int )recvfrom(info->thread_socket, &data.stuff, sizeof(data), 0, NULL, NULL);
         if(ret<0){
             printf("error condition didnt get received\n");
-            exit(1);
+            //exit(1);
+            pthread_cancel(t2);
+            pthread_exit(&ret);
         }
        rezultat=data.stuff.mem;
         devices_show=data.stuff.show;
 
-        printf("sHOW %s\n", data.stuff.show==false ? "TRUE" : "FALSE");
+        printf("sHOW %s\n", data.stuff.show==true ? "TRUE" : "FALSE");
         printf("SHOW %s\n", devices_show==true ? "TRUE" : "FALSE");
 
         printf("command %s\n ",data.stuff.command);
@@ -151,14 +153,19 @@ void *slanje(void *socket){
     printf("usli smo u slanje\n");
         //unsigned int num_packets;
 
-   static struct	my_thread_info *info;
-    info = malloc(sizeof(struct my_thread_info));
-    info->thread_socket= *(int*)socket;
+    time_t time1;
+    static struct	my_thread_info *info;
+
+
 
     data_s data;
+    Devices  *devices;
+    Interrupts  *interrupts;
+    Task *task_array;
 
     while(1) {
-
+        info = malloc(sizeof(struct my_thread_info));
+        info->thread_socket= *(int*)socket;
 //        if(rezultat==1){
 //            pthread_cond_wait(&cond,&m);
 //            printf("condition WAS met\n");
@@ -173,7 +180,7 @@ void *slanje(void *socket){
         data.memory_usage.swap_used=0;
 
         get_memory_usage(&data.memory_usage);
-        time_t time1 = time(NULL);
+        time1 = time(NULL);
         /*    struct tm*/ tm1 = *localtime(&time1);
 //        if(rezultat==0){
 //            pthread_cond_wait(&cond,&m);
@@ -185,8 +192,8 @@ void *slanje(void *socket){
 
         if (ret < 0) {
             printf("Error sending data!\n\t");
-            //  break;
-            exit(1);
+           break;
+            //exit(1);
         } else {
 
 //                printf(" sending data!\n\t %f %lli %lli %lli \n", data.memory_usage.swap_percentage,
@@ -195,12 +202,13 @@ void *slanje(void *socket){
 //                       data.memory_usage.memory_used);
 
         }
-        Interrupts  *interrupts;
+
         int h=0;
+
         interrupt_usage2(&interrupts,&h);
 
 
-        int j=h;
+
 
       /*  for(int r=0;r<j;r++){
 
@@ -214,13 +222,14 @@ void *slanje(void *socket){
 
         }*/
 
-
+        int j=h;
 
         ret = (int) send(info->thread_socket, &j, sizeof(int), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
-            //  break;
-            exit(1);
+              break;
+            pthread_cancel(t3);
+            pthread_exit(&ret);
         }
         for (int i = 0; i < j; i++) {
 
@@ -241,7 +250,7 @@ void *slanje(void *socket){
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
-                //  break;
+                  break;
                 exit(1);
             }
         }
@@ -256,7 +265,7 @@ void *slanje(void *socket){
         ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
         if (ret < 0) {
             printf("Error sending data!\n\t");
-            //  break;
+              break;
             exit(1);
         } else {
 //            printf("CPU usage %f %f %f %f\n",data.cpu_usage.percentage0,
@@ -265,7 +274,7 @@ void *slanje(void *socket){
 //                   data.cpu_usage.percentage3);
         }
       //  GArray *task_list =g_array_new(FALSE,FALSE,sizeof(Task));
-        Task *task_array;
+
         int niz_task=0;
         get_task_list(&task_array,&niz_task);
       //  num_packets = task_list->len;
@@ -326,13 +335,13 @@ void *slanje(void *socket){
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
-                //  break;
+                  break;
                 exit(1);
             }
           }
 
 
-        Devices  *devices;
+
 
         int niz=0;
         device2(&devices,devices_show,&niz);
@@ -344,7 +353,7 @@ void *slanje(void *socket){
         ret = (int) send(info->thread_socket, &niz, sizeof(int), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
-
+            break;
             exit(1);
         }
     /*    for(int r=0;r<j;r++){
@@ -390,7 +399,7 @@ void *slanje(void *socket){
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
-                //  break;
+                  break;
                 exit(1);
             }
         }
@@ -401,10 +410,10 @@ void *slanje(void *socket){
       //  data.network=received_transfered();
         received_transfered2(&data.network);
         ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
-       // printf("%lli, %lli",data.network.received_bytes,data.network.transmited_bytes);
+       // printf("Network %lu, %lu\n ",data.network.received_bytes,data.network.transmited_bytes);
         if (ret < 0) {
             printf("Error sending data!\n\t");
-            //  break;
+              break;
             exit(1);
         }
 
@@ -416,17 +425,25 @@ void *slanje(void *socket){
         ret = (int) send(info->thread_socket, &tm1, sizeof(tm1), 0);
         if (ret<0) {
             printf("ERROR: Return Code  is %d\n", ret);
+            break;
             exit(1);
         }
         free(task_array);
         free(devices);
         free(interrupts);
-
-
+        free(info);
+            printf("pre\n");
             pthread_cond_wait(&cond, &m);
+            printf("posle\n");
 
 
         }
+    free(task_array);
+    free(devices);
+    free(interrupts);
+    free(info);
+    pthread_cancel(t3);
+    printf("everything freed in slanje\n");
 
-
-}
+    return 0;
+};

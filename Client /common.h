@@ -9,27 +9,42 @@
 #include "time.h"
 
 
+struct __attribute__((__packed__))tm1
+{
+    __uint32_t tm_sec;			/* Seconds.	[0-60] (1 leap second) */
+    __uint32_t tm_min;			/* Minutes.	[0-59] */
+    __uint32_t tm_hour;			/* Hours.	[0-23] */
+    __uint32_t tm_mday;			/* Day.		[1-31] */
+    __uint32_t tm_mon;			/* Month.	[0-11] */
+    __uint32_t tm_year;			/* Year	- 1900.  */
+    __uint32_t tm_wday;			/* Day of week.	[0-6] */
+    __uint32_t tm_yday;			/* Days in year.[0-365]	*/
+    __uint32_t tm_isdst;			/* DST.		[-1/0/1]*/
 
+};
 
 typedef struct _Task Task;
 struct _Task
 {
+    bool checked;
+    short		prio;
     unsigned int		uid;
-    char		uid_name[256];
     unsigned int		pid;
     unsigned int		ppid;
-    char		name[256];
-    // gchar		cmdline[1024];
-    char		state[16];
     float		cpu_user;
     float		cpu_system;
-    unsigned long long	vsz;
-    unsigned long long	rss;
-    short		prio;
+    long long	vsz;
+        long long	rss;
     long long     start_time;
-    struct tm duration;
-    struct tm stime;
-    bool checked;
+    char		name[256];
+    char		uid_name[256];
+    char		state[16];
+    struct tm1 stime;
+    struct tm1 duration;
+
+
+
+
 };
 typedef struct _Network Network;
 struct _Network{
@@ -69,11 +84,12 @@ struct _Memory_usage {
 typedef struct _Interrupts Interrupts;
 struct _Interrupts{
 
-    char name[4];
-    signed long CPU0;
-    signed long CPU1;
-    signed long CPU2;
-    signed long CPU3;
+
+     long CPU0;
+     long CPU1;
+     long CPU2;
+     long CPU3;
+    char name[64];
     char ime1[256];
     char ime2[256];
     char ime3[256];

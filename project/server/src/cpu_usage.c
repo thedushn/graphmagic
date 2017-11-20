@@ -135,16 +135,12 @@ void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
 }
 
 
-struct DataItem {
-    unsigned  long data;
-    unsigned int key;
-};
 
 
 
 
 
-unsigned long search(unsigned int key,struct DataItem  *hashArray,int hash_size ,bool *ima, unsigned long data) {
+unsigned long search(unsigned int key, struct DataItem  *hashArray,int hash_size ,bool *ima, unsigned long data) {
 
 
     for(int hashIndex=0;hashIndex<hash_size;hashIndex++){
@@ -161,7 +157,7 @@ unsigned long search(unsigned int key,struct DataItem  *hashArray,int hash_size 
 
     }
 
-    *ima=false;
+   // *ima=false;
     return 0;
 }
 
@@ -171,8 +167,7 @@ unsigned long search(unsigned int key,struct DataItem  *hashArray,int hash_size 
 void
 get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, unsigned long jiffies_system, float *cpu_system)
 {
-    static struct DataItem *hash_cpu_user = NULL;
-    static struct DataItem *hash_cpu_system = NULL;
+
     unsigned  long jiffies_user_old=0, jiffies_system_old=0;
     static int hash_size=0;
 
@@ -195,13 +190,17 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
             struct DataItem * temp=realloc(hash_cpu_user,( /**j*/ hash_size+1)*sizeof(struct DataItem));
             struct DataItem * temp1=realloc(hash_cpu_system,( /**j*/ hash_size+1)*sizeof(struct DataItem));
 
-            if ( temp != NULL && temp1!=NULL ) {
+            if ( temp != NULL){
                 hash_cpu_user=temp;
+            }else{
+                free(hash_cpu_user);
+
+            }
+            if(temp1!=NULL ) {
                 hash_cpu_system=temp1;
-           //     printf("povecali smo niz\n");
+
 
             } else {
-                free(hash_cpu_user);
                 free(hash_cpu_system);
             }
 
@@ -239,6 +238,15 @@ get_cpu_percent (unsigned int pid, unsigned long jiffies_user, float *cpu_user, 
     else
     {
         *cpu_user = *cpu_system = 0;
+    }
+
+}
+void uradi(bool clean){
+
+    if(clean==true){
+        free(hash_cpu_system);
+        free(hash_cpu_user);
+
     }
 
 }

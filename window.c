@@ -325,7 +325,7 @@ void time_change(struct tm *tm){
 
 
 }
-void  cpu_change(Cpu_usage1 *cpu_usage1){
+void  cpu_change(Cpu_usage *cpu_usage1){
 
 
 

@@ -441,7 +441,7 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr){
 //void do_drawing_int(GtkWidget *widget,cairo_t *cr){
     double width, height;
 
-    gchar ime2[3];
+    gchar ime2[256];
     long max_broj=0;
      long temp=0;
     double duzina=0;

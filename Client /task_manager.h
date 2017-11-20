@@ -24,7 +24,7 @@ static inline long get_pagesize (void);
 
 
 
-void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff);
+void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm *diff);
 
 
 

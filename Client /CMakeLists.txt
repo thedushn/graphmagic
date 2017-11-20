@@ -4,8 +4,7 @@ project(Client_)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
 set(CMAKE_C_STANDARD 11)
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
+SET(CMAKE_C_COMPILER      /home/dushn/toolchains/tegra-4.8.1-nv/usr/bin/arm-cortex_a15-linux-gnueabi/arm-cortex_a15-linux-gnueabi-gcc)
 
 set(SOURCE_FILES
         functions.c
@@ -25,8 +24,5 @@ set(SOURCE_FILES
         cpu_usage.h
         cpu_usage.c
         )
-include_directories(${GTK3_INCLUDE_DIRS})
-include_directories(${})
-link_directories(${GTK3_LIBRARY_DIRS})
-link_libraries(${GTK3_LIBRARIES})
-add_executable(Client_ ${SOURCE_FILES})
+
+add_executable(s ${SOURCE_FILES})

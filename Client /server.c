@@ -121,7 +121,7 @@ int main(int argc, char *argv[]){
 
     int sec0, hr0, min0, t0;
 
-    struct tm  stop_time;
+    struct tm1  stop_time;
 
 
 
@@ -138,7 +138,7 @@ int main(int argc, char *argv[]){
 
     differenceBetweenTimePeriod(tm, stop_time, &pocetno);// vreme kada je poceo da radi linux
     interface_name();
-//	printf("now: %d-%d-%d %d:%d:%d\n", tm.tm_year , tm.tm_mon , tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	printf("now: %d-%d-%d %d:%d:%d\n", tm.tm_year , tm.tm_mon , tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 	/*ret = (int) send(sockfd, &tm, sizeof(tm), 0);
 	if (ret<0) {
 		printf("ERROR: Return Code  is %d\n", ret);

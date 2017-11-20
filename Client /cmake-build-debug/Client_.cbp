@@ -8,61 +8,42 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/dushn/Desktop/Client /cmake-build-debug"/>
+				<Option working_dir="/home/dushn/Desktop/Server/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/dushn/Desktop/Client /cmake-build-debug"/>
+				<Option working_dir="/home/dushn/Desktop/Server/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/dushn/Desktop/Client /cmake-build-debug"/>
+				<Option working_dir="/home/dushn/Desktop/Server/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Client_">
-				<Option output="/home/dushn/Desktop/Client /cmake-build-debug/Client_" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/Client /cmake-build-debug"/>
+			<Target title="s">
+				<Option output="/home/dushn/Desktop/Server/cmake-build-debug/s" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dushn/Desktop/Server/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/gtk-3.0"/>
-					<Add directory="/usr/include/at-spi2-atk/2.0"/>
-					<Add directory="/usr/include/at-spi-2.0"/>
-					<Add directory="/usr/include/dbus-1.0"/>
-					<Add directory="/usr/lib/x86_64-linux-gnu/dbus-1.0/include"/>
-					<Add directory="/usr/include/gio-unix-2.0"/>
-					<Add directory="/usr/include/mirclient"/>
-					<Add directory="/usr/include/mircore"/>
-					<Add directory="/usr/include/mircookie"/>
-					<Add directory="/usr/include/cairo"/>
-					<Add directory="/usr/include/pango-1.0"/>
-					<Add directory="/usr/include/harfbuzz"/>
-					<Add directory="/usr/include/atk-1.0"/>
-					<Add directory="/usr/include/pixman-1"/>
-					<Add directory="/usr/include/freetype2"/>
-					<Add directory="/usr/include/libpng12"/>
-					<Add directory="/usr/include/gdk-pixbuf-2.0"/>
-					<Add directory="/usr/include/glib-2.0"/>
-					<Add directory="/usr/lib/x86_64-linux-gnu/glib-2.0/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -73,38 +54,19 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 Client_"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 s"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Client_/fast">
-				<Option output="/home/dushn/Desktop/Client /cmake-build-debug/Client_" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/Client /cmake-build-debug"/>
+			<Target title="s/fast">
+				<Option output="/home/dushn/Desktop/Server/cmake-build-debug/s" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dushn/Desktop/Server/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/gtk-3.0"/>
-					<Add directory="/usr/include/at-spi2-atk/2.0"/>
-					<Add directory="/usr/include/at-spi-2.0"/>
-					<Add directory="/usr/include/dbus-1.0"/>
-					<Add directory="/usr/lib/x86_64-linux-gnu/dbus-1.0/include"/>
-					<Add directory="/usr/include/gio-unix-2.0"/>
-					<Add directory="/usr/include/mirclient"/>
-					<Add directory="/usr/include/mircore"/>
-					<Add directory="/usr/include/mircookie"/>
-					<Add directory="/usr/include/cairo"/>
-					<Add directory="/usr/include/pango-1.0"/>
-					<Add directory="/usr/include/harfbuzz"/>
-					<Add directory="/usr/include/atk-1.0"/>
-					<Add directory="/usr/include/pixman-1"/>
-					<Add directory="/usr/include/freetype2"/>
-					<Add directory="/usr/include/libpng12"/>
-					<Add directory="/usr/include/gdk-pixbuf-2.0"/>
-					<Add directory="/usr/include/glib-2.0"/>
-					<Add directory="/usr/lib/x86_64-linux-gnu/glib-2.0/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -115,62 +77,62 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 Client_/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 s/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/Server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/dushn/Desktop/Client /common.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/common.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /cpu_usage.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/cpu_usage.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /cpu_usage.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/cpu_usage.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /devices.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/devices.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /devices.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/devices.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /functions.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/functions.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /functions.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/functions.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /interrupts.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/interrupts.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /interrupts.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/interrupts.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /memory_usage.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/memory_usage.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /memory_usage.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/memory_usage.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /network_bandwith.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/network_bandwith.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /network_bandwith.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/network_bandwith.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /server.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/server.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /task_manager.c">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/task_manager.c">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /task_manager.h">
-			<Option target="Client_"/>
+		<Unit filename="/home/dushn/Desktop/Server/task_manager.h">
+			<Option target="s"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/Client /CMakeLists.txt">
+		<Unit filename="/home/dushn/Desktop/Server/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

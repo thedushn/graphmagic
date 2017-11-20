@@ -4,38 +4,19 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/dushn/Desktop/Client /cpu_usage.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/cpu_usage.c.o"
-  "/home/dushn/Desktop/Client /devices.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/devices.c.o"
-  "/home/dushn/Desktop/Client /functions.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/functions.c.o"
-  "/home/dushn/Desktop/Client /interrupts.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/interrupts.c.o"
-  "/home/dushn/Desktop/Client /memory_usage.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/memory_usage.c.o"
-  "/home/dushn/Desktop/Client /network_bandwith.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/network_bandwith.c.o"
-  "/home/dushn/Desktop/Client /server.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/server.c.o"
-  "/home/dushn/Desktop/Client /task_manager.c" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/Client_.dir/task_manager.c.o"
+  "/home/dushn/Desktop/Server/cpu_usage.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/cpu_usage.c.o"
+  "/home/dushn/Desktop/Server/devices.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/devices.c.o"
+  "/home/dushn/Desktop/Server/functions.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/functions.c.o"
+  "/home/dushn/Desktop/Server/interrupts.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/interrupts.c.o"
+  "/home/dushn/Desktop/Server/memory_usage.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/memory_usage.c.o"
+  "/home/dushn/Desktop/Server/network_bandwith.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/network_bandwith.c.o"
+  "/home/dushn/Desktop/Server/server.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/server.c.o"
+  "/home/dushn/Desktop/Server/task_manager.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/Client_.dir/task_manager.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/usr/include/gtk-3.0"
-  "/usr/include/at-spi2-atk/2.0"
-  "/usr/include/at-spi-2.0"
-  "/usr/include/dbus-1.0"
-  "/usr/lib/x86_64-linux-gnu/dbus-1.0/include"
-  "/usr/include/gio-unix-2.0"
-  "/usr/include/mirclient"
-  "/usr/include/mircore"
-  "/usr/include/mircookie"
-  "/usr/include/cairo"
-  "/usr/include/pango-1.0"
-  "/usr/include/harfbuzz"
-  "/usr/include/atk-1.0"
-  "/usr/include/pixman-1"
-  "/usr/include/freetype2"
-  "/usr/include/libpng12"
-  "/usr/include/gdk-pixbuf-2.0"
-  "/usr/include/glib-2.0"
-  "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
   )
 
 # Targets to which this target links.

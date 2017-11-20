@@ -16,7 +16,7 @@
 
 GtkTreeSelection *selection;
 
-GtkTreeSelection *selection1;
+
 GtkWidget *treeview;
 GtkWidget *treeview1;
 
@@ -48,7 +48,7 @@ GtkTreeStore * create_list_store(void);
 gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
-
+void unref();
 
 GtkTreeStore * create_list_store_dev(void);
 

@@ -48,10 +48,10 @@ RM = /home/dushn/clion/clion-2017.1.3/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/dushn/Desktop/Client "
+CMAKE_SOURCE_DIR = /home/dushn/Desktop/Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/dushn/Desktop/Client /cmake-build-debug"
+CMAKE_BINARY_DIR = /home/dushn/Desktop/Server/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles /home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/dushn/Desktop/Client /cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Client_
+# Target rules for targets named s
 
 # Build rule for target.
-Client_: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Client_
-.PHONY : Client_
+s : cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 s
+.PHONY : s
 
 # fast build rule for target.
-Client_/fast:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/build
-.PHONY : Client_/fast
+s/fast:
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/build
+.PHONY : s/fast
 
 cpu_usage.o: cpu_usage.c.o
 
@@ -129,7 +129,7 @@ cpu_usage.o: cpu_usage.c.o
 
 # target to build an object file
 cpu_usage.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/cpu_usage.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/cpu_usage.c.o
 .PHONY : cpu_usage.c.o
 
 cpu_usage.i: cpu_usage.c.i
@@ -138,7 +138,7 @@ cpu_usage.i: cpu_usage.c.i
 
 # target to preprocess a source file
 cpu_usage.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/cpu_usage.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/cpu_usage.c.i
 .PHONY : cpu_usage.c.i
 
 cpu_usage.s: cpu_usage.c.s
@@ -147,7 +147,7 @@ cpu_usage.s: cpu_usage.c.s
 
 # target to generate assembly for a file
 cpu_usage.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/cpu_usage.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/cpu_usage.c.s
 .PHONY : cpu_usage.c.s
 
 devices.o: devices.c.o
@@ -156,7 +156,7 @@ devices.o: devices.c.o
 
 # target to build an object file
 devices.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/devices.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/devices.c.o
 .PHONY : devices.c.o
 
 devices.i: devices.c.i
@@ -165,7 +165,7 @@ devices.i: devices.c.i
 
 # target to preprocess a source file
 devices.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/devices.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/devices.c.i
 .PHONY : devices.c.i
 
 devices.s: devices.c.s
@@ -174,7 +174,7 @@ devices.s: devices.c.s
 
 # target to generate assembly for a file
 devices.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/devices.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/devices.c.s
 .PHONY : devices.c.s
 
 functions.o: functions.c.o
@@ -183,7 +183,7 @@ functions.o: functions.c.o
 
 # target to build an object file
 functions.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/functions.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/functions.c.o
 .PHONY : functions.c.o
 
 functions.i: functions.c.i
@@ -192,7 +192,7 @@ functions.i: functions.c.i
 
 # target to preprocess a source file
 functions.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/functions.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/functions.c.i
 .PHONY : functions.c.i
 
 functions.s: functions.c.s
@@ -201,7 +201,7 @@ functions.s: functions.c.s
 
 # target to generate assembly for a file
 functions.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/functions.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/functions.c.s
 .PHONY : functions.c.s
 
 interrupts.o: interrupts.c.o
@@ -210,7 +210,7 @@ interrupts.o: interrupts.c.o
 
 # target to build an object file
 interrupts.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/interrupts.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/interrupts.c.o
 .PHONY : interrupts.c.o
 
 interrupts.i: interrupts.c.i
@@ -219,7 +219,7 @@ interrupts.i: interrupts.c.i
 
 # target to preprocess a source file
 interrupts.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/interrupts.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/interrupts.c.i
 .PHONY : interrupts.c.i
 
 interrupts.s: interrupts.c.s
@@ -228,7 +228,7 @@ interrupts.s: interrupts.c.s
 
 # target to generate assembly for a file
 interrupts.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/interrupts.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/interrupts.c.s
 .PHONY : interrupts.c.s
 
 memory_usage.o: memory_usage.c.o
@@ -237,7 +237,7 @@ memory_usage.o: memory_usage.c.o
 
 # target to build an object file
 memory_usage.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/memory_usage.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/memory_usage.c.o
 .PHONY : memory_usage.c.o
 
 memory_usage.i: memory_usage.c.i
@@ -246,7 +246,7 @@ memory_usage.i: memory_usage.c.i
 
 # target to preprocess a source file
 memory_usage.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/memory_usage.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/memory_usage.c.i
 .PHONY : memory_usage.c.i
 
 memory_usage.s: memory_usage.c.s
@@ -255,7 +255,7 @@ memory_usage.s: memory_usage.c.s
 
 # target to generate assembly for a file
 memory_usage.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/memory_usage.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/memory_usage.c.s
 .PHONY : memory_usage.c.s
 
 network_bandwith.o: network_bandwith.c.o
@@ -264,7 +264,7 @@ network_bandwith.o: network_bandwith.c.o
 
 # target to build an object file
 network_bandwith.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/network_bandwith.c.o
 .PHONY : network_bandwith.c.o
 
 network_bandwith.i: network_bandwith.c.i
@@ -273,7 +273,7 @@ network_bandwith.i: network_bandwith.c.i
 
 # target to preprocess a source file
 network_bandwith.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/network_bandwith.c.i
 .PHONY : network_bandwith.c.i
 
 network_bandwith.s: network_bandwith.c.s
@@ -282,7 +282,7 @@ network_bandwith.s: network_bandwith.c.s
 
 # target to generate assembly for a file
 network_bandwith.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/network_bandwith.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/network_bandwith.c.s
 .PHONY : network_bandwith.c.s
 
 server.o: server.c.o
@@ -291,7 +291,7 @@ server.o: server.c.o
 
 # target to build an object file
 server.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/server.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/server.c.o
 .PHONY : server.c.o
 
 server.i: server.c.i
@@ -300,7 +300,7 @@ server.i: server.c.i
 
 # target to preprocess a source file
 server.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/server.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/server.c.i
 .PHONY : server.c.i
 
 server.s: server.c.s
@@ -309,7 +309,7 @@ server.s: server.c.s
 
 # target to generate assembly for a file
 server.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/server.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/server.c.s
 .PHONY : server.c.s
 
 task_manager.o: task_manager.c.o
@@ -318,7 +318,7 @@ task_manager.o: task_manager.c.o
 
 # target to build an object file
 task_manager.c.o:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/task_manager.c.o
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/task_manager.c.o
 .PHONY : task_manager.c.o
 
 task_manager.i: task_manager.c.i
@@ -327,7 +327,7 @@ task_manager.i: task_manager.c.i
 
 # target to preprocess a source file
 task_manager.c.i:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/task_manager.c.i
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/task_manager.c.i
 .PHONY : task_manager.c.i
 
 task_manager.s: task_manager.c.s
@@ -336,7 +336,7 @@ task_manager.s: task_manager.c.s
 
 # target to generate assembly for a file
 task_manager.c.s:
-	$(MAKE) -f CMakeFiles/Client_.dir/build.make CMakeFiles/Client_.dir/task_manager.c.s
+	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/task_manager.c.s
 .PHONY : task_manager.c.s
 
 # Help Target
@@ -347,7 +347,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... Client_"
+	@echo "... s"
 	@echo "... cpu_usage.o"
 	@echo "... cpu_usage.i"
 	@echo "... cpu_usage.s"

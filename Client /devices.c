@@ -52,18 +52,18 @@ void device2(Devices * * array,bool show,int *niz2){
 
     Devices * devices;
     int niz=0;
-
+    printf("usli smo u device2\n");
     mountlist3(&devices,show,&niz);
-  // printf("Niz u devices%d\n",niz);
+   printf("Niz u devices%d\n",niz);
 
-  /*  for(int r=0;r<niz;r++){
+    for(int r=0;r<niz;r++){
 
         printf("Devices %lu, %lu,%lu,%lu %lu, %s %s %s\n",
                devices[r].used,devices[r].avail,
                devices[r].fid,devices[r].free,devices[r].total,
                devices[r].name,devices[r].directory,devices[r].type);
 
-    }*/
+    }
 
     *niz2=niz;
     *array=devices;
@@ -209,7 +209,7 @@ void mountlist3(Devices **array,bool mount,int *fake){
 
     fclose(file);
   //  printf("NIZ %d\n",niz);
-  /*  for(int r=0;r<niz;r++){
+   /* for(int r=0;r<niz;r++){
 
         printf("Mount :%lu, %lu,%lu,%lu %lu, %s %s %s\n",
                devices2[r].used,devices2[r].avail,

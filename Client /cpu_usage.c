@@ -14,20 +14,21 @@
 //void cpu_number (){
 int cpu_number (){
 
-    int c=0;
+    int c=1;
     FILE *file;
     char *filename = "/proc/cpuinfo";
     char buffer[1024];
+    char *buffer2 = "processor";
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
         exit(1);
     while (fgets (buffer, 1024, file) != NULL) {
-        if (buffer[0] == 'c' && buffer[1] == 'p' && buffer[2] == 'u' && buffer[3] == ' ' && buffer[4] == 'c' &&
-            buffer[5] == 'o' && buffer[6] == 'r')
+        if (strncmp(buffer2,buffer,9)==0)
         {
-            sscanf(buffer, "cpu cores\t: %d", &c);
-            break;
+           // sscanf(buffer, "cpu cores\t: %d", &c);
+           // break;
+            c++;
         }
-     //   printf("buffer says %s", buffer);
+        printf("buffer says %s", buffer);
 
        // printf("(%d) number of cores \n \n ", c);
 

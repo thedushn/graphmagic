@@ -18,7 +18,7 @@ void send_signal_to_task(char *task_id, char *signal);
 struct my_thread_info {
     int thread_socket;
 };
-struct tm tm1;
+struct tm lokalno_vreme;
 
 struct tm pocetno;
 pthread_t t2,t3;

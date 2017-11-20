@@ -15,19 +15,20 @@
 #include"netinet/in.h"
 
 #include <arpa/inet.h>
+#include <netdb.h>
 #include "functions.h"
 #define BUF_SIZE 2000
 #define CLADDR_LEN 100
 
-
+ GtkWidget *window;
 
 static guint t = 1000;
-static guint bjorg = 1;//prvi ispis
+static int bjorg = 1;//prvi ispis
 
 
 gint tasks_num;
 gint dev_num;
-GtkWidget *label_cpu0;
+
 GArray *interrupt_array_temp;
 static gboolean CPU0_line =TRUE;
 static gboolean CPU1_line =TRUE;
@@ -38,6 +39,8 @@ static guint time_step = 0;
 
 
 static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
+   // cairo_t *cr1;
+  //  cr1 = gdk_cairo_create (gtk_widget_get_window(GTK_WIDGET(widget)));
 
     if (widget == graph1) {
 
@@ -56,6 +59,8 @@ static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
         do_drawing_int(widget, cr);
        // do_drawing_int(widget, cr,interrupt_array_d);
     }
+   // cairo_destroy (cr1);
+
 return TRUE;
 
 }
@@ -161,11 +166,11 @@ void conekcija2(gchar * argv){
 
     char * serverAddr;
 
-
    uint16_t portnum=(uint16_t)atoi(argv);
 
     printf("port number %d ",portnum);
     newsockfd =socket(AF_INET,SOCK_STREAM,0);
+
     if(newsockfd<0){
         printf("Error creating socket!\n");
         exit(1);
@@ -214,7 +219,7 @@ void conekcija(gchar * argv){
         exit(1);
     }
     printf("Socket created \n");
-    serverAddr = "127.0.0.1";
+    serverAddr = "192.168.122.70";
     memset(&addr,0,sizeof(addr));
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr(serverAddr);
@@ -231,12 +236,12 @@ void conekcija(gchar * argv){
     printf("Connected to the server...\n");
 }
 
-void *init_timeout() {
+void init_timeout() {
 
     guint i=0,j=0;
 
 
-    struct tm tm;
+    struct tm *tm1;
 
     //GArray *new_task_list;
     GArray *new_task_list=g_array_new (FALSE, FALSE, sizeof (Task));
@@ -244,13 +249,17 @@ void *init_timeout() {
     GArray *new_interrupt_list= g_array_new (FALSE, FALSE, sizeof (Interrupts));
   //  new_task_list =  get_task_list2();
   //  new_device_list   = device(device_all);
-    Cpu_usage1 cpu_usage1;
-    Network network;
-    Memory_usage memory_usage;
+    Cpu_usage1 *cpu_usage1;
+    Network *network;
+    Memory_usage *memory_usage;
+    cpu_usage1 = malloc(sizeof(Cpu_usage1));
+    network = malloc(sizeof(Network));
+    memory_usage = malloc(sizeof(Memory_usage));
+    tm1 = malloc(sizeof(struct tm));
 
 
 
-    primanje(&newsockfd,new_interrupt_list,&cpu_usage1,new_task_list,new_device_list,&network,&tm,&memory_usage);
+    primanje(&newsockfd,new_interrupt_list,cpu_usage1,new_task_list,new_device_list,network,tm1,memory_usage);
    // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
     //primanje_interrupta(&newsockfd);
      start_stop(0,"" ,"");
@@ -271,20 +280,11 @@ void *init_timeout() {
     //   printf("%d\n",interrupt_array_temp->len);
 
 
-//    received_transfered();
-    network_change_rc(&network);
-   // network_change_rc(label_mem,label_swap,&network);
-    time_change( &tm);
-   // time_change(label_time, &tm);
-//    network_change_ts(label_swap);
-  /*  bjorg2++;
 
-    if (bjorg2 >= 60) {
+    network_change_rc(network);
 
+    time_change( tm1);
 
-        bjorg2 = 60;
-    }
-*/
 
     for(i = 0; i < names_array->len; i++) //uzimamo element niza
     {
@@ -448,15 +448,16 @@ void *init_timeout() {
 
 
 
-    cpu_change(&cpu_usage1);
+    cpu_change(cpu_usage1);
 
 
   // memory_change(label_rec,&memory_usage);// nije ovde
-   memory_change(&memory_usage);// nije ovde
-    swap_change(&memory_usage); // nije ovde
+   memory_change(memory_usage);// nije ovde
+    swap_change(memory_usage); // nije ovde
    // swap_change(label_trans,&memory_usage); // nije ovde
 
-    time_handler(window);
+   // time_handler(window);
+    gtk_widget_queue_draw(window);
     g_array_free(new_task_list, TRUE);
 
      //g_array_free(interrupt_array_temp, TRUE);
@@ -466,6 +467,10 @@ void *init_timeout() {
 
     g_array_free(new_device_list,TRUE);
     bjorg++;
+    free(cpu_usage1);
+    free(network);
+    free(memory_usage);
+    free(tm1);
 
 
 
@@ -490,13 +495,7 @@ destroy_window (void)
     if (gtk_main_level () > 0)
         gtk_main_quit ();
 }
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <ifaddrs.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+
 
 int main(int argc, char *argv[]) {
 
@@ -506,10 +505,15 @@ int main(int argc, char *argv[]) {
 gtk_init(&argc, &argv);
         if(argc<2){
 
-            printf("port not providec \n");
+            printf("port not provided \n");
             exit(1);
         }
 
+    if(argv[1]==NULL){
+        printf("argv failed %s",argv[1]);
+        exit(1);
+
+    }
     conekcija2(argv[1]);
 
 
@@ -586,7 +590,7 @@ gtk_init(&argc, &argv);
     g_signal_connect(button_graph, "clicked", G_CALLBACK(graph_button_clicked), NULL);
 
     g_signal_connect_swapped ((gpointer) treeview, "button-press-event", G_CALLBACK(on_treeview1_button_press_event), NULL);
-    init_timeout();
+
 
     g_signal_connect(G_OBJECT(graph1), "draw",
                      G_CALLBACK(on_draw_event), NULL);
@@ -606,7 +610,7 @@ gtk_init(&argc, &argv);
 // pthread_create(&t1,NULL,init_timeout,NULL);
 //pthread_create(&t2,NULL,init_timeout2,NULL);
 
-
+    init_timeout();
     gtk_widget_show_all(window);
 
 //
@@ -620,9 +624,25 @@ gtk_init(&argc, &argv);
     gtk_main();
  //   g_thread_join(tg);
 
-
+    printf("%d\n",refresh);
+    //refresh=1;
     if (refresh > 0){
         g_source_remove (refresh);
+        g_array_unref(task_array);
+        g_array_unref(names_array);
+        g_array_unref(interrupt_array_d);
+        g_array_unref(interrupt_array_temp);
+       for(int i=0;i<8;i++){
+           g_array_unref(history[i]);
+       }
+
+
+      //  g_object_unref((gpointer) treeview);
+       // gtk_widget_destroy(window);
+       // g_object_unref(graph1);
+
+
+
 
 
 
@@ -635,4 +655,3 @@ gtk_init(&argc, &argv);
 
     return 0;
 }
-

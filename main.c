@@ -157,7 +157,78 @@ void timeout_refresh() {
     init_timeout();
 
 }
+void conekcija3(gchar * argv){
 
+
+
+    int sockfd;
+    struct addrinfo hints, *servinfo, *p;
+    int rv;
+    printf("interrupti %d",(int)sizeof(Interrupts));
+    printf("memory %d",(int)sizeof(Memory_usage));
+    printf("devices %d",(int)sizeof(Devices));
+    printf("tasks %d",(int)sizeof(Task));
+    printf("cpu %d",(int)sizeof(Cpu_usage));
+    printf("stuff %d",(int)sizeof(Sending_stuff));
+    printf("network %d",(int)sizeof(Network));
+   // printf("tm %d\n",(int)sizeof(struct tm));
+    printf("tm1 %d\n",(int)sizeof(struct tm1));
+    printf("uns long long  %d\n",(int)sizeof(unsigned long long));
+
+    memset(&hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC; // use AF_INET6 to force IPv6
+    hints.ai_socktype = SOCK_STREAM;
+    //192.168.122.70 127.0.0.1
+    if ((rv = getaddrinfo("192.168.122.70", argv, &hints, &servinfo)) != 0) {
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+        exit(1);
+    }
+
+// loop through all the results and connect to the first we can
+    for(p = servinfo; p != NULL; p = p->ai_next) {
+        if ((newsockfd = socket(p->ai_family, p->ai_socktype,
+                             p->ai_protocol)) == -1) {
+            perror("socket");
+            continue;
+        }
+
+        if (connect(newsockfd, p->ai_addr, p->ai_addrlen) == -1) {
+            perror("connect");
+            close(newsockfd);
+            continue;
+        }
+
+        break; // if we get here, we must have connected successfully
+    }
+
+    if (p == NULL) {
+        // looped off the end of the list with no connection
+        fprintf(stderr, "failed to connect\n");
+        exit(2);
+    }
+
+   /* uint16_t portnum=(uint16_t)atoi(argv);
+
+    printf("port number %d ",portnum);
+    newsockfd =socket(AF_INET,SOCK_STREAM,0);*/
+
+    if(newsockfd<0){
+        printf("Error creating socket!\n");
+        exit(1);
+    }
+    printf("Socket created \n");
+   // serverAddr = "127.0.0.1";
+
+
+    printf("Connected to the server...\n");
+
+
+
+
+
+
+
+}
 
 void conekcija2(gchar * argv){
 
@@ -176,7 +247,7 @@ void conekcija2(gchar * argv){
         exit(1);
     }
     printf("Socket created \n");
-    serverAddr = "127.0.0.1";
+    serverAddr = "192.168.122.70";
     memset(&addr,0,sizeof(addr));
     addr.sin_family = AF_INET;
 
@@ -212,7 +283,7 @@ void conekcija(gchar * argv){
 
     uint16_t portnum=(uint16_t)atoi(argv);
 
-    printf("port number %d ",portnum);
+    printf("port number %d \n",portnum);
     newsockfd =socket(AF_INET,SOCK_STREAM,0);
     if(newsockfd<0){
         printf("Error creating socket!\n");
@@ -249,10 +320,10 @@ void init_timeout() {
     GArray *new_interrupt_list= g_array_new (FALSE, FALSE, sizeof (Interrupts));
   //  new_task_list =  get_task_list2();
   //  new_device_list   = device(device_all);
-    Cpu_usage1 *cpu_usage1;
+    Cpu_usage *cpu_usage1;
     Network *network;
     Memory_usage *memory_usage;
-    cpu_usage1 = malloc(sizeof(Cpu_usage1));
+    cpu_usage1 = malloc(sizeof(Cpu_usage));
     network = malloc(sizeof(Network));
     memory_usage = malloc(sizeof(Memory_usage));
     tm1 = malloc(sizeof(struct tm));
@@ -262,7 +333,7 @@ void init_timeout() {
     primanje(&newsockfd,new_interrupt_list,cpu_usage1,new_task_list,new_device_list,network,tm1,memory_usage);
    // primanje(&newsockfd,new_interrupt_list,&cpu_usage1);
     //primanje_interrupta(&newsockfd);
-     start_stop(0,"" ,"");
+    start_stop(0,"" ,"");
 
     //new_interrupt_list=interrupt_usage();
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
@@ -483,10 +554,10 @@ void init_timeout() {
     }
 
 
-    if (refresh == 0) {
+   /* if (refresh == 0) {
 
         refresh = g_timeout_add(t, (GSourceFunc) init_timeout, NULL);
-    }
+    }*/
 
 };
 static void
@@ -514,7 +585,7 @@ gtk_init(&argc, &argv);
         exit(1);
 
     }
-    conekcija2(argv[1]);
+    conekcija3(argv[1]);
 
 
 
@@ -611,6 +682,7 @@ gtk_init(&argc, &argv);
 //pthread_create(&t2,NULL,init_timeout2,NULL);
 
     init_timeout();
+
     gtk_widget_show_all(window);
 
 //
@@ -628,7 +700,6 @@ gtk_init(&argc, &argv);
     //refresh=1;
     if (refresh > 0){
         g_source_remove (refresh);
-
         g_array_unref(task_array);
         g_array_unref(names_array);
         g_array_unref(interrupt_array_d);
@@ -638,7 +709,7 @@ gtk_init(&argc, &argv);
        }
 
 
-        g_object_unref((gpointer) treeview);
+      //  g_object_unref((gpointer) treeview);
        // gtk_widget_destroy(window);
        // g_object_unref(graph1);
 

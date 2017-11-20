@@ -841,3 +841,10 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     g_free(s2);
     return ret2;
 }
+void unref(){
+
+
+    g_object_unref(treeview);
+    g_object_unref(treeview1);
+
+};

@@ -9,7 +9,7 @@
 
 
 void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3){
-
+    printf("upis imena\n");
     size_t j=strlen(interrupts1->ime1);
     for (int t = 0; t <= j; t++) {
 
@@ -48,7 +48,7 @@ void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3){
 
 void interrupt_usage2(Interrupts * *array2,int *j ) {
 
-
+    printf("interrupts are here\n");
     FILE *file;
     char *filename = "/proc/interrupts";
     char buffer[1024];
@@ -107,17 +107,34 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
 
         }
         array[*j].name[i]='\0';
-        i=0;
+
+     /*   char *p1, *po, *p2;
+         i = 0;
+        p1 = po = &buffer[0];
+        p2 =  strchr(buffer, ':');
+        while (po <= p2)
+        {
+            if (po > p1 && po < p2)
+            {
+                array[*j].name[i] = *po;
+                i++;
+                array[*j].name[i] = '\0';
+            }
+            *po = 'x';
+            po++;
+        }
+        array[*j].name[i]='\0';
+        i=0;*/
 
         //   printf("j %d\t",j);
-     /*   printf("PRvi[%s %li %li %li %li %s %s %s %s]\n",array[*j].name, array[*j].CPU0, array[*j].CPU1,
+        printf("PRvi[%s %li %li %li %li %s %s %s %s]\n",array[*j].name, array[*j].CPU0, array[*j].CPU1,
                array[*j].CPU2,
                array[*j].CPU3,
                array[*j].ime1,
                array[*j].ime2,
                array[*j].ime3,
                array[*j].ime4 );
-*/
+
 
 
         //   array=(Interrupts *) realloc(array,(j+1)*sizeof(Interrupts)); //mora da se inicijalizuje

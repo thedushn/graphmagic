@@ -15,7 +15,7 @@ GtkWidget *graph3;
 GtkWidget *graph4;
 
 void quit_activated() ;
-void  cpu_change(Cpu_usage1 *cpu_usage1);
+void  cpu_change(Cpu_usage *cpu_usage1);
 void memory_change(Memory_usage *memory_usage);
 void swap_change(Memory_usage *memory_usage);
 void network_change_rc(Network *network);

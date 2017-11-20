@@ -96,6 +96,7 @@ void *accept_c(void *socket){
 
     while (1) {
      //  pthread_mutex_lock (&m);
+        printf("ovdde sni");
        int ret = (int )recvfrom(info->thread_socket, &data.stuff, sizeof(data), 0, NULL, NULL);
         if(ret<0){
             printf("error condition didnt get received\n");
@@ -150,15 +151,28 @@ void *slanje(void *socket){
 
     int  ret=0;
 
-    printf("usli smo u slanje\n");
-        //unsigned int num_packets;
-
+    printf("interrupti %d",(int)sizeof(Interrupts));
+    printf("memory %d",(int)sizeof(Memory_usage));
+    printf("devices %d",(int)sizeof(Devices));
+    printf("tasks %d",(int)sizeof(Task));
+    printf("cpu %d",(int)sizeof(Cpu_usage));
+    printf("stuff %d",(int)sizeof(Sending_stuff));
+    printf("network %d",(int)sizeof(Network));
+    // printf("tm %d\n",(int)sizeof(struct tm));
+    printf("tm1 %d\n",(int)sizeof(struct tm1));
+  //  printf("const char * %d\n",(int)sizeof(const char *));
+  //  printf("const char * %d\n",(int)sizeof(long int));
+    printf("uns long long  %d\n",(int)sizeof(unsigned long long));
     time_t time1;
     static struct	my_thread_info *info;
 
 
 
     data_s data;
+    Devices  *devices;
+    Interrupts  *interrupts;
+    Task *task_array;
+
 
     while(1) {
         info = malloc(sizeof(struct my_thread_info));
@@ -178,7 +192,7 @@ void *slanje(void *socket){
 
         get_memory_usage(&data.memory_usage);
         time1 = time(NULL);
-        /*    struct tm*/ tm1 = *localtime(&time1);
+        /*    struct tm*/ lokalno_vreme = *localtime(&time1);
 //        if(rezultat==0){
 //            pthread_cond_wait(&cond,&m);
 //           printf("condtion was met\n");
@@ -189,25 +203,25 @@ void *slanje(void *socket){
 
         if (ret < 0) {
             printf("Error sending data!\n\t");
-            //  break;
-            exit(1);
+           break;
+            //exit(1);
         } else {
 
-//                printf(" sending data!\n\t %f %lli %lli %lli \n", data.memory_usage.swap_percentage,
-//                       data.memory_usage.swap_used
-//                        ,data.memory_usage.memory_total,
-//                       data.memory_usage.memory_used);
+                printf(" sending data!\n\t %f %lli %lli %lli \n", data.memory_usage.swap_percentage,
+                       data.memory_usage.swap_used
+                        ,data.memory_usage.memory_total,
+                       data.memory_usage.memory_used);
 
         }
-        Interrupts  *interrupts;
+
         int h=0;
 
         interrupt_usage2(&interrupts,&h);
 
 
 
-
-      /*  for(int r=0;r<j;r++){
+        int j=h;
+        for(int r=0;r<j;r++){
 
             printf("hello[%s %li %li %li %li %s %s %s %s]\n",interrupts[r].name, interrupts[r].CPU0, interrupts[r].CPU1,
                    interrupts[r].CPU2,
@@ -217,15 +231,16 @@ void *slanje(void *socket){
                    interrupts[r].ime3,
                    interrupts[r].ime4 );
 
-        }*/
+        }
 
-        int j=h;
 
-        ret = (int) send(info->thread_socket, &j, sizeof(int), 0);
+        printf("J %d\n",j);
+        ret = (int) send(info->thread_socket, &j, sizeof(__int32_t), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
-            //  break;
-            exit(1);
+              break;
+            pthread_cancel(t3);
+            pthread_exit(&ret);
         }
         for (int i = 0; i < j; i++) {
 
@@ -238,15 +253,16 @@ void *slanje(void *socket){
             for (int n = 0; n < sizeof(interrupts1->name); n++) {
                 data.interrupts.name[n] = interrupts1->name[n];
             }
-
-            upis_imena(interrupts1, &data.interrupts);
-         /*   printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", data.interrupts.CPU0,data.interrupts.CPU1,data.interrupts.CPU2,
+ /*  printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", data.interrupts.CPU0,data.interrupts.CPU1,data.interrupts.CPU2,
                    data.interrupts.CPU3,  data.interrupts.name,data.interrupts.ime1,data.interrupts.ime2,data.interrupts.ime3,data.interrupts.ime4);*/
-            ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
-
+            upis_imena(interrupts1, &data.interrupts);
+            printf(" sending data!\n\t %lu %lu %lu %lu %s %s %s %s %s  \n", data.interrupts.CPU0,data.interrupts.CPU1,data.interrupts.CPU2,
+                   data.interrupts.CPU3,  data.interrupts.name,data.interrupts.ime1,data.interrupts.ime2,data.interrupts.ime3,data.interrupts.ime4);
+            ret = (int) send(info->thread_socket, &data, sizeof(data.interrupts), 0);
+            printf("SIZE OF %d \n",(int)sizeof(data_s));
             if (ret < 0) {
                 printf("Error sending data!\n\t");
-                //  break;
+                  break;
                 exit(1);
             }
         }
@@ -256,21 +272,22 @@ void *slanje(void *socket){
 
 
         int ncpu = cpu_number();
+        printf("NUMBER %d \n",ncpu);
           cpu_percentage(ncpu,&data.cpu_usage);
 
         ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
         if (ret < 0) {
             printf("Error sending data!\n\t");
-            //  break;
+              break;
             exit(1);
         } else {
-//            printf("CPU usage %f %f %f %f\n",data.cpu_usage.percentage0,
-//                   data.cpu_usage.percentage1,
-//                   data.cpu_usage.percentage2,
-//                   data.cpu_usage.percentage3);
+                   printf("CPU usage %f %f %f %f\n",data.cpu_usage.percentage0,
+                   data.cpu_usage.percentage1,
+                   data.cpu_usage.percentage2,
+                  data.cpu_usage.percentage3);
         }
       //  GArray *task_list =g_array_new(FALSE,FALSE,sizeof(Task));
-        Task *task_array;
+
         int niz_task=0;
         get_task_list(&task_array,&niz_task);
       //  num_packets = task_list->len;
@@ -320,46 +337,62 @@ void *slanje(void *socket){
             data.task.stime.tm_min =task_array[i].stime.tm_min;
             data.task.stime.tm_hour =task_array[i].stime.tm_hour;
           //  data.task.checked=false;
-        /*    printf( "vreme trajanja rada %d %d %d\n",tasks->duration.tm_hour,
-                    tasks->duration.tm_min,
-                    tasks->duration.tm_sec);
-            printf( "start time %d %d %d\n",tasks->stime.tm_hour,
-                    tasks->stime.tm_min,
-                    tasks->stime.tm_sec);*/
+            printf( "vreme trajanja rada %d %d %d\n",data.task.duration.tm_hour,
+                    data.task.duration.tm_min,
+                    data.task.duration.tm_sec);
+            printf( "start time %d %d %d\n",data.task.stime.tm_hour,
+                    data.task.stime.tm_min,
+                    data.task.stime.tm_sec);
+            printf("Name [%s]  checked [%hu] pid [%d] start_time[%llu] prio [%d] %llu %llu %d %d %f %f %s %s\n",data.task.name
+                    ,data.task.checked
+                    ,data.task.pid
+                    ,data.task.start_time
+                    ,data.task.prio
+                    ,data.task.rss
+                    ,data.task.vsz,
+                   data.task.uid,
+                   data.task.ppid,
+                   data.task.cpu_user,
+                   data.task.cpu_system,
+                   data.task.state,
+                   data.task.uid_name
+            )   ;
 
             ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
-                //  break;
+                  break;
                 exit(1);
             }
           }
 
 
-        Devices  *devices;
+
+
+        printf("tasks %d",(int)sizeof(Task));
 
         int niz=0;
         device2(&devices,devices_show,&niz);
 
 
 
-      //  printf("main %d\n",niz);
+        printf("Devices num %d\n",niz);
 
         ret = (int) send(info->thread_socket, &niz, sizeof(int), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
-
+            break;
             exit(1);
         }
-    /*    for(int r=0;r<j;r++){
+        for(int r=0;r<niz;r++){
 
-            printf("MAIN %lu, %lu,%lu,%lu %lu, %s %s %s\n",
+            printf("Devices %lu, %lu,%lu,%lu %lu, %s %s %s\n",
                    devices[r].used,devices[r].avail,
                    devices[r].fid,devices[r].free,devices[r].total,
                    devices[r].name,devices[r].directory,devices[r].type);
 
-        }*/
+        }
         for (int i = 0; i < niz; i++) {
 
 
@@ -395,7 +428,7 @@ void *slanje(void *socket){
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
-                //  break;
+                  break;
                 exit(1);
             }
         }
@@ -406,33 +439,66 @@ void *slanje(void *socket){
       //  data.network=received_transfered();
         received_transfered2(&data.network);
         ret = (int) send(info->thread_socket, &data, sizeof(data_s), 0);
-       // printf("Network %lu, %lu\n ",data.network.received_bytes,data.network.transmited_bytes);
+        printf("Network %lu, %lu\n ",data.network.received_bytes,data.network.transmited_bytes);
         if (ret < 0) {
             printf("Error sending data!\n\t");
-            //  break;
+              break;
             exit(1);
         }
 
 
 
 
-        tm1.tm_year+=1900;
-        tm1.tm_mon+=1;
-        ret = (int) send(info->thread_socket, &tm1, sizeof(tm1), 0);
+        lokalno_vreme.tm_year+=1900;
+        lokalno_vreme.tm_mon+=1;
+        struct tm1 test;
+        test.tm_sec=lokalno_vreme.tm_sec;
+        test.tm_min=lokalno_vreme.tm_min;
+        test.tm_hour=lokalno_vreme.tm_hour;
+        test.tm_mday=lokalno_vreme.tm_mday;
+        test.tm_mon=lokalno_vreme.tm_mon;
+        test.tm_year=lokalno_vreme.tm_year;
+        test.tm_wday=lokalno_vreme.tm_wday;
+        test.tm_yday=lokalno_vreme.tm_yday;
+        test.tm_isdst=lokalno_vreme.tm_isdst;
+        ret = (int) send(info->thread_socket, &test, sizeof(struct tm1), 0);
         if (ret<0) {
             printf("ERROR: Return Code  is %d\n", ret);
+            break;
             exit(1);
         }
+        printf("now: %d-%d-%d %d:%d:%d\n", test.tm_year , test.tm_mon ,
+               test.tm_mday,
+               test.tm_hour,
+               test.tm_min,
+               test.tm_sec);
+       /* printf("vreme%d %d %d %d %d %d %d %d %d \n",  test.tm_sec=lokalno_vreme.tm_sec,
+        test.tm_min=lokalno_vreme.tm_min,
+        test.tm_hour=lokalno_vreme.tm_hour,
+        test.tm_mday=lokalno_vreme.tm_mday,
+        test.tm_mon=lokalno_vreme.tm_mon,
+        test.tm_year=lokalno_vreme.tm_year,
+        test.tm_wday=lokalno_vreme.tm_wday,
+        test.tm_yday=lokalno_vreme.tm_yday,
+        test.tm_isdst=lokalno_vreme.tm_isdst);*/
         free(task_array);
         free(devices);
         free(interrupts);
         free(info);
             printf("pre\n");
+
+       // sleep(1);
             pthread_cond_wait(&cond, &m);
             printf("posle\n");
 
 
         }
+    free(task_array);
+    free(devices);
+    free(interrupts);
+    free(info);
+    pthread_cancel(t3);
+    printf("everything freed in slanje\n");
 
-
+    return 0;
 };

@@ -9,7 +9,7 @@
 #include "errno.h"
 
 
-void differenceBetweenTimePeriod(struct tm start, struct tm stop, struct tm *diff)
+void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm *diff)
 {
     if(stop.tm_sec > start.tm_sec){
         --start.tm_min;
@@ -51,6 +51,7 @@ get_task_details (int pid, Task *task)
     char filename[96];
     char buffer[1024];
     snprintf (filename, 96, "/proc/%d/stat", pid);
+    printf("/proc/%d/stat\n", pid);
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL)
         return false;
     fclose (file);
@@ -197,10 +198,10 @@ get_task_details (int pid, Task *task)
      /*   printf( "start %d %d %d\n",task->stime.tm_hour,
                 task->stime.tm_min,
                 task->stime.tm_sec);
-        printf( "lokalno %d %d %d\n",tm1.tm_hour,
-                tm1.tm_min,
-                tm1.tm_sec);*/
-        differenceBetweenTimePeriod(tm1, task->stime, &diff);
+        printf( "lokalno %d %d %d\n",lokalno_vreme.tm_hour,
+                lokalno_vreme.tm_min,
+                lokalno_vreme.tm_sec);*/
+        differenceBetweenTimePeriod(lokalno_vreme, task->stime, &diff);
         task->duration.tm_hour=diff.tm_hour;
         task->duration.tm_min=diff.tm_min;
         task->duration.tm_sec=diff.tm_sec;
@@ -216,7 +217,7 @@ get_task_details (int pid, Task *task)
 void
 get_task_list (Task * * array,int *niz)
 {
-
+    printf("usli smo u task list \n");
     Task *tasks_array, *temp;
     tasks_array=malloc(sizeof(Task));
     DIR *dir;
@@ -234,8 +235,13 @@ get_task_list (Task * * array,int *niz)
 
     while ((d_file = readdir(dir)) != NULL)
     {
-        if ((pid = (int)strtoul (d_file->d_name,NULL,0)) > 0)
+     //   printf( "Ime file  %s\n",d_file->d_name);
+
+       // if ((pid = atoi (d_file->d_name) > 0))
+        if((pid= (int)strtol(d_file->d_name,NULL,0))>0)
+       // if ((pid = (int)strtoul (d_file->d_name,NULL,0)) > 0)
         {
+         //   printf("Pid koji prosledjujemo get_task_list [%d]\n",pid);
             if (get_task_details (pid, &tasks_array[g]))
             {
 
@@ -254,6 +260,10 @@ get_task_list (Task * * array,int *niz)
 
             }
 
+        }
+        else{
+
+           // printf( "Ime file koji nije prosao %s\n",d_file->d_name);
         }
 
     }

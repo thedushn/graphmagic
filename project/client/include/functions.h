@@ -8,7 +8,7 @@
 #include "gtk/gtk.h"
 #include "common.h"
 
-void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network
+void primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network
         ,struct tm *tm,Memory_usage *memory);
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1);
 

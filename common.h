@@ -9,24 +9,68 @@
 #include "gtk/gtk.h"
 #include <time.h>
 
-
-
-
-
-typedef struct _Interrupts Interrupts;
-struct _Interrupts{
-
-    char name[4];
-    signed long CPU0;
-    signed long CPU1;
-    signed long CPU2;
-    signed long CPU3;
-    char ime1[256];
-    char ime2[256];
-    char ime3[256];
-    char ime4[256];
+struct __attribute__((__packed__))tm1
+{
+    __uint32_t tm_sec;			/* Seconds.	[0-60] (1 leap second) */
+    __uint32_t tm_min;			/* Minutes.	[0-59] */
+    __uint32_t tm_hour;			/* Hours.	[0-23] */
+    __uint32_t tm_mday;			/* Day.		[1-31] */
+    __uint32_t tm_mon;			/* Month.	[0-11] */
+    __uint32_t tm_year;			/* Year	- 1900.  */
+    __uint32_t tm_wday;			/* Day of week.	[0-6] */
+    __uint32_t tm_yday;			/* Days in year.[0-365]	*/
+    __uint32_t tm_isdst;			/* DST.		[-1/0/1]*/
 
 };
+
+
+
+typedef struct _Task Task;
+struct _Task
+{
+    bool checked;
+    short		prio;
+    __uint32_t uid;
+  __uint32_t		pid;
+    __uint32_t		ppid;
+    float		cpu_user;
+    float		cpu_system;
+    __int64_t	vsz;
+    __int64_t	rss;
+    __int64_t    start_time;
+    char		name[256];
+    char		uid_name[256];
+    char		state[16];
+    struct tm1 stime;
+    struct tm1 duration;
+
+
+
+
+};
+typedef struct _Network Network;
+struct _Network{
+
+    __int32_t received_bytes;
+    __int32_t transmited_bytes;
+
+
+
+};
+typedef struct _Cpu_usage Cpu_usage;
+struct _Cpu_usage {
+
+
+    float percentage0;
+    float percentage1;
+    float percentage2;
+    float percentage3;
+    __int32_t number;
+
+};
+
+
+
 typedef struct _Memory_usage Memory_usage;
 
 struct _Memory_usage {
@@ -39,80 +83,50 @@ struct _Memory_usage {
     float percentage ;
 
 };
-typedef struct _Devices Devices;
+typedef struct _Interrupts Interrupts;
+struct _Interrupts{
 
+
+    __int32_t CPU0;
+    __int32_t CPU1;
+    __int32_t CPU2;
+    __int32_t CPU3;
+    char name[64];
+    char ime1[256];
+    char ime2[256];
+    char ime3[256];
+    char ime4[256];
+
+};
+typedef struct  _Sending_stuff Sending_stuff;
+struct _Sending_stuff{
+
+    __int32_t mem;
+    bool show;
+    char command [10];
+    char task_id [256];
+};
+
+typedef struct _Devices Devices;
 struct _Devices {
 
 
     char		name[256];
     char       type[256];
     char       directory[256];
-    long used;
-    long total;
-    long free;
-    long avail;
-    long fid;
+    __int32_t used;
+    __int32_t total;
+    __int32_t free;
+    __int32_t avail;
+    __int32_t fid;
     bool checked;
-};
-
-
-typedef struct _Task Task;
-
-struct _Task
-{
-    unsigned int		uid;
-    char		uid_name[256];
-    unsigned int		pid;
-    unsigned int		ppid;
-    char		name[256];
-    // gchar		cmdline[1024];
-    char		state[16];
-    float		cpu_user;
-    float		cpu_system;
-    unsigned long long	vsz;
-    unsigned long long	rss;
-    short		prio;
-     long long     start_time;
-    struct tm duration;
-    struct tm stime;
-    bool checked;
-};
-
-typedef struct _Network Network;
-struct _Network{
-
-    unsigned  long received_bytes;
-    unsigned  long transmited_bytes;
-
-
-
-};
-typedef struct _Cpu_usage1 Cpu_usage1;
-struct _Cpu_usage1 {
-
-
-    float percentage0;
-    float percentage1;
-    float percentage2;
-    float percentage3;
-    int number;
-
-};
-
-typedef struct  _Sending_stuff Sending_stuff;
-struct _Sending_stuff{
-
-    int mem;
-    bool show;
-    char command [10];
-    char task_id [256];
 };
 typedef union DATA_S data_s;
 union DATA_S {
 
     Memory_usage Memory;
     Interrupts interrupts;
-    Cpu_usage1 cpu_usage;
+    Cpu_usage cpu_usage;
     Network network;
     Task task;
     Devices devices;
@@ -122,6 +136,7 @@ union DATA_S {
 
 
 } ;
+
 
 
 

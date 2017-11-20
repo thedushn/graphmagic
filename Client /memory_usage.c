@@ -10,7 +10,7 @@
 
 //void 	get_memory_usage(){
 void 	get_memory_usage(Memory_usage *memory_usage){
-  //  printf("made it in memory_usage\n");
+    printf("made it in memory_usage\n");
     unsigned long long memory_total=0; unsigned long long memory_free=0; unsigned long long memory_cache=0; unsigned long long memory_buffers=0; unsigned long long swap_total=0; unsigned long long swap_free=0;
 
     FILE *file;
@@ -48,7 +48,7 @@ void 	get_memory_usage(Memory_usage *memory_usage){
 
 
     unsigned long long memory_used= memory_total - memory_free - memory_cache - memory_buffers;
-   // printf("its all in the memory %llu\n",memory_usage.memory_used);
+    printf("its all in the memory %llu\n",memory_used);
     unsigned long long  swap_used = swap_total-swap_free;
     memory_usage->swap_percentage= (float)(swap_total != 0) ? swap_used * 100 / (float)swap_total : 0;
            // swap_percentage/swap_total*100;

@@ -7,6 +7,7 @@
 #include"pthread.h"
 
 #include "functions.h"
+#include "cpu_usage.h"
 
 #include <arpa/inet.h>
 
@@ -25,8 +26,12 @@ int main(int argc, char *argv[]){
 	struct sockaddr_in addr ,cl_addr;
 	int sockfd ,ret;
 	char buffer[BUF_SIZE];
-
 	char clientAddr[CLADDR_LEN];
+
+    int ret2;
+
+
+    struct my_thread_info *info;
 
 //    if(argc <2){
 //
@@ -81,10 +86,7 @@ int main(int argc, char *argv[]){
 
 
 
-	int ret2;
 
-	pthread_t t2,t3;
-	struct my_thread_info *info;
 
 
 	info = malloc(sizeof(struct my_thread_info));
@@ -96,18 +98,20 @@ int main(int argc, char *argv[]){
 
     FILE *fp;
 
-	unsigned long  uptime1=0;
+	int uptime1=0;
   fp = fopen ("/proc/uptime", "r");
   if (fp != NULL) {
 
       while (fgets(buffer, 1024, fp) != NULL) {
 
 
-        sscanf(buffer,"%lu",&uptime1);
+        sscanf(buffer,"%d",&uptime1);
       }
   }
 
       fclose (fp);
+
+
 
 
 
@@ -133,7 +137,7 @@ int main(int argc, char *argv[]){
     stop_time.tm_sec=sec0;
 
     differenceBetweenTimePeriod(tm, stop_time, &pocetno);// vreme kada je poceo da radi linux
-
+    interface_name();
 //	printf("now: %d-%d-%d %d:%d:%d\n", tm.tm_year , tm.tm_mon , tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 	/*ret = (int) send(sockfd, &tm, sizeof(tm), 0);
 	if (ret<0) {
@@ -142,7 +146,7 @@ int main(int argc, char *argv[]){
 	}*/
 
     ret2 = pthread_create(&t2, NULL, slanje, &sockfd);
-   if(ret2){
+   if(ret2!=0){
   // if( pthread_create(&t2, NULL, slanje, &info)){
        printf("ERROR: Return Code from pthread_create() is %d\n",ret2);
        exit(1);
@@ -151,21 +155,27 @@ int main(int argc, char *argv[]){
 
     ret= pthread_create(&t3,NULL,accept_c,&sockfd);
 
-    if(ret){
+    if(ret!=0){
 
         printf("ERROR: Return Code from pthread_create() is %d\n",ret);
         exit(1);
 
     }
-
+    printf("threads joined\n");
    pthread_join( t2, NULL);
     pthread_join( t3, NULL);
 
 	 close(sockfd);
+    printf("socket_closed\n");
+    uradi(true);
+    /*free(hash_cpu_system);
+    free(hash_cpu_user);*/
+    free(info);
+    printf("hash_freed\n");
 
 
 
-	 pthread_exit(NULL);
+	 //pthread_exit(NULL);
 
 	 return 0;
 	}
