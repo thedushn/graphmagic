@@ -8,11 +8,23 @@
 #include "gtk/gtk.h"
 #include "common.h"
 
-void primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network
+void primanje(void * socket,GArray *array_int,Cpu_usage *cpu_usage1,GArray *array_tasks,GArray *array_devices,Network *network
         ,struct tm *tm,Memory_usage *memory);
 //void* primanje(void * socket,GArray *array_int,Cpu_usage1 *cpu_usage1);
 
+void  primanje2(void * socket,GArray *array_int,Cpu_usage  *cpu_usage1,GArray *array_tasks,GArray *array_devices
+        ,Network *network,Memory_usage *memory_usage);
 
+
+
+void  primanje3(void * socket
+                ,Cpu_usage * cpu_usage1
+               , Network *network
+              , Memory_usage  *memory_usage
+                ,GArray * array_devices
+                ,GArray *array_int
+                ,GArray *array_tasks
+);
 pthread_mutex_t mut;
 pthread_cond_t  cond ;
 

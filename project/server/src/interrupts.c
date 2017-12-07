@@ -2,6 +2,8 @@
 // Created by dushn on 31.8.17..
 //
 
+#include <errno.h>
+#include <inttypes.h>
 #include "interrupts.h"
 
 
@@ -46,7 +48,7 @@ void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3){
 
 
 
-void interrupt_usage2(Interrupts * *array2,int *j ) {
+void interrupt_usage2(Interrupts * *array2,__int32_t *j ) {
 
 
     FILE *file;
@@ -88,7 +90,7 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
             array[*j].ime4[n]='\0';
         }
 
-        sscanf(buffer,"%s %li %li %li %li %s %s %s %s",array[*j].name, &array[*j].CPU0, &array[*j].CPU1,
+        sscanf(buffer,"%s %" SCNu64 " %" SCNu64 " %" SCNu64 " %" SCNu64 " %s %s %s %s",array[*j].name, &array[*j].CPU0, &array[*j].CPU1,
                &array[*j].CPU2,
                &array[*j].CPU3,
                array[*j].ime1,
@@ -107,7 +109,7 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
 
         }
         array[*j].name[i]='\0';
-        i=0;
+      //  i=0;
 
         //   printf("j %d\t",j);
      /*   printf("PRvi[%s %li %li %li %li %s %s %s %s]\n",array[*j].name, array[*j].CPU0, array[*j].CPU1,
@@ -121,15 +123,18 @@ void interrupt_usage2(Interrupts * *array2,int *j ) {
 
 
         //   array=(Interrupts *) realloc(array,(j+1)*sizeof(Interrupts)); //mora da se inicijalizuje
-        temp=realloc(array,( /**j*/ g+2)*sizeof(Interrupts));
+        g++;
+        temp=realloc(array,( /**j*/ g+1)*sizeof(Interrupts));
         if ( temp != NULL ) {
             array=temp;
         } else {
             free(array);
+            free(temp);
+            printf("relloc error %d",errno);
         }
 
 
-        g++;
+
         *j=g;
 
 
