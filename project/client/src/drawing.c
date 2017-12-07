@@ -150,8 +150,8 @@ void ispis_interrupta(cairo_t *cr,double font_size,double duzina,int i,gchar *im
             if(ime2[0]=='\0'){
 
                 if(ime1[0]!='\0'){
-                        gchar *dummy="";
-                    ispis_interrupta2(cr,font_size,duzina,i,ime1,dummy);
+                     //   gchar *dummy="";
+                    ispis_interrupta2(cr,font_size,duzina,i,ime1,'\0');
                 }
 
             }
