@@ -4,14 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/dushn/Desktop/Server/cpu_usage.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/cpu_usage.c.o"
-  "/home/dushn/Desktop/Server/devices.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/devices.c.o"
-  "/home/dushn/Desktop/Server/functions.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/functions.c.o"
-  "/home/dushn/Desktop/Server/interrupts.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/interrupts.c.o"
-  "/home/dushn/Desktop/Server/memory_usage.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/memory_usage.c.o"
-  "/home/dushn/Desktop/Server/network_bandwith.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/network_bandwith.c.o"
-  "/home/dushn/Desktop/Server/server.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/server.c.o"
-  "/home/dushn/Desktop/Server/task_manager.c" "/home/dushn/Desktop/Server/cmake-build-debug/CMakeFiles/s.dir/task_manager.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/cpu_usage.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/devices.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/functions.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/interrupts.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/memory_usage.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/network_bandwith.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /server.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/server.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir/task_manager.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

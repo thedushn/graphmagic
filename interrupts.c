@@ -10,14 +10,14 @@ gint sortiranje(gconstpointer a,gconstpointer b){
     Interrupts *interrupts1= (Interrupts *)a;
     Interrupts *interrupts2=(Interrupts *)b;
 
-     long CPU0a = 0;
-     long CPU1a = 0;
-     long CPU2a = 0;
-     long CPU3a = 0;
-     long CPU0b = 0;
-     long CPU1b = 0;
-     long CPU2b = 0;
-     long CPU3b = 0;
+    __uint64_t CPU0a = 0;
+    __uint64_t  CPU1a = 0;
+    __uint64_t  CPU2a = 0;
+    __uint64_t  CPU3a = 0;
+    __uint64_t CPU0b = 0;
+    __uint64_t  CPU1b = 0;
+    __uint64_t  CPU2b = 0;
+    __uint64_t  CPU3b = 0;
      int CPUa= 0;
      int CPUb= 0;
 
@@ -83,35 +83,24 @@ void upis(GArray *array,GArray *array2){
 //   for (int r = 0; r <= ginterrupts->len; r++) {//// staviti samo manje
    for (guint r = 0; r < array->len; r++) {
 
-        Interrupts interrupts3={0};
+        Interrupts interrupts3;
 
 
        // interrupts1 = &g_array_index(array, Interrupts, r);
         interrupts3 = g_array_index(array, Interrupts, r);
 
-    /*
-        interrupts3.name[0]=interrupts1->name[0];
-        interrupts3.name[1]=interrupts1->name[1];
-        interrupts3.name[2]=interrupts1->name[2];
-        interrupts3.name[3]=interrupts1->name[3];
 
-        interrupts3.CPU0=interrupts1->CPU0;
-        interrupts3.CPU1=interrupts1->CPU1;
-        interrupts3.CPU2=interrupts1->CPU2;
-        interrupts3.CPU3=interrupts1->CPU3;
-
-       upis_imena( interrupts1 , &interrupts3);*/
 
 
         //g_array_insert_val(array2,r,interrupts3);
 
         g_array_insert_val(array2,r,interrupts3);
        // g_array_append_val(array2,interrupts3);
-     //  printf("lenght %d\n ",array2->len);
-//       if (array2->len > 1)
-//           g_array_remove_index (array2, array2->len - 1);
+     // printf("lenght %d\n ",array2->len);
+    /*  if (array2->len > 1)
+           g_array_remove_index (array2, array2->len - 1);*/
     }
-   // printf("lenght %d\n ",array2->len);
+    printf("lenght %d\n ",array2->len);
 
 };
 //GArray * poredjenje(GArray *array,GArray *array2){//array novi array2 stari
@@ -139,28 +128,44 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
         array3=g_array_new(FALSE,FALSE,sizeof(Interrupts));
     }*/
     for (int r = 0; r < array->len; r++) {
+      //  Interrupts *interrupts3;
+       // interrupts3  = (Interrupts*) malloc(sizeof(Interrupts));
         Interrupts interrupts3={0};
         Interrupts *interrupts1=&g_array_index(array,Interrupts,r);
 
         Interrupts *interrupts2=&g_array_index(array2,Interrupts,r);
 
-       interrupts3.CPU0=interrupts1->CPU0 - interrupts2->CPU0;
-        interrupts3.CPU1=interrupts1->CPU1 - interrupts2->CPU1;
-        interrupts3.CPU2=interrupts1->CPU2 - interrupts2->CPU2;
-        interrupts3.CPU3=interrupts1->CPU3 - interrupts2->CPU3;
 
-            interrupts3.name[0] = interrupts1->name[0];
-            interrupts3.name[1] = interrupts1->name[1];
-            interrupts3.name[2] = interrupts1->name[2];
-            interrupts3.name[3] = interrupts1->name[3];
+/*
+        interrupts3->CPU0=interrupts1->CPU0 - interrupts2->CPU0;
+        interrupts3->CPU1=interrupts1->CPU1 - interrupts2->CPU1;
+        interrupts3->CPU2=interrupts1->CPU2 - interrupts2->CPU2;
+        interrupts3->CPU3=interrupts1->CPU3 - interrupts2->CPU3;*/
 
+        for(int j=0; j<sizeof(interrupts1->name);j++){
 
 
-         upis_imena(interrupts1,&interrupts3);
+            interrupts3.name[j]=interrupts1->name[j];
+        }
+
+        __uint64_t temp=interrupts1->CPU0 - interrupts2->CPU0;
+       interrupts3.CPU0=temp;
+        temp=interrupts1->CPU1 - interrupts2->CPU1;
+        interrupts3.CPU1=temp;
+        temp=interrupts1->CPU2 - interrupts2->CPU2;
+        interrupts3.CPU2=temp;
+        temp=interrupts1->CPU3 - interrupts2->CPU3;
+        interrupts3.CPU3=temp;
+
+
+
+
+        upis_imena(interrupts1,&interrupts3);
+
 
         g_array_append_val(array3,interrupts3);
 
-
+        //free(interrupts3);
     }
    // printf("Before sorting %d\n",array3->len);
 //    for(int i=0 ;i<array3->len;i++){
@@ -178,81 +183,9 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
 
             }
 
+
+
 //return array3;
 
 };
-
-GArray * interrupt_usage() {
-
-
-        FILE *file;
-        gchar *filename = "/proc/interrupts";
-        gchar buffer[1024];
-
-
-  GArray * ginterrupts=g_array_new(FALSE,FALSE,sizeof(Interrupts));
-
-        if ((file = fopen(filename, "r")) == NULL || fgets(buffer, 1024, file) == NULL)
-            exit(1);
-
-
-        while (fgets(buffer, 1024, file) != NULL) {
-            guint i = 0;
-            Interrupts interrupts={0};
-
-
-            sscanf(buffer, "%s %li %li %li %li %255s %255s %255s %255s",interrupts.name, &interrupts.CPU0, &interrupts.CPU1,
-                   &interrupts.CPU2,
-                   &interrupts.CPU3,
-                   interrupts.ime1,
-                   interrupts.ime2,
-                   interrupts.ime3,
-                   interrupts.ime4 );
-
-
-            while(interrupts.name[i] != ':'){
-
-
-                i++;
-
-            }
-            interrupts.name[i]='\0';
-
-
-
-
-
-
-
-
-
-
-
-
-
-            g_array_append_val(ginterrupts,interrupts);
-
-
-
-        }
-        fclose(file);
-
-
-       // g_array_sort(ginterrupts,(GCompareFunc)sortiranje);
-
-//    while (ginterrupts->len > 10) {
-//        g_array_remove_index(ginterrupts, ginterrupts->len - 11);
-//        // printf("size after %d\n",ginterrupts_final->len);
-//    }
-
-       // printanje();
-     //   printanje(ginterrupts);
-
-
-
-return ginterrupts;
-}
-
-
-
 

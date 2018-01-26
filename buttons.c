@@ -25,7 +25,7 @@ void process_window(){
     button_process_vm_size=gtk_check_button_new_with_label ("VM_size");
     button_process_user=gtk_check_button_new_with_label ("User");
     button_process_prio=gtk_check_button_new_with_label ("Prio");
-    button_process_stime=gtk_check_button_new_with_label ("Stime");
+  //  button_process_stime=gtk_check_button_new_with_label ("Stime");
     button_process_duration=gtk_check_button_new_with_label ("Duration");
 
     if(process_cpu==TRUE){
@@ -56,9 +56,9 @@ void process_window(){
     if(process_prio==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_prio),TRUE);
     }
-    if(process_stime==TRUE){
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_stime),TRUE);
-    }
+//    if(process_stime==TRUE){
+//        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_stime),TRUE);
+//    }
     if(process_duration==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_duration),TRUE);
     }
@@ -78,7 +78,7 @@ void process_window(){
     gtk_box_pack_start(GTK_BOX(box2),button_process_rss,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_cpu,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_prio,1,1,0);
-    gtk_box_pack_start(GTK_BOX(box2),button_process_stime,1,1,0);
+    //gtk_box_pack_start(GTK_BOX(box2),button_process_stime,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_duration,1,1,0);
     g_signal_connect(button_process_user,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_rss,"toggled", G_CALLBACK(process_clicked), NULL);
@@ -89,7 +89,7 @@ void process_window(){
     g_signal_connect(button_process_pid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_ppid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_prio,"toggled", G_CALLBACK(process_clicked), NULL);
-    g_signal_connect(button_process_stime,"toggled", G_CALLBACK(process_clicked), NULL);
+  //  g_signal_connect(button_process_stime,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_duration,"toggled", G_CALLBACK(process_clicked), NULL);
 
 
@@ -246,7 +246,8 @@ void close_window() {
 
 void start_stop(int show,char *signal ,char *task_id){
    int ret;
-data_s data;
+
+    Commands commands={0};
 
 
     if(show==1){
@@ -254,21 +255,21 @@ data_s data;
         show_before= !show_before;
     }
 
-    data.stuff.mem=0;
-    data.stuff.show=device_all;
-    if(signal!="" && task_id!=""){
+    commands.mem=0;
+    commands.show=device_all;
+    if(signal!=NULL && task_id!=NULL){
         for(int i=0; i<sizeof(signal);i++){
 
-            data.stuff.command[i]=signal[i];
+            commands.command[i]=signal[i];
         }
         for(int i=0; i<sizeof(task_id);i++){
 
-            data.stuff.task_id[i]=task_id[i];
+            commands.task_id[i]=task_id[i];
         }
     }
-
-    printf("sHOW %s\n", data.stuff.show==TRUE ? "TRUE" : "FALSE");
-        ret=(int) send (newsockfd,&data,sizeof(data),0);
+    printf(" task_id=[%s]  signal=[%s]\n",task_id,signal);
+    printf("sHOW %s\n", commands.show==TRUE ? "TRUE" : "FALSE");
+        ret=(int) send (newsockfd1,&commands,sizeof(Commands),0);
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
@@ -276,7 +277,17 @@ data_s data;
  //       exit(1);
 
     }
+    if(ret==0){
+
+        printf("nije uspelo slanje cond \n");
+        printf("socket closed\n");
+        gtk_main_quit();
+        //       exit(1);
+
+    }
     printf("poslali smo cond\n");
+    printf("start stop ret : %d \n",ret);
+    printf("%d \n",newsockfd1);
 }
 void graph_button_clicked(GtkWidget *widget){
 
@@ -499,11 +510,16 @@ void process_clicked(GtkWidget *widget){
             change_list_store_view_process(widget, process_state);
           //  process_refresh(widget,process_state );
         }
-            else if(widget==button_process_stime){
+          /*  else if(widget==button_process_stime){
             process_stime=TRUE;
 
             change_list_store_view_process(widget, process_stime);
-        }
+        }*/
+              else if(widget==button_process_duration){
+        process_duration=TRUE;
+
+        change_list_store_view_process(widget, process_duration);
+    }
         else{
 
             process_user= TRUE;
@@ -562,11 +578,16 @@ void process_clicked(GtkWidget *widget){
             change_list_store_view_process(widget, process_state);
            // process_refresh(widget,process_state );
         }
-        else if(widget==button_process_stime){
+       /* else if(widget==button_process_stime){
             process_stime=FALSE;
 
             change_list_store_view_process(widget, process_stime);
-        }
+        }*/
+             else if(widget==button_process_duration){
+          process_duration=FALSE;
+
+          change_list_store_view_process(widget, process_duration);
+      }
         else{
 
             process_user= FALSE;

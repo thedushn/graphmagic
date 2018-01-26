@@ -9,8 +9,7 @@
 #include "common.h"
 
 
-
-
+//#include "window.h"
 
 GtkTreeStore * create_list_store(void)
 {
@@ -18,7 +17,7 @@ GtkTreeStore * create_list_store(void)
     GtkTreeViewColumn *column;
 
     list_store = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING
-            ,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+            ,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING/*,G_TYPE_STRING*/);
 
     cell_renderer = gtk_cell_renderer_text_new();
 
@@ -78,14 +77,14 @@ GtkTreeStore * create_list_store(void)
     gtk_tree_view_column_set_sort_column_id(column, COL_PRIO);
     gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_PRIO, compare_int_list_item, (void *)COL_PRIO, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
-
+/*
     column = gtk_tree_view_column_new_with_attributes(("Start time"), cell_renderer, "text", COL_STIME, NULL);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, COL_STIME);
     gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_STIME, compare_int_list_item_time, (void *)COL_STIME, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
-
-    column = gtk_tree_view_column_new_with_attributes(("Duration "), cell_renderer, "text", COL_DUR, NULL);
+*/
+    column = gtk_tree_view_column_new_with_attributes(("Duration"), cell_renderer, "text", COL_DUR, NULL);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, COL_DUR);
     gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store), COL_DUR, compare_int_list_item_time, (void *)COL_DUR, NULL);
@@ -145,7 +144,7 @@ GtkTreeStore * create_list_store_dev(void)
     column = gtk_tree_view_column_new_with_attributes(("Free"), cell_renderer, "text", COL_FREE, NULL);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, COL_FREE);
-    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store1), COL_FREE, compare_int_list_item_time, (void *)COL_FREE, NULL);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(list_store1), COL_FREE, compare_int_list_item_size, (void *)COL_FREE, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview1), column);
 
 
@@ -272,13 +271,13 @@ void change_list_store_view_process(GtkWidget *widget, gboolean visible)
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 8), visible);
 
     }
-    else if(button_process_stime==widget){
+  /*  else if(button_process_stime==widget){
 
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 9), visible);
-    }
+    }*/
     else {
 
-        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 10), visible);
+        gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 9), visible);//10
     }
 
 
@@ -300,16 +299,20 @@ void fill_list_item(gint i, GtkTreeIter *iter)
     if(iter != NULL)
     {
         Task *task = &g_array_index(task_array, Task, i);
-        gchar cpu[16], value[14];
+        gchar cpu[16], value[16];
         gchar *rss, *vsz;
         gchar *prio;
-        gchar *stime;
+
         gchar *duration;
+        float cpu_user=0;
+        float cpu_system=0;
+        cpu_user=(float)atof(task->cpu_user);
+        cpu_system=(float)atof(task->cpu_system);
 
         rss = g_format_size_full(task->rss, G_FORMAT_SIZE_IEC_UNITS);
         vsz = g_format_size_full(task->vsz, G_FORMAT_SIZE_IEC_UNITS);
 
-        g_snprintf(value, 14, "%.f", task->cpu_user + task->cpu_system);
+        g_snprintf(value, 14, "%.f", cpu_user + cpu_system);
 
         g_snprintf(cpu, 16, ("%s%%"), value);
         gchar *pid = g_strdup_printf("%i", task->pid);
@@ -320,7 +323,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gchar *uname = g_strdup_printf("%s", task->uid_name);
         prio=  g_strdup_printf("%hi", task->prio);
      //   stime= g_strdup_printf("%ld", task->start_time/100);//sec
-        /*int sec, hr, min, t;
+    /*    int sec, hr, min, t;
 
 
 
@@ -351,7 +354,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         h=h+pocetno.tm_hour+hr;*/
 
 
-        stime= g_strdup_printf("%d:%d:%d",task->stime.tm_hour,task->stime.tm_min,task->stime.tm_sec);
+      //  stime= g_strdup_printf("%d:%d:%d",task->stime.tm_hour,task->stime.tm_min,task->stime.tm_sec);
       //  duration= g_strdup_printf("%d:%d:%d",h,m,s);
      /*   struct tm  start_time, diff;
 
@@ -378,7 +381,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_CPU, cpu, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_UNAME, uname, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_PRIO, prio, -1);
-        gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_STIME, stime, -1);
+     //   gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_STIME, stime, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_DUR, duration, -1);
 
 
@@ -391,7 +394,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         g_free(rss);
         g_free(vsz);
         g_free(prio);
-        g_free(stime);
+      //  g_free(stime);
         g_free(duration);
     }
 }
@@ -555,8 +558,8 @@ gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIt
 {
     gchar *s1 = "";
     gchar *s2 = "";
-    gchar *temp = "";
-    gchar *temp1 = "";
+    gchar *temp ;
+    gchar *temp1;
 
     gint ret = 0;
 
@@ -643,9 +646,9 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     gchar *s1 = "";
     gchar *s2 = "";
     gchar *z ;
-    gchar *z1  ;
-    gchar *size ;
-    gchar *size1 ;
+    gchar *z1;
+    gchar *size;
+    gchar *size1;
 
 
     gint ret = 0;
@@ -655,6 +658,15 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 
     gtk_tree_model_get(model, iter1, column, &s1, -1);
     gtk_tree_model_get(model, iter2, column, &s2, -1);
+
+    if(s1==NULL){
+
+        return ret;//ako prvog nema drugi je prvi
+    }
+    if(s2==NULL){
+
+        return ret;//ako drugog nema prvi je prvi
+    }
 
   z=  g_strrstr (s1, ",");
   z1=  g_strrstr (s2, ",");
@@ -755,10 +767,10 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 {
     gchar *s1 = "";
     gchar *s2 = "";
-    gchar *dt ;
-    gchar *dt1  ;
+    gchar *dt;
+    gchar *dt1;
     gchar *dt2;
-    gchar *dt3 ;
+    gchar *dt3;
 
 
     gint ret = 0;
@@ -771,6 +783,14 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     gtk_tree_model_get(model, iter1, column, &s1, -1);
     gtk_tree_model_get(model, iter2, column, &s2, -1);
 
+    if(s1==NULL){
+
+        return ret;//ako prvog nema drugi je prvi
+    }
+    if(s2==NULL){
+
+        return ret;//ako drugog nema prvi je prvi
+    }
     //minuti postavi pointer na prve : na koje naidje u broju karatktera koje mu postavimo
    dt= g_strstr_len (s1, strlen(s1), ":");
     dt1= g_strstr_len (s2, strlen(s2), ":");
@@ -816,8 +836,7 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     }
 
     if(ret1==0){ //ako je u isto minuta
-        i3=0;
-        i4=0;
+
 
      /*   dt=dt+1;//preskacemo :
         dt1=dt1+1;*/
@@ -841,10 +860,4 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     g_free(s2);
     return ret2;
 }
-void unref(){
 
-
-    g_object_unref(treeview);
-    g_object_unref(treeview1);
-
-};

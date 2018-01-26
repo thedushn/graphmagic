@@ -41,13 +41,12 @@ GtkWidget * button_process_vm_size;
 GtkWidget * button_process_rss;
 GtkWidget * button_process_cpu;
 GtkWidget * button_process_prio;
-GtkWidget * button_process_stime;
+//GtkWidget * button_process_stime;
 GtkWidget * button_process_duration;
 
 
 
 
-static guint refresh = 0;
 gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *event);
 GtkWidget* create_taskpopup (void);
 

@@ -17,14 +17,14 @@
 #include "common.h"
 
 
-void get_task_list (Task * * array,int *niz);
+void get_task_list (Task * * array,__int32_t *niz);
 
-static bool get_task_details (int pid, Task *task);
-static inline long get_pagesize (void);
-
+ bool get_task_details (int pid, Task *task);
 
 
-void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm *diff);
+
+
+void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm1 *diff);
 
 
 

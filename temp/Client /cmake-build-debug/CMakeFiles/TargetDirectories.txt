@@ -1,3 +1,0 @@
-/home/dushn/Desktop/TEST/Client /cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/dushn/Desktop/TEST/Client /cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/dushn/Desktop/TEST/Client /cmake-build-debug/CMakeFiles/Client_.dir

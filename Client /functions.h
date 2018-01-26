@@ -13,14 +13,14 @@ void *send_some_files(int socket);
 void *chat2(void * socket);
 void *slanje(void * socket);
 void *accept_c (void *socket);
-
+ssize_t test_send(int socket);
 void send_signal_to_task(char *task_id, char *signal);
 struct my_thread_info {
     int thread_socket;
 };
-struct tm lokalno_vreme;
+struct tm lokalno;
 
-struct tm pocetno;
+struct tm1 pocetno;
 pthread_t t2,t3;
 
 #endif

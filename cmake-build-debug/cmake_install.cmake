@@ -1,4 +1,4 @@
-# Install script for directory: /home/dushn/Desktop/Project/graphmagic-master
+# Install script for directory: /home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/dushn/Desktop/Project/graphmagic-master/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

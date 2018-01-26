@@ -6,41 +6,59 @@
 
 #IncludeRegexTransform: 
 
-/home/dushn/Desktop/Project/graphmagic-master/buttons.c
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.c
 sys/socket.h
 -
 buttons.h
-/home/dushn/Desktop/Project/graphmagic-master/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
 drawing.h
-/home/dushn/Desktop/Project/graphmagic-master/drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
 testing_tree.h
-/home/dushn/Desktop/Project/graphmagic-master/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
 main_header.h
-/home/dushn/Desktop/Project/graphmagic-master/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
 buttons_s.h
-/home/dushn/Desktop/Project/graphmagic-master/buttons_s.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons_s.h
 
-/home/dushn/Desktop/Project/graphmagic-master/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
 gtk/gtk.h
 -
 
-/home/dushn/Desktop/Project/graphmagic-master/buttons_s.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons_s.h
 
-/home/dushn/Desktop/Project/graphmagic-master/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/client.c
+interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.h
+drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
+testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
+window.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.h
+buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
+sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/sys/socket.h
+netdb.h
+-
+functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
 stdbool.h
 -
-gtk/gtk.h
-/home/dushn/Desktop/Project/graphmagic-master/gtk/gtk.h
 time.h
 -
 
-/home/dushn/Desktop/Project/graphmagic-master/drawing.c
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.c
+inttypes.h
+-
 drawing.h
-/home/dushn/Desktop/Project/graphmagic-master/drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
 main_header.h
-/home/dushn/Desktop/Project/graphmagic-master/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
 
-/home/dushn/Desktop/Project/graphmagic-master/drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
 math.h
 -
 sys/stat.h
@@ -60,31 +78,33 @@ gtk/gtk.h
 cairo.h
 -
 common.h
-/home/dushn/Desktop/Project/graphmagic-master/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
 
-/home/dushn/Desktop/Project/graphmagic-master/functions.c
-stdio.h
-/home/dushn/Desktop/Project/graphmagic-master/stdio.h
-stdlib.h
-/home/dushn/Desktop/Project/graphmagic-master/stdlib.h
-sys/socket.h
-/home/dushn/Desktop/Project/graphmagic-master/sys/socket.h
-pthread.h
-/home/dushn/Desktop/Project/graphmagic-master/pthread.h
-functions.h
-/home/dushn/Desktop/Project/graphmagic-master/functions.h
-
-/home/dushn/Desktop/Project/graphmagic-master/functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h
 gtk/gtk.h
-/home/dushn/Desktop/Project/graphmagic-master/gtk/gtk.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/gtk/gtk.h
 common.h
-/home/dushn/Desktop/Project/graphmagic-master/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
 
-/home/dushn/Desktop/Project/graphmagic-master/interrupts.c
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions1.c
+stdio.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/stdio.h
+inttypes.h
+-
+stdlib.h
+-
+memory.h
+-
+sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/sys/socket.h
+functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.c
 interrupts.h
-/home/dushn/Desktop/Project/graphmagic-master/interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.h
 
-/home/dushn/Desktop/Project/graphmagic-master/interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.h
 gtk/gtk.h
 -
 glib.h
@@ -106,29 +126,9 @@ string.h
 stdlib.h
 -
 common.h
-/home/dushn/Desktop/Project/graphmagic-master/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
 
-/home/dushn/Desktop/Project/graphmagic-master/main.c
-interrupts.h
-/home/dushn/Desktop/Project/graphmagic-master/interrupts.h
-drawing.h
-/home/dushn/Desktop/Project/graphmagic-master/drawing.h
-testing_tree.h
-/home/dushn/Desktop/Project/graphmagic-master/testing_tree.h
-window.h
-/home/dushn/Desktop/Project/graphmagic-master/window.h
-buttons.h
-/home/dushn/Desktop/Project/graphmagic-master/buttons.h
-sys/socket.h
-/home/dushn/Desktop/Project/graphmagic-master/sys/socket.h
-netinet/in.h
-/home/dushn/Desktop/Project/graphmagic-master/netinet/in.h
-arpa/inet.h
--
-functions.h
-/home/dushn/Desktop/Project/graphmagic-master/functions.h
-
-/home/dushn/Desktop/Project/graphmagic-master/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
 cairo.h
 -
 gtk/gtk.h
@@ -136,37 +136,37 @@ gtk/gtk.h
 stdlib.h
 -
 
-/home/dushn/Desktop/Project/graphmagic-master/testing_tree.c
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.c
 testing_tree.h
-/home/dushn/Desktop/Project/graphmagic-master/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
 buttons.h
-/home/dushn/Desktop/Project/graphmagic-master/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
 main_header.h
-/home/dushn/Desktop/Project/graphmagic-master/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
 common.h
-/home/dushn/Desktop/Project/graphmagic-master/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
 
-/home/dushn/Desktop/Project/graphmagic-master/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
 string.h
-/home/dushn/Desktop/Project/graphmagic-master/string.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/string.h
 gtk/gtk.h
 -
 stdlib.h
 -
 
-/home/dushn/Desktop/Project/graphmagic-master/window.c
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.c
 window.h
-/home/dushn/Desktop/Project/graphmagic-master/window.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.h
 testing_tree.h
-/home/dushn/Desktop/Project/graphmagic-master/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
 buttons.h
-/home/dushn/Desktop/Project/graphmagic-master/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
 
-/home/dushn/Desktop/Project/graphmagic-master/window.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.h
 main_header.h
-/home/dushn/Desktop/Project/graphmagic-master/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
 common.h
-/home/dushn/Desktop/Project/graphmagic-master/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
 
 /usr/include/atk-1.0/atk/atk-enum-types.h
 atk/atkversion.h
