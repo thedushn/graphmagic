@@ -31,15 +31,14 @@
 
 #include "common.h"
 
-//void try();
-void readDir(char *path);
+void  testing_files2( Devices *devices);
 
 
-void device2(Devices * * array,bool show,int *niz2);
+void device2(Devices * * array,bool show,__int32_t *niz2);
 
 
 
-void mountlist3(Devices **array,bool mount,int *fake);
+void mountlist3(Devices **array,bool mount,__int32_t *fake);
 //void array_devices();
 
 

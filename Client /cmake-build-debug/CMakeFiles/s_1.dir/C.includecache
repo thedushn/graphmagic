@@ -1,0 +1,266 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+stdbool.h
+-
+time.h
+-
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.c
+inttypes.h
+-
+cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+stdio.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+math.h
+-
+stdlib.h
+-
+stdbool.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdbool.h
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.c
+devices.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.h
+errno.h
+-
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.h
+setjmp.h
+-
+unistd.h
+-
+string.h
+-
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+sys/stat.h
+-
+pwd.h
+-
+stdio.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+unistd.h
+-
+sys/statvfs.h
+-
+stdint.h
+-
+string.h
+-
+dirent.h
+-
+stdlib.h
+-
+stdbool.h
+-
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
+memory_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.h
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+task_manager.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.h
+devices.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.h
+network_bandwith.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions2.c
+inttypes.h
+-
+stdio.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdio.h
+stdlib.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdlib.h
+sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /sys/socket.h
+pthread.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /pthread.h
+functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
+interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.h
+cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.c
+errno.h
+-
+inttypes.h
+-
+interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.h
+math.h
+-
+stdio.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+stdlib.h
+-
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.c
+inttypes.h
+-
+memory_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.h
+math.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+stdio.h
+-
+stdlib.h
+-
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.c
+network_bandwith.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.h
+errno.h
+-
+inttypes.h
+-
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.h
+stdio.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+math.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+stdio.h
+-
+stdlib.h
+-
+dirent.h
+-
+stdint.h
+-
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /server.c
+stdio.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdio.h
+stdlib.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdlib.h
+sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /sys/socket.h
+string.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /string.h
+netinet/in.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /netinet/in.h
+pthread.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /pthread.h
+functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
+cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+arpa/inet.h
+-
+netdb.h
+-
+signal.h
+-
+errno.h
+-
+wait.h
+-
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.c
+task_manager.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.h
+cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
+errno.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /errno.h
+inttypes.h
+-
+
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.h
+math.h
+-
+sys/stat.h
+-
+pwd.h
+-
+unistd.h
+-
+string.h
+-
+stdio.h
+-
+stdlib.h
+-
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+

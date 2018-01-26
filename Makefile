@@ -5,15 +5,16 @@ CC=/home/dushn/toolchains/tegra-4.8.1-nv/usr/bin/arm-cortex_a15-linux-gnueabi/ar
 #$^ -uzima imena iz OBJ DIR
 #SDIR:= project/$(TARGET)/src
 BDIR= ./project/out
-SDEPS = functions.h buttons.h buttons_s.h common.h drawing.h interrupts.h main_header.h testing_tree.h window.h
+COMDEPS = -I./project/common/
+SDEPS = functions.h buttons.h buttons_s.h  drawing.h interrupts.h main_header.h testing_tree.h window.h
 #DDEPS = functions.h cpu_usage.h devices.h interrupts.h memory_usage.h network_usage.h task_manager.h
 #OBJ= $(SDIR)/*.c
 LDFLAGS= -lpthread -std=gnu99
-LDFLAGS1= -lpthread 
+LDFLAGS1= -lpthread -lm
 LDFLAGS2= `pkg-config --libs gtk+-3.0` 
 SCFLAGS=-I. -I./project/server/include  
 CCFLAGS=-I. -I./project/client/include	
-CPKGFLAGS= `pkg-config --cflags gtk+-3.0`
+CPKGFLAGS= `pkg-config --cflags gtk+-3.0` -lm
 SSDIR= project/server/src
 CSDIR= project/client/src 
 SOBJ= $(SSDIR)/*.c
@@ -38,14 +39,15 @@ print: $(COBJ)
 	touch print
 server_x86:$(SOBJ)
 	
-	gcc  -o $@ $^     $(SCFLAGS)  $(LDFLAGS1)
+	gcc  -o $@ $^     $(SCFLAGS)  $(COMDEPS)  $(LDFLAGS1)   
+	#gcc  -o $@ $^     $(SCFLAGS) $(CPKGFLAGS) $(LDFLAGS2)
 	mv $@ $(BDIR)
 server_arm:$(SOBJ)
-	$(CC)  -o $@ $^     $(SCFLAGS)  $(LDFLAGS)
+	$(CC)  -o $@ $^     $(SCFLAGS) $(COMDEPS)  $(LDFLAGS)  
 	mv $@ $(BDIR)
 client:	$(csrc)
 	echo "Executing the object file"
-	gcc  -o $@ $^ $(CCFLAGS) $(CPKGFLAGS) $(LDFLAGS2)	
+	gcc  -o $@ $^ $(CCFLAGS)  $(COMDEPS) $(CPKGFLAGS) $(LDFLAGS2) 	
 	mv $@ $(BDIR)
 .PHONY: clean
 

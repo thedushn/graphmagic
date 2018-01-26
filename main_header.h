@@ -7,7 +7,6 @@
 
 #include <cairo.h>
 #include <gtk/gtk.h>
-
 #include <stdlib.h>
 
 
@@ -17,6 +16,8 @@
  GtkWidget *dev_swindow;
 
 int newsockfd;
+int newsockfd1;
+
 GArray *history[8];
 GArray *task_array;
 GArray *names_array;

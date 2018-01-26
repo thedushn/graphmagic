@@ -6,7 +6,6 @@
 #define GTKWORLD_COMMON_H
 
 #include <stdbool.h>
-#include "gtk/gtk.h"
 #include <time.h>
 
 
@@ -27,30 +26,30 @@ struct __attribute__((__packed__))tm1
 
 };
 typedef struct _Task Task;
-struct _Task
+
+struct __attribute__((__packed__)) _Task
 {
     bool checked;
-    short		prio;
+   __int16_t	prio;
     __uint32_t uid;
     __uint32_t		pid;
     __uint32_t		ppid;
-    float		cpu_user;
-    float		cpu_system;
+    char		cpu_user[16];
+    char		cpu_system[16];
     __uint64_t	vsz;
     __uint64_t	rss;
-    __int64_t    start_time;
-    char		name[256];
-    char		uid_name[256];
-    char		state[16];
+    __uint64_t   start_time;
     struct tm1 stime;
     struct tm1 duration;
-
+    char		state[16];
+    char		name[256];
+    char		uid_name[256];
 
 
 
 };
 typedef struct _Network Network;
-struct _Network{
+struct __attribute__((__packed__))_Network{
 
     __uint64_t received_bytes;
     __uint64_t transmited_bytes;
@@ -59,14 +58,19 @@ struct _Network{
 
 };
 typedef struct _Cpu_usage Cpu_usage;
-struct _Cpu_usage {
+struct __attribute__((__packed__)) _Cpu_usage {
 
 
-    float percentage0;
+   /* float percentage0;
     float percentage1;
     float percentage2;
-    float percentage3;
-    int32_t number;
+    float percentage3;*/
+    __int32_t  number;
+    char percentage0[16];
+    char percentage1[16];
+    char percentage2[16];
+    char percentage3[16];
+
 
 };
 
@@ -74,41 +78,43 @@ struct _Cpu_usage {
 
 typedef struct _Memory_usage Memory_usage;
 
-struct _Memory_usage {
-
+struct __attribute__((__packed__)) _Memory_usage {
     __uint64_t  memory_used;
     __uint64_t memory_total;
-    float swap_percentage;
-    __uint64_t  swap_total;
+    char swap_percentage[16];
+    __uint64_t swap_total;
     __uint64_t swap_used;
-    float percentage ;
+    char memory_percentage[16] ;
 
 };
 typedef struct _Interrupts Interrupts;
-struct _Interrupts{
+struct __attribute__((__packed__)) _Interrupts{
 
-    char name[4];
+
+    char name[64];
+    char ime1[64];
+    char ime2[64];
+    char ime3[64];
+    char ime4[64];
     __uint64_t CPU0;
     __uint64_t CPU1;
     __uint64_t CPU2;
     __uint64_t CPU3;
-    char ime1[256];
-    char ime2[256];
-    char ime3[256];
-    char ime4[256];
+
 
 };
-typedef struct  _Sending_stuff Sending_stuff;
-struct _Sending_stuff{
+typedef struct  _Commands Commands;
+struct __attribute__((__packed__)) _Commands{
 
-    __uint32_t mem;
+
     bool show;
-    char command [10];
+    __uint32_t mem;
+    char command [16];
     char task_id [256];
 };
 
 typedef struct _Devices Devices;
-struct _Devices {
+struct __attribute__((__packed__))_Devices {
 
 
     bool checked;
@@ -117,20 +123,20 @@ struct _Devices {
     __uint64_t free;
     __uint64_t avail;
     __uint64_t fid;
-    char		name[256];
-    char       type[256];
+    char		name[64];
+    char       type[64];
     char       directory[256];
 };
 typedef union DATA_S data_s;
 union DATA_S {
 
-    Memory_usage    Memory;
+    Memory_usage    memory_usage;
     Interrupts interrupts;
     Cpu_usage cpu_usage;
     Network network;
     Task task;
     Devices devices;
-    Sending_stuff stuff;
+    Commands commands;
 
 
 

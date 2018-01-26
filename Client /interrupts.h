@@ -24,7 +24,7 @@
 
 
 void interrupt_usage(int info );
-void interrupt_usage2(Interrupts  * *array,int *j );
+void interrupt_usage2(Interrupts  * *array, __int32_t *j );
 
 
 void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3);

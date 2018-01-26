@@ -1,11 +1,11 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/gtkworld.dir/main.c.o"
+  "CMakeFiles/gtkworld.dir/client.c.o"
   "CMakeFiles/gtkworld.dir/interrupts.c.o"
   "CMakeFiles/gtkworld.dir/drawing.c.o"
   "CMakeFiles/gtkworld.dir/buttons.c.o"
   "CMakeFiles/gtkworld.dir/testing_tree.c.o"
   "CMakeFiles/gtkworld.dir/window.c.o"
-  "CMakeFiles/gtkworld.dir/functions.c.o"
+  "CMakeFiles/gtkworld.dir/functions1.c.o"
   "gtkworld.pdb"
   "gtkworld"
 )

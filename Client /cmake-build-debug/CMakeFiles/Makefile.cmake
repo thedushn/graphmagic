@@ -86,9 +86,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/Compiler/XL-CXX-DetermineCompiler.cmake"
   "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/Compiler/zOS-C-DetermineCompiler.cmake"
   "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake"
-  "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/FindPackageHandleStandardArgs.cmake"
-  "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/FindPackageMessage.cmake"
-  "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/FindPkgConfig.cmake"
   "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/Internal/FeatureTesting.cmake"
   "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/Platform/Linux-Determine-CXX.cmake"
   "/home/dushn/clion/clion-2017.1.3/bin/cmake/share/cmake-3.7/Modules/Platform/Linux-GNU-C.cmake"
@@ -117,5 +114,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/Client_.dir/DependInfo.cmake"
+  "CMakeFiles/s.dir/DependInfo.cmake"
+  "CMakeFiles/s_1.dir/DependInfo.cmake"
   )

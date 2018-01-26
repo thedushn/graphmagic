@@ -17,10 +17,10 @@
 #include "common.h"
 
 
-void get_task_list (Task * * array,int *niz);
+void get_task_list (Task * * array,__int32_t *niz);
 
  bool get_task_details (int pid, Task *task);
-static inline long get_pagesize (void);
+
 
 
 

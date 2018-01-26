@@ -48,7 +48,7 @@ GtkTreeStore * create_list_store(void);
 gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
-void unref();
+
 
 GtkTreeStore * create_list_store_dev(void);
 
@@ -63,7 +63,7 @@ enum
     COL_PPID,
     COL_STATE,
     COL_UNAME,
-    COL_STIME,
+    //COL_STIME,
     COL_DUR,
     NUM_COLS
 } ;
