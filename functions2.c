@@ -4,15 +4,13 @@
 
 
 #include"stdio.h"
-#include <inttypes.h>
-#include <stdlib.h>
+
 #include <memory.h>
 
 #include"sys/socket.h"
 
 #include "functions.h"
 
-#define BUF_SIZE 1024
 ssize_t  test_recv(int socket){
 
 
@@ -38,7 +36,7 @@ ssize_t  test_recv(int socket){
     return  64;
 
 };
-void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_usage  *memory_usage
+void  primanje3(int socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_usage  *memory_usage
 ,GArray * array_devices
   ,GArray *array_int
   ,GArray *array_tasks
@@ -50,14 +48,12 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
     Task task;
     Devices devices;
     Interrupts interrupts;
-    char buffer[64];
     ssize_t  ret;
     __int32_t num=0;
-    struct	my_thread_info *info = socket;
     data_s data;
 
     ///memorija
-    ret = recv(info->thread_socket,memory_usage, sizeof(Memory_usage), flag);
+    ret = recv(socket,memory_usage, sizeof(Memory_usage), flag);
     if (ret < 0) {
 
         printf("error receiving data\n %d", (int) ret);
@@ -70,7 +66,8 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
         gtk_main_quit();
     }
 
-    ret = test_recv(info->thread_socket);
+
+    ret = test_recv(socket);
     if (ret < 0) {
 
         printf("error sending data\n %d", (int) ret);
@@ -85,7 +82,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
     //kraj memorije
 
     ///cpu_usage
-    ret =  recv(info->thread_socket, cpu_usage1, sizeof(Cpu_usage), flag);
+    ret =  recv(socket, cpu_usage1, sizeof(Cpu_usage), flag);
     if (ret < 0) {
         printf("Error receiving data!\n");
         gtk_main_quit();
@@ -98,7 +95,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
         gtk_main_quit();
     }
 
-    ret = test_recv(info->thread_socket);
+    ret = test_recv(socket);
     if (ret < 0) {
 
         printf("error receiving data\n %d", (int) ret);
@@ -122,7 +119,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
     ///kraj cpu_usage
 
     ///network
-    ret =  recv(info->thread_socket,network, sizeof(Network), flag);
+    ret =  recv(socket, network, sizeof(Network), flag);
     if (ret < 0) {
         printf("Error receiving num_packets!\n\t");
         //  break;
@@ -136,7 +133,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
         gtk_main_quit();
     }
 
-    ret = test_recv(info->thread_socket);
+    ret = test_recv(socket);
     if (ret < 0) {
 
         printf("error receiving data\n %d", (int) ret);
@@ -158,13 +155,13 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
 
 
     ///devices
-    ret= (int)recv(info->thread_socket,&num,sizeof(__int32_t),flag);
+    ret= (int)recv(socket, &num, sizeof(__int32_t), flag);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
         gtk_main_quit();
         //  exit(1);
     }
-    ret = test_recv(info->thread_socket);
+    ret = test_recv(socket);
     if (ret < 0) {
 
         printf("error receiving data\n %d", (int) ret);
@@ -180,7 +177,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
     for(int i=0 ;i<num;i++) {
 
 
-        ret = (int) recv(info->thread_socket, &devices, sizeof(Devices), flag);
+        ret = (int) recv(socket, &devices, sizeof(Devices), flag);
         //    ret = (int) recvfrom(info->thread_socket, &devices, sizeof(Devices), 0,NULL,NULL);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
@@ -208,7 +205,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
     ///end of devices
 
     /// tasks
-   ret= (int)recv(info->thread_socket,&num,sizeof(__int32_t),flag);
+   ret= (int)recv(socket, &num, sizeof(__int32_t), flag);
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
 
@@ -216,7 +213,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
         // exit(1);
     }
 
-    ret = test_recv(info->thread_socket);
+    ret = test_recv(socket);
     if (ret < 0) {
 
         printf("error receiving data\n %d", (int) ret);
@@ -232,7 +229,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
     for(int i=0 ;i<num;i++) {
 
 
-        ret =  recv(info->thread_socket, &task, sizeof(Task), flag);
+        ret =  recv(socket, &task, sizeof(Task), flag);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
             //  break;
@@ -279,7 +276,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
 
 
     /// interrupts
-    ret=recv(info->thread_socket,&num, sizeof(__int32_t), flag);
+    ret=recv(socket, &num, sizeof(__int32_t), flag);
     if(ret<0){
 
         printf("Error receving data! %d",num);
@@ -292,7 +289,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
         printf("socket closed\n");
         gtk_main_quit();
     }
-    ret = test_recv(info->thread_socket);
+    ret = test_recv(socket);
     if (ret < 0) {
 
         printf("error receing data\n %d", (int) ret);
@@ -311,7 +308,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
     }
 
     for(int i=0 ;i<num;i++){
-        ret = recv(info->thread_socket,&interrupts, sizeof(Interrupts), flag);
+        ret = recv(socket, &interrupts, sizeof(Interrupts), flag);
 
         if (ret < 0) {
             printf("Error receving data!\n\t %ld  %s %s %s   \n", interrupts.CPU0,data.interrupts.name,
@@ -357,7 +354,7 @@ void  primanje3(void * socket ,Cpu_usage  *cpu_usage1, Network *network,Memory_u
 
 
     }
-    ret = test_recv(info->thread_socket);
+    ret = test_recv(socket);
     if (ret < 0) {
 
         printf("error receing data\n %d", (int) ret);

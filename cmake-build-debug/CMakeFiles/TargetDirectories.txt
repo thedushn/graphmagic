@@ -1,4 +1,4 @@
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld_1.dir
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld_1.dir
+/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir

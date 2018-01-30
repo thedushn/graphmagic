@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir/buttons.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/client.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir/client.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir/drawing.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions1.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir/functions1.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir/interrupts.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir/testing_tree.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld.dir/window.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/buttons.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir/buttons.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/client.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir/client.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/drawing.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir/drawing.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/functions1.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir/functions1.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/interrupts.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir/interrupts.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/testing_tree.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir/testing_tree.c.o"
+  "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/window.c" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld.dir/window.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

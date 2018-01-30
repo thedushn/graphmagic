@@ -43,10 +43,10 @@ RM = /home/dushn/clion/clion-2017.1.3/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST"
+CMAKE_SOURCE_DIR = /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug"
+CMAKE_BINARY_DIR = /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/gtkworld_1.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/gtkworld_1.dir/flags.make
 
 CMakeFiles/gtkworld_1.dir/client.c.o: CMakeFiles/gtkworld_1.dir/flags.make
 CMakeFiles/gtkworld_1.dir/client.c.o: ../client.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/gtkworld_1.dir/client.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/client.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/client.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/gtkworld_1.dir/client.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/client.c.o   -c /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/client.c
 
 CMakeFiles/gtkworld_1.dir/client.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/client.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/client.c" > CMakeFiles/gtkworld_1.dir/client.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/client.c > CMakeFiles/gtkworld_1.dir/client.c.i
 
 CMakeFiles/gtkworld_1.dir/client.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/client.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/client.c" -o CMakeFiles/gtkworld_1.dir/client.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/client.c -o CMakeFiles/gtkworld_1.dir/client.c.s
 
 CMakeFiles/gtkworld_1.dir/client.c.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/gtkworld_1.dir/client.c.o.provides.build: CMakeFiles/gtkworld_1.dir/c
 
 CMakeFiles/gtkworld_1.dir/interrupts.c.o: CMakeFiles/gtkworld_1.dir/flags.make
 CMakeFiles/gtkworld_1.dir/interrupts.c.o: ../interrupts.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/gtkworld_1.dir/interrupts.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/interrupts.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/gtkworld_1.dir/interrupts.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/interrupts.c.o   -c /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/interrupts.c
 
 CMakeFiles/gtkworld_1.dir/interrupts.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/interrupts.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.c" > CMakeFiles/gtkworld_1.dir/interrupts.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/interrupts.c > CMakeFiles/gtkworld_1.dir/interrupts.c.i
 
 CMakeFiles/gtkworld_1.dir/interrupts.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/interrupts.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.c" -o CMakeFiles/gtkworld_1.dir/interrupts.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/interrupts.c -o CMakeFiles/gtkworld_1.dir/interrupts.c.s
 
 CMakeFiles/gtkworld_1.dir/interrupts.c.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/gtkworld_1.dir/interrupts.c.o.provides.build: CMakeFiles/gtkworld_1.d
 
 CMakeFiles/gtkworld_1.dir/drawing.c.o: CMakeFiles/gtkworld_1.dir/flags.make
 CMakeFiles/gtkworld_1.dir/drawing.c.o: ../drawing.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/gtkworld_1.dir/drawing.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/drawing.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/gtkworld_1.dir/drawing.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/drawing.c.o   -c /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/drawing.c
 
 CMakeFiles/gtkworld_1.dir/drawing.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/drawing.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.c" > CMakeFiles/gtkworld_1.dir/drawing.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/drawing.c > CMakeFiles/gtkworld_1.dir/drawing.c.i
 
 CMakeFiles/gtkworld_1.dir/drawing.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/drawing.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.c" -o CMakeFiles/gtkworld_1.dir/drawing.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/drawing.c -o CMakeFiles/gtkworld_1.dir/drawing.c.s
 
 CMakeFiles/gtkworld_1.dir/drawing.c.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/gtkworld_1.dir/drawing.c.o.provides.build: CMakeFiles/gtkworld_1.dir/
 
 CMakeFiles/gtkworld_1.dir/buttons.c.o: CMakeFiles/gtkworld_1.dir/flags.make
 CMakeFiles/gtkworld_1.dir/buttons.c.o: ../buttons.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/gtkworld_1.dir/buttons.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/buttons.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/gtkworld_1.dir/buttons.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/buttons.c.o   -c /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/buttons.c
 
 CMakeFiles/gtkworld_1.dir/buttons.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/buttons.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.c" > CMakeFiles/gtkworld_1.dir/buttons.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/buttons.c > CMakeFiles/gtkworld_1.dir/buttons.c.i
 
 CMakeFiles/gtkworld_1.dir/buttons.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/buttons.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.c" -o CMakeFiles/gtkworld_1.dir/buttons.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/buttons.c -o CMakeFiles/gtkworld_1.dir/buttons.c.s
 
 CMakeFiles/gtkworld_1.dir/buttons.c.o.requires:
 
@@ -155,16 +155,16 @@ CMakeFiles/gtkworld_1.dir/buttons.c.o.provides.build: CMakeFiles/gtkworld_1.dir/
 
 CMakeFiles/gtkworld_1.dir/testing_tree.c.o: CMakeFiles/gtkworld_1.dir/flags.make
 CMakeFiles/gtkworld_1.dir/testing_tree.c.o: ../testing_tree.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/gtkworld_1.dir/testing_tree.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/testing_tree.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/gtkworld_1.dir/testing_tree.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/testing_tree.c.o   -c /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/testing_tree.c
 
 CMakeFiles/gtkworld_1.dir/testing_tree.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/testing_tree.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.c" > CMakeFiles/gtkworld_1.dir/testing_tree.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/testing_tree.c > CMakeFiles/gtkworld_1.dir/testing_tree.c.i
 
 CMakeFiles/gtkworld_1.dir/testing_tree.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/testing_tree.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.c" -o CMakeFiles/gtkworld_1.dir/testing_tree.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/testing_tree.c -o CMakeFiles/gtkworld_1.dir/testing_tree.c.s
 
 CMakeFiles/gtkworld_1.dir/testing_tree.c.o.requires:
 
@@ -179,16 +179,16 @@ CMakeFiles/gtkworld_1.dir/testing_tree.c.o.provides.build: CMakeFiles/gtkworld_1
 
 CMakeFiles/gtkworld_1.dir/window.c.o: CMakeFiles/gtkworld_1.dir/flags.make
 CMakeFiles/gtkworld_1.dir/window.c.o: ../window.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/gtkworld_1.dir/window.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/window.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/gtkworld_1.dir/window.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/window.c.o   -c /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/window.c
 
 CMakeFiles/gtkworld_1.dir/window.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/window.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.c" > CMakeFiles/gtkworld_1.dir/window.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/window.c > CMakeFiles/gtkworld_1.dir/window.c.i
 
 CMakeFiles/gtkworld_1.dir/window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/window.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.c" -o CMakeFiles/gtkworld_1.dir/window.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/window.c -o CMakeFiles/gtkworld_1.dir/window.c.s
 
 CMakeFiles/gtkworld_1.dir/window.c.o.requires:
 
@@ -203,16 +203,16 @@ CMakeFiles/gtkworld_1.dir/window.c.o.provides.build: CMakeFiles/gtkworld_1.dir/w
 
 CMakeFiles/gtkworld_1.dir/functions2.c.o: CMakeFiles/gtkworld_1.dir/flags.make
 CMakeFiles/gtkworld_1.dir/functions2.c.o: ../functions2.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/gtkworld_1.dir/functions2.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/functions2.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/gtkworld_1.dir/functions2.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/functions2.c.o   -c /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/functions2.c
 
 CMakeFiles/gtkworld_1.dir/functions2.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/functions2.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c" > CMakeFiles/gtkworld_1.dir/functions2.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/functions2.c > CMakeFiles/gtkworld_1.dir/functions2.c.i
 
 CMakeFiles/gtkworld_1.dir/functions2.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/functions2.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c" -o CMakeFiles/gtkworld_1.dir/functions2.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/functions2.c -o CMakeFiles/gtkworld_1.dir/functions2.c.s
 
 CMakeFiles/gtkworld_1.dir/functions2.c.o.requires:
 
@@ -247,7 +247,7 @@ gtkworld_1: CMakeFiles/gtkworld_1.dir/window.c.o
 gtkworld_1: CMakeFiles/gtkworld_1.dir/functions2.c.o
 gtkworld_1: CMakeFiles/gtkworld_1.dir/build.make
 gtkworld_1: CMakeFiles/gtkworld_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable gtkworld_1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable gtkworld_1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gtkworld_1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -270,6 +270,6 @@ CMakeFiles/gtkworld_1.dir/clean:
 .PHONY : CMakeFiles/gtkworld_1.dir/clean
 
 CMakeFiles/gtkworld_1.dir/depend:
-	cd "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles/gtkworld_1.dir/DependInfo.cmake" --color=$(COLOR)
+	cd /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug /home/dushn/Desktop/TEST_RADI_slanje/TEST_GIT_NEW_YEAR/graphmagic/cmake-build-debug/CMakeFiles/gtkworld_1.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/gtkworld_1.dir/depend
 
