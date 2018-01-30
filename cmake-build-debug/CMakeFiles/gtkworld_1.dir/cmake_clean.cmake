@@ -5,7 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/gtkworld_1.dir/buttons.c.o"
   "CMakeFiles/gtkworld_1.dir/testing_tree.c.o"
   "CMakeFiles/gtkworld_1.dir/window.c.o"
-  "CMakeFiles/gtkworld_1.dir/functions2.c.o"
+  "CMakeFiles/gtkworld_1.dir/functions.c.o"
   "gtkworld_1.pdb"
   "gtkworld_1"
 )

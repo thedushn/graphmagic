@@ -150,13 +150,9 @@ int main(int argc, char *argv[]){
               get_in_addr((struct sockaddr *)&their_addr),
               s, sizeof s);
     printf("server: got connection from %s\n", s);
-        struct my_thread_info *info;
 
 
 
-
-	info = malloc(sizeof(struct my_thread_info));
-	info->thread_socket = new_fd;
 
 
 
@@ -173,6 +169,16 @@ int main(int argc, char *argv[]){
 
         sscanf(buffer,"%d",&uptime1);
       }
+  } else {
+      int errnum;
+      errnum = errno;
+      fprintf(stderr, "Value of errno: %d\n", errno);
+      perror("Error printed by perror");
+      fprintf(stderr, "Error opening file: %s\n", strerror(errnum));
+      close(sockfd);
+      close(new_fd1);
+      close(new_fd);
+      exit(1);
   }
 
       fclose (fp);
@@ -204,15 +210,11 @@ int main(int argc, char *argv[]){
     differenceBetweenTimePeriod(tm2, stop_time, &pocetno);// vreme kada je poceo da radi linux
    // interface_name();
 	printf("now: %d-%d-%d %d:%d:%d\n", tm2.tm_year+1900 , tm2.tm_mon , tm2.tm_mday, tm2.tm_hour, tm2.tm_min, tm2.tm_sec);
-	/*ret = (int) send(sockfd, &tm, sizeof(tm), 0);
-	if (ret<0) {
-		printf("ERROR: Return Code  is %d\n", ret);
-		exit(1);
-	}*/
+
 
     ret2 = pthread_create(&t2, NULL, slanje, &new_fd);
    if(ret2!=0){
-  // if( pthread_create(&t2, NULL, slanje, &info)){
+
        printf("ERROR: Return Code from pthread_create() is %d\n",ret2);
        exit(1);
 
@@ -236,7 +238,6 @@ int main(int argc, char *argv[]){
 	clean();
     /*free(hash_cpu_system);
     free(hash_cpu_user);*/
-    free(info);
 
     printf("hash_freed\n");
 

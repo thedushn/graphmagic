@@ -280,8 +280,7 @@ void init_timeout() {
     cpu_usage1 = calloc(1,sizeof(Cpu_usage));
 
 
-
-    primanje3(&newsockfd,cpu_usage1,network,memory_usage,new_device_list,new_interrupt_list,new_task_list);
+    primanje3(newsockfd, cpu_usage1, network, memory_usage, new_device_list, new_interrupt_list, new_task_list);
     //  start_stop(0,"" ,"");
     poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
    g_array_free(interrupt_array_temp,TRUE);

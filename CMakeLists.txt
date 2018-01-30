@@ -19,7 +19,7 @@ set(SOURCE_FILES
         testing_tree.c testing_tree.h window.c window.h
 
         common.h buttons_s.h
-        functions1.c
+
         functions.h)
 set(SOURCE_FILES_1
         client.c
@@ -35,7 +35,7 @@ set(SOURCE_FILES_1
         testing_tree.c testing_tree.h window.c window.h
 
         common.h buttons_s.h
-        functions2.c
+        functions.c
         functions.h)
 
 

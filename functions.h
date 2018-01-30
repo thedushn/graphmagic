@@ -11,21 +11,12 @@
 ssize_t  test_recv(int socket);
 
 
-
-
-void  primanje3(void * socket
-                ,Cpu_usage * cpu_usage1
+void primanje3(int socket, Cpu_usage *cpu_usage1
                , Network *network
-              , Memory_usage  *memory_usage
-                ,GArray * array_devices
-                ,GArray *array_int
-               ,GArray *array_tasks
+              , Memory_usage  *memory_usage, GArray *array_devices, GArray *array_int, GArray *array_tasks
 );
 
 
-struct my_thread_info {
-    int thread_socket;
-};
 
 
 

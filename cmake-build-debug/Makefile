@@ -226,59 +226,32 @@ drawing.c.s:
 	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/drawing.c.s
 .PHONY : drawing.c.s
 
-functions1.o: functions1.c.o
+functions.o: functions.c.o
 
-.PHONY : functions1.o
-
-# target to build an object file
-functions1.c.o:
-	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/functions1.c.o
-.PHONY : functions1.c.o
-
-functions1.i: functions1.c.i
-
-.PHONY : functions1.i
-
-# target to preprocess a source file
-functions1.c.i:
-	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/functions1.c.i
-.PHONY : functions1.c.i
-
-functions1.s: functions1.c.s
-
-.PHONY : functions1.s
-
-# target to generate assembly for a file
-functions1.c.s:
-	$(MAKE) -f CMakeFiles/gtkworld.dir/build.make CMakeFiles/gtkworld.dir/functions1.c.s
-.PHONY : functions1.c.s
-
-functions2.o: functions2.c.o
-
-.PHONY : functions2.o
+.PHONY : functions.o
 
 # target to build an object file
-functions2.c.o:
-	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions2.c.o
-.PHONY : functions2.c.o
+functions.c.o:
+	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions.c.o
+.PHONY : functions.c.o
 
-functions2.i: functions2.c.i
+functions.i: functions.c.i
 
-.PHONY : functions2.i
+.PHONY : functions.i
 
 # target to preprocess a source file
-functions2.c.i:
-	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions2.c.i
-.PHONY : functions2.c.i
+functions.c.i:
+	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions.c.i
+.PHONY : functions.c.i
 
-functions2.s: functions2.c.s
+functions.s: functions.c.s
 
-.PHONY : functions2.s
+.PHONY : functions.s
 
 # target to generate assembly for a file
-functions2.c.s:
-	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions2.c.s
-.PHONY : functions2.c.s
+functions.c.s:
+	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions.c.s
+.PHONY : functions.c.s
 
 interrupts.o: interrupts.c.o
 
@@ -389,12 +362,9 @@ help:
 	@echo "... drawing.o"
 	@echo "... drawing.i"
 	@echo "... drawing.s"
-	@echo "... functions1.o"
-	@echo "... functions1.i"
-	@echo "... functions1.s"
-	@echo "... functions2.o"
-	@echo "... functions2.i"
-	@echo "... functions2.s"
+	@echo "... functions.o"
+	@echo "... functions.i"
+	@echo "... functions.s"
 	@echo "... interrupts.o"
 	@echo "... interrupts.i"
 	@echo "... interrupts.s"

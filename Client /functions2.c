@@ -127,25 +127,13 @@ void send_signal_to_task(char *task_id, char *signal)
 }
 void *accept_c(void *socket){
     printf("usli smo u accpet\n");
-    struct	my_thread_info *info = socket;
-   /*static*/ int rezultat ;
-/*    char buffer[BUF_SIZE];
-    gboolean res=FALSE;*/
-   // data_s data;
-  /*  struct Commands{
+    int sockfd = *(int *) socket;
 
-       int mem;
-        gboolean show;
-        gchar command [10];
-        gchar task_id [256];
-    }stuff;*/
     Commands commands;
 
     while (1) {
-     //  pthread_mutex_lock (&m);
-       /* info = malloc(sizeof(struct my_thread_info));
-        info->thread_socket= *(int*)socket;*/
-       int ret = (int )recv(info->thread_socket, &commands, sizeof(Commands), NULL);
+
+        ssize_t ret = recv(sockfd, &commands, sizeof(Commands), 0);
         if(ret<0){
             printf("error condition didnt get received\n");
 
@@ -154,12 +142,11 @@ void *accept_c(void *socket){
         }
         if(ret==0){
             printf("error condition didnt get received\n");
-            printf("ret %d\n",ret);
+            printf("ret %d\n", (int) ret);
 
             pthread_exit(&ret);
         }
-        printf("ret accept  %d \n",ret);
-       rezultat=commands.mem;
+        printf("ret accept  %d \n", (int) ret);
         devices_show=commands.show;
 
         printf("sHOW %s\n", commands.show==true ? "TRUE" : "FALSE");
@@ -177,9 +164,9 @@ void *accept_c(void *socket){
             }
             else{
 
-               /*res= */ send_prio_to_task(commands.task_id,commands.command);
+                send_prio_to_task(commands.task_id, commands.command);
             }
-           // printf("DA li smo uspeli %s\n", res==TRUE ? "TRUE" : "FALSE");
+
         }
 
 
@@ -197,11 +184,11 @@ void *slanje(void *socket){
         //unsigned int num_packets;
 
     time_t time1;
-    static struct	my_thread_info *info;
+
     Task *task_array=NULL;
     Interrupts  *interrupts=NULL;
     Devices  *devices=NULL;
-
+    int sockfd = *(int *) socket;
     data_s data;
 
     while(1) {
@@ -209,8 +196,7 @@ void *slanje(void *socket){
         Memory_usage memory_usage={0};
         Cpu_usage cpu_usage={0} ;
         Network network={0};
-        info = malloc(sizeof(struct my_thread_info));
-        info->thread_socket= *(int*)socket;
+
 
         time1 = time(NULL);
 
@@ -219,7 +205,7 @@ void *slanje(void *socket){
         get_memory_usage(&memory_usage);
 
 
-        ret = send(info->thread_socket, &memory_usage, sizeof(Memory_usage), 0);
+        ret = send(sockfd, &memory_usage, sizeof(Memory_usage), 0);
 
         if (ret < 0) {
             printf("Error sending data!\n\t");
@@ -231,7 +217,7 @@ void *slanje(void *socket){
             break;
         }
 
-        ret=test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
             printf("Error receiving  num_packets!\n\t");
             break;
@@ -257,7 +243,7 @@ void *slanje(void *socket){
         __int32_t cpu_num= cpu_number();
         cpu_percentage(cpu_num,&cpu_usage);
 
-        ret = (int) send(info->thread_socket, &cpu_usage, sizeof(Cpu_usage), 0);
+        ret = send(sockfd, &cpu_usage, sizeof(Cpu_usage), 0);
         if (ret < 0) {
             printf("Error sending data!\n\t");
             break;
@@ -268,7 +254,7 @@ void *slanje(void *socket){
             printf("socket closed\n");
             break;
         }
-        ret=test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
             printf("error receing data\n %d",(int) ret);
@@ -285,7 +271,7 @@ void *slanje(void *socket){
         ///network
         interface_name(&network);
 
-        ret =  send(info->thread_socket, &network, sizeof(Network), 0);
+        ret = send(sockfd, &network, sizeof(Network), 0);
 
         if (ret < 0) {
             printf("Error sending data!\n\t");
@@ -298,7 +284,7 @@ void *slanje(void *socket){
             break;
 
         }
-        ret=test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
             printf("error receing data\n %d",(int) ret);
@@ -321,9 +307,7 @@ void *slanje(void *socket){
         printf("prosli \n");
 
 
-
-
-        ret = (int) send(info->thread_socket, &niz, sizeof(__int32_t), 0);
+        ret = send(sockfd, &niz, sizeof(__int32_t), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
 
@@ -334,7 +318,7 @@ void *slanje(void *socket){
             printf("socket closed\n");
             break;
         }
-        ret=test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
             printf("error receing data\n %d",(int) ret);
@@ -348,7 +332,7 @@ void *slanje(void *socket){
 
         for(int i =0;i<niz ;i++){
             devices[i].checked=false;
-            ret = (int) send(info->thread_socket, &devices[i], sizeof(Devices), 0);
+            ret = (int) send(sockfd, &devices[i], sizeof(Devices), 0);
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
@@ -369,7 +353,7 @@ void *slanje(void *socket){
         get_task_list(&task_array,&niz_task);
 
         __int32_t niz_temp= (__int32_t) niz_task;
-        ret = (int) send(info->thread_socket, &niz_temp, sizeof(__int32_t), 0);
+        ret = send(sockfd, &niz_temp, sizeof(__int32_t), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
 
@@ -381,7 +365,7 @@ void *slanje(void *socket){
             printf("socket closed\n");
             break;
         }
-        ret=test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
             printf("error receing data\n %d",(int) ret);
@@ -396,7 +380,7 @@ void *slanje(void *socket){
         for (int i = 0; i < niz_task; i++) {
 
 
-            ret = (int) send(info->thread_socket, &task_array[i], sizeof(Task), 0);
+            ret = send(sockfd, &task_array[i], sizeof(Task), 0);
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
@@ -473,15 +457,18 @@ void *slanje(void *socket){
 
         ///interrupts
         __int32_t h=0;
+        int result = 0;
+        result = interrupt_usage2(&interrupts, &h);
+        if (result != 0) {
 
-        interrupt_usage2(&interrupts,&h);
-
+            break;
+        }
 
 
         __int32_t j=h;
 
         printf("BROJ INT %d \n",j);
-        ret = (int) send(info->thread_socket, &j, sizeof(__int32_t), 0);
+        ret = send(sockfd, &j, sizeof(__int32_t), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
             break;
@@ -492,7 +479,7 @@ void *slanje(void *socket){
             printf("socket closed\n");
             break;
         }
-        ret=test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
             printf("error receing data\n %d",(int) ret);
@@ -506,7 +493,7 @@ void *slanje(void *socket){
         for(int r=0;r<h;r++){
 
 
-            ret = (int) send(info->thread_socket, &interrupts[r], sizeof(Interrupts), 0);
+            ret = send(sockfd, &interrupts[r], sizeof(Interrupts), 0);
 
 
             if (ret < 0) {
@@ -526,7 +513,7 @@ void *slanje(void *socket){
             printf("return value of Interrupts ret: %d number of send %d  \n",(int)ret,r );
 
         }
-        ret=test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
             printf("error receing data\n %d",(int) ret);
@@ -542,13 +529,10 @@ void *slanje(void *socket){
         free(devices);
         free(interrupts);
 
-        free(info);
+
         task_array=NULL;
         devices=NULL;
         interrupts=NULL;
-        info=NULL;
-
-
 
 
     }
@@ -567,11 +551,6 @@ void *slanje(void *socket){
     if(interrupts!=NULL){
         printf("interrupts\n");
         free(interrupts);
-    }
-    if(info!=NULL){
-        printf("info\n");
-        free(info);
-
     }
 
 

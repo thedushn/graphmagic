@@ -18,7 +18,7 @@ void 	get_memory_usage(Memory_usage *memory_usage){
     __uint64_t memory_buffers=0;
     __uint64_t swap_total=0;
     __uint64_t swap_free=0;
-  //  __uint64_t memory_available=0;
+
     FILE *file;
     char buffer[1024];
     char *filename = "/proc/meminfo";
@@ -84,6 +84,7 @@ void 	get_memory_usage(Memory_usage *memory_usage){
    if(sprintf(memory_usage->swap_percentage,"%f",swap_percentage)<0) {
 
        printf("nije uspelo convertovanje %s \n",memory_usage->swap_percentage);
+       strcpy(memory_usage->swap_percentage, "0");
    }
     memory_usage->swap_used=swap_used;
     memory_usage->memory_used=memory_used;
@@ -95,19 +96,12 @@ void 	get_memory_usage(Memory_usage *memory_usage){
     if(sprintf(memory_usage->memory_percentage,"%f",percentage)<0) {
 
         printf("nije uspelo convertovanje %s \n",memory_usage->memory_percentage);
+        strcpy(memory_usage->swap_percentage, "0");
     }
 
 
 
 
-/////
-   /* memory->memory_usage.memory_total= memory_usage.memory_total;
-    memory->memory_usage.swap_total= memory_usage.swap_total;
-    memory->memory_usage.swap_used= memory_usage.swap_used;
-    memory->memory_usage.swap_percentage= memory_usage.swap_percentage;
-    memory->memory_usage.memory_used= memory_usage.memory_used;
-    memory->memory_usage.memory_percentage= memory_usage.memory_percentage;*/
-//////
 
 
 

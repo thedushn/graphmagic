@@ -139,7 +139,8 @@ void mountlist3(Devices **array,bool mount,__int32_t *fake){
     else{
         while( fgets (buffer, 1024, file) != NULL){
             //upisujemo podatke
-            sscanf(buffer,"%63s %255s %63s",devices2[niz].name,devices2[niz].directory,devices2[niz].type);
+            sscanf(buffer, "%s %s %s", devices2[niz].name, devices2[niz].directory, devices2[niz].type);
+            //  sscanf(buffer,"%63s %255s %63s",devices2[niz].name,devices2[niz].directory,devices2[niz].type);
 
 
             struct stat filestat;

@@ -234,15 +234,12 @@
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.c">
+			<Option target="gtkworld_1"/>
+		</Unit>
 		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
-		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions1.c">
-			<Option target="gtkworld"/>
-		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c">
-			<Option target="gtkworld_1"/>
 		</Unit>
 		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.c">
 			<Option target="gtkworld_1"/>

@@ -7,10 +7,7 @@
 #include "task_manager.h"
 #include "devices.h"
 #include "network_bandwith.h"
-void * chat(void * socket);
-void *conformation (int socket);
-void *send_some_files(int socket);
-void *chat2(void * socket);
+
 void *slanje(void * socket);
 void *accept_c (void *socket);
 ssize_t test_send(int socket);

@@ -46,9 +46,7 @@ void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3){
 };
 
 
-
-
-void interrupt_usage2(Interrupts * *array2,__int32_t *j ) {
+int interrupt_usage2(Interrupts **array2, __int32_t *j) {
 
 
     FILE *file;
@@ -64,9 +62,11 @@ void interrupt_usage2(Interrupts * *array2,__int32_t *j ) {
     static  int g=0;
     if (array == NULL) {
         fprintf(stderr, "malloc failed\n");
+        return 1;
+
     }
     if ((file = fopen(filename, "r")) == NULL || fgets(buffer, 1024, file) == NULL)
-        exit(1);
+        return 1;
 
 
     while (fgets(buffer, 1024, file) != NULL) {
@@ -134,8 +134,10 @@ void interrupt_usage2(Interrupts * *array2,__int32_t *j ) {
             array=temp;
         } else {
             free(array);
-            free(temp);
+            fclose(file);
             printf("relloc error %d",errno);
+            return 1;
+
         }
 
 
@@ -155,5 +157,5 @@ void interrupt_usage2(Interrupts * *array2,__int32_t *j ) {
     //  free(array);
 
 
-
+    return 0;
 }

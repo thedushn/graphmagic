@@ -201,28 +201,28 @@ CMakeFiles/gtkworld_1.dir/window.c.o.provides: CMakeFiles/gtkworld_1.dir/window.
 CMakeFiles/gtkworld_1.dir/window.c.o.provides.build: CMakeFiles/gtkworld_1.dir/window.c.o
 
 
-CMakeFiles/gtkworld_1.dir/functions2.c.o: CMakeFiles/gtkworld_1.dir/flags.make
-CMakeFiles/gtkworld_1.dir/functions2.c.o: ../functions2.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/gtkworld_1.dir/functions2.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/functions2.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c"
+CMakeFiles/gtkworld_1.dir/functions.c.o: CMakeFiles/gtkworld_1.dir/flags.make
+CMakeFiles/gtkworld_1.dir/functions.c.o: ../functions.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/gtkworld_1.dir/functions.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gtkworld_1.dir/functions.c.o   -c "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.c"
 
-CMakeFiles/gtkworld_1.dir/functions2.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/functions2.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c" > CMakeFiles/gtkworld_1.dir/functions2.c.i
+CMakeFiles/gtkworld_1.dir/functions.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gtkworld_1.dir/functions.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.c" > CMakeFiles/gtkworld_1.dir/functions.c.i
 
-CMakeFiles/gtkworld_1.dir/functions2.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/functions2.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c" -o CMakeFiles/gtkworld_1.dir/functions2.c.s
+CMakeFiles/gtkworld_1.dir/functions.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gtkworld_1.dir/functions.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.c" -o CMakeFiles/gtkworld_1.dir/functions.c.s
 
-CMakeFiles/gtkworld_1.dir/functions2.c.o.requires:
+CMakeFiles/gtkworld_1.dir/functions.c.o.requires:
 
-.PHONY : CMakeFiles/gtkworld_1.dir/functions2.c.o.requires
+.PHONY : CMakeFiles/gtkworld_1.dir/functions.c.o.requires
 
-CMakeFiles/gtkworld_1.dir/functions2.c.o.provides: CMakeFiles/gtkworld_1.dir/functions2.c.o.requires
-	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions2.c.o.provides.build
-.PHONY : CMakeFiles/gtkworld_1.dir/functions2.c.o.provides
+CMakeFiles/gtkworld_1.dir/functions.c.o.provides: CMakeFiles/gtkworld_1.dir/functions.c.o.requires
+	$(MAKE) -f CMakeFiles/gtkworld_1.dir/build.make CMakeFiles/gtkworld_1.dir/functions.c.o.provides.build
+.PHONY : CMakeFiles/gtkworld_1.dir/functions.c.o.provides
 
-CMakeFiles/gtkworld_1.dir/functions2.c.o.provides.build: CMakeFiles/gtkworld_1.dir/functions2.c.o
+CMakeFiles/gtkworld_1.dir/functions.c.o.provides.build: CMakeFiles/gtkworld_1.dir/functions.c.o
 
 
 # Object files for target gtkworld_1
@@ -233,7 +233,7 @@ gtkworld_1_OBJECTS = \
 "CMakeFiles/gtkworld_1.dir/buttons.c.o" \
 "CMakeFiles/gtkworld_1.dir/testing_tree.c.o" \
 "CMakeFiles/gtkworld_1.dir/window.c.o" \
-"CMakeFiles/gtkworld_1.dir/functions2.c.o"
+"CMakeFiles/gtkworld_1.dir/functions.c.o"
 
 # External object files for target gtkworld_1
 gtkworld_1_EXTERNAL_OBJECTS =
@@ -244,7 +244,7 @@ gtkworld_1: CMakeFiles/gtkworld_1.dir/drawing.c.o
 gtkworld_1: CMakeFiles/gtkworld_1.dir/buttons.c.o
 gtkworld_1: CMakeFiles/gtkworld_1.dir/testing_tree.c.o
 gtkworld_1: CMakeFiles/gtkworld_1.dir/window.c.o
-gtkworld_1: CMakeFiles/gtkworld_1.dir/functions2.c.o
+gtkworld_1: CMakeFiles/gtkworld_1.dir/functions.c.o
 gtkworld_1: CMakeFiles/gtkworld_1.dir/build.make
 gtkworld_1: CMakeFiles/gtkworld_1.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable gtkworld_1"
@@ -261,7 +261,7 @@ CMakeFiles/gtkworld_1.dir/requires: CMakeFiles/gtkworld_1.dir/drawing.c.o.requir
 CMakeFiles/gtkworld_1.dir/requires: CMakeFiles/gtkworld_1.dir/buttons.c.o.requires
 CMakeFiles/gtkworld_1.dir/requires: CMakeFiles/gtkworld_1.dir/testing_tree.c.o.requires
 CMakeFiles/gtkworld_1.dir/requires: CMakeFiles/gtkworld_1.dir/window.c.o.requires
-CMakeFiles/gtkworld_1.dir/requires: CMakeFiles/gtkworld_1.dir/functions2.c.o.requires
+CMakeFiles/gtkworld_1.dir/requires: CMakeFiles/gtkworld_1.dir/functions.c.o.requires
 
 .PHONY : CMakeFiles/gtkworld_1.dir/requires
 
