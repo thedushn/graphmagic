@@ -18,6 +18,6 @@ struct my_thread_info {
 struct tm lokalno;
 
 struct tm1 pocetno;
-pthread_t t2,t3;
+
 
 #endif

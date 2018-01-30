@@ -12,7 +12,7 @@
 static struct DataItem *hash_cpu_user = NULL;
 static struct DataItem *hash_cpu_system = NULL;
 
-
+static __uint64_t jiffies_total_delta[5] = {0, 0, 0, 0, 0};
 //void cpu_number (){
 int cpu_number (){
 

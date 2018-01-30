@@ -17,7 +17,7 @@
 #include "common.h"
 
 
-void get_task_list (Task * * array,__int32_t *niz);
+int get_task_list(Task **array, __int32_t *niz);
 
  bool get_task_details (int pid, Task *task);
 

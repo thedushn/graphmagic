@@ -22,7 +22,6 @@ struct DataItem {
 };
 
 
-static  __uint64_t jiffies_total_delta[5] = {0,0,0,0,0};
 int cpu_number();
 void cpu_percentage(int ncpu,Cpu_usage *cpu_usage);
 

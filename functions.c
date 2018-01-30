@@ -224,7 +224,12 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("socket closed\n");
         gtk_main_quit();
     }
-    printf("num %d\n",num);
+    printf("num %d\n", num);
+    printf("num %d\n", num);
+    printf("num %d\n", num);
+    printf("num %d\n", num);
+    printf("num %d\n", num);
+    printf("num %d\n", num);
     for(int i=0 ;i<num;i++) {
 
 

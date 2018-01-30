@@ -4,7 +4,6 @@
 
 #include <inttypes.h>
 #include "drawing.h"
-#include <math.h>
 #include "main_header.h"
 
 
@@ -167,9 +166,6 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
 
             }
 
-            printf("J[%d]\n",(int)j);
-            printf("G[%d]\n",(int)g);
-            printf("Y[%d]\n",(int)y);
             if(r==q){
                 gchar text_int[y];
                 memset(text_int, 0, y);
@@ -178,15 +174,13 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
 
                     text_int[s] = ime1[s];
                 }
-                printf("2[%s]\n",text_int);
-                printf("size of buffer %d\n",(int)sizeof(text_int));
+
                 cairo_show_text(cr, ime1);
             }
             else{
                  //char text_int[y];
                 char *text_int=(char*)calloc(y,sizeof(char));
 
-                printf("size of buffer %d\n",(int)sizeof(text_int));
 
                 memset(text_int, 0, y);
                 for (int s = 0; s < y; s++) {
@@ -245,15 +239,13 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
                     y=j;
 
                 }
-                printf("2J[%d]\n",(int)j);
-                printf("2G[%d]\n",(int)g);
-                printf("2Y[%d]\n",(int)y);
+
                 if(r==q){
 
 
 
                     cairo_show_text(cr, ime2);
-                    printf("2[%s]\n",ime2);
+
                 }
                 else{
                     char *text_int=(char*)calloc(y,sizeof(char));
@@ -265,7 +257,7 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
                         ime2++;
                     }
                     cairo_show_text(cr, text_int);
-                    printf("3[%s]\n",text_int);
+
                     free(text_int);
                 }
 

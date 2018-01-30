@@ -238,12 +238,14 @@ get_task_details (int pid, Task *task)
    // printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
     return true;
 }
-void
+
+int
 get_task_list (Task * * array,int *niz)
 {
   //  printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
-    Task *tasks_array, *temp;
-    tasks_array=malloc(sizeof(Task));
+    Task *tasks_array;
+    Task *temp = NULL;
+    tasks_array = calloc(1, sizeof(Task));
     DIR *dir;
     struct dirent *d_file;
     char *directory="/proc";
@@ -254,6 +256,7 @@ get_task_list (Task * * array,int *niz)
 
     if((dir=opendir(directory))==NULL){
         printf("error task dir %d\n",errno);
+        return 1;
     }
 
 
@@ -265,7 +268,8 @@ get_task_list (Task * * array,int *niz)
         if((pid= (int)strtol(d_file->d_name,NULL,0))>0)
             // if ((pid = (int)strtoul (d_file->d_name,NULL,0)) > 0)
         {
-            //   printf("Pid koji prosledjujemo get_task_list [%d]\n",pid);
+
+
             if (get_task_details (pid, &tasks_array[g]))
             {
                 g++;
@@ -274,29 +278,34 @@ get_task_list (Task * * array,int *niz)
                     tasks_array=temp;
                 } else {
                     free(tasks_array);
+                    closedir(dir);
                     printf("relloc error %d \n",errno);
+                    return 1;
                 }
-
-                *niz=g;
-
-
-
-
-
             }
 
         }
         else{
 
-            // printf( "Ime file koji nije prosao %s\n",d_file->d_name);
+            //     printf( "Ime file koji nije prosao %s\n",d_file->d_name);
+
         }
 
     }
+    temp = realloc(tasks_array, ( /**j*/ g) * sizeof(Task));
+    if (temp != NULL) {
+        tasks_array = temp;
+    } else {
+        free(tasks_array);
+        closedir(dir);
+        printf("relloc error %d \n", errno);
+        return 1;
+    }
 
-
+    *niz = g;
     *array=tasks_array;
     closedir(dir);
-
+    return 0;
     // compare_lists(tasks);
    // printf("leave %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
 }

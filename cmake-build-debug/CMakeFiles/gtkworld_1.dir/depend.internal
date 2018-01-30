@@ -1809,10 +1809,10 @@ CMakeFiles/gtkworld_1.dir/drawing.c.o
  /usr/include/pango-1.0/pango/pango.h
  /usr/include/pango-1.0/pango/pangocairo.h
  /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h
-CMakeFiles/gtkworld_1.dir/functions2.c.o
+CMakeFiles/gtkworld_1.dir/functions.c.o
  /home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
+ /home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.c
  /home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h
- /home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions2.c
  /usr/include/atk-1.0/atk/atk-enum-types.h
  /usr/include/atk-1.0/atk/atk.h
  /usr/include/atk-1.0/atk/atkaction.h

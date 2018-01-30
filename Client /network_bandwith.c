@@ -67,12 +67,16 @@ void get_rec_trans(char *name, __uint64_t received,__uint64_t *received_struct, 
     __uint64_t received_bytes_old = 0, transmit_bytes_old = 0;
     static int hash_size = 0;
     bool ima = false;
+    struct DataItem_net *temp = NULL;
+    struct DataItem_net *temp1 = NULL;
     printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
     printf(">>>1\n");
     if (hash_network_rec == NULL) {
         printf(">>>1\n");
-        hash_network_rec = (struct DataItem_net *) malloc(sizeof(struct DataItem_net));
-        hash_network_trans = (struct DataItem_net *) malloc(sizeof(struct DataItem_net));
+        hash_network_rec = (struct DataItem_net *) calloc(1, sizeof(struct DataItem_net));
+        hash_network_trans = (struct DataItem_net *) calloc(1, sizeof(struct DataItem_net));
+        /*   hash_network_rec = (struct DataItem_net *) malloc(sizeof(struct DataItem_net));
+           hash_network_trans = (struct DataItem_net *) malloc(sizeof(struct DataItem_net));*/
         memset(hash_network_trans->key,0,sizeof(hash_network_trans->key));
         memset(hash_network_rec->key,0,sizeof(hash_network_rec->key));
         hash_size++;
@@ -90,8 +94,8 @@ void get_rec_trans(char *name, __uint64_t received,__uint64_t *received_struct, 
     if (ima == false) {
 
         printf(">>>3\n");
-        struct DataItem_net *temp = realloc(hash_network_rec, ( /**j*/ hash_size + 1) * sizeof(struct DataItem_net));
-        struct DataItem_net *temp1 = realloc(hash_network_trans, ( /**j*/ hash_size + 1) * sizeof(struct DataItem_net));
+        temp = realloc(hash_network_rec, (hash_size + 1) * sizeof(struct DataItem_net));
+        temp1 = realloc(hash_network_trans, (hash_size + 1) * sizeof(struct DataItem_net));
         printf(">>>3\n");
         hash_size++;
         printf(">>>4\n");
@@ -247,20 +251,20 @@ int interface_name(Network *network1){
           // printf("NAme %s\n", name);
             __uint64_t received_bytes=0;
             unsigned  long received_packets=0;
-            unsigned  long received_errors;
-            unsigned  long received_drop;
-            unsigned  long received_fifo;
-            unsigned  long received_frame;
-            unsigned  long received_compressed;
-            unsigned  long received_multicast;
+            unsigned long received_errors = 0;
+            unsigned long received_drop = 0;
+            unsigned long received_fifo = 0;
+            unsigned long received_frame = 0;
+            unsigned long received_compressed = 0;
+            unsigned long received_multicast = 0;
             __uint64_t transmit_bytes=0;
             unsigned  long transmit_packets=0;
-            unsigned  long transmit_errors;
-            unsigned  long transmit_drop;
-            unsigned  long transmit_fifo;
-            unsigned  long transmit_frame;
-            unsigned  long transmit_compressed;
-            unsigned  long transmit_multicast;
+            unsigned long transmit_errors = 0;
+            unsigned long transmit_drop = 0;
+            unsigned long transmit_fifo = 0;
+            unsigned long transmit_frame = 0;
+            unsigned long transmit_compressed = 0;
+            unsigned long transmit_multicast = 0;
             __uint64_t network_rc1=0 ;
             __uint64_t network_ts1=0;
 
@@ -286,8 +290,12 @@ int interface_name(Network *network1){
       /*      char ch = ' ';
             int a = 0;*/
             printf(">>>4\n");
-            if ((file = fopen(filename, "r")) == NULL || fgets(buffer, 1024, file) == NULL)
-                exit(1);
+            if ((file = fopen(filename, "r")) == NULL || fgets(buffer, 1024, file) == NULL) {
+                closedir(pDir);
+                return 1;
+            }
+
+
 
             while (fgets(buffer, 1024, file) != NULL) {
 
@@ -342,9 +350,9 @@ int interface_name(Network *network1){
                    &transmit_compressed,
                    &transmit_multicast);
 
-          //     printf("received bytes beofre %" SCNu64" \n",received_bytes);
 
-         //   printf("usli\n");
+            fclose(file);
+
             printf(">>>5\n");
             network_rc1=0;
             network_ts1=0;
@@ -352,20 +360,20 @@ int interface_name(Network *network1){
             get_rec_trans(name,received_bytes,&network_rc1,transmit_bytes,&network_ts1);
               printf("name %s received_bytes    %" SCNu64 " transmit_bytes %" SCNu64 "\n",name,received_bytes,transmit_bytes);
             printf("name %s rec_rc1 %" SCNu64 " trans_ts1  %" SCNu64 " \n",name,network_rc1,network_ts1);
-          //  printf("izasli\n");
-            printf(">>>6\n");
+
+
             network_rc+=network_rc1;
             network_ts+=network_ts1;
             printf("received_rc    %" SCNu64 " transimted_ts %" SCNu64 "\n",network_rc,network_ts);
-            // i++;
-            printf(">>>6\n");
+
+
             memset(name,0,sizeof(name));
             memset(buffer,0,sizeof(buffer));
             memset(buffer2,0,sizeof(buffer2));
             memset(buffer3,0,sizeof(buffer3));
             broj=0;
-            printf(">>>6\n");
-            fclose(file);
+
+
         }
 
 
@@ -385,6 +393,7 @@ int interface_name(Network *network1){
 
 }
 void clean(){
+
 
     free(hash_network_trans);
     free(hash_network_rec);

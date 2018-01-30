@@ -186,16 +186,18 @@ void *slanje(void *socket){
     time_t time1;
 
     Task *task_array=NULL;
+
     Interrupts  *interrupts=NULL;
     Devices  *devices=NULL;
     int sockfd = *(int *) socket;
-    data_s data;
+    int result = 0;
 
     while(1) {
 
         Memory_usage memory_usage={0};
         Cpu_usage cpu_usage={0} ;
         Network network={0};
+        memset(&network, 0, sizeof(Network));
 
 
         time1 = time(NULL);
@@ -269,8 +271,11 @@ void *slanje(void *socket){
         ///cpu end
 
         ///network
-        interface_name(&network);
+        result = interface_name(&network);
+        if (result != 0) {
 
+            break;
+        }
         ret = send(sockfd, &network, sizeof(Network), 0);
 
         if (ret < 0) {
@@ -350,8 +355,12 @@ void *slanje(void *socket){
 
         /// tasks
         int niz_task=0;
-        get_task_list(&task_array,&niz_task);
+        result = get_task_list(&task_array, &niz_task);
+        if (result != 0) {
 
+            printf("error in get_task_list\n");
+            break;
+        }
         __int32_t niz_temp= (__int32_t) niz_task;
         ret = send(sockfd, &niz_temp, sizeof(__int32_t), 0);
         if (ret < 0) {
@@ -457,7 +466,7 @@ void *slanje(void *socket){
 
         ///interrupts
         __int32_t h=0;
-        int result = 0;
+
         result = interrupt_usage2(&interrupts, &h);
         if (result != 0) {
 

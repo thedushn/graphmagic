@@ -45,10 +45,10 @@ void *get_in_addr(struct sockaddr *sa)
 int main(int argc, char *argv[]){
 
 
-
-
+    pthread_t t2, t3;
     int sockfd=0;
-    int new_fd,new_fd1;  // listen on sock_fd, new connection on new_fd
+    int new_fd = 0;
+    int new_fd1 = 0;  // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
     struct sockaddr_storage their_addr; // connector's address information
     socklen_t sin_size;
