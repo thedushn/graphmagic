@@ -8,7 +8,8 @@
     <bookmark url="file://$PROJECT_DIR$/client.c" description="//  poredjenje(new_interrupt_list,interrupt_array_..." line="284" />
     <bookmark url="file://$PROJECT_DIR$/client.c" description="g_array_free(new_task_list, TRUE);" line="497" />
     <bookmark url="file://$PROJECT_DIR$/client.c" description="g_array_free(new_interrupt_list,TRUE);" line="500" />
-    <bookmark url="file://$PROJECT_DIR$/Client /functions2.c" description="send" line="191" />
+    <bookmark url="file://$PROJECT_DIR$/Client /functions2.c" description="send" line="190" />
+    <bookmark url="file://$PROJECT_DIR$/Client /network_bandwith.c" description="&#10;         " line="347" />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
@@ -23,8 +24,70 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae9a8f5a-838e-4740-bb5d-4f7597028504" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/out/client" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/out/server_arm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/out/server_x86" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons_s.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/drawing.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/functions.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/interrupts.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/main_header.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/testing_tree.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/window.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/buttons.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/client.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/drawing.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/functions.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/interrupts.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/testing_tree.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/window.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/common/common.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/Makefile" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/Untitled Document" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/common.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/cpu_usage.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/devices.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/functions.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/interrupts.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/memory_usage.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/network_bandwith.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/task_manager.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/n.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/cpu_usage.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/devices.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/functions.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/interrupts.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/memory_usage.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/network_bandwith.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/server.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/task_manager.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/src_server/functions.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/makefile_folder/project/src_server/server.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/a.out" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/a.out" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/feature_tests.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/cpu_usage.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/cpu_usage.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/devices.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/devices.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/functions2.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/functions2.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/network_bandwith.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/network_bandwith.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/server.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/server.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/task_manager.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/task_manager.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/s_1" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/s_1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/drawing.c.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/drawing.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/gtkworld_1" afterPath="$PROJECT_DIR$/cmake-build-debug/gtkworld_1" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /.idea/workspace.xml" afterPath="$PROJECT_DIR$/Client /.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeSystem.cmake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/CMakeOutput.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cpu_usage.c" afterPath="$PROJECT_DIR$/Client /cpu_usage.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /devices.c" afterPath="$PROJECT_DIR$/Client /devices.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /functions2.c" afterPath="$PROJECT_DIR$/Client /functions2.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /network_bandwith.c" afterPath="$PROJECT_DIR$/Client /network_bandwith.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /task_manager.c" afterPath="$PROJECT_DIR$/Client /task_manager.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/C.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/C.includecache" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,11 +100,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="80">
+              <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -72,7 +135,7 @@
       <file leaf-file-name="functions.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
+            <state relative-caret-position="4620">
               <caret line="231" column="28" lean-forward="false" selection-start-line="231" selection-start-column="28" selection-end-line="231" selection-end-column="28" />
               <folding>
                 <element signature="e#40#57#0" expanded="true" />
@@ -84,7 +147,7 @@
       <file leaf-file-name="functions.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
+            <state relative-caret-position="400">
               <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
@@ -94,8 +157,8 @@
       <file leaf-file-name="client.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1633">
-              <caret line="281" column="0" lean-forward="false" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+            <state relative-caret-position="20">
+              <caret line="678" column="21" lean-forward="false" selection-start-line="678" selection-start-column="21" selection-end-line="678" selection-end-column="21" />
               <folding>
                 <element signature="e#1#24#0" expanded="true" />
               </folding>
@@ -103,12 +166,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="drawing.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="drawing.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/drawing.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
-              <folding />
+            <state relative-caret-position="340">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding>
+                <element signature="e#39#60#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,7 +181,7 @@
       <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
+            <state relative-caret-position="320">
               <caret line="16" column="45" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
               <folding />
             </state>
@@ -126,7 +191,7 @@
       <file leaf-file-name="drawing.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/drawing.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
+            <state relative-caret-position="600">
               <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
               <folding />
             </state>
@@ -137,7 +202,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>free</find>
       <find>ispis</find>
       <find>gtk_wi</find>
       <find>free(</find>
@@ -167,6 +231,7 @@
       <find>devices</find>
       <find>crtaj_in</find>
       <find>2J</find>
+      <find>Refresh after main</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -486,7 +551,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="gtkworld_1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="5561 127.0.0.1 192.168.122.70" PASS_PARENT_ENVS_2="true" PROJECT_NAME="gtkworld" TARGET_NAME="gtkworld_1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="gtkworld" RUN_TARGET_NAME="gtkworld_1">
+    <configuration default="false" name="gtkworld_1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="5561 127.0.0.1  192.168.122.70 " PASS_PARENT_ENVS_2="true" PROJECT_NAME="gtkworld" TARGET_NAME="gtkworld_1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="gtkworld" RUN_TARGET_NAME="gtkworld_1">
       <envs />
       <method />
     </configuration>
@@ -579,7 +644,9 @@
       <workItem from="1516803268507" duration="17456000" />
       <workItem from="1516891532885" duration="3794000" />
       <workItem from="1516961966347" duration="17035000" />
-      <workItem from="1517307523253" duration="9342000" />
+      <workItem from="1517307523253" duration="9473000" />
+      <workItem from="1517391133592" duration="8959000" />
+      <workItem from="1517409199977" duration="1662000" />
     </task>
     <task id="LOCAL-00001" summary="testing git vol2">
       <created>1517318349097</created>
@@ -595,11 +662,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517326559786</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fixing errors in valgrind">
+      <created>1517326638462</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1517326638462</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="430936000" />
+    <option name="totallyTimeSpent" value="441688000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -612,17 +686,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="979" extended-state="6" />
+    <editor active="true" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25815368" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32848486" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30128956" sideWeight="0.49715215" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30128956" sideWeight="0.49715215" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3361548" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3985932" sideWeight="0.50193477" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3669402" sideWeight="0.49806523" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32590857" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25262576" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34232122" sideWeight="0.49806523" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3369697" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43610784" sideWeight="0.49640685" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -631,6 +705,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -986,7 +1061,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2560">
           <caret line="128" column="2" lean-forward="false" selection-start-line="128" selection-start-column="2" selection-end-line="128" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -994,23 +1068,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="203" column="54" lean-forward="false" selection-start-line="203" selection-start-column="47" selection-end-line="203" selection-end-column="54" />
-          <folding />
+          <folding>
+            <element signature="e#40#57#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions1.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="421" column="0" lean-forward="true" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/functions1.c" />
     <entry file="file:///usr/include/x86_64-linux-gnu/bits/mathcalls.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3660">
           <caret line="183" column="18" lean-forward="false" selection-start-line="183" selection-start-column="13" selection-end-line="183" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1018,7 +1086,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2340">
           <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1042,7 +1109,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/drawing.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
+        <state relative-caret-position="600">
           <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding />
         </state>
@@ -1050,37 +1117,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
+        <state relative-caret-position="320">
           <caret line="16" column="45" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1633">
-          <caret line="281" column="0" lean-forward="false" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
-          <folding>
-            <element signature="e#1#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="231" column="28" lean-forward="false" selection-start-line="231" selection-start-column="28" selection-end-line="231" selection-end-column="28" />
-          <folding>
-            <element signature="e#40#57#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1088,13 +1127,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2800">
           <caret line="142" column="0" lean-forward="true" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
+        <state relative-caret-position="400">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
@@ -1102,8 +1140,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/drawing.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+        <state relative-caret-position="340">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#39#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4620">
+          <caret line="231" column="28" lean-forward="false" selection-start-line="231" selection-start-column="28" selection-end-line="231" selection-end-column="28" />
+          <folding>
+            <element signature="e#40#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="678" column="21" lean-forward="false" selection-start-line="678" selection-start-column="21" selection-end-line="678" selection-end-column="21" />
+          <folding>
+            <element signature="e#1#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
           <folding />
         </state>
       </provider>

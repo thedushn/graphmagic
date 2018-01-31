@@ -16,7 +16,7 @@ static __uint64_t jiffies_total_delta[5] = {0, 0, 0, 0, 0};
 //void cpu_number (){
 int cpu_number (){
 
-    int c=1; //cpu number must be at least zero
+    int c = 1; //cpu number must be at least 1
     FILE *file;
     char *filename = "/proc/cpuinfo";
     char buffer[1024];
@@ -57,9 +57,12 @@ void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
 
 
     int cpu_number1[4]={0,0,0,0};
-    static __uint64_t jiffies_system [4]={0,0,0,0}, jiffies_total [4]={0,0,0,0};
+    static __uint64_t jiffies_system[4] = {0, 0, 0, 0};
+    static __uint64_t jiffies_total[4] = {0, 0, 0, 0};
     static __uint64_t jiffies_user[4]={0,0,0,0};
-    static __uint64_t jiffies_user_old [4]={0,0,0,0}, jiffies_system_old [4]={0,0,0,0}, jiffies_total_old [4]={0,0,0,0};
+    static __uint64_t jiffies_user_old[4] = {0, 0, 0, 0};
+    static __uint64_t jiffies_system_old[4] = {0, 0, 0, 0};
+    static __uint64_t jiffies_total_old[4] = {0, 0, 0, 0};
 
     FILE *file;
     char *filename = "/proc/stat";
@@ -121,12 +124,6 @@ void cpu_percentage(int cpu_count,Cpu_usage *cpu_usage){
         }
 
         percentage[i] =cpu_user[i] + cpu_system[i];
-
-
-
-
-
-
 
 
 
@@ -192,14 +189,15 @@ void
 get_cpu_percent (unsigned int pid, __uint64_t jiffies_user, float *cpu_user, __uint64_t jiffies_system, float *cpu_system)
 {
  //   printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
-    __uint64_t jiffies_user_old=0, jiffies_system_old=0;
+    __uint64_t jiffies_user_old = 0;
+    __uint64_t jiffies_system_old = 0;
     static int hash_size=0;
 
     bool ima= false;
     if (hash_cpu_user == NULL)
     {
-        hash_cpu_user  = (struct DataItem*) malloc(sizeof(struct DataItem));
-        hash_cpu_system = (struct DataItem*) malloc(sizeof(struct DataItem));
+        hash_cpu_user = (struct DataItem *) calloc(1, sizeof(struct DataItem));
+        hash_cpu_system = (struct DataItem *) calloc(1, sizeof(struct DataItem));
         hash_size++;
     }
   //  printf("search\n");
@@ -230,14 +228,19 @@ get_cpu_percent (unsigned int pid, __uint64_t jiffies_user, float *cpu_user, __u
             }
           //  printf(">>>3\n");
             //postavljamo novi hash na nulu
-            if(hash_cpu_user[hash_size-1].data!=0 ||hash_cpu_system[hash_size-1].data!=0||hash_cpu_user[hash_size-1].key!=0|| hash_cpu_system[hash_size-1].key!=0 ){
+            /*  if(hash_cpu_user[hash_size-1].data!=0
+                 ||hash_cpu_system[hash_size-1].data!=0
+                 ||hash_cpu_user[hash_size-1].key!=0
+                 || hash_cpu_system[hash_size-1].key!=0 ){
 
-                hash_cpu_user[hash_size-1].data = 0;
-                hash_cpu_system[hash_size-1].data =0;
-                hash_cpu_user[hash_size-1].key = 0;
-                hash_cpu_system[hash_size-1].key = 0;
-           //     printf(">>>4\n");
-            }
+                  hash_cpu_user[hash_size-1].data = 0;
+                  hash_cpu_system[hash_size-1].data =0;
+                  hash_cpu_user[hash_size-1].key = 0;
+                  hash_cpu_system[hash_size-1].key = 0;
+             //     printf(">>>4\n");
+              }*/
+            memset(&hash_cpu_user[hash_size - 1], 0, sizeof(struct DataItem));
+            memset(&hash_cpu_system[hash_size - 1], 0, sizeof(struct DataItem));
       //      printf(">>>5\n");
             hash_cpu_user[hash_size-1].data = jiffies_user;
             hash_cpu_system[hash_size-1].data = jiffies_system;

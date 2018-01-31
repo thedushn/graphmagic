@@ -186,7 +186,6 @@ void *slanje(void *socket){
     time_t time1;
 
     Task *task_array=NULL;
-
     Interrupts  *interrupts=NULL;
     Devices  *devices=NULL;
     int sockfd = *(int *) socket;
@@ -308,6 +307,7 @@ void *slanje(void *socket){
 
         ///devices
         __int32_t niz=0;
+        //  devices=calloc(0,sizeof(Devices));
         device2(&devices,devices_show,&niz);
         printf("prosli \n");
 
@@ -355,6 +355,7 @@ void *slanje(void *socket){
 
         /// tasks
         int niz_task=0;
+        //  task_array=calloc(0,sizeof(Task));
         result = get_task_list(&task_array, &niz_task);
         if (result != 0) {
 

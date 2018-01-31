@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <inttypes.h>
 
-
+#define BUFFER_SIZE 1024
 static struct DataItem_net *hash_network_rec = NULL;
 static struct DataItem_net *hash_network_trans = NULL;
 static int broj;
@@ -77,8 +77,10 @@ void get_rec_trans(char *name, __uint64_t received,__uint64_t *received_struct, 
         hash_network_trans = (struct DataItem_net *) calloc(1, sizeof(struct DataItem_net));
         /*   hash_network_rec = (struct DataItem_net *) malloc(sizeof(struct DataItem_net));
            hash_network_trans = (struct DataItem_net *) malloc(sizeof(struct DataItem_net));*/
-        memset(hash_network_trans->key,0,sizeof(hash_network_trans->key));
-        memset(hash_network_rec->key,0,sizeof(hash_network_rec->key));
+        /* memset(hash_network_trans->key,0,sizeof(hash_network_trans->key));
+         memset(hash_network_rec->key,0,sizeof(hash_network_rec->key));*/
+        memset(hash_network_trans, 0, sizeof(hash_network_trans));
+        memset(hash_network_rec, 0, sizeof(hash_network_rec));
         hash_size++;
         printf(">>>1\n");
     }
@@ -127,22 +129,44 @@ void get_rec_trans(char *name, __uint64_t received,__uint64_t *received_struct, 
 
         printf(">>>6\n");
         //postavljamo novi hash na nulu
-        if (hash_network_rec[hash_size - 2].data != 0 || hash_network_trans[hash_size - 2].data != 0 ||
-            hash_network_rec[hash_size - 2].key != 0 || hash_network_trans[hash_size - 2].key != 0) {
-            printf(">>>6\n");
-            hash_network_rec[hash_size - 2].data = 0;
-            hash_network_trans[hash_size - 2].data = 0;
-            printf(">>>6\n");
+        /*   if (hash_network_rec[hash_size - 2].data != 0 || hash_network_trans[hash_size - 2].data != 0 ||
+               hash_network_rec[hash_size - 2].key != 0 || hash_network_trans[hash_size - 2].key != 0) {
+               printf(">>>6\n");
+               hash_network_rec[hash_size - 2].data = 0;
+               hash_network_trans[hash_size - 2].data = 0;
+               printf(">>>6\n");
 
-        }
+           }
+           printf(">>>7\n");
+           hash_network_rec[hash_size - 2].data = received;
+           hash_network_trans[hash_size - 2].data = transmitted;
+           printf(">>>7\n");
+           for(int i=0 ;i<sizeof(hash_network_rec->key);i++){
+               printf(">>>8\n");
+               hash_network_rec[hash_size - 2].key[i] = name[i];
+               hash_network_trans[hash_size - 2].key[i] = name[i];
+               printf(">>>8\n");
+
+           }
+   */
+        /* if (hash_network_rec[hash_size - 1].data != 0 || hash_network_trans[hash_size - 1].data != 0 ||
+             hash_network_rec[hash_size - 1].key != 0 || hash_network_trans[hash_size - 1].key != 0) {
+             printf(">>>6\n");
+             hash_network_rec[hash_size - 1].data = 0;
+             hash_network_trans[hash_size - 1].data = 0;
+             printf(">>>6\n");
+
+         }*/
+        memset(&hash_network_rec[hash_size - 1], 0, sizeof(struct DataItem_net));
+        memset(&hash_network_trans[hash_size - 1], 0, sizeof(struct DataItem_net));
         printf(">>>7\n");
-        hash_network_rec[hash_size - 2].data = received;
-        hash_network_trans[hash_size - 2].data = transmitted;
+        hash_network_rec[hash_size - 1].data = received;
+        hash_network_trans[hash_size - 1].data = transmitted;
         printf(">>>7\n");
-        for(int i=0 ;i<sizeof(hash_network_rec->key);i++){
+        for (int i = 0; i < sizeof(hash_network_rec->key); i++) {
             printf(">>>8\n");
-            hash_network_rec[hash_size - 2].key[i] = name[i];
-            hash_network_trans[hash_size - 2].key[i] = name[i];
+            hash_network_rec[hash_size - 1].key[i] = name[i];
+            hash_network_trans[hash_size - 1].key[i] = name[i];
             printf(">>>8\n");
 
         }
@@ -269,9 +293,14 @@ int interface_name(Network *network1){
             __uint64_t network_ts1=0;
 
             FILE *file;
-            char buffer[1024];
-            char buffer2[1024];
+            char buffer[BUFFER_SIZE];
+            char buffer2[BUFFER_SIZE];
             char buffer3[64];
+
+
+            memset(buffer, 0, BUFFER_SIZE);
+            memset(buffer2, 0, BUFFER_SIZE);
+            memset(buffer3, 0, 64);
             strncpy(buffer3, name, sizeof(buffer3));
 
            //     printf("Buffer3 %s\n",buffer3);
@@ -310,10 +339,13 @@ int interface_name(Network *network1){
                     break;
                 }*/
                 char *temp=buffer;
+
                     while (*temp==' '){
                         temp=temp+1;
                     }
-           //     printf("Buffer [%s]\nBuffer3 [%s] \n",buffer,buffer3);
+
+
+                //     printf("Buffer [%s]\nBuffer3 [%s] \n",buffer,buffer3);
                 if(strncmp(temp,buffer3,(size_t)broj)==0){
                    //     printf("da li ulazimo u break\n");
                     break;
@@ -328,8 +360,8 @@ int interface_name(Network *network1){
 
           //  printf("NET buffer :[%s]",buffer);
 
-
-            char *network_data = strchr(buffer, ':');
+            char *network_data = NULL;
+            network_data = strchr(buffer, ':');
 
             network_data=network_data+1;
 
@@ -351,7 +383,7 @@ int interface_name(Network *network1){
                    &transmit_multicast);
 
 
-            fclose(file);
+
 
             printf(">>>5\n");
             network_rc1=0;
@@ -367,11 +399,12 @@ int interface_name(Network *network1){
             printf("received_rc    %" SCNu64 " transimted_ts %" SCNu64 "\n",network_rc,network_ts);
 
 
-            memset(name,0,sizeof(name));
-            memset(buffer,0,sizeof(buffer));
-            memset(buffer2,0,sizeof(buffer2));
-            memset(buffer3,0,sizeof(buffer3));
+            /*  memset(name,0,sizeof(name));
+              memset(buffer,0,sizeof(buffer));
+              memset(buffer2,0,sizeof(buffer2));
+              memset(buffer3,0,sizeof(buffer3));*/
             broj=0;
+            fclose(file);
 
 
         }
@@ -394,7 +427,12 @@ int interface_name(Network *network1){
 }
 void clean(){
 
+    if (hash_network_trans != NULL) {
+        free(hash_network_trans);
+    }
 
-    free(hash_network_trans);
-    free(hash_network_rec);
+    if (hash_network_rec != NULL) {
+        free(hash_network_rec);
+    }
+
 }

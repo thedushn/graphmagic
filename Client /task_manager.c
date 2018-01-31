@@ -245,7 +245,8 @@ get_task_list (Task * * array,int *niz)
   //  printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
     Task *tasks_array;
     Task *temp = NULL;
-    tasks_array = calloc(1, sizeof(Task));
+    tasks_array = calloc(0, sizeof(Task));
+    //tasks_array = calloc(1, sizeof(Task));
     DIR *dir;
     struct dirent *d_file;
     char *directory="/proc";
@@ -270,18 +271,20 @@ get_task_list (Task * * array,int *niz)
         {
 
 
-            if (get_task_details (pid, &tasks_array[g]))
-            {
-                g++;
-                temp=realloc(tasks_array,( /**j*/ g+1)*sizeof(Task));
-                if ( temp != NULL ) {
-                    tasks_array=temp;
-                } else {
-                    free(tasks_array);
-                    closedir(dir);
-                    printf("relloc error %d \n",errno);
-                    return 1;
-                }
+            g++;
+            temp = realloc(tasks_array, ( /**j*/ g) * sizeof(Task));
+
+            if (temp != NULL) {
+                tasks_array = temp;
+            } else {
+                free(tasks_array);
+                closedir(dir);
+                printf("relloc error %d \n", errno);
+                return 1;
+            }
+            memset(&tasks_array[g - 1], 0, sizeof(Task));
+            if (get_task_details(pid, &tasks_array[g - 1])) {
+
             }
 
         }
@@ -292,15 +295,7 @@ get_task_list (Task * * array,int *niz)
         }
 
     }
-    temp = realloc(tasks_array, ( /**j*/ g) * sizeof(Task));
-    if (temp != NULL) {
-        tasks_array = temp;
-    } else {
-        free(tasks_array);
-        closedir(dir);
-        printf("relloc error %d \n", errno);
-        return 1;
-    }
+
 
     *niz = g;
     *array=tasks_array;
