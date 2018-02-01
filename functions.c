@@ -11,6 +11,7 @@
 
 #include "functions.h"
 
+
 ssize_t  test_recv(int socket){
 
 
@@ -280,38 +281,38 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
 
 
     /// interrupts
-    ret = recv(socket, &num, sizeof(__int32_t), flag);
-    if(ret<0){
+    /*  ret = recv(socket, &num, sizeof(__int32_t), flag);
+      if(ret<0){
 
-        printf("Error receving data! %d",num);
-        gtk_main_quit();
-        //  exit(1);
-    }
-    if(ret==0){
+          printf("Error receving data! %d",num);
+          gtk_main_quit();
+          //  exit(1);
+      }
+      if(ret==0){
 
-        printf("error sending data\n %d", (int) ret);
-        printf("socket closed\n");
-        gtk_main_quit();
-    }
-    ret = test_recv(socket);
-    if (ret < 0) {
+          printf("error sending data\n %d", (int) ret);
+          printf("socket closed\n");
+          gtk_main_quit();
+      }
+      ret = test_recv(socket);
+      if (ret < 0) {
 
-        printf("error receing data\n %d", (int) ret);
-        gtk_main_quit();
-    }
-    if(ret==0){
+          printf("error receing data\n %d", (int) ret);
+          gtk_main_quit();
+      }
+      if(ret==0){
 
-        printf("error sending data\n %d", (int) ret);
-        printf("socket closed\n");
+          printf("error sending data\n %d", (int) ret);
+          printf("socket closed\n");
 
-    }
+      }
 
-    if(num<0){
-        printf("broj ne valja %d \n",num);
-        gtk_main_quit();
-    }
-
-    for(int i=0 ;i<num;i++){
+      if(num<0){
+          printf("broj ne valja %d \n",num);
+          gtk_main_quit();
+      }
+  */
+    for (int i = 0; i < 10; i++) {
         ret = recv(socket, &interrupts, sizeof(Interrupts), flag);
 
         if (ret < 0) {
@@ -329,9 +330,6 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         }
 
 
-
-/*
-
         printf(" Receving data!return value interrupts %d \n\t Interrupts %ld %ld %ld %ld %s %s %s \n",
                (int) ret,
                interrupts.CPU0,
@@ -342,10 +340,10 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
                interrupts.ime1,
                interrupts.ime2
         );
-*/
 
 
-    //    printf("return value of Interrupts ret: %d number of recv %d  \n",(int)ret,i );
+
+        //    printf("return value of Interrupts ret: %d number of recv %d  \n",(int)ret,i );
 
 
 

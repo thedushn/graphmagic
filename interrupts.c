@@ -80,6 +80,10 @@ void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3){
 void upis(GArray *array,GArray *array2){
 
 
+    while (array2->len > 0) {
+
+        g_array_remove_index(array2, 0);
+    }
 //   for (int r = 0; r <= ginterrupts->len; r++) {//// staviti samo manje
    for (guint r = 0; r < array->len; r++) {
 
@@ -93,14 +97,20 @@ void upis(GArray *array,GArray *array2){
 
 
         //g_array_insert_val(array2,r,interrupts3);
-
+       printf("lenght %d\n ", array2->len);
         g_array_insert_val(array2,r,interrupts3);
+       printf("lenght %d\n ", array2->len);
+       while (array2->len > 10) {
+           g_array_remove_index(array2, array2->len - 11);
+
+       }
+       printf("lenght %d\n ", array2->len);
        // g_array_append_val(array2,interrupts3);
      // printf("lenght %d\n ",array2->len);
     /*  if (array2->len > 1)
            g_array_remove_index (array2, array2->len - 1);*/
     }
-    printf("lenght %d\n ",array2->len);
+    //  printf("lenght %d\n ",array2->len);
 
 };
 //GArray * poredjenje(GArray *array,GArray *array2){//array novi array2 stari
@@ -131,6 +141,7 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
       //  Interrupts *interrupts3;
        // interrupts3  = (Interrupts*) malloc(sizeof(Interrupts));
         Interrupts interrupts3={0};
+        memset(&interrupts3, 0, sizeof(Interrupts));
         Interrupts *interrupts1=&g_array_index(array,Interrupts,r);
 
         Interrupts *interrupts2=&g_array_index(array2,Interrupts,r);
@@ -142,11 +153,11 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
         interrupts3->CPU2=interrupts1->CPU2 - interrupts2->CPU2;
         interrupts3->CPU3=interrupts1->CPU3 - interrupts2->CPU3;*/
 
-        for(int j=0; j<sizeof(interrupts1->name);j++){
+        //  for(int j=0; j<sizeof(interrupts1->name);j++) {
 
-
-            interrupts3.name[j]=interrupts1->name[j];
-        }
+        strcpy(interrupts3.name, interrupts1->name);
+        //interrupts3.name[j] = interrupts1->name[j];
+        //  }
 
         __uint64_t temp=interrupts1->CPU0 - interrupts2->CPU0;
        interrupts3.CPU0=temp;
@@ -160,7 +171,11 @@ void poredjenje(GArray *array,GArray *array2,GArray *array3){//array novi array2
 
 
 
-        upis_imena(interrupts1,&interrupts3);
+        // upis_imena(interrupts1,&interrupts3);
+        strcpy(interrupts3.ime1, interrupts1->ime1);
+        strcpy(interrupts3.ime2, interrupts1->ime2);
+        strcpy(interrupts3.ime3, interrupts1->ime3);
+        strcpy(interrupts3.ime4, interrupts1->ime4);
 
 
         g_array_append_val(array3,interrupts3);

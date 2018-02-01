@@ -18,7 +18,92 @@
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t   cond = PTHREAD_COND_INITIALIZER;
 
+static int myCompare(const void *a, const void *b) {
 
+    Interrupts interrupts1 = *(Interrupts *) a;
+    Interrupts interrupts2 = *(Interrupts *) b;
+
+    __uint64_t CPU0a = 0;
+    __uint64_t CPU1a = 0;
+    __uint64_t CPU2a = 0;
+    __uint64_t CPU3a = 0;
+    __uint64_t CPU0b = 0;
+    __uint64_t CPU1b = 0;
+    __uint64_t CPU2b = 0;
+    __uint64_t CPU3b = 0;
+    int CPUa = 0;
+    int CPUb = 0;
+
+    CPU0a = interrupts1.CPU0;
+    CPU1a = interrupts1.CPU1;
+    CPU2a = interrupts1.CPU2;
+    CPU3a = interrupts1.CPU3;
+
+    CPU0b = interrupts2.CPU0;
+    CPU1b = interrupts2.CPU1;
+    CPU2b = interrupts2.CPU2;
+    CPU3b = interrupts2.CPU3;
+    /* CPU0a=interrupts1->CPU0;
+     CPU1a=interrupts1->CPU1;
+     CPU2a=interrupts1->CPU2;
+     CPU3a=interrupts1->CPU3;
+
+     CPU0b=interrupts2->CPU0;
+     CPU1b=interrupts2->CPU1;
+     CPU2b=interrupts2->CPU2;
+     CPU3b=interrupts2->CPU3;*/
+    CPUa = (int) (CPU0a + CPU1a + CPU2a + CPU3a);
+    CPUb = (int) (CPU0b + CPU1b + CPU2b + CPU3b);
+
+    //  printf(" PRVi %lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+    //  printf(" DRUGI %lu %lu %lu %lu   ime: %s\n", interrupts2->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+
+    return CPUa - CPUb;
+
+}
+
+void sort2(Interrupts *array, Interrupts *array2, Interrupts **array3, int n) {
+
+    Interrupts *interrupts_send = NULL;
+    interrupts_send = calloc((size_t) n, sizeof(Interrupts));
+    for (int i = 0; i < n; i++) {
+
+        Interrupts interrupts3;
+        memset(&interrupts3, 0, sizeof(Interrupts));
+        strcpy(interrupts3.name, array[i].name);
+        //interrupts3.name[j] = interrupts1->name[j];
+        //  }
+
+        __uint64_t temp = array[i].CPU0 - array2[i].CPU0;
+        interrupts3.CPU0 = temp;
+        temp = array[i].CPU1 - array2[i].CPU1;
+        interrupts3.CPU1 = temp;
+        temp = array[i].CPU2 - array2[i].CPU2;
+        interrupts3.CPU2 = temp;
+        temp = array[i].CPU3 - array2[i].CPU3;
+        interrupts3.CPU3 = temp;
+
+
+
+
+        // upis_imena(interrupts1,&interrupts3);
+        strcpy(interrupts3.ime1, array[i].ime1);
+        strcpy(interrupts3.ime2, array[i].ime2);
+        strcpy(interrupts3.ime3, array[i].ime3);
+        strcpy(interrupts3.ime4, array[i].ime4);
+        interrupts_send[i] = interrupts3;
+
+    }
+
+    *array3 = interrupts_send;
+
+
+}
+
+void sort(Interrupts *array, int n) {
+
+    qsort(array, n, sizeof(Interrupts), myCompare);
+}
 //int rezultat =1;
 bool devices_show=false;
 ssize_t test_send(int socket){
@@ -187,6 +272,9 @@ void *slanje(void *socket){
 
     Task *task_array=NULL;
     Interrupts  *interrupts=NULL;
+    Interrupts *interrupts_main = NULL;
+    Interrupts *interrupts_send = NULL;
+    Interrupts *interrupts1 = NULL;
     Devices  *devices=NULL;
     int sockfd = *(int *) socket;
     int result = 0;
@@ -474,36 +562,89 @@ void *slanje(void *socket){
             break;
         }
 
+        if (interrupts_main == NULL) {
+
+            interrupts_main = calloc((size_t) h, sizeof(Interrupts));
+            for (int r = 0; r < h; r++) {
+
+                interrupts_main[r] = interrupts[r];
+            }
+
+
+        }
+
+        // sort(interrupts,h);
+        // sort(interrupts_main,h);
+        /* for(int r=0;r<h;r++){
+
+             printf("%s %d %d %d %d  \n",&interrupts[r].ime1,interrupts[r].CPU0,interrupts[r].CPU1,interrupts[r].CPU2,interrupts[r].CPU3);
+         }*/
+
 
         __int32_t j=h;
+        sort2(interrupts, interrupts_main, &interrupts_send, h);
 
+        for (int r = 0; r < h; r++) {
+
+            printf("%s %d %d %d %d  \n", &interrupts_send[r].ime1, interrupts_send[r].CPU0, interrupts_send[r].CPU1,
+                   interrupts_send[r].CPU2, interrupts_send[r].CPU3);
+        }
+        sort(interrupts_send, j);
+        printf("AFTER sort \n \n");
+        for (int r = 0; r < h; r++) {
+
+            printf("%s %d %d %d %d  \n", &interrupts_send[r].ime1, interrupts_send[r].CPU0, interrupts_send[r].CPU1,
+                   interrupts_send[r].CPU2, interrupts_send[r].CPU3);
+        }
         printf("BROJ INT %d \n",j);
-        ret = send(sockfd, &j, sizeof(__int32_t), 0);
-        if (ret < 0) {
-            printf("Error sending num_packets!\n\t");
-            break;
+        interrupts1 = calloc((size_t) 10, sizeof(Interrupts));
+        int g = 0;
+        for (int r = h - 10; r < h; r++) {
+
+            // memset(&interrupts1[g],0,sizeof(Interrupts));
+            interrupts1[g] = interrupts_send[r];
+            g++;
 
         }
-        if (ret == 0) {
 
-            printf("socket closed\n");
-            break;
+        for (int r = 0; r < 10; r++) {
+            printf(" Interrupts  %ld %ld %ld %ld %s %s %s \n",
+
+                   interrupts1[r].CPU0,
+                   interrupts1[r].CPU1,
+                   interrupts1[r].CPU2,
+                   interrupts1[r].CPU3,
+                   interrupts1[r].name,
+                   interrupts1[r].ime1,
+                   interrupts1[r].ime2
+            );
         }
-        ret = test_send(sockfd);
-        if (ret < 0) {
+        /* ret = send(sockfd, &j, sizeof(__int32_t), 0);
+         if (ret < 0) {
+             printf("Error sending num_packets!\n\t");
+             break;
 
-            printf("error receing data\n %d",(int) ret);
-            break;
-        }
-        if (ret == 0) {
+         }
+         if (ret == 0) {
 
-            printf("socket closed\n");
-            break;
-        }
-        for(int r=0;r<h;r++){
+             printf("socket closed\n");
+             break;
+         }*/
+        /*     ret = test_send(sockfd);
+             if (ret < 0) {
+
+                 printf("error receing data\n %d",(int) ret);
+                 break;
+             }
+             if (ret == 0) {
+
+                 printf("socket closed\n");
+                 break;
+             }*/
+        for (int r = 0; r < 10; r++) {
 
 
-            ret = send(sockfd, &interrupts[r], sizeof(Interrupts), 0);
+            ret = send(sockfd, &interrupts1[r], sizeof(Interrupts), 0);
 
 
             if (ret < 0) {
@@ -535,6 +676,18 @@ void *slanje(void *socket){
             break;
         }
 
+        //  free(interrupts_main);
+        free(interrupts_send);
+        free(interrupts1);
+
+        for (int r = 0; r < h; r++) {
+
+            interrupts_main[r] = interrupts[r];
+        }
+        interrupts_send = NULL;
+        interrupts1 = NULL;
+
+
         free(task_array);
         free(devices);
         free(interrupts);
@@ -562,7 +715,19 @@ void *slanje(void *socket){
         printf("interrupts\n");
         free(interrupts);
     }
+    if (interrupts_main != NULL) {
+        printf("interrupts_main\n");
+        free(interrupts_main);
+    }
+    if (interrupts_send != NULL) {
+        printf("interrupts_send\n");
+        free(interrupts_send);
+    }
 
+    if (interrupts1 != NULL) {
+        printf("interrupts1\n");
+        free(interrupts1);
+    }
 
 
    // pthread_exit(&ret);

@@ -223,16 +223,16 @@ get_task_details (int pid, Task *task)
      task->duration.tm_min=diff.tm_min;
      task->duration.tm_sec=diff.tm_sec;
      task->checked=false;
-       printf( "start %d %d %d\n",task->stime.tm_hour,
-               task->stime.tm_min,
-               task->stime.tm_sec);
-       printf( "lokalno %d %d %d\n",lokalno.tm_hour,
-               lokalno.tm_min,
-               lokalno.tm_sec);
-       printf( "vreme trajanja rada %d %d %d\n",task->duration.tm_hour,
-       task->duration.tm_min,
-       task->duration.tm_sec);
-
+     /*   printf( "start %d %d %d\n",task->stime.tm_hour,
+                task->stime.tm_min,
+                task->stime.tm_sec);
+        printf( "lokalno %d %d %d\n",lokalno.tm_hour,
+                lokalno.tm_min,
+                lokalno.tm_sec);
+        printf( "vreme trajanja rada %d %d %d\n",task->duration.tm_hour,
+        task->duration.tm_min,
+        task->duration.tm_sec);
+ */
 
 
    // printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);

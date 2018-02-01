@@ -30,7 +30,9 @@ void crtaj_okvir(cairo_t *cr,double width,double height,double font_size,int i);
 void crtaj_procente(cairo_t *cr,double height,double font_size);
 void crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,double height,double font_size,__uint64_t max_broj,double duzina);
 void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i, const gchar *ime1,const gchar *ime2);
-void ispis_interrupta(cairo_t *cr,double font_size,double duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4);
+
+void ispis_interrupta(cairo_t *cr, double font_size, double duzina, int i, const char *ime1, const char *ime2,
+                      const char *ime3, const char *ime4);
 void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, double height, double font_size, double step,float max_broj3);
 
 #endif //GTKWORLD_DRAWING_H

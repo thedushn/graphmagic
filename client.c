@@ -19,7 +19,7 @@ gint tasks_num;
 gint dev_num;
 
 
-GArray *interrupt_array_temp;
+
 static gboolean CPU0_line =TRUE;
 static gboolean CPU1_line =TRUE;
 static gboolean CPU2_line =TRUE;
@@ -148,44 +148,34 @@ void timeout_refresh() {
     init_timeout();
 
 }
-void conekcija3(gchar * argv, gchar *argv2){
 
-
+int conection(char *argv1, char *argv2) {
 
 
     struct addrinfo hints, *servinfo, *p;
     int rv;
-  /*  printf("interrupti %d",(int)sizeof(Interrupts));
-    printf("memory %d",(int)sizeof(Memory_usage));
-    printf("devices %d",(int)sizeof(Devices));
-    printf("tasks %d",(int)sizeof(Task));
-    printf("cpu %d",(int)sizeof(Cpu_usage));
-    printf("commands %d",(int)sizeof(Commands));
-    printf("network %d",(int)sizeof(Network));
-    // printf("tm %d\n",(int)sizeof(struct tm));
-  //  printf("tm1 %d\n",(int)sizeof(struct tm1));
-    printf("uns long long  %d\n",(int)sizeof(unsigned long long));*/
+    int socketfd = 0;
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC; // use AF_INET6 to force IPv6
     hints.ai_socktype = SOCK_STREAM;
     //192.168.122.70 127.0.0.1
-    if ((rv = getaddrinfo(argv2, argv, &hints, &servinfo)) != 0) {
+    if ((rv = getaddrinfo(argv2, argv1, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-        exit(1);
+        return -2;
     }
 
 // loop through all the results and connect to the first we can
     for(p = servinfo; p != NULL; p = p->ai_next) {
-        if ((newsockfd = socket(p->ai_family, p->ai_socktype,
-                                p->ai_protocol)) == -1) {
+        if ((socketfd = socket(p->ai_family, p->ai_socktype,
+                               p->ai_protocol)) == -1) {
             perror("socket");
             continue;
         }
 
-        if (connect(newsockfd, p->ai_addr, p->ai_addrlen) == -1) {
+        if (connect(socketfd, p->ai_addr, p->ai_addrlen) == -1) {
             perror("connect");
-            close(newsockfd);
+            close(socketfd);
             continue;
         }
 
@@ -194,70 +184,24 @@ void conekcija3(gchar * argv, gchar *argv2){
 
     if (p == NULL) {
         // looped off the end of the list with no connection
+        free(servinfo);
         fprintf(stderr, "failed to connect\n");
-        exit(2);
+
     }
 
 
-
-    if(newsockfd<0){
+    if (socketfd < 0) {
         printf("Error creating socket!\n");
-        exit(1);
+        return -2;
     }
     printf("Socket created \n");
 
 
 
     printf("Connected to the server...\n");
-
-    if ((rv = getaddrinfo(argv2, argv, &hints, &servinfo)) != 0) {
-        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-        exit(1);
-    }
-
-// loop through all the results and connect to the first we can
-    for(p = servinfo; p != NULL; p = p->ai_next) {
-        if ((newsockfd1 = socket(p->ai_family, p->ai_socktype,
-                                p->ai_protocol)) == -1) {
-            perror("socket");
-            continue;
-        }
-
-        if (connect(newsockfd1, p->ai_addr, p->ai_addrlen) == -1) {
-            perror("connect");
-            close(newsockfd);
-            continue;
-        }
-
-        break; // if we get here, we must have connected successfully
-    }
-
-    if (p == NULL) {
-        // looped off the end of the list with no connection
-        fprintf(stderr, "failed to connect\n");
-        exit(2);
-    }
-
-
-
-    if(newsockfd1<0){
-        printf("Error creating socket!\n");
-        exit(1);
-    }
-    printf("Socket created \n");
-
-
-
-    printf("Connected to the server...\n");
-
     free(servinfo);
-
-
-
-
-
-
-}
+    return socketfd;
+};
 
 
 
@@ -281,18 +225,7 @@ void init_timeout() {
 
 
     primanje3(newsockfd, cpu_usage1, network, memory_usage, new_device_list, new_interrupt_list, new_task_list);
-    //  start_stop(0,"" ,"");
-    poredjenje(new_interrupt_list,interrupt_array_temp,interrupt_array_d);
-   g_array_free(interrupt_array_temp,TRUE);
-
-   interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
-
-
-
-
-    upis(new_interrupt_list,interrupt_array_temp);
-
-
+    upis(new_interrupt_list, interrupt_array_d);
 
 
 
@@ -561,7 +494,17 @@ gtk_init(&argc, &argv);
         exit(1);
 
     }
-    conekcija3(argv[1],argv[2]);
+    newsockfd = conection(argv[1], argv[2]);
+    if (newsockfd < 0) {
+        close(newsockfd);
+        return 1;
+    }
+    newsockfd1 = conection(argv[1], argv[2]);
+    if (newsockfd1 < 0) {
+        close(newsockfd);
+        close(newsockfd1);
+        return 1;
+    }
     printf("prosli \n");
 
 
@@ -578,18 +521,12 @@ gtk_init(&argc, &argv);
                                    GTK_POLICY_ALWAYS);
 
 
+    task_array = g_array_new(FALSE, TRUE, sizeof(Task));
 
 
+    interrupt_array_d = g_array_new(FALSE, TRUE, sizeof(Interrupts));
 
 
-
-
-
-
-    task_array=g_array_new (FALSE, FALSE, sizeof (Task));
-
-    interrupt_array_temp=g_array_new (FALSE, FALSE, sizeof (Interrupts));
-    interrupt_array_d=g_array_new (FALSE, FALSE, sizeof (Interrupts));
     g_array_set_size(interrupt_array_d, 10);
 
 
@@ -598,34 +535,11 @@ gtk_init(&argc, &argv);
 
 
     for (int i = 0; i < 8; i++) {
+
         history[i] = g_array_new(FALSE, TRUE, sizeof(gfloat));
-
-    }
-    for (int i = 0; i <= 3; i++) {
-
-        g_array_set_size(history[i], 240);//max steps
-    }
-    for (int i = 4; i <= 5; i++) {
-
-        g_array_set_size(history[i], 240);
-    }
-    for (int i = 6; i <= 7; i++) {
-
-
         g_array_set_size(history[i], 240);
     }
 
-  //  GArray *new_interrupt_list;
-
-  //  interrupt_array_temp=interrupt_usage();
-
-
-
-
-
-       // upis(new_interrupt_list,interrupt_array_temp);
-
-     //   g_array_free(new_interrupt_list,TRUE);
 
     window= main_window(dev_swindow,process_swindow);
     g_signal_connect(button, "clicked", G_CALLBACK(inc_refresh), NULL);
@@ -678,38 +592,38 @@ gtk_init(&argc, &argv);
    printf("we exited the program \n");
     if (refresh > 0){
         g_source_remove (refresh);
-      //  g_source_remove (t);
-      // g_source_remove (time_step);
-
-        g_array_unref(task_array);
-        g_array_unref(names_array);
-        g_array_unref(interrupt_array_d);
-        g_array_unref(interrupt_array_temp);
-     /*   g_array_unref(new_device_list);
-        g_array_unref(new_interrupt_list);
-        g_array_unref(new_task_list);*/
-       for(int i=0;i<8;i++){
-           g_array_unref(history[i]);
-       }
-
-          //  g_object_unref(list_store);
-//        g_source_remove(time_step);
-//        g_source_remove(t);
-       // g_object_unref(button);
-       // gtk_widget_destroy(button);
-        close(newsockfd);
-
-     //   g_object_unref((gpointer) treeview);
-       // gtk_widget_destroy(window);
-       // g_object_unref(graph1);
-
-
-
-
-
 
     }
 
+    //  g_source_remove (t);
+    // g_source_remove (time_step);
+    g_array_free(task_array, TRUE);
+    g_array_free(names_array, TRUE);
+    g_array_free(interrupt_array_d, TRUE);
+    //  g_array_free(interrupt_array_temp,TRUE);
+    /*   g_array_unref(task_array);
+       g_array_unref(names_array);
+       g_array_unref(interrupt_array_d);
+       g_array_unref(interrupt_array_temp);*/
+
+    /*   g_array_unref(new_device_list);
+       g_array_unref(new_interrupt_list);
+       g_array_unref(new_task_list);*/
+    for (int i = 0; i < 8; i++) {
+        g_array_free(history[i], TRUE);
+        //  g_array_unref(history[i]);
+    }
+
+    //  g_object_unref(list_store);
+//        g_source_remove(time_step);
+//        g_source_remove(t);
+    // g_object_unref(button);
+    // gtk_widget_destroy(button);
+    close(newsockfd);
+    close(newsockfd1);
+    //   g_object_unref((gpointer) treeview);
+    // gtk_widget_destroy(window);
+    // g_object_unref(graph1);
 
 
 

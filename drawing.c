@@ -8,118 +8,6 @@
 
 
 
-/*void ispis_interrupta_old(cairo_t *cr,double font_size,double duzina,int i,gchar *ime1,gchar *ime2){
-
-    size_t j;
-    size_t g=11;//toliko slova moze da stane u jedan red
-    int q=0;//koliko redova
-    j=strlen(ime1);
-
-
-    if(g<j){
-
-        j-=g;
-        q++;
-    }
-    if(q==0){
-
-        gchar text_int[g];
-        memset(text_int, 0, g);
-        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);//pomerimo ga na pocetnu poziciju
-
-        for(int s=0 ;s<j;s++){
-
-            text_int[s]=ime1[s];
-        }
-        //  text_int[11]='\0';
-        cairo_show_text(cr,text_int);
-    }
-    if(q>=1){
-
-        for (int r = 0; r <= q; r++) {
-            //pomeramo ga u zavisnosti od koliko redova nam treba
-            cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size);
-
-            gchar text_int[g];
-            memset(text_int, 0, g);
-            if(r==q){
-                for (int s = 0; s <= j; s++) {
-
-                    int w = s + r *(int)g;
-                    text_int[s] = ime1[w];
-                }
-                // text_int[11] = '\0';
-                cairo_show_text(cr, text_int);
-            }
-            else {
-                for (int s = 0; s < g; s++) {
-
-                    int w = s + r *(int) g;
-                    text_int[s] = ime1[w];
-                }
-                //   text_int[11] = '\0';
-                cairo_show_text(cr, text_int);
-            }
-
-        }
-
-    }
-    int pomeraj=q;
-    q=0;
-    j=strlen(ime2);
-    if(g<j){
-
-        j-=g;
-        q++;
-    }
-    if(q==0){
-
-        gchar text_int[g];
-        memset(text_int, 0, g);
-        //ako ima ime4 ima i ime3
-        cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size+pomeraj*font_size);//pomerimo ga na pocetnu poziciju
-
-        for(int s=0 ;s<j;s++){
-
-            text_int[s]=ime2[s];
-        }
-        // text_int[g-1]='\0';
-        cairo_show_text(cr,text_int);
-    }
-    else  *//*if(q>=1)*//*{
-
-        for (int r = 0; r <= q; r++) {
-            //pomeramo ga u zavisnosti od koliko redova nam treba
-            cairo_move_to(cr, 5 * font_size + 5 * duzina * i,2*font_size+pomeraj*font_size+r*font_size);
-
-            gchar text_int[g];
-            memset(text_int, 0, g);
-            if(r==q){
-                for (int s = 0; s <= j; s++) {
-
-                    int w = s + r *(int)g;
-                    text_int[s] = ime2[w];
-                }
-                // text_int[11] = '\0';
-                cairo_show_text(cr, text_int);
-            }
-            else {
-                for (int s = 0; s < g; s++) {
-
-                    int w = s + r * (int)g;
-                    text_int[s] = ime2[w];
-                }
-                //   text_int[11] = '\0';
-                cairo_show_text(cr, text_int);
-            }
-
-        }
-
-    }
-
-
-//return cr;
-}*/
 void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gchar *ime1,const gchar *ime2){
 
 
@@ -130,7 +18,7 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
     g=(size_t)broj-2;
     int q=0;//koliko redova
     j=strlen(ime1);
-    printf("ime1 %s \n",ime1);
+
     int brojac=0;
     while(g<j){
 
@@ -141,15 +29,7 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
 
         cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);//pomerimo ga na pocetnu poziciju
 
-     /*   gchar text_int[j];
-        memset(text_int, 0, j);
-        for (int s = 0; s < j; s++) {
 
-            text_int[s] = ime1[s];
-        }*/
-        printf("1[%s]\n",ime1);
-      /*  printf("1[%s]\n",text_int);
-        cairo_show_text(cr,text_int);*/
         cairo_show_text(cr,ime1);
     }
     if(q>=1) {
@@ -167,7 +47,7 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
             }
 
             if(r==q){
-                gchar text_int[y];
+                char text_int[y];
                 memset(text_int, 0, y);
                 for (int s = 0; s < y; s++) {
 
@@ -178,8 +58,11 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
                 cairo_show_text(cr, ime1);
             }
             else{
-                 //char text_int[y];
-                char *text_int=(char*)calloc(y,sizeof(char));
+
+                // char text_int[y];
+                // char *text_int;
+                char *text_int = (char *) calloc(1, sizeof(char) * y + 1);
+                //  char *text_int=(char*)calloc(y,sizeof(char));
 
 
                 memset(text_int, 0, y);
@@ -193,9 +76,9 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
                 for(int c=0; c<brojac;c++){
                     ime1++;
                 }
-                printf("3[%s]\n",text_int);
+
                 cairo_show_text(cr, text_int);
-                free(text_int);
+                //  free(text_int);
 
             }
 
@@ -248,8 +131,11 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
 
                 }
                 else{
-                    char *text_int=(char*)calloc(y,sizeof(char));
-
+                    //  static char text_int[y];
+                    //  char *text_int;
+                    // text_int=malloc(y*sizeof(char));
+                    char *text_int = (char *) calloc(1, sizeof(char) * y + 1);
+                    // char text_int[y];
                     memset(text_int, 0, y);
                     strncpy(text_int, ime2, y);
                     brojac=(int)y;
@@ -274,139 +160,9 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
 
 
 }
-/*void ispis_interrupta_real(cairo_t *cr,double font_size,double duzina,int i,gchar *ime1,gchar *ime2){
 
-    size_t j;
-    double broj =floor(duzina);
-
-    size_t g=0;//toliko slova moze da stane u jedan red
-    g=(size_t)broj-1;
-    int q=0;//koliko redova
-   j=strlen(ime1);
-    printf("%s\n",ime1);
-
-    if(g<j){
-
-        j-=g;
-        q++;
-    }
-    if(q==0){
-
-//        gchar text_int[g];
-//        memset(text_int, 0, g);
-        gchar text_int[j];
-        memset(text_int, 0, j);
-        cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);//pomerimo ga na pocetnu poziciju
-
-        for(int s=0 ;s<j;s++){
-
-            text_int[s]=ime1[s];
-        }
-        //  text_int[11]='\0';
-        cairo_show_text(cr,text_int);
-    }
-    if(q>=1){
-
-        for (int r = 0; r <= q; r++) {
-            //pomeramo ga u zavisnosti od koliko redova nam treba
-            cairo_move_to(cr, 5 * font_size + 5 * duzina * i, font_size + r * font_size);
-*//*
-            gchar text_int[g];
-            memset(text_int, 0, g);*//*
-            gchar text_int[j];
-            memset(text_int, 0, j);
-
-            if(r==q){
-                for (int s = 0; s <= j; s++) {
-
-                    int w = s + r *(int)g;
-                    text_int[s] = ime1[w];
-                }
-                // text_int[11] = '\0';
-                cairo_show_text(cr, text_int);
-            }
-            else {
-                for (int s = 0; s < g; s++) {
-
-                    int w = s + r *(int) g;
-                    text_int[s] = ime1[w];
-                }
-                //   text_int[11] = '\0';
-                printf("[%s]\n",text_int);
-                cairo_show_text(cr, text_int);
-            }
-
-        }
-
-    }
-    int pomeraj=q;
-    q=0;
-    if(ime2!=NULL){
-        j=strlen(ime2);
-        printf("%s\n",ime2);
-        if(g<j){
-
-            j-=g;
-            q++;
-        }
-        if(q==0){
-
-//            gchar text_int[g];
-//            memset(text_int, 0, g);
-            gchar text_int[j];
-            memset(text_int, 0, j);
-            //ako ima ime4 ima i ime3
-            cairo_move_to(cr,5 * font_size+5*duzina*i,2*font_size+pomeraj*font_size);//pomerimo ga na pocetnu poziciju
-
-            for(int s=0 ;s<j;s++){
-
-                text_int[s]=ime2[s];
-            }
-            // text_int[g-1]='\0';
-            printf("[%s]\n",text_int);
-            cairo_show_text(cr,text_int);
-        }
-        else  *//*if(q>=1)*//*{
-
-            for (int r = 0; r <= q; r++) {
-                //pomeramo ga u zavisnosti od koliko redova nam treba
-                cairo_move_to(cr, 5 * font_size + 5 * duzina * i,2*font_size+pomeraj*font_size+r*font_size);
-
-            *//*    gchar text_int[g];
-                memset(text_int, 0, g);*//*
-                char text_int[j];
-                memset(text_int, 0, j);
-                if(r==q){
-                    for (int s = 0; s <= j; s++) {
-
-                        int w = s + r *(int)g;
-                        text_int[s] = ime2[w];
-                    }
-                    // text_int[11] = '\0';.
-                    printf("[%s]\n",text_int);
-                    cairo_show_text(cr, text_int);
-                }
-                else {
-                    for (int s = 0; s < g; s++) {
-
-                        int w = s + r * (int)g;
-                        text_int[s] = ime2[w];
-                    }
-                    //   text_int[11] = '\0';
-                    printf("[%s]\n",text_int);
-                    cairo_show_text(cr, text_int);
-                }
-
-            }
-
-        }
-    }
-
-
-
-//return cr;
-}*/
-void ispis_interrupta(cairo_t *cr,double font_size,double duzina,int i,gchar *ime1,gchar *ime2,gchar *ime3,gchar *ime4){
+void ispis_interrupta(cairo_t *cr, double font_size, double duzina, int i, const char *ime1, const char *ime2,
+                      const char *ime3, const char *ime4) {
 
 
 
@@ -819,7 +575,7 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr){
     cairo_move_to(cr,0,height-font_size);
     cairo_show_text(cr,"0");
     duzina= (width-(5*font_size*2))/5/10;
-    for (int i = 0; i <=9; i++) {
+    for (int i = 0; i < 10; i++) {
 
         // cairo_move_to(cr, 5 * font_size, height);
         peak = &g_array_index(interrupt_array_d, Interrupts, i);
