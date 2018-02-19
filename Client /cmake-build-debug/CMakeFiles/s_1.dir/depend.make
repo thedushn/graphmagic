@@ -9,15 +9,15 @@ CMakeFiles/s_1.dir/devices.c.o: ../common.h
 CMakeFiles/s_1.dir/devices.c.o: ../devices.c
 CMakeFiles/s_1.dir/devices.c.o: ../devices.h
 
-CMakeFiles/s_1.dir/functions2.c.o: ../common.h
-CMakeFiles/s_1.dir/functions2.c.o: ../cpu_usage.h
-CMakeFiles/s_1.dir/functions2.c.o: ../devices.h
-CMakeFiles/s_1.dir/functions2.c.o: ../functions.h
-CMakeFiles/s_1.dir/functions2.c.o: ../functions2.c
-CMakeFiles/s_1.dir/functions2.c.o: ../interrupts.h
-CMakeFiles/s_1.dir/functions2.c.o: ../memory_usage.h
-CMakeFiles/s_1.dir/functions2.c.o: ../network_bandwith.h
-CMakeFiles/s_1.dir/functions2.c.o: ../task_manager.h
+CMakeFiles/s_1.dir/functions.c.o: ../common.h
+CMakeFiles/s_1.dir/functions.c.o: ../cpu_usage.h
+CMakeFiles/s_1.dir/functions.c.o: ../devices.h
+CMakeFiles/s_1.dir/functions.c.o: ../functions.c
+CMakeFiles/s_1.dir/functions.c.o: ../functions.h
+CMakeFiles/s_1.dir/functions.c.o: ../interrupts.h
+CMakeFiles/s_1.dir/functions.c.o: ../memory_usage.h
+CMakeFiles/s_1.dir/functions.c.o: ../network_bandwith.h
+CMakeFiles/s_1.dir/functions.c.o: ../task_manager.h
 
 CMakeFiles/s_1.dir/interrupts.c.o: ../common.h
 CMakeFiles/s_1.dir/interrupts.c.o: ../interrupts.c

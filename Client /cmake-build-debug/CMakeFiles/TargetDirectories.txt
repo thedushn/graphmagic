@@ -1,4 +1,4 @@
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s.dir
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/s_1.dir
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/CMakeFiles/s.dir
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/CMakeFiles/s_1.dir

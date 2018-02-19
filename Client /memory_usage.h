@@ -16,6 +16,6 @@
 
 
 void get_memory_usage(Memory_usage *memory_usage);
-//void get_memory_usage();
+
 
 #endif //GKTWORLD_MEMORY_USAGE_H

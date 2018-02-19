@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"/>
+				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"/>
+				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"/>
+				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="s">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/s" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"/>
+				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/s" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -54,15 +54,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="s/fast">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/s" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"/>
+				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/s" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -77,15 +77,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="s_1">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/s_1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"/>
+				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/s_1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -100,15 +100,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s_1"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s_1"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="s_1/fast">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/s_1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"/>
+				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/s_1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -123,80 +123,78 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s_1/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING\ NEW\ things\ /TEST_cleaing\ up\ code\ /TEST/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 s_1/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client\ /cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.c">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.c">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.c">
-			<Option target="s"/>
-		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions2.c">
-			<Option target="s_1"/>
-		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.c">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.c">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.h">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.c">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /server.c">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.c">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /server.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.h">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.c">
 			<Option target="s"/>
 			<Option target="s_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /CMakeLists.txt">
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h">
+			<Option target="s"/>
+			<Option target="s_1"/>
+		</Unit>
+		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -119,21 +119,7 @@ struct __attribute__((__packed__)) _Devices {
     char       type[64];
     char       directory[256];
 };
-typedef union DATA_S data_s;
-union DATA_S {
 
-    Memory_usage memory_usage;
-    Interrupts interrupts;
-    Cpu_usage cpu_usage;
-    Network network;
-    Task task;
-    Devices devices;
-    Commands commands;
-
-
-
-
-} ;
 
 
 

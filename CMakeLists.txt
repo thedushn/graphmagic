@@ -43,6 +43,8 @@ include_directories(${GTK3_INCLUDE_DIRS})
 
 link_directories(${GTK3_LIBRARY_DIRS})
 link_libraries(${GTK3_LIBRARIES})
+
 add_executable(gtkworld ${SOURCE_FILES})
 add_executable(gtkworld_1 ${SOURCE_FILES_1})
 target_link_libraries(gtkworld_1 m)
+target_link_libraries(gtkworld_1 fontconfig)

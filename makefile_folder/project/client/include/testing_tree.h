@@ -24,42 +24,35 @@ GtkTreeStore *list_store;
 GtkTreeStore *list_store1;
 
 
-gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
+
+
+
+
 
 
 void remove_list_item(gint pid);
-
-void remove_list_item_device(gchar *directory, gchar *name);
-
+void remove_list_item_device(gchar *directory,gchar *name);
 void refresh_list_item(gint i);
-
 void refresh_list_item_device(gint i);
-
 void fill_list_item(gint i, GtkTreeIter *iter);
-
 void fill_list_item_device(gint i, GtkTreeIter *iter);
 
 
 void change_list_store_view_devices(GtkWidget *widget, gboolean visible);
-
 void change_list_store_view_process(GtkWidget *widget, gboolean visible);
 
 void add_new_list_item(gint i);
-
 void add_new_list_item_dev(gint i);
-
-GtkTreeStore *create_list_store(void);
-
+void create_list_store(void);
 gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
-
 gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
-
 gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
+gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column);
 
+void create_list_store_dev(void);
 
-GtkTreeStore *create_list_store_dev(void);
-
-enum {
+enum
+{
     COL_TASK = 0,
     COL_PID,
     COL_RSS,
@@ -69,14 +62,13 @@ enum {
     COL_PPID,
     COL_STATE,
     COL_UNAME,
-    //COL_STIME,
-            COL_DUR,
+    COL_DUR,
     NUM_COLS
-};
+} ;
 
-enum {
+enum{
 
-    COL_DEV = 0,
+    COL_DEV=0,
     COL_DIR,
     COL_TYPE,
     COL_TOTAL,

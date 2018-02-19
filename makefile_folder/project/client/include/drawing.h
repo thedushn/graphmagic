@@ -4,7 +4,6 @@
 
 #ifndef GTKWORLD_DRAWING_H
 #define GTKWORLD_DRAWING_H
-
 #include <math.h>
 #include <sys/stat.h>
 #include <pwd.h>
@@ -20,30 +19,20 @@
 
 
 void do_drawing_net(GtkWidget *widget, cairo_t *cr, int bjorg2, guint time_step);
-
-void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, int bjorg, guint time_step, gboolean CPU0_line, gboolean CPU1_line,
-                    gboolean CPU2_line, gboolean CPU3_line);
+void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, int bjorg, guint time_step,const gboolean CPU0_line
+        , const gboolean CPU1_line, const gboolean CPU2_line, const gboolean CPU3_line);
 
 void do_drawing_mem(GtkWidget *widget, cairo_t *cr, int bjorg, guint time_step);
-
 void do_drawing_int(GtkWidget *widget, cairo_t *cr);
-
 //void do_drawing_int(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array);
-void crtaj_sekunde(cairo_t *cr, double width, double height, double font_size, int i, int j);
+void crtaj_sekunde(cairo_t *cr,double width, double height,double font_size,int i,int j);
+void crtaj_okvir(cairo_t *cr,double width,double height,double font_size,int i);
+void crtaj_procente(cairo_t *cr,double width,double height,double font_size);
+void crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,double height,double font_size,__uint64_t max_broj,double duzina);
+void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i, const gchar *ime1,const gchar *ime2);
 
-void crtaj_okvir(cairo_t *cr, double width, double height, double font_size, int i);
-
-void crtaj_procente(cairo_t *cr, double height, double font_size);
-
-void crtaj_interrupte(cairo_t *cr, int i, Interrupts *peak, double height, double font_size, __uint64_t max_broj,
-                      double duzina);
-
-void ispis_interrupta2(cairo_t *cr, double font_size, double duzina, int i, const gchar *ime1, const gchar *ime2);
-
-void ispis_interrupta(cairo_t *cr, double font_size, double duzina, int i, gchar *ime1, gchar *ime2, gchar *ime3,
-                      gchar *ime4);
-
-void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, double height, double font_size, double step,
-                   float max_broj3);
+void ispis_interrupta(cairo_t *cr, double font_size, double duzina, int i, const char *ime1, const char *ime2,
+                      const char *ime3, const char *ime4);
+void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, double height, double font_size, double step,float max_broj3);
 
 #endif //GTKWORLD_DRAWING_H

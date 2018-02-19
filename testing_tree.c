@@ -11,13 +11,22 @@
 
 //#include "window.h"
 
-GtkTreeStore * create_list_store(void)
+void create_list_store(void)
 {
     GtkCellRenderer *cell_renderer;
     GtkTreeViewColumn *column;
 
-    list_store = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING
-            ,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING/*,G_TYPE_STRING*/);
+    list_store = gtk_tree_store_new(NUM_COLS
+            , G_TYPE_STRING
+            , G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING/*,G_TYPE_STRING*/);
 
     cell_renderer = gtk_cell_renderer_text_new();
 
@@ -93,14 +102,21 @@ GtkTreeStore * create_list_store(void)
 
 
     // change_list_store_view_devices();
-    return list_store;
+   // return list_store;
 }
-GtkTreeStore * create_list_store_dev(void)
+void create_list_store_dev(void)
 {
     GtkCellRenderer *cell_renderer;
     GtkTreeViewColumn *column;
 
-    list_store1 = gtk_tree_store_new(NUM_COLS_DEV, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+    list_store1 = gtk_tree_store_new(NUM_COLS_DEV
+            , G_TYPE_STRING
+            , G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING
+            ,G_TYPE_STRING);
 
     cell_renderer = gtk_cell_renderer_text_new();
 
@@ -154,7 +170,7 @@ GtkTreeStore * create_list_store_dev(void)
 
 
     // change_list_store_view_devices();
-    return list_store1;
+   // return list_store1;
 }
 void add_new_list_item(gint i)
 {
@@ -300,10 +316,10 @@ void fill_list_item(gint i, GtkTreeIter *iter)
     {
         Task *task = &g_array_index(task_array, Task, i);
         gchar cpu[16], value[16];
-        gchar *rss, *vsz;
-        gchar *prio;
+        char *rss, *vsz;
+        char *prio;
 
-        gchar *duration;
+        char *duration;
         float cpu_user=0;
         float cpu_system=0;
         cpu_user=(float)atof(task->cpu_user);
@@ -315,54 +331,14 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         g_snprintf(value, 14, "%.f", cpu_user + cpu_system);
 
         g_snprintf(cpu, 16, ("%s%%"), value);
-        gchar *pid = g_strdup_printf("%i", task->pid);
-        gchar *ppid = g_strdup_printf("%i", task->ppid);
-        gchar *state = g_strdup_printf("%s", task->state);
+        char *pid = g_strdup_printf("%i", task->pid);
+        char *ppid = g_strdup_printf("%i", task->ppid);
+        char *state = g_strdup_printf("%s", task->state);
 
-        gchar *name = g_strdup_printf("%s", task->name);
-        gchar *uname = g_strdup_printf("%s", task->uid_name);
+        char *name = g_strdup_printf("%s", task->name);
+        char *uname = g_strdup_printf("%s", task->uid_name);
         prio=  g_strdup_printf("%hi", task->prio);
-     //   stime= g_strdup_printf("%ld", task->start_time/100);//sec
-    /*    int sec, hr, min, t;
 
-
-
-
-        sec=task->start_time/100;
-        hr =sec /3600;
-        t = sec%3600;
-        min = t/60;
-        sec = t%60;
-
-
-        int h,m,s;
-
-
-        s=h=m=0;
-        s=sec+pocetno.tm_sec;
-        if(s>60)
-        {
-            m=s/60;
-            s=s%60;
-        }
-        m=m+min+pocetno.tm_min;
-        if(m>60)
-        {
-            h=m/60;
-            m=m%60;
-        }
-        h=h+pocetno.tm_hour+hr;*/
-
-
-      //  stime= g_strdup_printf("%d:%d:%d",task->stime.tm_hour,task->stime.tm_min,task->stime.tm_sec);
-      //  duration= g_strdup_printf("%d:%d:%d",h,m,s);
-     /*   struct tm  start_time, diff;
-
-
-        start_time.tm_sec=s;
-        start_time.tm_min=m;
-        start_time.tm_hour=h;
-        differenceBetweenTimePeriod(tm, start_time, &diff);*/
 
 
         duration=g_strdup_printf("%d:%d:%d",task->duration.tm_hour,task->duration.tm_min,task->duration.tm_sec);
@@ -386,16 +362,16 @@ void fill_list_item(gint i, GtkTreeIter *iter)
 
 
 
-        g_free(pid);
-        g_free(ppid);
-        g_free(state);
-        g_free(name);
-        g_free(uname);
-        g_free(rss);
-        g_free(vsz);
-        g_free(prio);
-      //  g_free(stime);
-        g_free(duration);
+        free(pid);
+        free(ppid);
+        free(state);
+        free(name);
+        free(uname);
+        free(rss);
+        free(vsz);
+        free(prio);
+
+        free(duration);
     }
 }
 
@@ -556,34 +532,46 @@ void remove_list_item_device(gchar *directory,gchar *name)
 }
 gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column)
 {
-    gchar *s1 = "";
-    gchar *s2 = "";
-    gchar *temp ;
-    gchar *temp1;
+    gchar *s1 ;
+    gchar *s2 ;
+    char temp[1] ;
+    char temp1[1];
 
+    memset(temp,0,1*sizeof(char));
+    memset(temp1,0,1*sizeof(char));
+    int i=0;
     gint ret = 0;
 
     gtk_tree_model_get(model, iter1, GPOINTER_TO_INT(column), &s1, -1);
+    if(s1==NULL){
+
+        return ret;//ako prvog nema drugi je prvi
+    }
     gtk_tree_model_get(model, iter2, GPOINTER_TO_INT(column), &s2, -1);
 
-    if(s1 != NULL && s2 != NULL) {
-        temp=s1;
-        temp1=s2;
-        while((*s1>0 && *s1<65) || (*s1>=91 && *s1<=96)  || *s1>=123){
-           // printf("[%s]\n",s1);
-                temp=s1+1;
+    if(s2==NULL){
+        free(s1);
 
-                *s1=*temp;
-               // s1=s1+1;
+        return ret;//ako drugog nema prvi je prvi
+    }
+    if(s1 != NULL && s2 != NULL) {
+
+        while((s1[i]>0 && s1[i]<65) || (s1[i]>=91 && s1[i]<=96)  || s1[i]>=123){
+
+                temp[0]=s1[i+1];
+
+            i++;
 
 
         }
-        while((*s2>0 && *s2<65) || (*s2>=91 && *s2<=96)  || *s2>=123){
+        i=0;
+        while((s2[i]>0 && s2[i]<65) || (s2[i]>=91 && s2[i]<=96)  || s2[i]>=123){
+       // while((*s2>0 && *s2<65) || (*s2>=91 && *s2<=96)  || *s2>=123){
          //   printf("[%s]\n",s2);
-            temp1=s2+1;
+            temp1[0]=s2[i+1];
 
-            *s2=*temp1;
-
+           // *s2=*temp1;
+            i++;
 
         }
 
@@ -605,39 +593,63 @@ gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIt
     }
 
 
-    if(s1 != NULL)
-      //  s1=s1-j;
+    if(s1 != NULL){
         g_free(s1);
-    if(s2 != NULL)
+    }
+
+    if(s2 != NULL){
         g_free(s2);
+    }
+
+
 
     return ret;
 }
 gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column)
 {
-    gchar *s1 = "";
-    gchar *s2 = "";
+    gchar *s1 ;
+    gchar *s2 ;
 
     gint ret = 0;
 
+
     gtk_tree_model_get(model, iter1, column, &s1, -1);
+    if(s1==NULL){
+
+        return ret;//ako prvog nema drugi je prvi
+    }
     gtk_tree_model_get(model, iter2, column, &s2, -1);
+    if(s2==NULL){
+        g_free(s1);
+        return ret;//ako drugog nema prvi je prvi
+    }
 
     gint i1 = 0;
     gint i2 = 0;
 
-    if(s1 != NULL)
-        i1= atoi(s1);
 
-    if(s2 != NULL)
+
+
+    if(s1 != NULL){
+        i1= atoi(s1);
+    }
+
+
+    if(s2 != NULL){
         i2 = atoi(s2);
+    }
+
 
     ret = i1 - i2;
 
-    if(s1 != NULL)
+    if(s1 != NULL){
         g_free(s1);
-    if(s2 != NULL)
+    }
+
+    if(s2 != NULL){
         g_free(s2);
+    }
+
 
     return ret;
 }
@@ -657,14 +669,15 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 
 
     gtk_tree_model_get(model, iter1, column, &s1, -1);
-    gtk_tree_model_get(model, iter2, column, &s2, -1);
-
     if(s1==NULL){
 
         return ret;//ako prvog nema drugi je prvi
     }
-    if(s2==NULL){
+    gtk_tree_model_get(model, iter2, column, &s2, -1);
 
+
+    if(s2==NULL){
+        g_free(s1);
         return ret;//ako drugog nema prvi je prvi
     }
 
@@ -734,19 +747,27 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
             return ret2;
         }
 
-    if(z!=NULL) //ako su iste velicine
+    if(z!=NULL){
+        //ako su iste velicine
         i3 = atoi(z+1); //preskacemo zarez
+    }
 
-    if(z1!=NULL)
+    if(z1!=NULL){
         i4 = atoi(z1+1); //preskacemo zarez
+    }
 
-    if(s1 != NULL)
+
+    if(s1 != NULL){
         i1 = atoi(s1);
-    g_free(s1);
+        g_free(s1);
+    }
 
-    if(s2 != NULL)
+
+    if(s2 != NULL){
         i2 = atoi(s2);
-    g_free(s2);
+        g_free(s2);
+    }
+
 
     ret = i1 - i2;
     ret1 = i3 - i4;
@@ -781,14 +802,15 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 
 
     gtk_tree_model_get(model, iter1, column, &s1, -1);
-    gtk_tree_model_get(model, iter2, column, &s2, -1);
-
     if(s1==NULL){
 
         return ret;//ako prvog nema drugi je prvi
     }
-    if(s2==NULL){
+    gtk_tree_model_get(model, iter2, column, &s2, -1);
 
+
+    if(s2==NULL){
+        g_free(s1);
         return ret;//ako drugog nema prvi je prvi
     }
     //minuti postavi pointer na prve : na koje naidje u broju karatktera koje mu postavimo

@@ -9,9 +9,9 @@
 
 
 
-//void 	get_memory_usage(){
+
 void 	get_memory_usage(Memory_usage *memory_usage){
-  //  printf("made it in memory_usage\n");
+
     __uint64_t memory_total=0;
     __uint64_t memory_free=0;
     __uint64_t memory_cache=0;
@@ -27,10 +27,10 @@ void 	get_memory_usage(Memory_usage *memory_usage){
     float swap_percentage=0;
 
     float   percentage=0;
-   // printf("opening file %s",filename);
+
     file = fopen (filename, "r ");
 
-   // printf("we made it ");
+
 
     while (found < 6 && fgets (buffer, 1024, file) != NULL)
     {
@@ -67,20 +67,12 @@ void 	get_memory_usage(Memory_usage *memory_usage){
 #endif
 
 
-    printf(" memory_total %" SCNu64 " memory_free %" SCNu64 " memory_cache %"
-                   SCNu64 " memory_buffers %" SCNu64 " memory_used %" SCNu64 "\n "
-            ,memory_total
-           ,memory_free
-           ,memory_cache
-           ,memory_buffers
-           ,memory_used
 
-    );
 
       swap_used= swap_total-swap_free;
 
   swap_percentage= (float)(swap_total != 0) ? swap_used * 100 / (float)swap_total : 0;
-           // swap_percentage/swap_total*100;
+
    if(sprintf(memory_usage->swap_percentage,"%f",swap_percentage)<0) {
 
        printf("nije uspelo convertovanje %s \n",memory_usage->swap_percentage);
@@ -98,13 +90,6 @@ void 	get_memory_usage(Memory_usage *memory_usage){
         printf("nije uspelo convertovanje %s \n",memory_usage->memory_percentage);
         strcpy(memory_usage->swap_percentage, "0");
     }
-
-
-
-
-
-
-
 
 
 }

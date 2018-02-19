@@ -97,18 +97,14 @@ void upis(GArray *array,GArray *array2){
 
 
         //g_array_insert_val(array2,r,interrupts3);
-       printf("lenght %d\n ", array2->len);
+
         g_array_insert_val(array2,r,interrupts3);
-       printf("lenght %d\n ", array2->len);
+
        while (array2->len > 10) {
            g_array_remove_index(array2, array2->len - 11);
 
        }
-       printf("lenght %d\n ", array2->len);
-       // g_array_append_val(array2,interrupts3);
-     // printf("lenght %d\n ",array2->len);
-    /*  if (array2->len > 1)
-           g_array_remove_index (array2, array2->len - 1);*/
+
     }
     //  printf("lenght %d\n ",array2->len);
 

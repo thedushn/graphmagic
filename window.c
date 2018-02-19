@@ -11,20 +11,14 @@
 
 GtkWidget *label_rec;
 GtkWidget *label_trans;
-
 GtkWidget *label_cpu0;
-
 GtkWidget *label_mem;
 GtkWidget *label_swap;
 
 
 
   GtkWidget *main_window(GtkWidget *dev_swindow,GtkWidget *process_swindow){
-      GtkWidget *vbox;
-      GtkWidget *hbox;
-      GtkWidget *hbox1;
-      GtkWidget *hbox3;
-      GtkWidget *hbox2;
+
 
       GtkWidget *menubar;
       GtkWidget *filemenu;
@@ -36,6 +30,13 @@ GtkWidget *label_swap;
       GtkWidget *decrease_refresh;
       GtkWidget *file_system;
 
+
+      GtkWidget *vbox;
+      GtkWidget *hbox;
+      GtkWidget *hbox1;
+      GtkWidget *hbox3;
+      GtkWidget *hbox2;
+
       GtkWidget *frame1;
       GtkWidget *frame2;
       GtkWidget *frame3;
@@ -44,6 +45,7 @@ GtkWidget *label_swap;
    GtkWidget *window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_position(GTK_WINDOW(window1), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window1), 800, 400);
+     // gtk_widget_show(window1);
 
 
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -52,87 +54,82 @@ GtkWidget *label_swap;
     hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);//izmedju graphova
     hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);//graph3 graph4 frame3 frame4
 
-    button = gtk_button_new_with_label("refresh rate +");
+    button_inc = gtk_button_new_with_label("refresh rate +");
     button2 = gtk_button_new_with_label("refresh rate-");
     button_proc = gtk_toggle_button_new_with_label("Process");
-   // button4 = gtk_toggle_button_new_with_label("Dev");
     button_dev = gtk_toggle_button_new_with_label("Dev");
-  //  button5 = gtk_toggle_button_new_with_label("NEW");
     button_graph = gtk_toggle_button_new_with_label("graphs");
-    //  button_condition= gtk_button_new_with_label("COND");
 
-    menubar = gtk_menu_bar_new();
+
+      menubar = gtk_menu_bar_new();
     filemenu = gtk_menu_new();
     filemenu2 = gtk_menu_new();
-   GtkWidget * filemenu3 =gtk_menu_new();
- //filemenu3=gtk_menu_item_new_with_label("testingalltheway");
+    GtkWidget * filemenu3 =gtk_menu_new();
     speed = gtk_menu_item_new_with_label("speed");
     devices_menu = gtk_menu_item_new_with_label("devices");
     GtkWidget *process_menu = gtk_menu_item_new_with_label("Process Manager");
-  //  graph_menu = gtk_menu_item_new_with_label("graphs");
+
     GtkWidget *process_item=gtk_menu_item_new_with_label("Processes");
     increase_refresh = gtk_menu_item_new_with_label("+250");
     decrease_refresh = gtk_menu_item_new_with_label("-250");
     file_system = gtk_menu_item_new_with_label("file_systems");
-   // GtkWidget *new = gtk_menu_item_new_with_label("return");
-   // GtkWidget *test = gtk_menu_item_new_with_label("flush");
+
     quit = gtk_menu_item_new_with_label("Quit");
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(speed), filemenu);
-    //gtk_menu_item_set_submenu(GTK_MENU_ITEM(speed), filemenu3);
+
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), increase_refresh);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), decrease_refresh);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quit);
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), speed);
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), process_menu);
-//  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), graph_menu);
+
 
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(devices_menu), filemenu2);
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(process_menu), filemenu3);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), file_system);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu3), process_item);
- //   gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), new);
-  //  gtk_menu_shell_append(GTK_MENU_SHELL(filemenu2), test);
+
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), devices_menu);
 
 
-    g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(quit_activated), NULL);
+   // g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(quit_activated), NULL);
+    g_signal_connect(quit, "activate", G_CALLBACK(quit_activated), NULL);
 
     g_signal_connect(increase_refresh, "activate", G_CALLBACK(inc_refresh), NULL);
     g_signal_connect(decrease_refresh, "activate", G_CALLBACK(dec_refresh), NULL);
     g_signal_connect(file_system, "activate", G_CALLBACK(device_window), NULL);
-  //  g_signal_connect(new, "activate", G_CALLBACK(new_button_clicked2), NULL);
-  //  g_signal_connect(test, "activate", G_CALLBACK(clean_button), NULL);
+
     g_signal_connect(process_item, "activate", G_CALLBACK(process_window), NULL);
-//   g_signal_connect(graph_window, "activate", G_CALLBACK(graph_button_clicked), NULL);
-      GtkTreeStore *list_store_temp;
+
+
     treeview = gtk_tree_view_new ();
 
 
-   list_store_temp =create_list_store();
+    create_list_store();
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
 
 
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(list_store_temp));
-    g_object_unref(list_store_temp);
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store_temp), 1, GTK_SORT_ASCENDING);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(list_store));
+
+    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store), 1, GTK_SORT_ASCENDING);
     gtk_container_add(GTK_CONTAINER(process_swindow),treeview);
 
 
    treeview1 = gtk_tree_view_new ();
 
       gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
-      list_store_temp =create_list_store_dev();
+   create_list_store_dev();
 
 
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), GTK_TREE_MODEL(list_store_temp));
-    g_object_unref(list_store_temp);
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store_temp), 1, GTK_SORT_ASCENDING);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), GTK_TREE_MODEL(list_store1));
+
+    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(list_store1), 1, GTK_SORT_ASCENDING);
    gtk_container_add(GTK_CONTAINER(dev_swindow),treeview1);
 
 
@@ -142,13 +139,12 @@ GtkWidget *label_swap;
     graph2 = gtk_drawing_area_new();
     graph3 = gtk_drawing_area_new();
     graph4 = gtk_drawing_area_new();
-      printf("graph is floating %s\n", g_object_is_floating (graph1)==TRUE ? "TRUE" : "FALSE");
 
     frame1 = gtk_frame_new(NULL);
     frame2 = gtk_frame_new(NULL);
     frame3 = gtk_frame_new(NULL);
     frame4 = gtk_frame_new(NULL);
-      printf("frame is floating %s\n", g_object_is_floating (frame1)==TRUE ? "TRUE" : "FALSE");
+
 
     label_rec = gtk_label_new(NULL);//memory
     label_trans = gtk_label_new(NULL);//swap
@@ -164,7 +160,7 @@ GtkWidget *label_swap;
 
     gtk_box_pack_start(GTK_BOX(vbox), hbox, 0, FALSE, 0);
 
-    gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, FALSE);//expand,fill,padding
+    gtk_box_pack_start(GTK_BOX(hbox), button_inc, FALSE, FALSE, FALSE);//expand,fill,padding
     gtk_box_pack_start(GTK_BOX(hbox), button2, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_proc, 0, 0, 0);
   //  gtk_box_pack_start(GTK_BOX(hbox), button5, 0, 0, 0);
@@ -217,8 +213,8 @@ GtkWidget *label_swap;
 
 
 
-      gtk_widget_show (treeview);
-      gtk_widget_show (treeview1);
+    //  gtk_widget_show (treeview);
+    //  gtk_widget_show (treeview1);
       printf("treeview is floating %s\n", g_object_is_floating (treeview)==TRUE ? "TRUE" : "FALSE");
 
 
@@ -226,7 +222,7 @@ GtkWidget *label_swap;
     gtk_container_add(GTK_CONTAINER(window1), vbox);
       printf("vbox is floating %s\n", g_object_is_floating (vbox)==TRUE ? "TRUE" : "FALSE");
 
-
+    gtk_widget_show_all(window1);
     gtk_window_set_title(GTK_WINDOW(window1), "College lines");
 
     return window1;
@@ -346,11 +342,11 @@ void  cpu_change(Cpu_usage  *cpu_usage1){
     /*gchar*   cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
     gchar*   cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 2,  cpu_usage1->percentage2);
     gchar*  cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);*/
-    gchar*  cpu0_usage_text = g_strdup_printf(("CPU%d: %.4s%% CPU%d: %.4s%%CPU%d: %.4s%%CPU%d: %.4s%%"),
-                                             0,cpu_usage1->percentage0,
-                                              1,  cpu_usage1->percentage1,
-                                              2,  cpu_usage1->percentage2,
-                                              3,  cpu_usage1->percentage3
+    gchar*  cpu0_usage_text = g_strdup_printf(("CPU%s: %.4s%% CPU%s: %.4s%%CPU%s: %.4s%%CPU%s: %.4s%%"),
+                                             "0",cpu_usage1->percentage0,
+                                              "1",  cpu_usage1->percentage1,
+                                              "2",  cpu_usage1->percentage2,
+                                              "3",  cpu_usage1->percentage3
     );
 
     gtk_label_set_text (GTK_LABEL (label_cpu0),cpu0_usage_text);

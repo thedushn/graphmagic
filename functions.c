@@ -225,12 +225,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("socket closed\n");
         gtk_main_quit();
     }
-    printf("num %d\n", num);
-    printf("num %d\n", num);
-    printf("num %d\n", num);
-    printf("num %d\n", num);
-    printf("num %d\n", num);
-    printf("num %d\n", num);
+
     for(int i=0 ;i<num;i++) {
 
 
@@ -274,44 +269,14 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
                task.state,
                task.uid_name
         );*/
-      //  printf("Return value tasks %d \n",(int)ret);
+
            g_array_append_val(array_tasks,task);
 
     }
 
 
     /// interrupts
-    /*  ret = recv(socket, &num, sizeof(__int32_t), flag);
-      if(ret<0){
 
-          printf("Error receving data! %d",num);
-          gtk_main_quit();
-          //  exit(1);
-      }
-      if(ret==0){
-
-          printf("error sending data\n %d", (int) ret);
-          printf("socket closed\n");
-          gtk_main_quit();
-      }
-      ret = test_recv(socket);
-      if (ret < 0) {
-
-          printf("error receing data\n %d", (int) ret);
-          gtk_main_quit();
-      }
-      if(ret==0){
-
-          printf("error sending data\n %d", (int) ret);
-          printf("socket closed\n");
-
-      }
-
-      if(num<0){
-          printf("broj ne valja %d \n",num);
-          gtk_main_quit();
-      }
-  */
     for (int i = 0; i < 10; i++) {
         ret = recv(socket, &interrupts, sizeof(Interrupts), flag);
 
@@ -330,7 +295,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         }
 
 
-        printf(" Receving data!return value interrupts %d \n\t Interrupts %ld %ld %ld %ld %s %s %s \n",
+ /*       printf(" Receving data!return value interrupts %d \n\t Interrupts %ld %ld %ld %ld %s %s %s \n",
                (int) ret,
                interrupts.CPU0,
                interrupts.CPU1,
@@ -339,7 +304,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
                interrupts.name,
                interrupts.ime1,
                interrupts.ime2
-        );
+        );*/
 
 
 
@@ -368,63 +333,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("socket closed\n");
         gtk_main_quit();
     }
-/*
-    for(int i=0 ;i<num;i++){
-        ret = recv(info->thread_socket,&interrupts, sizeof(Interrupts), flag);
 
-        if (ret < 0) {
-            printf("Error receving data!\n\t %ld  %s %s %s   \n", interrupts.CPU0,data.interrupts.name,
-                   data.interrupts.ime1,data.interrupts.ime2);
-
-            gtk_main_quit();
-
-        }
-        if(ret==0){
-
-            printf("error sending data\n %d", (int) ret);
-            printf("socket closed\n");
-            gtk_main_quit();
-        }
-        ret = test_recv(info->thread_socket);
-        if (ret < 0) {
-
-            printf("error receing data\n %d", (int) ret);
-            gtk_main_quit();
-        }
-        if(ret==0){
-
-            printf("error sending data\n %d", (int) ret);
-            printf("socket closed\n");
-            gtk_main_quit();
-        }
-
-
-
-        printf(" Receving data!return value interrupts %d \n\t Interrupts %ld %ld %ld %ld %s %s %s \n",
-               (int) ret,
-               interrupts.CPU0,
-               interrupts.CPU1,
-               interrupts.CPU2,
-               interrupts.CPU3,
-               interrupts.name,
-               interrupts.ime1,
-               interrupts.ime2
-        );
-
-
-        printf("return value of Interrupts ret: %d number of recv %d  \n",(int)ret,i );
-
-
-
-
-
-
-
-      //   g_array_append_val(array_int,interrupts);
-
-
-
-    }*/
 
     ///intterupts end
 

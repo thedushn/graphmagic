@@ -9,31 +9,19 @@
 #define  BUFFER_SIZE 1024
 void  testing_files2( Devices *devices){
 
-
-
-
-
-
 struct statvfs info;
 
 statvfs(devices->directory,&info);
 
 
 devices->fid=info.f_flag;
-//    printf("///////\n");
-//    printf("devices %lu , name %s \n",info.f_flag,devices.name);
-//    printf("///////\n");
+
 
 
 devices->total=(__uint64_t)info.f_blocks*(__uint64_t)info.f_bsize;
 devices->used=(((__uint64_t)info.f_blocks-(__uint64_t)info.f_bfree))* (__uint64_t)info.f_bsize;
 devices->avail=(__uint64_t)(info.f_bavail*info.f_bsize);
 devices->free=(__uint64_t)(info.f_bfree*info.f_bsize);
-/*
-        printf("memory_total %lu\n" ,devices.total/1024);
-        printf("memory_used   %lu\n" ,devices.used/1024);
-        printf("memory_avail   %lu\n" ,devices.avail/1024);
-        printf("memory_free   %lu\n" ,devices.free/1024);*/
 
 
 
@@ -45,32 +33,27 @@ devices->free=(__uint64_t)(info.f_bfree*info.f_bsize);
 
 
 
-void device2(Devices * * array,bool show,__int32_t *niz2){
+int device2(Devices * * array,bool show,__int32_t *niz2){
 
     Devices *devices = NULL;
 
 
 
     __int32_t niz=0;
-    //  devices=calloc(0,sizeof(Devices));
-    mountlist3(&devices,show,&niz);
-  // printf("Niz u devices%d\n",niz);
 
-  /*  for(int r=0;r<niz;r++){
+   int ret= mountlist3(&devices,show,&niz);
 
-        printf("Devices %lu, %lu,%lu,%lu %lu, %s %s %s\n",
-               devices[r].used,devices[r].avail,
-               devices[r].fid,devices[r].free,devices[r].total,
-               devices[r].name,devices[r].directory,devices[r].type);
-
-    }*/
+        if(ret==-1){
+            return ret;
+        }
 
     *niz2=niz;
     *array=devices;
+    return ret;
 
 }
 
-void mountlist3(Devices **array,bool mount,__int32_t *fake){
+int mountlist3(Devices **array,bool mount,__int32_t *number){
 
 
     Devices *devices2 = NULL;
@@ -86,9 +69,10 @@ void mountlist3(Devices **array,bool mount,__int32_t *fake){
     file= fopen(filename,"r");
     if (file == NULL) {
         printf("open failed, errno = %d\n", errno);
+        return -1;
     }
     fseek(file, 0, SEEK_SET);
-  //  int g=0;
+
     if(mount==true){
         while (fgets(buffer, BUFFER_SIZE, file) != NULL) {
 
@@ -97,21 +81,22 @@ void mountlist3(Devices **array,bool mount,__int32_t *fake){
 
             testing_files2(&devices2[niz]);
             niz++;
-            temp=realloc(devices2,( /**j*/ niz+1)*sizeof(Devices));
+            temp=realloc(devices2,( niz+1)*sizeof(Devices));
 
             if ( temp != NULL ) {
                 devices2=temp;
             } else {
                 free(devices2);
+                return -1;
             }
 
         }
     }
     else{
         while (fgets(buffer, BUFFER_SIZE, file) != NULL) {
-            //upisujemo podatke
+
             sscanf(buffer, "%s %s %s", devices2[niz].name, devices2[niz].directory, devices2[niz].type);
-            //  sscanf(buffer,"%63s %255s %63s",devices2[niz].name,devices2[niz].directory,devices2[niz].type);
+
 
 
             struct stat filestat;
@@ -129,12 +114,13 @@ void mountlist3(Devices **array,bool mount,__int32_t *fake){
 
                     testing_files2(&devices2[niz]);
                     niz++;
-                    temp=realloc(devices2,( /**j*/ niz+1)*sizeof(Devices));
+                    temp=realloc(devices2,(niz+1)*sizeof(Devices));
 
                     if ( temp != NULL ) {
                         devices2=temp;
                     } else {
                         free(devices2);
+                        return -1;
 
                     }
 
@@ -157,10 +143,10 @@ void mountlist3(Devices **array,bool mount,__int32_t *fake){
     fclose(file);
 
     *array=devices2;
-    *fake = niz;
-   // printf("Mountlist *pointer %d\n",*fake);
+    *number = niz;
 
 
+    return 0;
 }
 
 

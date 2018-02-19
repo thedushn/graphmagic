@@ -48,10 +48,10 @@ RM = /home/dushn/clion/clion-2017.1.3/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client "
+CMAKE_SOURCE_DIR = "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client "
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles" "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/CMakeFiles" "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -203,6 +203,7 @@ functions.o: functions.c.o
 # target to build an object file
 functions.c.o:
 	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/functions.c.o
+	$(MAKE) -f CMakeFiles/s_1.dir/build.make CMakeFiles/s_1.dir/functions.c.o
 .PHONY : functions.c.o
 
 functions.i: functions.c.i
@@ -212,6 +213,7 @@ functions.i: functions.c.i
 # target to preprocess a source file
 functions.c.i:
 	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/functions.c.i
+	$(MAKE) -f CMakeFiles/s_1.dir/build.make CMakeFiles/s_1.dir/functions.c.i
 .PHONY : functions.c.i
 
 functions.s: functions.c.s
@@ -221,34 +223,8 @@ functions.s: functions.c.s
 # target to generate assembly for a file
 functions.c.s:
 	$(MAKE) -f CMakeFiles/s.dir/build.make CMakeFiles/s.dir/functions.c.s
+	$(MAKE) -f CMakeFiles/s_1.dir/build.make CMakeFiles/s_1.dir/functions.c.s
 .PHONY : functions.c.s
-
-functions2.o: functions2.c.o
-
-.PHONY : functions2.o
-
-# target to build an object file
-functions2.c.o:
-	$(MAKE) -f CMakeFiles/s_1.dir/build.make CMakeFiles/s_1.dir/functions2.c.o
-.PHONY : functions2.c.o
-
-functions2.i: functions2.c.i
-
-.PHONY : functions2.i
-
-# target to preprocess a source file
-functions2.c.i:
-	$(MAKE) -f CMakeFiles/s_1.dir/build.make CMakeFiles/s_1.dir/functions2.c.i
-.PHONY : functions2.c.i
-
-functions2.s: functions2.c.s
-
-.PHONY : functions2.s
-
-# target to generate assembly for a file
-functions2.c.s:
-	$(MAKE) -f CMakeFiles/s_1.dir/build.make CMakeFiles/s_1.dir/functions2.c.s
-.PHONY : functions2.c.s
 
 interrupts.o: interrupts.c.o
 
@@ -419,9 +395,6 @@ help:
 	@echo "... functions.o"
 	@echo "... functions.i"
 	@echo "... functions.s"
-	@echo "... functions2.o"
-	@echo "... functions2.i"
-	@echo "... functions2.s"
 	@echo "... interrupts.o"
 	@echo "... interrupts.i"
 	@echo "... interrupts.s"

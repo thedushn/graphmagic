@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/s_1.dir/functions2.c.o"
+  "CMakeFiles/s_1.dir/functions.c.o"
   "CMakeFiles/s_1.dir/server.c.o"
   "CMakeFiles/s_1.dir/memory_usage.c.o"
   "CMakeFiles/s_1.dir/interrupts.c.o"

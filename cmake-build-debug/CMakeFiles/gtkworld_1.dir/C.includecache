@@ -6,59 +6,63 @@
 
 #IncludeRegexTransform: 
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.c
 sys/socket.h
 -
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
 drawing.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
 buttons_s.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons_s.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons_s.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
 gtk/gtk.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons_s.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons_s.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/client.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/client.c
 interrupts.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.h
 drawing.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
 window.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.h
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
 sys/socket.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/sys/socket.h
 netdb.h
 -
+fontconfig/fontconfig.h
+-
 functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
 stdbool.h
 -
 time.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.c
 inttypes.h
 -
 drawing.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
+pango/pangocairo.h
+-
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/drawing.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
 math.h
 -
 sys/stat.h
@@ -78,29 +82,29 @@ gtk/gtk.h
 cairo.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.c
 stdio.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/stdio.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/stdio.h
 memory.h
 -
 sys/socket.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/sys/socket.h
 functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.h
 gtk/gtk.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/gtk/gtk.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/gtk/gtk.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.c
 interrupts.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.h
 gtk/gtk.h
 -
 glib.h
@@ -122,9 +126,9 @@ string.h
 stdlib.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
 cairo.h
 -
 gtk/gtk.h
@@ -132,37 +136,37 @@ gtk/gtk.h
 stdlib.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.c
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
 string.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/string.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/string.h
 gtk/gtk.h
 -
 stdlib.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.c
 window.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.h
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/testing_tree.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/buttons.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/window.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/main_header.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
 
 /usr/include/atk-1.0/atk/atk-enum-types.h
 atk/atkversion.h

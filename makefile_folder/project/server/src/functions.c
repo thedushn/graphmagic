@@ -12,33 +12,118 @@
 #include "cpu_usage.h"
 
 
+
 #define BUF_SIZE 1024
 
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+pthread_cond_t   cond = PTHREAD_COND_INITIALIZER;
+
+static int myCompare(const void *a, const void *b) {
+
+    Interrupts interrupts1 = *(Interrupts *) a;
+    Interrupts interrupts2 = *(Interrupts *) b;
+
+    __uint64_t CPU0a = 0;
+    __uint64_t CPU1a = 0;
+    __uint64_t CPU2a = 0;
+    __uint64_t CPU3a = 0;
+    __uint64_t CPU0b = 0;
+    __uint64_t CPU1b = 0;
+    __uint64_t CPU2b = 0;
+    __uint64_t CPU3b = 0;
+    int CPUa = 0;
+    int CPUb = 0;
+
+    CPU0a = interrupts1.CPU0;
+    CPU1a = interrupts1.CPU1;
+    CPU2a = interrupts1.CPU2;
+    CPU3a = interrupts1.CPU3;
+
+    CPU0b = interrupts2.CPU0;
+    CPU1b = interrupts2.CPU1;
+    CPU2b = interrupts2.CPU2;
+    CPU3b = interrupts2.CPU3;
+    /* CPU0a=interrupts1->CPU0;
+     CPU1a=interrupts1->CPU1;
+     CPU2a=interrupts1->CPU2;
+     CPU3a=interrupts1->CPU3;
+
+     CPU0b=interrupts2->CPU0;
+     CPU1b=interrupts2->CPU1;
+     CPU2b=interrupts2->CPU2;
+     CPU3b=interrupts2->CPU3;*/
+    CPUa = (int) (CPU0a + CPU1a + CPU2a + CPU3a);
+    CPUb = (int) (CPU0b + CPU1b + CPU2b + CPU3b);
+
+    //  printf(" PRVi %lu %lu %lu %lu   ime: %s\n", interrupts1->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+    //  printf(" DRUGI %lu %lu %lu %lu   ime: %s\n", interrupts2->CPU0, interrupts1->CPU1, interrupts1->CPU2, interrupts1->CPU3,interrupts1->name);
+
+    return CPUa - CPUb;
+
+}
+
+void sort2(Interrupts *array, Interrupts *array2, Interrupts **array3, int n) {
+
+    Interrupts *interrupts_send = NULL;
+    interrupts_send = calloc((size_t) n, sizeof(Interrupts));
+    for (int i = 0; i < n; i++) {
+
+        Interrupts interrupts3;
+        memset(&interrupts3, 0, sizeof(Interrupts));
+        strcpy(interrupts3.name, array[i].name);
+        //interrupts3.name[j] = interrupts1->name[j];
+        //  }
+
+        __uint64_t temp = array[i].CPU0 - array2[i].CPU0;
+        interrupts3.CPU0 = temp;
+        temp = array[i].CPU1 - array2[i].CPU1;
+        interrupts3.CPU1 = temp;
+        temp = array[i].CPU2 - array2[i].CPU2;
+        interrupts3.CPU2 = temp;
+        temp = array[i].CPU3 - array2[i].CPU3;
+        interrupts3.CPU3 = temp;
 
 
+
+
+        // upis_imena(interrupts1,&interrupts3);
+        strcpy(interrupts3.ime1, array[i].ime1);
+        strcpy(interrupts3.ime2, array[i].ime2);
+        strcpy(interrupts3.ime3, array[i].ime3);
+        strcpy(interrupts3.ime4, array[i].ime4);
+        interrupts_send[i] = interrupts3;
+
+    }
+
+    *array3 = interrupts_send;
+
+
+}
+
+void sort(Interrupts *array, int n) {
+
+    qsort(array, n, sizeof(Interrupts), myCompare);
+}
 //int rezultat =1;
-bool devices_show = false;
+bool devices_show=false;
+ssize_t test_send(int socket){
 
-ssize_t test_send(int socket) {
-
-    ssize_t ret = 0;
+    ssize_t  ret=0;
     char buffer[64];
-    memset(buffer, 0, sizeof(buffer));
-    ret = recv(socket, buffer, sizeof(buffer), 0);
-    printf("Return value %d", (int) ret);
+    memset(buffer,0,sizeof(buffer));
+    ret= recv(socket, buffer,sizeof(buffer),0);
+    printf("Return value %d",(int)ret);
     if (ret < 0) {
 
-        printf("error receing data\n %d", (int) ret);
-        return ret;
+        printf("error receing data\n %d",(int) ret);
+       return ret;
     }
     if (ret == 0) {
 
         printf("socket closed\n");
         return ret;
     }
-    if (ret < 64) {
+    if(ret<64) {
         size_t velicina = 64;
         velicina -= ret;
         while (velicina > 0 || velicina < 0) {
@@ -49,46 +134,46 @@ ssize_t test_send(int socket) {
             //koliko_bytes+=ret;
             if (ret < 0) {
 
-                printf("error receing data\n %d", (int) ret);
+                printf("error receing data\n %d", (int)ret);
                 return ret;
             }
             if (ret == 0) {
 
                 printf("socket closed\n");
-                return ret;
+               return ret;
             }
-            printf("Return value %d", (int) ret);
+            printf("Return value %d",(int) ret);
         }
     }
     if (strcmp(buffer, "stiglo sve") != 0) {
 
         printf("NOPE  \n");
 
-        return -1;
+       return -1;
     }
 
     return 64;
 };
-
-void send_prio_to_task(char *task_id, char *signal) {
-    int prio = 0;
-    if (strcmp(signal, "VERY_LOW") == 0) {
+void send_prio_to_task(char *task_id, char *signal)
+{
+    int prio=0;
+    if(strcmp(signal,"VERY_LOW")==0){
         prio = 15;
 
     }
-    if (strcmp(signal, "LOW") == 0) {
+    if(strcmp(signal,"LOW")==0){
         prio = 5;
 
     }
-    if (strcmp(signal, "NORMAL") == 0) {
+    if(strcmp(signal,"NORMAL")==0){
         prio = 0;
 
     }
-    if (strcmp(signal, "VERY_HIGH") == 0) {
+    if(strcmp(signal,"VERY_HIGH")==0){
         prio = -15;
 
     }
-    if (strcmp(signal, "HIGH") == 0) {
+    if(strcmp(signal,"HIGH")==0){
         prio = -5;
 
     }
@@ -96,13 +181,13 @@ void send_prio_to_task(char *task_id, char *signal) {
 
     char str[4];
 
-    sprintf(str, "%d", prio);
+    sprintf(str,"%d",prio);
     char command[64] = "renice -n ";
-    strncat(command, str, sizeof command);
-    strncat(command, " -p ", sizeof command);
-    strncat(command, task_id, sizeof command);
-    printf("COMMAND %s\n", command);
-    if (system(command) != 0) {
+    strncat(command,str, sizeof command);
+    strncat(command," -p ", sizeof command);
+    strncat(command,task_id, sizeof command);
+    printf("COMMAND %s\n",command);
+    if(system(command) != 0){
 
         printf("comand failed\n");
     }
@@ -110,75 +195,63 @@ void send_prio_to_task(char *task_id, char *signal) {
     //return (res== 0 ) ? TRUE : FALSE;
 
 }
-
-void send_signal_to_task(char *task_id, char *signal) {
+void send_signal_to_task(char *task_id, char *signal)
+{
     printf("SIGNAL %s the task with ID %s\n", signal, task_id);
-    if (task_id != NULL && signal != NULL) {
+    if(task_id != NULL && signal != NULL)
+    {
         char command[64] = "kill -";
-        strncat(command, signal, sizeof command);
-        strncat(command, " ", sizeof command);
-        strncat(command, task_id, sizeof command);
-        printf("Task id %s", task_id);
-        if (system(command) != 0)
+        strncat(command,signal, sizeof command);
+        strncat(command," ", sizeof command);
+        strncat(command,task_id, sizeof command);
+        printf("Task id %s",task_id);
+        if(system(command) != 0)
             printf("comand failed\n");
 //            xfce_err("Couldn't %s the task with ID %s", signal, task_id);
     }
 }
-
-void *accept_c(void *socket) {
+void *accept_c(void *socket){
     printf("usli smo u accpet\n");
-    struct my_thread_info *info = socket;
-    /*static*/ int rezultat;
-/*    char buffer[BUF_SIZE];
-    gboolean res=FALSE;*/
-    // data_s data;
-    /*  struct Commands{
+    int sockfd = *(int *) socket;
 
-         int mem;
-          gboolean show;
-          gchar command [10];
-          gchar task_id [256];
-      }stuff;*/
     Commands commands;
 
     while (1) {
-        //  pthread_mutex_lock (&m);
-        /* info = malloc(sizeof(struct my_thread_info));
-         info->thread_socket= *(int*)socket;*/
-        ssize_t ret = recv(info->thread_socket, &commands, sizeof(Commands), 0);
-        if (ret < 0) {
+
+        ssize_t ret = recv(sockfd, &commands, sizeof(Commands), 0);
+        if(ret<0){
             printf("error condition didnt get received\n");
 
 
             pthread_exit(&ret);
         }
-        if (ret == 0) {
+        if(ret==0){
             printf("error condition didnt get received\n");
             printf("ret %d\n", (int) ret);
 
             pthread_exit(&ret);
         }
         printf("ret accept  %d \n", (int) ret);
-        rezultat = commands.mem;
-        devices_show = commands.show;
+        devices_show=commands.show;
 
-        printf("sHOW %s\n", commands.show == true ? "TRUE" : "FALSE");
-        printf("SHOW %s\n", devices_show == true ? "TRUE" : "FALSE");
+        printf("sHOW %s\n", commands.show==true ? "TRUE" : "FALSE");
+        printf("SHOW %s\n", devices_show==true ? "TRUE" : "FALSE");
 
-        printf("command %s\n ", commands.command);
-        printf("id %s\n ", commands.task_id);
+        printf("command %s\n ",commands.command);
+        printf("id %s\n ",commands.task_id);
 
-        if (strcmp(commands.task_id, "") != 0 && strcmp(commands.command, "") != 0) {
-            if (strcmp(commands.command, "STOP") == 0 ||
-                strcmp(commands.command, "CONT") == 0 ||
-                strcmp(commands.command, "KILL") == 0 ||
-                strcmp(commands.command, "TERM") == 0) {
-                send_signal_to_task(commands.task_id, commands.command);
-            } else {
-
-                /*res= */ send_prio_to_task(commands.task_id, commands.command);
+        if(strcmp(commands.task_id, "") != 0 && strcmp(commands.command, "") != 0){
+            if(strcmp(commands.command, "STOP") == 0 ||
+                    strcmp(commands.command, "CONT") == 0 ||
+                    strcmp(commands.command, "KILL") == 0 ||
+                    strcmp(commands.command, "TERM") == 0){
+                send_signal_to_task(commands.task_id,commands.command);
             }
-            // printf("DA li smo uspeli %s\n", res==TRUE ? "TRUE" : "FALSE");
+            else{
+
+                send_prio_to_task(commands.task_id, commands.command);
+            }
+
         }
 
 
@@ -187,28 +260,32 @@ void *accept_c(void *socket) {
 };
 
 
-void *slanje(void *socket) {
 
-    ssize_t ret = 0;
+void *slanje(void *socket){
+
+    ssize_t  ret=0;
 
     printf("usli smo u slanje\n");
-    //unsigned int num_packets;
+        //unsigned int num_packets;
 
     time_t time1;
-    static struct my_thread_info *info;
-    Task *task_array = NULL;
-    Interrupts *interrupts = NULL;
-    Devices *devices = NULL;
 
-    data_s data;
+    Task *task_array=NULL;
+    Interrupts  *interrupts=NULL;
+    Interrupts *interrupts_main = NULL;
+    Interrupts *interrupts_send = NULL;
+    Interrupts *interrupts1 = NULL;
+    Devices  *devices=NULL;
+    int sockfd = *(int *) socket;
+    int result = 0;
 
-    while (1) {
+    while(1) {
 
-        Memory_usage memory_usage = {0};
-        Cpu_usage cpu_usage = {0};
-        Network network = {0};
-        info = malloc(sizeof(struct my_thread_info));
-        info->thread_socket = *(int *) socket;
+        Memory_usage memory_usage={0};
+        Cpu_usage cpu_usage={0} ;
+        Network network={0};
+        memset(&network, 0, sizeof(Network));
+
 
         time1 = time(NULL);
 
@@ -217,20 +294,19 @@ void *slanje(void *socket) {
         get_memory_usage(&memory_usage);
 
 
-        ret = send(info->thread_socket, &memory_usage, sizeof(Memory_usage), 0);
+        ret = send(sockfd, &memory_usage, sizeof(Memory_usage), 0);
 
         if (ret < 0) {
             printf("Error sending data!\n\t");
-            break;
+              break;
 
-        }
-        if (ret == 0) {
+        }   if (ret == 0) {
 
             printf("socket closed\n");
             break;
         }
 
-        ret = test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
             printf("Error receiving  num_packets!\n\t");
             break;
@@ -253,10 +329,10 @@ void *slanje(void *socket) {
 
         ///memory_end
         ///cpu
-        __int32_t cpu_num = cpu_number();
-        cpu_percentage(cpu_num, &cpu_usage);
+        __int32_t cpu_num= cpu_number();
+        cpu_percentage(cpu_num,&cpu_usage);
 
-        ret = send(info->thread_socket, &cpu_usage, sizeof(Cpu_usage), 0);
+        ret = send(sockfd, &cpu_usage, sizeof(Cpu_usage), 0);
         if (ret < 0) {
             printf("Error sending data!\n\t");
             break;
@@ -267,10 +343,10 @@ void *slanje(void *socket) {
             printf("socket closed\n");
             break;
         }
-        ret = test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
-            printf("error receing data\n %d", (int) ret);
+            printf("error receing data\n %d",(int) ret);
             break;
         }
         if (ret == 0) {
@@ -282,9 +358,12 @@ void *slanje(void *socket) {
         ///cpu end
 
         ///network
-        interface_name(&network);
+        result = interface_name(&network);
+        if (result != 0) {
 
-        ret = send(info->thread_socket, &network, sizeof(Network), 0);
+            break;
+        }
+        ret = send(sockfd, &network, sizeof(Network), 0);
 
         if (ret < 0) {
             printf("Error sending data!\n\t");
@@ -297,10 +376,10 @@ void *slanje(void *socket) {
             break;
 
         }
-        ret = test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
-            printf("error receing data\n %d", (int) ret);
+            printf("error receing data\n %d",(int) ret);
             break;
         }
         if (ret == 0) {
@@ -308,19 +387,20 @@ void *slanje(void *socket) {
             printf("socket closed\n");
             break;
         }
-        //   printf("Network  %" SCNu64 ", %" SCNu64 "\n ",network.received_bytes,network.transmited_bytes);
+     //   printf("Network  %" SCNu64 ", %" SCNu64 "\n ",network.received_bytes,network.transmited_bytes);
 
-        printf("Return value network %d \n", (int) ret);
-        ///network end
+        printf("Return value network %d \n", (int)ret);
+            ///network end
 
 
         ///devices
-        __int32_t niz = 0;
-        device2(&devices, devices_show, &niz);
+        __int32_t niz=0;
+        //  devices=calloc(0,sizeof(Devices));
+        device2(&devices,devices_show,&niz);
         printf("prosli \n");
 
 
-        ret = send(info->thread_socket, &niz, sizeof(__int32_t), 0);
+        ret = send(sockfd, &niz, sizeof(__int32_t), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
 
@@ -331,10 +411,10 @@ void *slanje(void *socket) {
             printf("socket closed\n");
             break;
         }
-        ret = test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
-            printf("error receing data\n %d", (int) ret);
+            printf("error receing data\n %d",(int) ret);
             break;
         }
         if (ret == 0) {
@@ -343,9 +423,9 @@ void *slanje(void *socket) {
             break;
         }
 
-        for (int i = 0; i < niz; i++) {
-            devices[i].checked = false;
-            ret = (int) send(info->thread_socket, &devices[i], sizeof(Devices), 0);
+        for(int i =0;i<niz ;i++){
+            devices[i].checked=false;
+            ret = (int) send(sockfd, &devices[i], sizeof(Devices), 0);
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
@@ -362,11 +442,16 @@ void *slanje(void *socket) {
         }
 
         /// tasks
-        int niz_task = 0;
-        get_task_list(&task_array, &niz_task);
+        int niz_task=0;
+        //  task_array=calloc(0,sizeof(Task));
+        result = get_task_list(&task_array, &niz_task);
+        if (result != 0) {
 
-        __int32_t niz_temp = (__int32_t) niz_task;
-        ret = send(info->thread_socket, &niz_temp, sizeof(__int32_t), 0);
+            printf("error in get_task_list\n");
+            break;
+        }
+        __int32_t niz_temp= (__int32_t) niz_task;
+        ret = send(sockfd, &niz_temp, sizeof(__int32_t), 0);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
 
@@ -378,10 +463,10 @@ void *slanje(void *socket) {
             printf("socket closed\n");
             break;
         }
-        ret = test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
-            printf("error receing data\n %d", (int) ret);
+            printf("error receing data\n %d",(int) ret);
             break;
         }
         if (ret == 0) {
@@ -393,7 +478,7 @@ void *slanje(void *socket) {
         for (int i = 0; i < niz_task; i++) {
 
 
-            ret = send(info->thread_socket, &task_array[i], sizeof(Task), 0);
+            ret = send(sockfd, &task_array[i], sizeof(Task), 0);
 
             if (ret < 0) {
                 printf("Error sending data!\n\t");
@@ -409,100 +494,111 @@ void *slanje(void *socket) {
 
         }
 
-        /*  for (int i = 0; i < niz_task; i++) {
+      /*  for (int i = 0; i < niz_task; i++) {
 
 
-              size_t g = strlen(task_array[i].name);
-              for (int r = 0; r <= g; r++) {
+            size_t g = strlen(task_array[i].name);
+            for (int r = 0; r <= g; r++) {
 
-                  data.task.name[r] = task_array[i].name[r];
+                data.task.name[r] = task_array[i].name[r];
 
-              }
-              g = strlen(task_array[i].state);
-              for (int r = 0; r <= g; r++) {
+            }
+            g = strlen(task_array[i].state);
+            for (int r = 0; r <= g; r++) {
 
-                  data.task.state[r] = task_array[i].state[r];
+                data.task.state[r] = task_array[i].state[r];
 
-              }
-              g = strlen(task_array[i].uid_name);
-              for (int r = 0; r <= g; r++) {
+            }
+            g = strlen(task_array[i].uid_name);
+            for (int r = 0; r <= g; r++) {
 
-                  data.task.uid_name[r] = task_array[i].uid_name[r];
+                data.task.uid_name[r] = task_array[i].uid_name[r];
 
-              }
-              data.task.uid = task_array[i].uid;
+            }
+            data.task.uid = task_array[i].uid;
 
-              data.task.vsz = task_array[i].vsz;
-              data.task.rss = task_array[i].rss;
-              data.task.prio = task_array[i].prio;
+            data.task.vsz = task_array[i].vsz;
+            data.task.rss = task_array[i].rss;
+            data.task.prio = task_array[i].prio;
 
-              data.task.pid = task_array[i].pid;
-              data.task.ppid = task_array[i].ppid;
+            data.task.pid = task_array[i].pid;
+            data.task.ppid = task_array[i].ppid;
 
-               data.task.start_time = task_array[i].start_time;
-              data.task.duration.tm_sec = task_array[i].duration.tm_sec;
-              data.task.duration.tm_min = task_array[i].duration.tm_min;
-              data.task.duration.tm_hour = task_array[i].duration.tm_hour;
-              data.task.stime.tm_sec = task_array[i].stime.tm_sec;
-              data.task.stime.tm_min = task_array[i].stime.tm_min;
-              data.task.stime.tm_hour = task_array[i].stime.tm_hour;
+             data.task.start_time = task_array[i].start_time;
+            data.task.duration.tm_sec = task_array[i].duration.tm_sec;
+            data.task.duration.tm_min = task_array[i].duration.tm_min;
+            data.task.duration.tm_hour = task_array[i].duration.tm_hour;
+            data.task.stime.tm_sec = task_array[i].stime.tm_sec;
+            data.task.stime.tm_min = task_array[i].stime.tm_min;
+            data.task.stime.tm_hour = task_array[i].stime.tm_hour;
 
 
-              printf("vreme trajanja rada %d %d %d\n", data.task.duration.tm_hour,
-                     data.task.duration.tm_min,
-                     data.task.duration.tm_sec);
-              printf("start time %d %d %d\n", data.task.stime.tm_hour,
-                     data.task.stime.tm_min,
-                     data.task.stime.tm_sec);
-              printf("Name [%s]  checked [%hu] pid [%d] start_time[%" SCNu64 "] prio [%d] %" SCNu64 " %" SCNu64 " %d %d %s %s [%s] [%s]\n",
-                     data.task.name, data.task.checked, data.task.pid, data.task.start_time, data.task.prio,
-                     data.task.rss, data.task.vsz,
-                     data.task.uid,
-                     data.task.ppid,
-                     data.task.cpu_user,
-                     data.task.cpu_system,
-                     data.task.state,
-                     data.task.uid_name);
+            printf("vreme trajanja rada %d %d %d\n", data.task.duration.tm_hour,
+                   data.task.duration.tm_min,
+                   data.task.duration.tm_sec);
+            printf("start time %d %d %d\n", data.task.stime.tm_hour,
+                   data.task.stime.tm_min,
+                   data.task.stime.tm_sec);
+            printf("Name [%s]  checked [%hu] pid [%d] start_time[%" SCNu64 "] prio [%d] %" SCNu64 " %" SCNu64 " %d %d %s %s [%s] [%s]\n",
+                   data.task.name, data.task.checked, data.task.pid, data.task.start_time, data.task.prio,
+                   data.task.rss, data.task.vsz,
+                   data.task.uid,
+                   data.task.ppid,
+                   data.task.cpu_user,
+                   data.task.cpu_system,
+                   data.task.state,
+                   data.task.uid_name);
 
-          }*/
+        }*/
         ///tasks end
 
 
         ///interrupts
-        __int32_t h = 0;
+        __int32_t h=0;
 
-        interrupt_usage2(&interrupts, &h);
+        result = interrupt_usage2(&interrupts, &h);
+        if (result != 0) {
 
-
-        __int32_t j = h;
-
-        printf("BROJ INT %d \n", j);
-        ret = send(info->thread_socket, &j, sizeof(__int32_t), 0);
-        if (ret < 0) {
-            printf("Error sending num_packets!\n\t");
-            break;
-
-        }
-        if (ret == 0) {
-
-            printf("socket closed\n");
             break;
         }
-        ret = test_send(info->thread_socket);
-        if (ret < 0) {
 
-            printf("error receing data\n %d", (int) ret);
-            break;
+        if (interrupts_main == NULL) {
+
+            interrupts_main = calloc((size_t) h, sizeof(Interrupts));
+            for (int r = 0; r < h; r++) {
+
+                interrupts_main[r] = interrupts[r];
+            }
+
+
         }
-        if (ret == 0) {
 
-            printf("socket closed\n");
-            break;
+
+
+
+        __int32_t j=h;
+        sort2(interrupts, interrupts_main, &interrupts_send, h);
+
+
+        sort(interrupts_send, j);
+
+        printf("BROJ INT %d \n",j);
+        interrupts1 = calloc((size_t) 10, sizeof(Interrupts));
+        int g = 0;
+        for (int r = h - 10; r < h; r++) {
+
+            // memset(&interrupts1[g],0,sizeof(Interrupts));
+            interrupts1[g] = interrupts_send[r];
+            g++;
+
         }
-        for (int r = 0; r < h; r++) {
 
 
-            ret = send(info->thread_socket, &interrupts[r], sizeof(Interrupts), 0);
+
+        for (int r = 0; r < 10; r++) {
+
+
+            ret = send(sockfd, &interrupts1[r], sizeof(Interrupts), 0);
 
 
             if (ret < 0) {
@@ -517,13 +613,15 @@ void *slanje(void *socket) {
             }
 
 
-            printf("return value of Interrupts ret: %d number of send %d  \n", (int) ret, r);
+
+
+            printf("return value of Interrupts ret: %d number of send %d  \n",(int)ret,r );
 
         }
-        ret = test_send(info->thread_socket);
+        ret = test_send(sockfd);
         if (ret < 0) {
 
-            printf("error receing data\n %d", (int) ret);
+            printf("error receing data\n %d",(int) ret);
             break;
         }
         if (ret == 0) {
@@ -532,43 +630,61 @@ void *slanje(void *socket) {
             break;
         }
 
+        //  free(interrupts_main);
+        free(interrupts_send);
+        free(interrupts1);
+
+        for (int r = 0; r < h; r++) {
+
+            interrupts_main[r] = interrupts[r];
+        }
+        interrupts_send = NULL;
+        interrupts1 = NULL;
+
+
         free(task_array);
         free(devices);
         free(interrupts);
 
-        free(info);
-        task_array = NULL;
-        devices = NULL;
-        interrupts = NULL;
-        info = NULL;
+
+        task_array=NULL;
+        devices=NULL;
+        interrupts=NULL;
 
 
     }
 
-    printf("freing stuff\n");
+        printf("freing stuff\n");
 
-    if (task_array != NULL) {
+    if(task_array!=NULL){
         printf("free tasks\n");
         free(task_array);
     }
-    if (devices != NULL) {
+    if(devices!=NULL){
         printf("free devices\n");
         free(devices);
     }
 
-    if (interrupts != NULL) {
+    if(interrupts!=NULL){
         printf("interrupts\n");
         free(interrupts);
     }
-    if (info != NULL) {
-        printf("info\n");
-        free(info);
+    if (interrupts_main != NULL) {
+        printf("interrupts_main\n");
+        free(interrupts_main);
+    }
+    if (interrupts_send != NULL) {
+        printf("interrupts_send\n");
+        free(interrupts_send);
+    }
 
+    if (interrupts1 != NULL) {
+        printf("interrupts1\n");
+        free(interrupts1);
     }
 
 
+   // pthread_exit(&ret);
 
-    // pthread_exit(&ret);
-
-    return 0;
+  return 0;
 };

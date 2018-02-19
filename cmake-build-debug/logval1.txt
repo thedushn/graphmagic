@@ -1,0 +1,57 @@
+==5073== LEAK SUMMARY:
+==5073==    definitely lost: 3,072 bytes in 6 blocks
+==5073==    indirectly lost: 14,457 bytes in 607 blocks
+==5073==      possibly lost: 4,736 bytes in 52 blocks
+==5073==    still reachable: 1,935,502 bytes in 27,695 blocks
+==5073==                       of which reachable via heuristic:
+==5073==                         length64           : 7,632 bytes in 117 blocks
+==5073==                         newarray           : 2,256 bytes in 61 blocks
+==5073==         suppressed: 9,424 bytes in 65 blocks
+==5073== Reachable blocks (those to which a pointer was found) are not shown.
+==5073== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==5073==
+==5073== ERROR SUMMARY: 56 errors from 45 contexts (suppressed: 1 from 1)
+==5073==
+
+
+==5125== LEAK SUMMARY:
+==5125==    definitely lost: 3,072 bytes in 6 blocks
+==5125==    indirectly lost: 14,457 bytes in 607 blocks
+==5125==      possibly lost: 4,736 bytes in 52 blocks
+==5125==    still reachable: 1,937,797 bytes in 27,772 blocks
+==5125==                       of which reachable via heuristic:
+==5125==                         length64           : 7,632 bytes in 117 blocks
+==5125==                         newarray           : 2,256 bytes in 61 blocks
+==5125==         suppressed: 9,424 bytes in 65 blocks
+==5125== Reachable blocks (those to which a pointer was found) are not shown.
+==5125== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==5125==
+==5125== ERROR SUMMARY: 56 errors from 45 contexts (suppressed: 1 from 1)
+
+==5986== LEAK SUMMARY:
+==5986==    definitely lost: 256 bytes in 1 blocks
+==5986==    indirectly lost: 97 bytes in 4 blocks
+==5986==      possibly lost: 1,844 bytes in 30 blocks
+==5986==    still reachable: 638,442 bytes in 10,515 blocks
+==5986==                       of which reachable via heuristic:
+==5986==                         length64           : 7,456 bytes in 115 blocks
+==5986==                         newarray           : 2,256 bytes in 61 blocks
+==5986==         suppressed: 1,280,890 bytes in 18,027 blocks
+==5986== Reachable blocks (those to which a pointer was found) are not shown.
+==5986== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==5986==
+==5986== ERROR SUMMARY: 31 errors from 20 contexts (suppressed: 24 from 24)
+==5865== LEAK SUMMARY:
+==5865==    definitely lost: 0 bytes in 0 blocks
+==5865==    indirectly lost: 0 bytes in 0 blocks
+==5865==      possibly lost: 1,844 bytes in 30 blocks
+==5865==    still reachable: 628,966 bytes in 10,686 blocks
+==5865==                       of which reachable via heuristic:
+==5865==                         length64           : 7,456 bytes in 115 blocks
+==5865==                         newarray           : 2,256 bytes in 61 blocks
+==5865==         suppressed: 1,257,420 bytes in 17,991 blocks
+==5865== Reachable blocks (those to which a pointer was found) are not shown.
+==5865== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==5865==
+==5865== ERROR SUMMARY: 30 errors from 19 contexts (suppressed: 24 from 24)
+==5865==

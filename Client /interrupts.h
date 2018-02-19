@@ -26,7 +26,7 @@
 int interrupt_usage2(Interrupts **array, __int32_t *j);
 
 
-void upis_imena(Interrupts *interrupts1,Interrupts *interrupts3);
+
 
 
 #endif //GTKWORLD_INTERRUPTS_H

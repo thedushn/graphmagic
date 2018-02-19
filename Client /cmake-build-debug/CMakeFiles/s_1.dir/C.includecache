@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 stdbool.h
 -
 time.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.c
 inttypes.h
 -
 cpu_usage.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
 stdio.h
 -
 pwd.h
@@ -32,17 +32,17 @@ math.h
 stdlib.h
 -
 stdbool.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdbool.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdbool.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.c
 devices.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
 errno.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
 setjmp.h
 -
 unistd.h
@@ -80,47 +80,45 @@ stdlib.h
 stdbool.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
-memory_usage.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.h
-common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
-task_manager.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.h
-devices.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /devices.h
-network_bandwith.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.h
-
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions2.c
-inttypes.h
--
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.c
 stdio.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdio.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdio.h
 stdlib.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdlib.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdlib.h
 sys/socket.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /sys/socket.h
 pthread.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /pthread.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /pthread.h
 functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
 interrupts.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.h
 cpu_usage.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
+memory_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
+task_manager.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
+devices.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
+network_bandwith.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.c
 errno.h
 -
 inttypes.h
 -
 interrupts.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /interrupts.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.h
 math.h
 -
 stdio.h
@@ -138,15 +136,15 @@ string.h
 stdlib.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.c
 inttypes.h
 -
 memory_usage.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /memory_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
 math.h
 -
 sys/stat.h
@@ -162,17 +160,17 @@ stdio.h
 stdlib.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.c
 network_bandwith.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
 errno.h
 -
 inttypes.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /network_bandwith.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
 stdio.h
 -
 sys/types.h
@@ -204,25 +202,25 @@ dirent.h
 stdint.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /server.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /server.c
 stdio.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdio.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdio.h
 stdlib.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /stdlib.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdlib.h
 sys/socket.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /sys/socket.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /sys/socket.h
 string.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /string.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /string.h
 netinet/in.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /netinet/in.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /netinet/in.h
 pthread.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /pthread.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /pthread.h
 functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
 cpu_usage.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
 arpa/inet.h
 -
 netdb.h
@@ -234,19 +232,19 @@ errno.h
 wait.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.c
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.c
 task_manager.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.h
-cpu_usage.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
 functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
 errno.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /errno.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /errno.h
+cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
 inttypes.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /task_manager.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
 math.h
 -
 sys/stat.h
@@ -262,5 +260,5 @@ stdio.h
 stdlib.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/TEST_ADDING NEW things /TEST_cleaing up code /TEST/Client /common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 

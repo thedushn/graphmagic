@@ -6,7 +6,6 @@
 #define GTKWORLD_DEVICES_H
 
 #endif //GTKWORLD_DEVICES_H
-
 #include <setjmp.h>
 #include <unistd.h>
 #include <string.h>
@@ -32,13 +31,14 @@
 
 #include "common.h"
 
-void testing_files2(Devices *devices);
+void  testing_files2( Devices *devices);
 
 
-void device2(Devices **array, bool show, __int32_t *niz2);
+void device2(Devices * * array,bool show,__int32_t *niz2);
 
 
-void mountlist3(Devices **array, bool mount, __int32_t *fake);
+
+void mountlist3(Devices **array,bool mount,__int32_t *fake);
 //void array_devices();
 
 

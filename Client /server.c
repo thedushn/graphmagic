@@ -21,13 +21,13 @@
 
 
 
-#define BUF_SIZE 2000
+#define BUF_SIZE 1024
 
 
 
 void sigchld_handler(int s)
 {
-    // waitpid() might overwrite errno, so we save and restore it:
+
     int saved_errno = errno;
 
     while(waitpid(-1, NULL, WNOHANG) > 0);
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]){
         printf("no port provided");
         exit(1);
     }
-   // uint16_t portnum=(uint16_t)atoi(argv[1]);
+
 
     if ((rv = getaddrinfo(NULL, argv[1], &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -117,7 +117,7 @@ int main(int argc, char *argv[]){
         exit(1);
     }
 
-    printf("server: waiting for connections...\n");
+
 
 
      {  // main accept() loop
@@ -133,7 +133,6 @@ int main(int argc, char *argv[]){
     inet_ntop(their_addr.ss_family,
               get_in_addr((struct sockaddr *)&their_addr),
               s, sizeof s);
-    printf("server: got connection from %s\n", s);
 
 
     {  // main accept() loop
@@ -149,10 +148,6 @@ int main(int argc, char *argv[]){
     inet_ntop(their_addr.ss_family,
               get_in_addr((struct sockaddr *)&their_addr),
               s, sizeof s);
-    printf("server: got connection from %s\n", s);
-
-
-
 
 
 
@@ -208,8 +203,7 @@ int main(int argc, char *argv[]){
     stop_time.tm_sec=(__uint32_t)sec0;
 
     differenceBetweenTimePeriod(tm2, stop_time, &pocetno);// vreme kada je poceo da radi linux
-   // interface_name();
-	printf("now: %d-%d-%d %d:%d:%d\n", tm2.tm_year+1900 , tm2.tm_mon , tm2.tm_mday, tm2.tm_hour, tm2.tm_min, tm2.tm_sec);
+
 
 
     ret2 = pthread_create(&t2, NULL, slanje, &new_fd);
@@ -228,22 +222,18 @@ int main(int argc, char *argv[]){
         exit(1);
 
     }
-    printf("threads joined\n");
+
+
    pthread_join( t2, NULL);
     pthread_join( t3, NULL);
 
-	 close(sockfd);
-    printf("socket_closed\n");
+
+    close(sockfd);
     uradi(true);
 	clean();
-    /*free(hash_cpu_system);
-    free(hash_cpu_user);*/
-
-    printf("hash_freed\n");
 
 
 
-	 //pthread_exit(NULL);
 
 	 return 0;
 	}

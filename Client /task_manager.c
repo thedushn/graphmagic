@@ -4,14 +4,15 @@
 
 #include "task_manager.h"
 
-#include "cpu_usage.h"
+
 #include "functions.h"
 #include "errno.h"
+#include "cpu_usage.h"
 #include <inttypes.h>
 
 void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm1 *diff)
 {
-   // printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
+
     if(stop.tm_sec > start.tm_sec){
         --start.tm_min;
         start.tm_sec += 60;
@@ -25,7 +26,7 @@ void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm1 *d
 
     diff->tm_min = start.tm_min - stop.tm_min;
     diff->tm_hour = start.tm_hour - stop.tm_hour;
-  //  printf("leave %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
+
 }
 
 
@@ -34,7 +35,7 @@ void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm1 *d
 
 static inline long get_pagesize (void)
 {
-//    printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
+
     static long pagesize = 0;
     if (pagesize == 0)
     {
@@ -42,13 +43,13 @@ static inline long get_pagesize (void)
         if (pagesize == 0)
             pagesize = 4096;
     }
- //   printf("exit %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
+
     return pagesize;
 }
 
 
 
- bool
+int
 get_task_details (int pid, Task *task)
 {
     FILE *file;
@@ -57,20 +58,16 @@ get_task_details (int pid, Task *task)
     float cpu_user=0;
     float cpu_system=0;
 
-   // printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
+
 
     snprintf (filename, 96, "/proc/%d/stat", pid);
-  //  printf("/proc/%d/stat\n", pid);
+
     if ((file = fopen (filename, "r")) == NULL || fgets (buffer, 1024, file) == NULL){
         printf("nece da otvori fajl\n");
-        return false;
+        return 1;
     }
-//    printf("reading /proc/%d/stat done\n", pid);
+
     fclose (file);
- //   printf("closing /proc/%d/stat done\n", pid);
-    /*Scanning the short process name is unreliable with scanf when it contains
-         spaces, retrieve it manually and fill the buffer
-   */
 
     char *p1, *po, *p2;
     int i = 0;
@@ -89,7 +86,7 @@ get_task_details (int pid, Task *task)
 
 
 
-    //Parse the stat file
+
 
 
     char dummy[256];
@@ -99,7 +96,7 @@ get_task_details (int pid, Task *task)
     __uint64_t jiffies_user = 0, jiffies_system = 0;
     struct passwd *pw;
     struct stat sstat;
-    // unsigned  long long stime;
+
 
     sscanf(buffer, "%i %255s %1s %i %i %i %i %i %255s %255s %255s %255s %255s %" SCNu64 "   %" SCNu64 " %i %i %i %hi %i %i  %" SCNu64 " %" SCNu64 " %" SCNu64 " %255s %255s %255s %i %255s %255s %255s %255s %255s %255s %255s %255s %255s %255s %i %255s %255s",
            &task->pid,	// processid
@@ -125,12 +122,10 @@ get_task_details (int pid, Task *task)
            &idummy,	// priority (nice value + fifteen)
            &task->prio, // nice range from 19 to -19
            &idummy,	// hardcoded 0
-
            &idummy,	// itrealvalue time in jiffies to next SIGALRM send to this process
-            //&stime,	// starttime jiffies the process started after system boot //clock ticks 100 ticks=1sec
            &task->start_time,	// starttime jiffies the process started after system boot //clock ticks 100 ticks=1sec
-            /* (unsigned long long*)*/&task->vsz, // vsize in bytes
-            /* (unsigned long long*)*/&task->rss, // rss (number of pages in real memory)
+           &task->vsz, // vsize in bytes
+           &task->rss, // rss (number of pages in real memory)
            dummy,		// rlim limit in bytes for rss
 
            dummy,		// startcode
@@ -155,17 +150,21 @@ get_task_details (int pid, Task *task)
     );
 
     task->rss *= get_pagesize ();
-    get_cpu_percent (task->pid, jiffies_user, &cpu_user, jiffies_system, &cpu_system);
+   int result = get_cpu_percent (task->pid, jiffies_user, &cpu_user, jiffies_system, &cpu_system);
+    if(result ==-1){
+        return result;
+    }
     if(sprintf(task->cpu_user,"%f",cpu_user)<0) {
 
         printf("nije uspelo convertovanje %s \n",task->cpu_user);
+        return -1;
     }
     if(sprintf(task->cpu_system,"%f",cpu_system)<0) {
 
         printf("nije uspelo convertovanje %s \n",task->cpu_system);
+        return -1;
     }
-    //  printf("total1  Delta final %lu user %f system %f \n",jiffies_total_delta[4],task->cpu_user,task->cpu_system);
-    //    printf("%lu\n" ,task->start_time);
+
     stat (filename, &sstat);
     pw = getpwuid (sstat.st_uid);
     task->uid = sstat.st_uid;
@@ -185,7 +184,7 @@ get_task_details (int pid, Task *task)
 
 
 
-    //   s=0;
+
     h=0;
     m=0;
     s=sec+pocetno.tm_sec;
@@ -213,9 +212,7 @@ get_task_details (int pid, Task *task)
     task->stime.tm_sec=(__uint32_t)s;
 
 
-/*     start_time.tm_sec=s;
-     start_time.tm_min=m;
-     start_time.tm_hour=h;*/
+
 
 
      differenceBetweenTimePeriod(lokalno, task->stime, &diff);
@@ -223,30 +220,18 @@ get_task_details (int pid, Task *task)
      task->duration.tm_min=diff.tm_min;
      task->duration.tm_sec=diff.tm_sec;
      task->checked=false;
-     /*   printf( "start %d %d %d\n",task->stime.tm_hour,
-                task->stime.tm_min,
-                task->stime.tm_sec);
-        printf( "lokalno %d %d %d\n",lokalno.tm_hour,
-                lokalno.tm_min,
-                lokalno.tm_sec);
-        printf( "vreme trajanja rada %d %d %d\n",task->duration.tm_hour,
-        task->duration.tm_min,
-        task->duration.tm_sec);
- */
 
-
-   // printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
-    return true;
+    return 0;
 }
 
 int
 get_task_list (Task * * array,int *niz)
 {
-  //  printf("enter %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
+
     Task *tasks_array;
     Task *temp = NULL;
     tasks_array = calloc(0, sizeof(Task));
-    //tasks_array = calloc(1, sizeof(Task));
+
     DIR *dir;
     struct dirent *d_file;
     char *directory="/proc";
@@ -263,16 +248,13 @@ get_task_list (Task * * array,int *niz)
 
     while ((d_file = readdir(dir)) != NULL)
     {
-        //   printf( "Ime file  %s\n",d_file->d_name);
 
-        // if ((pid = atoi (d_file->d_name) > 0))
         if((pid= (int)strtol(d_file->d_name,NULL,0))>0)
-            // if ((pid = (int)strtoul (d_file->d_name,NULL,0)) > 0)
         {
 
 
             g++;
-            temp = realloc(tasks_array, ( /**j*/ g) * sizeof(Task));
+            temp = realloc(tasks_array, g * sizeof(Task));
 
             if (temp != NULL) {
                 tasks_array = temp;
@@ -283,16 +265,22 @@ get_task_list (Task * * array,int *niz)
                 return 1;
             }
             memset(&tasks_array[g - 1], 0, sizeof(Task));
-            if (get_task_details(pid, &tasks_array[g - 1])) {
+            int result= get_task_details(pid, &tasks_array[g - 1]);
+            if (result==-1){
+                    free(tasks_array);
+                    closedir(dir);
+                return  -1;
+            }
+            if(result==1){
 
+                g--;
             }
 
-        }
-        else{
 
-            //     printf( "Ime file koji nije prosao %s\n",d_file->d_name);
+
 
         }
+
 
     }
 
@@ -301,7 +289,6 @@ get_task_list (Task * * array,int *niz)
     *array=tasks_array;
     closedir(dir);
     return 0;
-    // compare_lists(tasks);
-   // printf("leave %s in %s:%d \n",__FUNCTION__,__FILE__,__LINE__);
+
 }
 

@@ -32,7 +32,7 @@ set(SOURCE_FILES
 
 set(SOURCE_FILES_1
         common.h
-        functions2.c
+        functions.c
 
         functions.h
         server.c

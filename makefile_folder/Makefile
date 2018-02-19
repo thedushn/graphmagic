@@ -11,7 +11,7 @@ SDEPS = functions.h buttons.h buttons_s.h  drawing.h interrupts.h main_header.h 
 #OBJ= $(SDIR)/*.c
 LDFLAGS= -lpthread -std=gnu99
 LDFLAGS1= -lpthread 
-LDFLAGS2= `pkg-config --libs gtk+-3.0` -lm
+LDFLAGS2= `pkg-config --libs gtk+-3.0` -lm  -lfontconfig
 SCFLAGS=-I. -I./project/server/include  
 CCFLAGS=-I. -I./project/client/include	
 CPKGFLAGS= `pkg-config --cflags gtk+-3.0`

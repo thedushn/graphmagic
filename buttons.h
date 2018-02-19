@@ -14,7 +14,7 @@ GtkWidget *taskpopup;
 
 
 
-GtkWidget *button;
+GtkWidget *button_inc;
 GtkWidget *button2;
 GtkWidget *button_proc;
 
