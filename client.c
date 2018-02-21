@@ -31,7 +31,7 @@ static guint time_step = 0;
 
 
 
- gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,gpointer data) {
+ gboolean on_draw_event(GtkWidget *widget, cairo_t *cr) {
 
 
     if (widget == graph1) {
@@ -536,9 +536,8 @@ int main(int argc, char *argv[]) {
 
     window= main_window(dev_swindow,process_swindow);
     g_signal_connect(button_inc, "clicked", G_CALLBACK(inc_refresh), NULL);
-    g_signal_connect(button2, "clicked", G_CALLBACK(dec_refresh), NULL);
+    g_signal_connect(button_dec, "clicked", G_CALLBACK(dec_refresh), NULL);
     g_signal_connect(button_proc, "toggled", G_CALLBACK(button_clicked_view_process), NULL);
-
     g_signal_connect(button_dev, "toggled", G_CALLBACK(dev_button_clicked2), NULL);
 
 

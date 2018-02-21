@@ -15,10 +15,10 @@ GtkWidget *taskpopup;
 
 
 GtkWidget *button_inc;
-GtkWidget *button2;
+GtkWidget *button_dec;
 GtkWidget *button_proc;
 
-GtkWidget *button_dev;
+GtkWidget * button_dev;
 GtkWidget * button_graph;
 GtkWidget * button_graph0;
 GtkWidget * button_graph1;
@@ -52,17 +52,11 @@ GtkWidget* create_taskpopup (void);
 void handle_task_menu(GtkWidget *widget, char *signal);
 void handle_task_prio(GtkWidget *widget, char *signal);
 void button_clicked_view_process(GtkWidget *widget);
-//void dev_button_clicked(GtkWidget *widget);
 void graph_button_clicked(GtkWidget *widget);
-
 void close_window();
 void pokazi_ili_hide(GtkWidget *button, GtkWidget *window);
-
-
 void dev_button_clicked2(GtkWidget *widget);
-//void change_view(GtkWidget *wigdet);
 void button_clicked_view_process(GtkWidget *widget);
-
 void device_window();
 void process_window();
 void process_clicked(GtkWidget *widget);

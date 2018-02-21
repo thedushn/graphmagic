@@ -55,7 +55,7 @@ GtkWidget *label_swap;
     hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);//graph3 graph4 frame3 frame4
 
     button_inc = gtk_button_new_with_label("refresh rate +");
-    button2 = gtk_button_new_with_label("refresh rate-");
+    button_dec = gtk_button_new_with_label("refresh rate-");
     button_proc = gtk_toggle_button_new_with_label("Process");
     button_dev = gtk_toggle_button_new_with_label("Dev");
     button_graph = gtk_toggle_button_new_with_label("graphs");
@@ -159,7 +159,7 @@ GtkWidget *label_swap;
     gtk_box_pack_start(GTK_BOX(vbox), hbox, 0, FALSE, 0);
 
     gtk_box_pack_start(GTK_BOX(hbox), button_inc, FALSE, FALSE, FALSE);//expand,fill,padding
-    gtk_box_pack_start(GTK_BOX(hbox), button2, 0, 0, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), button_dec, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_proc, 0, 0, 0);
 
     gtk_box_pack_start(GTK_BOX(hbox), button_dev, 0, 0, 0);

@@ -27,7 +27,7 @@ void do_drawing_int(GtkWidget *widget, cairo_t *cr);
 //void do_drawing_int(GtkWidget *widget,cairo_t *cr,GArray *interrupts_array);
 void crtaj_sekunde(cairo_t *cr,double width, double height,double font_size,int i,int j);
 void crtaj_okvir(cairo_t *cr,double width,double height,double font_size,int i);
-void crtaj_procente(cairo_t *cr,double width,double height,double font_size);
+void crtaj_procente(cairo_t *cr,double height,double font_size);
 void crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,double height,double font_size,__uint64_t max_broj,double duzina);
 void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i, const gchar *ime1,const gchar *ime2);
 
