@@ -6,19 +6,13 @@
 #define GTKWORLD_DEVICES_H
 
 
-
-
-
 #include "common.h"
 
-void  testing_files2( Devices *devices);
+void testing_files2(Devices *devices);
 
+int device2(Devices **array, bool show, __int32_t *niz2);
 
-int device2(Devices * * array,bool show,__int32_t *niz2);
-
-
-
-int mountlist3(Devices **array,bool mount,__int32_t *number);
+int mountlist3(Devices **array, bool mount, __int32_t *number);
 
 
 #endif //GTKWORLD_DEVICES_H

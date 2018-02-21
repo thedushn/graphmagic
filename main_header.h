@@ -9,11 +9,9 @@
 #include <gtk/gtk.h>
 
 
-
-
- GtkWidget *window2;
- GtkWidget *process_swindow;
- GtkWidget *dev_swindow;
+GtkWidget *window2;
+GtkWidget *process_swindow;
+GtkWidget *dev_swindow;
 
 int newsockfd;
 int newsockfd1;
@@ -25,10 +23,13 @@ GArray *interrupt_array_d;
 
 
 void init_timeout();
-void graph_refresh(GtkWidget *widget,gboolean);
+
+void graph_refresh(GtkWidget *widget, gboolean);
 
 void dec_refresh();
+
 void inc_refresh();
+
 void timeout_refresh();
 
 

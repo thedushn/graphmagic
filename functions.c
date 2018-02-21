@@ -12,44 +12,43 @@
 #include "functions.h"
 
 
-ssize_t  test_recv(int socket){
+ssize_t test_recv(int socket) {
 
 
     char buffer[64];
-    ssize_t ret=0;
-    memset(buffer,0,64);
-    strcpy(buffer,"stiglo sve");
-    ret=send(socket,buffer,64,0);
+    ssize_t ret = 0;
+    memset(buffer, 0, 64);
+    strcpy(buffer, "stiglo sve");
+    ret = send(socket, buffer, 64, 0);
 
-    if(ret<0){
+    if (ret < 0) {
 
         printf("error sending data\n %d", (int) ret);
-        return  ret;
+        return ret;
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
-        return  ret;
+        return ret;
     }
 
 
-    return  64;
+    return 64;
 
 };
 
 void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage *memory_usage, GArray *array_devices,
                GArray *array_int, GArray *array_tasks
-        ){
+) {
 
 
-
-    int flag= MSG_WAITALL;
+    int flag = MSG_WAITALL;
     Task task;
     Devices devices;
     Interrupts interrupts;
-    ssize_t  ret;
-    __int32_t num=0;
+    ssize_t ret;
+    __int32_t num = 0;
 
 
     ///memorija
@@ -59,7 +58,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("error receiving data\n %d", (int) ret);
         gtk_main_quit();
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error receiving data\n %d", (int) ret);
         printf("socket closed\n");
@@ -73,7 +72,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("error sending data\n %d", (int) ret);
         gtk_main_quit();
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
@@ -88,7 +87,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         gtk_main_quit();
 
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
@@ -101,7 +100,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("error receiving data\n %d", (int) ret);
         gtk_main_quit();
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
@@ -120,7 +119,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         gtk_main_quit();
 
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
@@ -133,7 +132,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("error receiving data\n %d", (int) ret);
         gtk_main_quit();
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
@@ -158,14 +157,14 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("error receiving data\n %d", (int) ret);
         gtk_main_quit();
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
         gtk_main_quit();
     }
 
-    for(int i=0 ;i<num;i++) {
+    for (int i = 0; i < num; i++) {
 
 
         ret = (int) recv(socket, &devices, sizeof(Devices), flag);
@@ -176,13 +175,12 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
             gtk_main_quit();
 
         }
-        if(ret==0){
+        if (ret == 0) {
 
             printf("error sending data\n %d", (int) ret);
             printf("socket closed\n");
             gtk_main_quit();
         }
-
 
 
         g_array_append_val(array_devices, devices);
@@ -205,14 +203,14 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("error receiving data\n %d", (int) ret);
         gtk_main_quit();
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");
         gtk_main_quit();
     }
 
-    for(int i=0 ;i<num;i++) {
+    for (int i = 0; i < num; i++) {
 
 
         ret = recv(socket, &task, sizeof(Task), flag);
@@ -222,7 +220,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
             gtk_main_quit();
 
         }
-        if(ret==0){
+        if (ret == 0) {
 
             printf("error sending data\n %d", (int) ret);
             printf("socket closed\n");
@@ -230,9 +228,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         }
 
 
-
-
-           g_array_append_val(array_tasks,task);
+        g_array_append_val(array_tasks, task);
 
     }
 
@@ -248,7 +244,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
             gtk_main_quit();
 
         }
-        if(ret==0){
+        if (ret == 0) {
 
             printf("error sending data\n %d", (int) ret);
             printf("socket closed\n");
@@ -256,9 +252,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         }
 
 
-
-           g_array_append_val(array_int,interrupts);
-
+        g_array_append_val(array_int, interrupts);
 
 
     }
@@ -268,7 +262,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("error receing data\n %d", (int) ret);
         gtk_main_quit();
     }
-    if(ret==0){
+    if (ret == 0) {
 
         printf("error sending data\n %d", (int) ret);
         printf("socket closed\n");

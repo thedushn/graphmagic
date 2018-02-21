@@ -6,7 +6,6 @@
 #define GKTWORLD_MEMORY_USAGE_H
 
 
-
 #include "common.h"
 
 

@@ -4,11 +4,11 @@
 
 #ifndef GTKWORLD_INTERRUPTS_H
 #define GTKWORLD_INTERRUPTS_H
+
 #include <gtk/gtk.h>
 
 
-
-void upis(GArray *array,GArray *array2);
+void upis(GArray *array, GArray *array2);
 
 
 #endif //GTKWORLD_INTERRUPTS_H
