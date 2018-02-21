@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug"/>
+				<Option working_dir="/home/dusan/Desktop/clion_git/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug"/>
+				<Option working_dir="/home/dusan/Desktop/clion_git/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug"/>
+				<Option working_dir="/home/dusan/Desktop/clion_git/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtkworld_1">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/gtkworld_1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug"/>
+				<Option output="/home/dusan/Desktop/clion_git/cmake-build-debug/gtkworld_1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dusan/Desktop/clion_git/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -73,15 +73,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld_1"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld_1"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtkworld_1/fast">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/gtkworld_1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug"/>
+				<Option output="/home/dusan/Desktop/clion_git/cmake-build-debug/gtkworld_1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dusan/Desktop/clion_git/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -115,15 +115,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld_1/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld_1/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtkworld">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/gtkworld" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug"/>
+				<Option output="/home/dusan/Desktop/clion_git/cmake-build-debug/gtkworld" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dusan/Desktop/clion_git/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -157,15 +157,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtkworld/fast">
-				<Option output="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/gtkworld" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug"/>
+				<Option output="/home/dusan/Desktop/clion_git/cmake-build-debug/gtkworld" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dusan/Desktop/clion_git/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -199,77 +199,77 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtkworld/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dusan/Desktop/clion_git/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.c">
+		<Unit filename="/home/dusan/Desktop/clion_git/buttons.c">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/buttons.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons_s.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/buttons_s.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/client.c">
+		<Unit filename="/home/dusan/Desktop/clion_git/client.c">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/common.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.c">
+		<Unit filename="/home/dusan/Desktop/clion_git/drawing.c">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/drawing.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.c">
+		<Unit filename="/home/dusan/Desktop/clion_git/functions.c">
 			<Option target="gtkworld_1"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.h">
-			<Option target="gtkworld_1"/>
-			<Option target="gtkworld"/>
-		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.c">
+		<Unit filename="/home/dusan/Desktop/clion_git/functions.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/interrupts.c">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/interrupts.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.c">
+		<Unit filename="/home/dusan/Desktop/clion_git/main_header.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/testing_tree.c">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.c">
+		<Unit filename="/home/dusan/Desktop/clion_git/testing_tree.h">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.h">
+		<Unit filename="/home/dusan/Desktop/clion_git/window.c">
 			<Option target="gtkworld_1"/>
 			<Option target="gtkworld"/>
 		</Unit>
-		<Unit filename="/home/dushn/Desktop/TEST_RADI_slanje/SERVER/CMakeLists.txt">
+		<Unit filename="/home/dusan/Desktop/clion_git/window.h">
+			<Option target="gtkworld_1"/>
+			<Option target="gtkworld"/>
+		</Unit>
+		<Unit filename="/home/dusan/Desktop/clion_git/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

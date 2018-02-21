@@ -2,6 +2,7 @@
 // Created by dushn on 10.10.17..
 //
 
+#include <errno.h>
 #include "testing_tree.h"
 #include "buttons.h"
 
@@ -563,6 +564,14 @@ gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter 
 
     return ret;
 }
+void test_strtol(int val){
+
+    if ((errno == ERANGE && (val == LONG_MAX || val == LONG_MIN))
+        || (errno != 0 && val == 0)) {
+        perror("strtol");
+        exit(EXIT_FAILURE);
+    }
+};
 gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column)
 {
     gchar *s1 = "";
@@ -571,6 +580,7 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     gchar *z1;
     gchar *size;
     gchar *size1;
+    gchar  *end;
 
 
     gint ret = 0;
@@ -604,7 +614,7 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     gint isize=0;
     gint  isize1=0;
 
-
+    errno=0;
 
 
         ret2 = strcmp(size, size1);// velicine
@@ -659,24 +669,29 @@ gint compare_int_list_item_size(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
 
     if(z!=NULL){
         //ako su iste velicine
-        i3 = atoi(z+1); //preskacemo zarez
+        i3 = (int) strtol(z+1,&end,10); //preskacemo zarez
     }
+    test_strtol(i3);
+
 
     if(z1!=NULL){
-        i4 = atoi(z1+1); //preskacemo zarez
+        i4 = (int) strtol(z1+1,&end,10); //preskacemo zarez
     }
+    test_strtol(i4);
 
 
     if(s1 != NULL){
-        i1 = atoi(s1);
+        i1 = (int) strtol(s1,&end,10);
         g_free(s1);
     }
+    test_strtol(i1);
 
 
     if(s2 != NULL){
-        i2 = atoi(s2);
+        i2 =(int) strtol(s2,&end,10);
         g_free(s2);
     }
+    test_strtol(i2);
 
 
     ret = i1 - i2;

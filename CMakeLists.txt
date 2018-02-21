@@ -36,7 +36,7 @@ set(SOURCE_FILES_1
 
         common.h buttons_s.h
         functions.c
-        functions.h)
+        functions.h )
 
 
 include_directories(${GTK3_INCLUDE_DIRS})

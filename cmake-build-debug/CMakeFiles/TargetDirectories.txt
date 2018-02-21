@@ -1,4 +1,4 @@
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld_1.dir
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld.dir
+/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld_1.dir
+/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld.dir

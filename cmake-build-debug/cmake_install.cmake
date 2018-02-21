@@ -1,4 +1,4 @@
-# Install script for directory: /home/dushn/Desktop/TEST_RADI_slanje/SERVER
+# Install script for directory: /home/dusan/Desktop/clion_git
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/dusan/Desktop/clion_git/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

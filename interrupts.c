@@ -3,10 +3,7 @@
 //
 
 #include "interrupts.h"
-
-
-
-
+#include "common.h"
 
 
 void upis(GArray *array,GArray *array2){

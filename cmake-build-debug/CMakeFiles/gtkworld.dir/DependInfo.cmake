@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.c" "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld.dir/buttons.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/client.c" "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld.dir/client.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.c" "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld.dir/drawing.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.c" "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld.dir/interrupts.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.c" "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld.dir/testing_tree.c.o"
-  "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.c" "/home/dushn/Desktop/TEST_RADI_slanje/SERVER/cmake-build-debug/CMakeFiles/gtkworld.dir/window.c.o"
+  "/home/dusan/Desktop/clion_git/buttons.c" "/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld.dir/buttons.c.o"
+  "/home/dusan/Desktop/clion_git/client.c" "/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld.dir/client.c.o"
+  "/home/dusan/Desktop/clion_git/drawing.c" "/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld.dir/drawing.c.o"
+  "/home/dusan/Desktop/clion_git/interrupts.c" "/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld.dir/interrupts.c.o"
+  "/home/dusan/Desktop/clion_git/testing_tree.c" "/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld.dir/testing_tree.c.o"
+  "/home/dusan/Desktop/clion_git/window.c" "/home/dusan/Desktop/clion_git/cmake-build-debug/CMakeFiles/gtkworld.dir/window.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

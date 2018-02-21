@@ -5,9 +5,9 @@
 #ifndef GTKWORLD_MAIN_HEADER_H
 #define GTKWORLD_MAIN_HEADER_H
 
-#include <cairo.h>
+
 #include <gtk/gtk.h>
-#include <stdlib.h>
+
 
 
 

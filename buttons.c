@@ -329,12 +329,15 @@ void show_all(GtkWidget *widget){
         device_all=TRUE;
         start_stop(1,"","");
 
-    } else
+    } else{
         device_all=FALSE;
-     start_stop(1,"","");
+        start_stop(1,"","");
+    }
 
 
-    printf("boolean was sent \n");
+
+
+
     timeout_refresh();
 
 
@@ -486,9 +489,8 @@ void process_clicked(GtkWidget *widget){
         }
         else if(widget==button_process_duration){
         process_duration=TRUE;
-
         change_list_store_view_process(widget, process_duration);
-    }
+        }
         else{
 
             process_user= TRUE;
@@ -496,8 +498,7 @@ void process_clicked(GtkWidget *widget){
 
         }
 
-    }
-    else{
+    } else{
 
         if(widget==button_process_task){
 
@@ -569,24 +570,23 @@ void graph_clicked(GtkWidget *widget){
         if(widget==button_graph0){
 
             CPU0_line= TRUE;
-
              graph_refresh(widget,CPU0_line );
 
 
         }
-        if(widget==button_graph1){
+        else if(widget==button_graph1){
 
             CPU1_line= TRUE;
             graph_refresh(widget,CPU1_line );
 
         }
-        if(widget==button_graph2){
+        else if(widget==button_graph2){
 
             CPU2_line= TRUE;
             graph_refresh(widget,CPU2_line );
 
         }
-        if(widget==button_graph3){
+        else{
 
             CPU3_line= TRUE;
             graph_refresh(widget,CPU3_line );
@@ -600,29 +600,24 @@ void graph_clicked(GtkWidget *widget){
         if(widget==button_graph0){
 
             CPU0_line= FALSE;
-
-
             graph_refresh(widget,CPU0_line );
 
         }
-        if(widget==button_graph1){
+        else if(widget==button_graph1){
 
             CPU1_line= FALSE;
-
             graph_refresh(widget,CPU1_line );
 
         }
-        if(widget==button_graph2){
+        else if(widget==button_graph2){
 
             CPU2_line= FALSE;
-
             graph_refresh(widget,CPU2_line );
 
         }
-        if(widget==button_graph3){
+        else{
 
             CPU3_line= FALSE;
-
             graph_refresh(widget,CPU3_line );
 
         }
@@ -639,14 +634,12 @@ void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
     if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button))!=FALSE){//ako je button toggled
 
 
-//        gtk_widget_hide(hbox1);
-//        gtk_widget_hide(hbox3);
-//        gtk_widget_hide(hbox2);
+
         gtk_widget_show(window);
         if(window==dev_swindow){
 
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button_proc),FALSE); //postavljamo butto_proc na not toggled
-                gtk_widget_hide(process_swindow);
+            gtk_widget_hide(process_swindow);
         }
         else{
 
@@ -657,9 +650,6 @@ void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
         }
     else{
 
-//        gtk_widget_show(hbox1);
-//        gtk_widget_show(hbox3);
-//        gtk_widget_show(hbox2);
         gtk_widget_hide(window);
 
         }
@@ -671,15 +661,10 @@ void pokazi_ili_hide(GtkWidget *button, GtkWidget *window) {
 
 void handle_task_menu(GtkWidget *widget, char *signal)
 {
-    printf("signal %s\n",signal);
+
     if(signal != NULL)
     {
 
-
-//        if (strcmp(signal, "KILL") == 0)
-//            s = ("Really kill the task?");
-//        else
-//            s = ("Really terminate the task?");
 
         if(strcmp(signal, "STOP") == 0 || strcmp(signal, "CONT") == 0 || strcmp(signal, "KILL") == 0  || strcmp(signal, "TERM") == 0)
         {
@@ -690,7 +675,6 @@ void handle_task_menu(GtkWidget *widget, char *signal)
             if(gtk_tree_selection_get_selected(selection, &model, &iter))
             {
                 gtk_tree_model_get(model, &iter, 1, &task_id, -1);
-              //  send_signal_to_task(task_id, signal);
                 start_stop(0,signal,task_id);
                 init_timeout();
             }
@@ -699,15 +683,11 @@ void handle_task_menu(GtkWidget *widget, char *signal)
 }
 void handle_task_prio(GtkWidget *widget, char *signal)
 {
-    printf("signal %s\n",signal);
     if(signal != NULL)
     {
 
 
-//        if (strcmp(signal, "KILL") == 0)
-//            s = ("Really kill the task?");
-//        else
-//            s = ("Really terminate the task?");
+
 
         if(strcmp(signal, "VERY_LOW") == 0 || strcmp(signal, "VERY_HIGH") == 0 || strcmp(signal, "NORMAL") == 0
            || strcmp(signal, "LOW") == 0 || strcmp(signal, "HIGH") == 0)
@@ -719,7 +699,6 @@ void handle_task_prio(GtkWidget *widget, char *signal)
             if(gtk_tree_selection_get_selected(selection, &model, &iter))
             {
                 gtk_tree_model_get(model, &iter, 1, &task_id, -1);
-                //  send_signal_to_task(task_id, signal);
                 start_stop(0,signal,task_id);
                 init_timeout();
             }
@@ -763,27 +742,27 @@ GtkWidget* create_taskpopup (void)
     menu_priority = gtk_menu_new ();
 
     menu_item = gtk_menu_item_new_with_label (("Very low"));
-  //  g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+
     gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
     g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "VERY_LOW");
 
     menu_item = gtk_menu_item_new_with_label (("Low"));
-  //  g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+
     gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
     g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "LOW");
 
     menu_item = gtk_menu_item_new_with_label (("Normal"));
-   // g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+
     gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
     g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "NORMAL");
 
     menu_item = gtk_menu_item_new_with_label (("High"));
-  //  g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+
     gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
     g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "HIGH");
 
     menu_item = gtk_menu_item_new_with_label (("Very high"));
-   // g_object_set_data (G_OBJECT (menu_item), "pid", GUINT_TO_POINTER (pid));
+
     gtk_container_add (GTK_CONTAINER (menu_priority), menu_item);
     g_signal_connect ((gpointer) menu_item, "activate", G_CALLBACK (handle_task_prio), "VERY_HIGH");
 
@@ -800,9 +779,9 @@ gboolean on_treeview1_button_press_event(GtkButton *button, GdkEventButton *even
 {
     if(event->button == 3)
     {
-        printf("i was here\n");
+
         GdkEventButton *mouseevent = event;
-        printf("moseevent button %d\n",mouseevent->button);
+
         if(taskpopup == NULL)
             taskpopup = create_taskpopup ();
         gtk_menu_popup(GTK_MENU(taskpopup), NULL, NULL, NULL, NULL, mouseevent->button, mouseevent->time);

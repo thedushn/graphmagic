@@ -31,8 +31,6 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
         if(q==0){
 
             cairo_move_to(cr,5 * font_size+5*duzina*i,font_size);//pomerimo ga na pocetnu poziciju
-
-
             cairo_show_text(cr,ime1);
         }
         if(q>=1) {
@@ -91,9 +89,11 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
 
         int pomeraj=q;
         q=0;
+
         if(ime2!=NULL && ime2[0]!='\0'){
+
             j=strlen(ime2);
-            printf("%s\n",ime2);
+
             while(g<j){
 
                 j-=g;
@@ -153,11 +153,6 @@ void ispis_interrupta2(cairo_t *cr,double font_size,double duzina,int i,const gc
             }
         }
     }
-
-
-
-
-
 
 
 
@@ -281,9 +276,6 @@ void  crtaj_interrupte(cairo_t *cr,int i,Interrupts *peak,double height,double f
     ispis_interrupta(cr,font_size,duzina,i,peak->ime1,peak->ime2,peak->ime3,peak->ime4);
 
 
-
-
-
     cairo_rectangle(cr, 5 * font_size+5*duzina*i , height-font_size, duzina-1, -procent);
     cairo_set_source_rgb(cr,0,0,0);
     cairo_stroke_preserve(cr);
@@ -341,18 +333,15 @@ void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, double hei
 
     for (int j = 0; j <y; j++) {
 
-
-
-
-        cairo_move_to(cr, i * font_size, prev);
-
         gfloat *peak;
+        double procent = 0;
 
         peak = &g_array_index(history, gfloat, j);
 
 
+        cairo_move_to(cr, i * font_size, prev);
 
-        double procent = 0;
+
         if(r==4 || r==5){
             procent=((height-font_size)/max_broj3)* *peak;
         }
@@ -368,20 +357,15 @@ void crtanje_graph(cairo_t *cr, GArray *history, int r, int y, int i, double hei
 
         cairo_line_to(cr, step + i * font_size, height - font_size - procent);
 
-
-
-
-
-
-
         cairo_translate(cr, step, 0);
 
 
     }
+
     cairo_stroke(cr);
 
-        //vracanje cairo_t na pocetnu poziciju
-        cairo_translate(cr, -step*y, 0);
+
+    cairo_translate(cr, -step*y, 0);
 
 
 
@@ -615,7 +599,7 @@ void do_drawing_net(GtkWidget *widget, cairo_t *cr, int bjorg2, guint time_step)
 
     cairo_set_source_rgb(cr,0,0,0);
 
-       if(max_broj>1024){
+    if(max_broj>1024){
 
 
 
@@ -626,9 +610,7 @@ void do_drawing_net(GtkWidget *widget, cairo_t *cr, int bjorg2, guint time_step)
 
           max_broj3=max_broj+1024;
 
-    }
-
-        else   if(max_broj<=1024 && max_broj >1){
+    } else if(max_broj<=1024 && max_broj >1){
 
         rec_bytes = max_broj;//kb
 
@@ -637,8 +619,7 @@ void do_drawing_net(GtkWidget *widget, cairo_t *cr, int bjorg2, guint time_step)
         max_broj3=max_broj+100;
 
 
-    }
-    else{
+    } else{
 
 
          rec_bytes= max_broj*1024;//bytes
@@ -717,9 +698,6 @@ void do_drawing_cpu(GtkWidget *widget, cairo_t *cr, int bjorg, guint time_step,c
 
     cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
     cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
-
-
-
 
 
 

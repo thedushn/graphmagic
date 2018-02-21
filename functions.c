@@ -279,10 +279,6 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
     ///intterupts end
 
 
-
-
-
-
 };
 
 

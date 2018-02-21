@@ -10,7 +10,7 @@
 
 #include "functions.h"
 
- GtkWidget *window;
+GtkWidget *window;
 
 static guint refresh = 0;
 static guint t = 2000;
@@ -102,7 +102,7 @@ void graph_refresh(GtkWidget *widget, gboolean CPU) {
 
 
         CPU0_line = CPU;
-        printf("CPU0 LINE %s\n", CPU0_line==TRUE ? "TRUE" : "FALSE");
+
 
 
     }
@@ -111,20 +111,18 @@ void graph_refresh(GtkWidget *widget, gboolean CPU) {
 
         CPU1_line = CPU;
 
-        printf("CPU1 LINE %s\n", CPU1_line==TRUE ? "TRUE" : "FALSE");
-
     }
     else if (widget == button_graph2) {
 
         CPU2_line = CPU;
-        printf("CPU2 LINE %s\n", CPU2_line==TRUE ? "TRUE" : "FALSE");
+
 
 
     }
     else  {
 
         CPU3_line = CPU;
-        printf("CPU3 LINE %s\n", CPU3_line==TRUE ? "TRUE" : "FALSE");
+
 
     }
 
@@ -212,7 +210,7 @@ void init_timeout() {
 
     GArray * new_task_list=g_array_new (FALSE, FALSE, sizeof (Task));
     GArray * new_device_list=g_array_new (FALSE, FALSE, sizeof (Devices));
-   GArray * new_interrupt_list= g_array_new (FALSE, FALSE, sizeof (Interrupts));
+    GArray * new_interrupt_list= g_array_new (FALSE, FALSE, sizeof (Interrupts));
 
     Cpu_usage *cpu_usage1;
     Network *network;
@@ -335,11 +333,11 @@ void init_timeout() {
             if(new_tmp->pid == tmp->pid)
             {
 
-                if((gint)tmp->ppid != (gint)new_tmp->ppid || strcmp(tmp->state,new_tmp->state)!=0 ||
-                        cpu_system_tmp != cpu_system_tmp_new ||
-                        cpu_user_tmp != cpu_user_tmp_new ||
-                        (unsigned int)tmp->rss != (unsigned int)new_tmp->rss ||
-                         (unsigned int)tmp->prio != (unsigned int)new_tmp->prio
+                if((gint)tmp->ppid != (gint)new_tmp->ppid || strcmp(tmp->state,new_tmp->state)!=0
+                   || cpu_system_tmp != cpu_system_tmp_new
+                   || cpu_user_tmp != cpu_user_tmp_new
+                   || (unsigned int)tmp->rss != (unsigned int)new_tmp->rss
+                   || (unsigned int)tmp->prio != (unsigned int)new_tmp->prio
                    || tmp->duration.tm_hour!= new_tmp->duration.tm_hour
                    || tmp->duration.tm_min!= new_tmp->duration.tm_min
                    || tmp->duration.tm_sec!= new_tmp->duration.tm_sec

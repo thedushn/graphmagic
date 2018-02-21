@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,63 +6,61 @@
 
 #IncludeRegexTransform: 
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.c
+/home/dusan/Desktop/clion_git/buttons.c
 sys/socket.h
 -
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
+/home/dusan/Desktop/clion_git/buttons.h
 drawing.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
+/home/dusan/Desktop/clion_git/drawing.h
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
+/home/dusan/Desktop/clion_git/testing_tree.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
+/home/dusan/Desktop/clion_git/main_header.h
 buttons_s.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons_s.h
+/home/dusan/Desktop/clion_git/buttons_s.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
+/home/dusan/Desktop/clion_git/buttons.h
 gtk/gtk.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons_s.h
+/home/dusan/Desktop/clion_git/buttons_s.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/client.c
+/home/dusan/Desktop/clion_git/client.c
 interrupts.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.h
+/home/dusan/Desktop/clion_git/interrupts.h
 drawing.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
+/home/dusan/Desktop/clion_git/drawing.h
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
+/home/dusan/Desktop/clion_git/testing_tree.h
 window.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.h
+/home/dusan/Desktop/clion_git/window.h
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
+/home/dusan/Desktop/clion_git/buttons.h
 sys/socket.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/sys/socket.h
+/home/dusan/Desktop/clion_git/sys/socket.h
 netdb.h
 -
 fontconfig/fontconfig.h
 -
 functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.h
+/home/dusan/Desktop/clion_git/functions.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
+/home/dusan/Desktop/clion_git/common.h
 stdbool.h
 -
 time.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.c
+/home/dusan/Desktop/clion_git/drawing.c
 inttypes.h
 -
 drawing.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
+/home/dusan/Desktop/clion_git/drawing.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
-pango/pangocairo.h
--
+/home/dusan/Desktop/clion_git/main_header.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/drawing.h
+/home/dusan/Desktop/clion_git/drawing.h
 math.h
 -
 sys/stat.h
@@ -82,91 +80,69 @@ gtk/gtk.h
 cairo.h
 -
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
+/home/dusan/Desktop/clion_git/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.c
+/home/dusan/Desktop/clion_git/functions.c
 stdio.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/stdio.h
+/home/dusan/Desktop/clion_git/stdio.h
 memory.h
 -
 sys/socket.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/sys/socket.h
+/home/dusan/Desktop/clion_git/sys/socket.h
 functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.h
+/home/dusan/Desktop/clion_git/functions.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/functions.h
+/home/dusan/Desktop/clion_git/functions.h
 gtk/gtk.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/gtk/gtk.h
+/home/dusan/Desktop/clion_git/gtk/gtk.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
+/home/dusan/Desktop/clion_git/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.c
+/home/dusan/Desktop/clion_git/interrupts.c
 interrupts.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.h
-
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/interrupts.h
-gtk/gtk.h
--
-glib.h
--
-math.h
--
-stdio.h
--
-sys/types.h
--
-sys/stat.h
--
-pwd.h
--
-unistd.h
--
-string.h
--
-stdlib.h
--
+/home/dusan/Desktop/clion_git/interrupts.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
+/home/dusan/Desktop/clion_git/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
-cairo.h
--
+/home/dusan/Desktop/clion_git/interrupts.h
 gtk/gtk.h
 -
-stdlib.h
+
+/home/dusan/Desktop/clion_git/main_header.h
+gtk/gtk.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.c
+/home/dusan/Desktop/clion_git/testing_tree.c
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
+/home/dusan/Desktop/clion_git/testing_tree.h
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
+/home/dusan/Desktop/clion_git/buttons.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
+/home/dusan/Desktop/clion_git/main_header.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
+/home/dusan/Desktop/clion_git/common.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
+/home/dusan/Desktop/clion_git/testing_tree.h
 string.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/string.h
+/home/dusan/Desktop/clion_git/string.h
 gtk/gtk.h
 -
 stdlib.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.c
+/home/dusan/Desktop/clion_git/window.c
 window.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.h
+/home/dusan/Desktop/clion_git/window.h
 testing_tree.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/testing_tree.h
+/home/dusan/Desktop/clion_git/testing_tree.h
 buttons.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/buttons.h
+/home/dusan/Desktop/clion_git/buttons.h
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/window.h
+/home/dusan/Desktop/clion_git/window.h
 main_header.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/main_header.h
+/home/dusan/Desktop/clion_git/main_header.h
 common.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/common.h
+/home/dusan/Desktop/clion_git/common.h
 
 /usr/include/atk-1.0/atk/atk-enum-types.h
 atk/atkversion.h
