@@ -5,6 +5,11 @@
 #include "devices.h"
 
 #include <errno.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/statvfs.h>
 
 #define  BUFFER_SIZE 1024
 void  testing_files2( Devices *devices){
@@ -15,15 +20,10 @@ statvfs(devices->directory,&info);
 
 
 devices->fid=info.f_flag;
-
-
-
 devices->total=(__uint64_t)info.f_blocks*(__uint64_t)info.f_bsize;
 devices->used=(((__uint64_t)info.f_blocks-(__uint64_t)info.f_bfree))* (__uint64_t)info.f_bsize;
 devices->avail=(__uint64_t)(info.f_bavail*info.f_bsize);
 devices->free=(__uint64_t)(info.f_bfree*info.f_bsize);
-
-
 
 
 }

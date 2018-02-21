@@ -8,6 +8,8 @@
 
 #include "functions.h"
 #include "cpu_usage.h"
+#include "task_manager.h"
+#include "network_bandwith.h"
 
 
 #include <arpa/inet.h>
@@ -17,8 +19,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <wait.h>
-
-
+#include <unistd.h>
 
 
 #define BUF_SIZE 1024

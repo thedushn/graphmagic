@@ -6,13 +6,7 @@
 #define GTKWORLD_TASKS_C_H
 
 
-#include <math.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+
 
 #include "common.h"
 

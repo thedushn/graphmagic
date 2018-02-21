@@ -3,6 +3,8 @@
 //
 
 #include <inttypes.h>
+#include <memory.h>
+#include <stdio.h>
 #include "memory_usage.h"
 
 

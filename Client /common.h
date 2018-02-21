@@ -59,7 +59,7 @@ struct __attribute__((__packed__))_Network{
 typedef struct _Cpu_usage Cpu_usage;
 struct __attribute__((__packed__)) _Cpu_usage {
 
-    __int32_t number;
+
     char percentage0[16];
     char percentage1[16];
     char percentage2[16];

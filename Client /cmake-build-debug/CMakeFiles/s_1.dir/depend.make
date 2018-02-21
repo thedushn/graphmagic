@@ -33,19 +33,14 @@ CMakeFiles/s_1.dir/network_bandwith.c.o: ../network_bandwith.h
 
 CMakeFiles/s_1.dir/server.c.o: ../common.h
 CMakeFiles/s_1.dir/server.c.o: ../cpu_usage.h
-CMakeFiles/s_1.dir/server.c.o: ../devices.h
 CMakeFiles/s_1.dir/server.c.o: ../functions.h
-CMakeFiles/s_1.dir/server.c.o: ../memory_usage.h
 CMakeFiles/s_1.dir/server.c.o: ../network_bandwith.h
 CMakeFiles/s_1.dir/server.c.o: ../server.c
 CMakeFiles/s_1.dir/server.c.o: ../task_manager.h
 
 CMakeFiles/s_1.dir/task_manager.c.o: ../common.h
 CMakeFiles/s_1.dir/task_manager.c.o: ../cpu_usage.h
-CMakeFiles/s_1.dir/task_manager.c.o: ../devices.h
 CMakeFiles/s_1.dir/task_manager.c.o: ../functions.h
-CMakeFiles/s_1.dir/task_manager.c.o: ../memory_usage.h
-CMakeFiles/s_1.dir/task_manager.c.o: ../network_bandwith.h
 CMakeFiles/s_1.dir/task_manager.c.o: ../task_manager.c
 CMakeFiles/s_1.dir/task_manager.c.o: ../task_manager.h
 

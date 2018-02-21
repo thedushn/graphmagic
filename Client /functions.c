@@ -1,113 +1,23 @@
 
-#include"stdio.h"
-#include"stdlib.h"
 
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include"sys/socket.h"
-
 #include"pthread.h"
-
 
 #include "functions.h"
 #include "interrupts.h"
 #include "cpu_usage.h"
-
-
+#include "memory_usage.h"
+#include "task_manager.h"
+#include "devices.h"
+#include "network_bandwith.h"
 
 #define BUF_SIZE 1024
 
 
-static int myCompare(const void *a, const void *b) {
-
-    Interrupts interrupts1 = *(Interrupts *) a;
-    Interrupts interrupts2 = *(Interrupts *) b;
-
-    __uint64_t CPU0a = 0;
-    __uint64_t CPU1a = 0;
-    __uint64_t CPU2a = 0;
-    __uint64_t CPU3a = 0;
-    __uint64_t CPU0b = 0;
-    __uint64_t CPU1b = 0;
-    __uint64_t CPU2b = 0;
-    __uint64_t CPU3b = 0;
-    int CPUa = 0;
-    int CPUb = 0;
-
-    CPU0a = interrupts1.CPU0;
-    CPU1a = interrupts1.CPU1;
-    CPU2a = interrupts1.CPU2;
-    CPU3a = interrupts1.CPU3;
-
-    CPU0b = interrupts2.CPU0;
-    CPU1b = interrupts2.CPU1;
-    CPU2b = interrupts2.CPU2;
-    CPU3b = interrupts2.CPU3;
-
-
-    CPUa = (int) (CPU0a + CPU1a + CPU2a + CPU3a);
-    CPUb = (int) (CPU0b + CPU1b + CPU2b + CPU3b);
-
-
-
-    return CPUa - CPUb;
-
-}
-
-void sort2(Interrupts *array, Interrupts *array2, Interrupts **array3, int n) {
-
-    Interrupts *interrupts_send = NULL;
-    interrupts_send = calloc((size_t) n, sizeof(Interrupts));
-    for (int i = 0; i < n; i++) {
-
-        Interrupts interrupts3;
-        memset(&interrupts3, 0, sizeof(Interrupts));
-        strcpy(interrupts3.name, array[i].name);
-
-        __int64_t temp = array[i].CPU0 - array2[i].CPU0;
-        if(temp<0){
-            temp=0;
-        }
-        interrupts3.CPU0 = (__uint64_t)temp;
-
-        temp = array[i].CPU1 - array2[i].CPU1;
-        if(temp<0){
-            temp=0;
-        }
-        interrupts3.CPU1 = (__uint64_t)temp;
-
-
-        temp = array[i].CPU2 - array2[i].CPU2;
-        if(temp<0){
-            temp=0;
-        }
-        interrupts3.CPU2 = (__uint64_t)temp;
-
-        temp = array[i].CPU3 - array2[i].CPU3;
-        if(temp<0){
-            temp=0;
-        }
-        interrupts3.CPU3 =(__uint64_t)temp;
-
-
-
-
-
-        strcpy(interrupts3.ime1, array[i].ime1);
-        strcpy(interrupts3.ime2, array[i].ime2);
-        strcpy(interrupts3.ime3, array[i].ime3);
-        strcpy(interrupts3.ime4, array[i].ime4);
-        interrupts_send[i] = interrupts3;
-
-    }
-
-    *array3 = interrupts_send;
-
-
-}
-
-void sort(Interrupts *array, int n) {
-
-    qsort(array,(size_t) n, sizeof(Interrupts), myCompare);
-}
 
 bool devices_show=false;
 ssize_t test_send(int socket){
@@ -279,7 +189,7 @@ void *slanje(void *socket){
     while(1) {
 
         Memory_usage memory_usage={0};
-        Cpu_usage cpu_usage={0} ;
+        Cpu_usage cpu_usage={{0}};
         Network network={0};
         memset(&network, 0, sizeof(Network));
 

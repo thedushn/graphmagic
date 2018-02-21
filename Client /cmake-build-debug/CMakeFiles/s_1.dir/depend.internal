@@ -34,18 +34,13 @@ CMakeFiles/s_1.dir/network_bandwith.c.o
 CMakeFiles/s_1.dir/server.c.o
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
- /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
- /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /server.c
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
 CMakeFiles/s_1.dir/task_manager.c.o
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
- /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
- /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
- /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.c
  /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h

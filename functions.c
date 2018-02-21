@@ -50,7 +50,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
     Interrupts interrupts;
     ssize_t  ret;
     __int32_t num=0;
-    data_s data;
+
 
     ///memorija
     ret = recv(socket, memory_usage, sizeof(Memory_usage), flag);
@@ -79,14 +79,14 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("socket closed\n");
         gtk_main_quit();
     }
-    //kraj memorije
+    ///kraj memorije
 
     ///cpu_usage
     ret = recv(socket, cpu_usage1, sizeof(Cpu_usage), flag);
     if (ret < 0) {
         printf("Error receiving data!\n");
         gtk_main_quit();
-        //  exit(1);
+
     }
     if(ret==0){
 
@@ -108,13 +108,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         gtk_main_quit();
     }
 
-   /* printf("cpu usage %s %s %s %s \n",
-           cpu_usage1->percentage0,
-           cpu_usage1->percentage1,
-           cpu_usage1->percentage2,
-           cpu_usage1->percentage3
-    );*/
-  //  printf("Return value cpu %d \n",(int)ret);
+
 
     ///kraj cpu_usage
 
@@ -122,9 +116,9 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
     ret = recv(socket, network, sizeof(Network), flag);
     if (ret < 0) {
         printf("Error receiving num_packets!\n\t");
-        //  break;
+
         gtk_main_quit();
-        // exit(1);
+
     }
     if(ret==0){
 
@@ -147,10 +141,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
     }
 
 
-  /*  printf("NEt trans: %ld rec: %ld \n",network->transmited_bytes,network->received_bytes);
-    printf("Return value network %d \n",(int)ret);
 
-    printf("Socket for receving %d \n",info->thread_socket);*/
     /// kraj networka
 
 
@@ -159,7 +150,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
     if (ret < 0) {
         printf("Error sending num_packets!\n\t");
         gtk_main_quit();
-        //  exit(1);
+
     }
     ret = test_recv(socket);
     if (ret < 0) {
@@ -178,12 +169,12 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
 
 
         ret = (int) recv(socket, &devices, sizeof(Devices), flag);
-        //    ret = (int) recvfrom(info->thread_socket, &devices, sizeof(Devices), 0,NULL,NULL);
+
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
-            //  break;
+
             gtk_main_quit();
-            // exit(1);
+
         }
         if(ret==0){
 
@@ -192,12 +183,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
             gtk_main_quit();
         }
 
-/*
-        printf("Devices %" SCNu64 ", %"SCNu64",%"SCNu64" %" SCNu64" %"SCNu64", %s %s %s\n",
-                devices.used, devices.avail,
-                devices.fid, devices.free, devices.total,
-                devices.name, devices.directory, devices.type);
-        printf("Return value devices %d \n", ret);*/
+
 
         g_array_append_val(array_devices, devices);
 
@@ -210,7 +196,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         printf("Error sending num_packets!\n\t");
 
         gtk_main_quit();
-        // exit(1);
+
     }
 
     ret = test_recv(socket);
@@ -232,9 +218,9 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         ret = recv(socket, &task, sizeof(Task), flag);
         if (ret < 0) {
             printf("Error sending num_packets!\n\t");
-            //  break;
+
             gtk_main_quit();
-            // exit(1);
+
         }
         if(ret==0){
 
@@ -244,31 +230,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         }
 
 
-/*
-        printf( "vreme trajanja rada %d %d %d\n",
-                task.duration.tm_hour,
-                task.duration.tm_min,
-                task.duration.tm_sec
-        );
-        printf( "start time %d %d %d\n",task.stime.tm_hour,
-                task.stime.tm_min,
-                task.stime.tm_sec
-        );
-        printf("Name [%s]  checked [%hu] pid [%d] start_time[%"SCNu64" ]  prio [%d] %ld %ld %d %d %s %s [%s] [%s]\n",
-               task.name
-                ,task.checked
-                ,task.pid
-                ,task.start_time
-                ,task.prio
-                ,task.rss
-                ,task.vsz,
-               task.uid,
-               task.ppid,
-               task.cpu_user,
-               task.cpu_system,
-               task.state,
-               task.uid_name
-        );*/
+
 
            g_array_append_val(array_tasks,task);
 
@@ -281,8 +243,7 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
         ret = recv(socket, &interrupts, sizeof(Interrupts), flag);
 
         if (ret < 0) {
-            printf("Error receving data!\n\t %ld  %s %s %s   \n", interrupts.CPU0,data.interrupts.name,
-                   data.interrupts.ime1,data.interrupts.ime2);
+            printf("Error receving data!\n");
 
             gtk_main_quit();
 
@@ -293,26 +254,6 @@ void primanje3(int socket, Cpu_usage *cpu_usage1, Network *network, Memory_usage
             printf("socket closed\n");
             gtk_main_quit();
         }
-
-
- /*       printf(" Receving data!return value interrupts %d \n\t Interrupts %ld %ld %ld %ld %s %s %s \n",
-               (int) ret,
-               interrupts.CPU0,
-               interrupts.CPU1,
-               interrupts.CPU2,
-               interrupts.CPU3,
-               interrupts.name,
-               interrupts.ime1,
-               interrupts.ime2
-        );*/
-
-
-
-        //    printf("return value of Interrupts ret: %d number of recv %d  \n",(int)ret,i );
-
-
-
-
 
 
 

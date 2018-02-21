@@ -2,17 +2,17 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/client.c" />
-    <bookmark url="file://$PROJECT_DIR$/Client /functions.c" line="105" />
     <bookmark url="file://$PROJECT_DIR$/drawing.c" description="// cairo_stroke(cr);" line="355" />
-    <bookmark url="file://$PROJECT_DIR$/testing_tree.c" line="559" />
+    <bookmark url="file://$PROJECT_DIR$/testing_tree.c" line="558" />
     <bookmark url="file://$PROJECT_DIR$/drawing.c" description="//  crtaj_procente(cr,width, height, font_size);" line="842" />
     <bookmark url="file://$PROJECT_DIR$/drawing.c" description="// crtaj_sekunde(cr, width, height, font_size, 3,6..." line="844" />
     <bookmark url="file://$PROJECT_DIR$/drawing.c" description="cairo_stroke(cr);" line="237" />
-    <bookmark url="file://$PROJECT_DIR$/client.c" description="/*    g_signal_connect(G_OBJECT(graph1), &quot;draw&quot;,&#10; ..." line="557" />
-    <bookmark url="file://$PROJECT_DIR$/client.c" description="/*    g_signal_connect(G_OBJECT(graph1), &quot;draw&quot;,&#10; ..." line="564" />
-    <bookmark url="file://$PROJECT_DIR$/client.c" description="gtk_widget_queue_draw(window);" line="429" />
+    <bookmark url="file://$PROJECT_DIR$/client.c" description="/*    g_signal_connect(G_OBJECT(graph1), &quot;draw&quot;,&#10; ..." line="551" />
+    <bookmark url="file://$PROJECT_DIR$/client.c" description="/*    g_signal_connect(G_OBJECT(graph1), &quot;draw&quot;,&#10; ..." line="558" />
+    <bookmark url="file://$PROJECT_DIR$/client.c" description="gtk_widget_queue_draw(window);" line="423" />
     <bookmark url="file://$PROJECT_DIR$/drawing.c" description="//   cairo_stroke_preserve(cr);" line="265" />
     <bookmark url="file://$PROJECT_DIR$/window.c" description="G_OBJECT(" line="97" />
+    <bookmark url="file://$PROJECT_DIR$/Client /functions.c" line="107" />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
@@ -27,73 +27,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae9a8f5a-838e-4740-bb5d-4f7597028504" name="Default" comment="fixed all the errors in client (valgrind)">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/functions2.c.o" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client /functions1.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/C.includecache" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/DependInfo.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/build.make" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/cmake_clean.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/depend.internal" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/depend.make" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/flags.make" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/link.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld1.dir/progress.make" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/buttons.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/client.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/drawing.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/functions.c.o" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/functions1.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/interrupts.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/testing_tree.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/window.c.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/gtkworld_1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/common.h" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Client /functions2.c" afterPath="$PROJECT_DIR$/Client /functions.c" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons_s.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/common.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/drawing.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/functions.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/interrupts.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/main_header.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/testing_tree.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/window.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/buttons.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/client.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/drawing.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/functions.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/interrupts.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/testing_tree.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/window.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/cpu_usage.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/devices.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/functions.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/interrupts.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/memory_usage.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/network_bandwith.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/task_manager.h" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/a.out" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/a.out" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/feature_tests.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/cpu_usage.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/cpu_usage.c.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/devices.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/devices.c.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/functions.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/functions.c.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/interrupts.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/interrupts.c.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/memory_usage.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/memory_usage.c.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/network_bandwith.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/network_bandwith.c.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/server.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/server.c.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/task_manager.c.o" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/task_manager.c.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/s_1" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/s_1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/out/client" afterPath="$PROJECT_DIR$/makefile_folder/project/out/client" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/out/server_arm" afterPath="$PROJECT_DIR$/makefile_folder/project/out/server_arm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/out/server_x86" afterPath="$PROJECT_DIR$/makefile_folder/project/out/server_x86" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /.idea/workspace.xml" afterPath="$PROJECT_DIR$/Client /.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /CMakeLists.txt" afterPath="$PROJECT_DIR$/Client /CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/3.7.2/CMakeSystem.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/CMakeOutput.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/Makefile.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s.dir/build.make" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s.dir/build.make" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/C.includecache" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/C.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/build.make" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/cmake_clean.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/cmake_clean.cmake" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/depend.internal" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/depend.internal" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/depend.make" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/depend.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/link.txt" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/CMakeFiles/s_1.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/Client_.cbp" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/Client_.cbp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cmake-build-debug/cmake_install.cmake" afterPath="$PROJECT_DIR$/Client /cmake-build-debug/cmake_install.cmake" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /common.h" afterPath="$PROJECT_DIR$/Client /common.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cpu_usage.c" afterPath="$PROJECT_DIR$/Client /cpu_usage.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /cpu_usage.h" afterPath="$PROJECT_DIR$/Client /cpu_usage.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /devices.c" afterPath="$PROJECT_DIR$/Client /devices.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /devices.h" afterPath="$PROJECT_DIR$/Client /devices.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /functions.c" afterPath="$PROJECT_DIR$/Client /functions.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /functions.h" afterPath="$PROJECT_DIR$/Client /functions.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /interrupts.c" afterPath="$PROJECT_DIR$/Client /interrupts.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /interrupts.h" afterPath="$PROJECT_DIR$/Client /interrupts.h" />
@@ -105,66 +95,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /task_manager.c" afterPath="$PROJECT_DIR$/Client /task_manager.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client /task_manager.h" afterPath="$PROJECT_DIR$/Client /task_manager.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/buttons.h" afterPath="$PROJECT_DIR$/buttons.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client.c" afterPath="$PROJECT_DIR$/client.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeSystem.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/C.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/C.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld.dir/depend.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/C.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/C.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/link.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/gtkworld_1.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/gtkworld.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/gtkworld.cbp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/drawing.c" afterPath="$PROJECT_DIR$/drawing.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/drawing.h" afterPath="$PROJECT_DIR$/drawing.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.h" afterPath="$PROJECT_DIR$/common.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions.c" afterPath="$PROJECT_DIR$/functions.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interrupts.c" afterPath="$PROJECT_DIR$/interrupts.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/Makefile" afterPath="$PROJECT_DIR$/makefile_folder/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons_s.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/buttons_s.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/drawing.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/drawing.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/functions.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/functions.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/interrupts.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/interrupts.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/main_header.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/main_header.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/testing_tree.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/testing_tree.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/include/window.h" afterPath="$PROJECT_DIR$/makefile_folder/project/client/include/window.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/buttons.c" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/buttons.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/client.c" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/client.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/drawing.c" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/drawing.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/functions.c" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/functions.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/interrupts.c" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/interrupts.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/testing_tree.c" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/testing_tree.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/client/src/window.c" afterPath="$PROJECT_DIR$/makefile_folder/project/client/src/window.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/cpu_usage.h" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/cpu_usage.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/devices.h" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/devices.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/functions.h" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/functions.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/interrupts.h" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/interrupts.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/network_bandwith.h" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/network_bandwith.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/include/task_manager.h" afterPath="$PROJECT_DIR$/makefile_folder/project/server/include/task_manager.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/cpu_usage.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/cpu_usage.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/devices.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/devices.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/functions.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/functions.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/interrupts.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/interrupts.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/memory_usage.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/memory_usage.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/network_bandwith.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/network_bandwith.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/server.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/server.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile_folder/project/server/src/task_manager.c" afterPath="$PROJECT_DIR$/makefile_folder/project/server/src/task_manager.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testing_tree.c" afterPath="$PROJECT_DIR$/testing_tree.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testing_tree.h" afterPath="$PROJECT_DIR$/testing_tree.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/window.c" afterPath="$PROJECT_DIR$/window.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/window.h" afterPath="$PROJECT_DIR$/window.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script.sh" afterPath="$PROJECT_DIR$/script.sh" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -177,11 +110,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="client.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-465">
-              <caret line="124" column="9" lean-forward="false" selection-start-line="124" selection-start-column="9" selection-end-line="124" selection-end-column="9" />
+            <state relative-caret-position="2988">
+              <caret line="368" column="32" lean-forward="false" selection-start-line="368" selection-start-column="32" selection-end-line="368" selection-end-column="32" />
               <folding>
                 <element signature="e#1#24#0" expanded="true" />
               </folding>
@@ -189,11 +122,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="valgrind.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmake-build-debug/valgrind.log">
-          <provider selected="true" editor-type-id="LogFileEditorProvider">
-            <state relative-caret-position="-22666">
-              <caret line="376" column="0" lean-forward="false" selection-start-line="376" selection-start-column="0" selection-end-line="376" selection-end-column="0" />
+      <file leaf-file-name="common.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="functions.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/functions.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="52">
+              <caret line="282" column="22" lean-forward="true" selection-start-line="282" selection-start-column="22" selection-end-line="282" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testing_tree.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testing_tree.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4767">
+              <caret line="614" column="0" lean-forward="false" selection-start-line="614" selection-start-column="0" selection-end-line="614" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -208,20 +162,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="valgrind2.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/makefile_folder/project/out/valgrind2.log">
-          <provider selected="true" editor-type-id="LogFileEditorProvider">
-            <state relative-caret-position="342">
-              <caret line="2290" column="1" lean-forward="true" selection-start-line="2290" selection-start-column="1" selection-end-line="2290" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="drawing.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/drawing.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
-              <caret line="282" column="2" lean-forward="true" selection-start-line="282" selection-start-column="2" selection-end-line="282" selection-end-column="2" />
+              <caret line="282" column="2" lean-forward="false" selection-start-line="282" selection-start-column="2" selection-end-line="282" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="script.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/script.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -230,7 +185,7 @@
       <file leaf-file-name="buttons.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/buttons.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="565">
+            <state relative-caret-position="10225">
               <caret line="846" column="26" lean-forward="false" selection-start-line="846" selection-start-column="26" selection-end-line="846" selection-end-column="26" />
               <folding />
             </state>
@@ -241,7 +196,7 @@
         <entry file="file://$PROJECT_DIR$/window.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-2118">
-              <caret line="229" column="0" lean-forward="true" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+              <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -250,18 +205,8 @@
       <file leaf-file-name="buttons.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/buttons.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gtkwidget.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/include/gtk-3.0/gtk/gtkwidget.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="625" column="11" lean-forward="false" selection-start-line="625" selection-start-column="11" selection-end-line="625" selection-end-column="11" />
+            <state relative-caret-position="41">
+              <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -324,7 +269,6 @@
         <option value="$PROJECT_DIR$/cpu_usage.h" />
         <option value="$PROJECT_DIR$/cpu_usage.c" />
         <option value="$PROJECT_DIR$/buttons_s.h" />
-        <option value="$PROJECT_DIR$/common.h" />
         <option value="$PROJECT_DIR$/main.c" />
         <option value="$PROJECT_DIR$/buttons.c" />
         <option value="$PROJECT_DIR$/interrupts.h" />
@@ -335,21 +279,23 @@
         <option value="$PROJECT_DIR$/Client /interrupts.c" />
         <option value="$PROJECT_DIR$/interrupts.c" />
         <option value="$PROJECT_DIR$/cmake-build-debug/log" />
-        <option value="$PROJECT_DIR$/functions.c" />
         <option value="$PROJECT_DIR$/log.txt" />
         <option value="$PROJECT_DIR$/cmake-build-debug/Makefile" />
-        <option value="$PROJECT_DIR$/testing_tree.c" />
         <option value="$PROJECT_DIR$/drawing.h" />
         <option value="$PROJECT_DIR$/window.h" />
         <option value="$PROJECT_DIR$/testing_tree.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/main_header.h" />
         <option value="$PROJECT_DIR$/drawing.c" />
-        <option value="$PROJECT_DIR$/buttons.h" />
         <option value="$PROJECT_DIR$/window.c" />
         <option value="$PROJECT_DIR$/cmake-build-debug/valgrind.log" />
         <option value="$PROJECT_DIR$/cmake-build-debug/logval1.txt" />
         <option value="$PROJECT_DIR$/client.c" />
+        <option value="$PROJECT_DIR$/testing_tree.c" />
+        <option value="$PROJECT_DIR$/script.sh" />
+        <option value="$PROJECT_DIR$/buttons.h" />
+        <option value="$PROJECT_DIR$/common.h" />
+        <option value="$PROJECT_DIR$/functions.c" />
       </list>
     </option>
   </component>
@@ -444,7 +390,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
+              <option name="myItemId" value="server" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -458,7 +404,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cmake-build-debug" />
+              <option name="myItemId" value="makefile_folder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -784,7 +742,7 @@
       <workItem from="1517912304238" duration="13688000" />
       <workItem from="1517999206867" duration="13151000" />
       <workItem from="1518430867724" duration="30020000" />
-      <workItem from="1519039727437" duration="10931000" />
+      <workItem from="1519039727437" duration="13930000" />
     </task>
     <task id="LOCAL-00001" summary="testing git vol2">
       <created>1517318349097</created>
@@ -811,7 +769,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="555683000" />
+    <option name="totallyTimeSpent" value="558682000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -832,8 +790,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3985932" sideWeight="0.50193477" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3059789" sideWeight="0.49806523" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28956625" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28026533" sideWeight="0.49293286" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2028136" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12548369" sideWeight="0.49293286" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25815368" sideWeight="0.50706714" order="2" side_tool="true" content_ui="tabs" />
@@ -920,11 +878,6 @@
           <url>file://$PROJECT_DIR$/cpu_usage.c</url>
           <line>126</line>
           <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/client.c</url>
-          <line>609</line>
-          <option name="timeStamp" value="177" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="178" />
@@ -1083,14 +1036,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-541">
-          <caret line="297" column="3" lean-forward="false" selection-start-line="297" selection-start-column="1" selection-end-line="306" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/cairo/cairo.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="445">
@@ -1131,26 +1076,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="59" column="35" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -1187,14 +1116,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testing_tree.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6182">
-          <caret line="494" column="33" lean-forward="false" selection-start-line="494" selection-start-column="12" selection-end-line="494" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/gtk-3.0/gtk/gtkwidget.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -1206,23 +1127,7 @@
     <entry file="file://$PROJECT_DIR$/drawing.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
-          <caret line="282" column="2" lean-forward="true" selection-start-line="282" selection-start-column="2" selection-end-line="282" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buttons.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="846" column="26" lean-forward="false" selection-start-line="846" selection-start-column="26" selection-end-line="846" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buttons.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+          <caret line="282" column="2" lean-forward="false" selection-start-line="282" selection-start-column="2" selection-end-line="282" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -1237,7 +1142,7 @@
     <entry file="file://$PROJECT_DIR$/window.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2118">
-          <caret line="229" column="0" lean-forward="true" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+          <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1257,13 +1162,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/testing_tree.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4767">
+          <caret line="614" column="0" lean-forward="false" selection-start-line="614" selection-start-column="0" selection-end-line="614" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-465">
-          <caret line="124" column="9" lean-forward="false" selection-start-line="124" selection-start-column="9" selection-end-line="124" selection-end-column="9" />
+        <state relative-caret-position="2988">
+          <caret line="368" column="32" lean-forward="false" selection-start-line="368" selection-start-column="32" selection-end-line="368" selection-end-column="32" />
           <folding>
             <element signature="e#1#24#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buttons.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10225">
+          <caret line="846" column="26" lean-forward="false" selection-start-line="846" selection-start-column="26" selection-end-line="846" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buttons.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="282" column="22" lean-forward="true" selection-start-line="282" selection-start-column="22" selection-end-line="282" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

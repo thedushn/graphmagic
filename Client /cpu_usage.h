@@ -4,15 +4,7 @@
 
 #ifndef GTKWORLD_CPU_USAGE_H
 #define GTKWORLD_CPU_USAGE_H
-#include <stdio.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <string.h>
 
-
-#include <math.h>
-#include <stdlib.h>
-#include "stdbool.h"
 
 #include "common.h"
 

@@ -13,26 +13,18 @@ time.h
 -
 
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
 inttypes.h
 -
 cpu_usage.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
 
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
-stdio.h
--
-pwd.h
--
-unistd.h
--
-string.h
--
-math.h
--
-stdlib.h
--
-stdbool.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdbool.h
 common.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
@@ -41,52 +33,28 @@ devices.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
 errno.h
 -
-
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
-setjmp.h
+stdlib.h
 -
-unistd.h
+stdio.h
 -
 string.h
 -
-stdio.h
--
-stdlib.h
--
-math.h
--
 sys/stat.h
--
-pwd.h
--
-stdio.h
--
-sys/types.h
--
-sys/stat.h
--
-unistd.h
 -
 sys/statvfs.h
 -
-stdint.h
--
-string.h
--
-dirent.h
--
-stdlib.h
--
-stdbool.h
--
+
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /devices.h
 common.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.c
+string.h
+-
 stdio.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdio.h
+-
 stdlib.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /stdlib.h
+-
 sys/socket.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /sys/socket.h
 pthread.h
@@ -97,12 +65,8 @@ interrupts.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.h
 cpu_usage.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
-
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
 memory_usage.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
-common.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 task_manager.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
 devices.h
@@ -110,55 +74,39 @@ devices.h
 network_bandwith.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
 
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
+common.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
+
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.c
 errno.h
 -
 inttypes.h
 -
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
 interrupts.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.h
 
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /interrupts.h
-math.h
--
-stdio.h
--
-sys/types.h
--
-sys/stat.h
--
-pwd.h
--
-unistd.h
--
-string.h
--
-stdlib.h
--
 common.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.c
 inttypes.h
 -
+memory.h
+-
+stdio.h
+-
 memory_usage.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
 
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /memory_usage.h
-math.h
--
-sys/stat.h
--
-pwd.h
--
-unistd.h
--
-string.h
--
-stdio.h
--
-stdlib.h
--
 common.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
@@ -169,38 +117,18 @@ errno.h
 -
 inttypes.h
 -
-
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
-stdio.h
--
-sys/types.h
--
-sys/stat.h
--
-pwd.h
--
-unistd.h
--
-string.h
--
-math.h
--
-sys/stat.h
--
-pwd.h
--
-unistd.h
--
-string.h
--
-stdio.h
+memory.h
 -
 stdlib.h
 -
+printf.h
+-
 dirent.h
 -
-stdint.h
+stdio.h
 -
+
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
 common.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 
@@ -221,6 +149,10 @@ functions.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
 cpu_usage.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
+task_manager.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
+network_bandwith.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /network_bandwith.h
 arpa/inet.h
 -
 netdb.h
@@ -231,34 +163,36 @@ errno.h
 -
 wait.h
 -
-
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.c
-task_manager.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
-functions.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
-errno.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /errno.h
-cpu_usage.h
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
-inttypes.h
+unistd.h
 -
 
-/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
-math.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.c
+inttypes.h
+-
+unistd.h
+-
+stdio.h
+-
+string.h
 -
 sys/stat.h
 -
 pwd.h
 -
-unistd.h
--
-string.h
--
-stdio.h
--
 stdlib.h
 -
+dirent.h
+-
+errno.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /errno.h
+functions.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /functions.h
+task_manager.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
+cpu_usage.h
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /cpu_usage.h
+
+/home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /task_manager.h
 common.h
 /home/dushn/Desktop/TEST_RADI_slanje/SERVER/Client /common.h
 

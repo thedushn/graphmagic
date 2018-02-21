@@ -2,13 +2,22 @@
 // Created by dushn on 4.9.17..
 //
 
-#include "task_manager.h"
 
+
+#include <inttypes.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <pwd.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include "errno.h"
 
 #include "functions.h"
-#include "errno.h"
+#include "task_manager.h"
 #include "cpu_usage.h"
-#include <inttypes.h>
+
 
 void differenceBetweenTimePeriod(struct tm start, struct tm1 stop, struct tm1 *diff)
 {

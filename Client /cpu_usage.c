@@ -2,6 +2,9 @@
 // Created by dushn on 4.8.17..
 //
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <inttypes.h>
 #include "cpu_usage.h"
 

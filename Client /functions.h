@@ -2,11 +2,8 @@
 #ifndef CLIENT_FUNCTIONS_H
 #define CLIENT_FUNCTIONS_H
 
-#include "memory_usage.h"
+
 #include "common.h"
-#include "task_manager.h"
-#include "devices.h"
-#include "network_bandwith.h"
 
 void *slanje(void * socket);
 void *accept_c (void *socket);

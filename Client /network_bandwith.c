@@ -7,6 +7,12 @@
 
 #include <errno.h>
 #include <inttypes.h>
+#include <memory.h>
+#include <stdlib.h>
+#include <printf.h>
+#include <dirent.h>
+#include <stdio.h>
+
 
 #define BUFFER_SIZE 1024
 #define BUFFER_SIZE2 64
