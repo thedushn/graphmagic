@@ -464,25 +464,26 @@ void *slanje(void *socket){
         }
 
 
-        free(interrupts_send);
+
 
 
         for (int r = 0; r < h; r++) {
 
             interrupts_main[r] = interrupts[r];
         }
-        interrupts_send = NULL;
+
 
 
 
         free(task_array);
         free(devices);
         free(interrupts);
-
+        free(interrupts_send);
 
         task_array=NULL;
         devices=NULL;
         interrupts=NULL;
+        interrupts_send = NULL;
 
 
     }

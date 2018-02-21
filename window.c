@@ -41,11 +41,11 @@ GtkWidget *label_swap;
       GtkWidget *frame2;
       GtkWidget *frame3;
       GtkWidget *frame4;
-  //    GtkTreeSelection *selection1;
+
    GtkWidget *window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_position(GTK_WINDOW(window1), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window1), 800, 400);
-     // gtk_widget_show(window1);
+
 
 
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -95,7 +95,7 @@ GtkWidget *label_swap;
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), devices_menu);
 
 
-   // g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(quit_activated), NULL);
+
     g_signal_connect(quit, "activate", G_CALLBACK(quit_activated), NULL);
 
     g_signal_connect(increase_refresh, "activate", G_CALLBACK(inc_refresh), NULL);
@@ -149,12 +149,10 @@ GtkWidget *label_swap;
     label_rec = gtk_label_new(NULL);//memory
     label_trans = gtk_label_new(NULL);//swap
     label_cpu0 = gtk_label_new(NULL);//cpu1
-/*    label_cpu1 = gtk_label_new(NULL);//cpu2
-    label_cpu2 = gtk_label_new(NULL);//cpu3
-    label_cpu3 = gtk_label_new(NULL);//cpu4*/
+
     label_mem = gtk_label_new(NULL);//network_received
     label_swap = gtk_label_new(NULL);//network_transimited
- //   label_time = gtk_label_new(NULL);//time(local)
+
 
 
 
@@ -163,15 +161,12 @@ GtkWidget *label_swap;
     gtk_box_pack_start(GTK_BOX(hbox), button_inc, FALSE, FALSE, FALSE);//expand,fill,padding
     gtk_box_pack_start(GTK_BOX(hbox), button2, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_proc, 0, 0, 0);
-  //  gtk_box_pack_start(GTK_BOX(hbox), button5, 0, 0, 0);
-   // gtk_box_pack_start(GTK_BOX(hbox), button4, 0, 0, 0);
+
     gtk_box_pack_start(GTK_BOX(hbox), button_dev, 0, 0, 0);
     gtk_box_pack_start(GTK_BOX(hbox), button_graph, 0, 0, 0);
-  //  gtk_box_pack_start(GTK_BOX(hbox), button_condition, 0, 0, 0);
+
     gtk_box_pack_start(GTK_BOX(hbox), label_cpu0, 0, 0, 0);
-  /*  gtk_box_pack_start(GTK_BOX(hbox), label_cpu1, 0, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(hbox), label_cpu2, 0, 0, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label_cpu3, 0, 0, 0);*/
+
     gtk_box_pack_start(GTK_BOX(hbox), label_rec, 1, 1, 1);
     gtk_box_pack_start(GTK_BOX(hbox), label_trans, 1, TRUE, 1);
 
@@ -182,23 +177,21 @@ GtkWidget *label_swap;
 
     gtk_container_add(GTK_CONTAINER(frame1), graph1);
     gtk_box_pack_start(GTK_BOX(hbox1), frame1, 1, TRUE, 0);
-      printf("graph is floating %s\n", g_object_is_floating (graph1)==TRUE ? "TRUE" : "FALSE");
+
 
 
     gtk_box_pack_start(GTK_BOX(vbox), hbox2, 0, FALSE, 0);
 
-//  gtk_box_pack_start(GTK_BOX(hbox2), button4, 0, FALSE, 0);
+
     gtk_box_pack_start(GTK_BOX(hbox2), label_mem, 0, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(hbox2), label_swap, 0, FALSE, 1);
-   // gtk_box_pack_start(GTK_BOX(hbox2), label_time, 0, 0,1 );
-//    gtk_box_pack_start(GTK_BOX(hbox2), label_mem, 1, TRUE, 1);
+
 
 
 
     gtk_container_add(GTK_CONTAINER(frame2), graph2);
     gtk_box_pack_start(GTK_BOX(hbox1), frame2, 1, TRUE, 0);
 
-//  hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
     gtk_box_pack_start(GTK_BOX(vbox), hbox3, 1, TRUE, 0);
     gtk_container_add(GTK_CONTAINER(frame3), graph3);
@@ -213,14 +206,9 @@ GtkWidget *label_swap;
 
 
 
-    //  gtk_widget_show (treeview);
-    //  gtk_widget_show (treeview1);
-      printf("treeview is floating %s\n", g_object_is_floating (treeview)==TRUE ? "TRUE" : "FALSE");
 
-
-      printf("vbox is floating %s\n", g_object_is_floating (vbox)==TRUE ? "TRUE" : "FALSE");
     gtk_container_add(GTK_CONTAINER(window1), vbox);
-      printf("vbox is floating %s\n", g_object_is_floating (vbox)==TRUE ? "TRUE" : "FALSE");
+
 
     gtk_widget_show_all(window1);
     gtk_window_set_title(GTK_WINDOW(window1), "College lines");
@@ -238,13 +226,12 @@ void swap_change(Memory_usage *memory_usage){
 
 
 
- // static guint i =0;
+
  gchar  *swap_total,*swap_used;
 
     float f;
     f=(float)atof(memory_usage->swap_percentage);
 
- //gfloat  j = strtof(memory_usage->swap_percentage,);
  swap_used = g_format_size_full((guint64) memory_usage->swap_used, G_FORMAT_SIZE_IEC_UNITS);
  swap_total = g_format_size_full((guint64) memory_usage->swap_total, G_FORMAT_SIZE_IEC_UNITS);
 
@@ -291,74 +278,48 @@ void memory_change(Memory_usage *memory_usage){
 
 }
 
-void  cpu_change(Cpu_usage  *cpu_usage1){
+void  cpu_change(Cpu_usage  *cpu_usage){
 
 
     float j=0 ;
-    j=(float)atof(cpu_usage1->percentage0);
+    j=(float)atof(cpu_usage->percentage0);
 
     g_array_prepend_val(history[0], j);
     if (history[0]->len > 1)
         g_array_remove_index (history[0], history[0]->len - 1);
 
 
-    j=(float)atof(cpu_usage1->percentage1);
+    j=(float)atof(cpu_usage->percentage1);
         g_array_prepend_val(history[1], j);
         if (history[1]->len > 1)
             g_array_remove_index (history[1], history[1]->len - 1);
 
 
 
-     j=(float)atof(cpu_usage1->percentage2);
+     j=(float)atof(cpu_usage->percentage2);
         g_array_prepend_val(history[2], j);
         if (history[2]->len > 1)
             g_array_remove_index (history[2], history[2]->len - 1);
 
-    j=(float)atof(cpu_usage1->percentage3);
+    j=(float)atof(cpu_usage->percentage3);
 
         g_array_prepend_val(history[3], j);
         if (history[3]->len > 1)
             g_array_remove_index (history[3], history[3]->len - 1);
 
-   // }
 
-/*
-    g_array_prepend_val(history[1], cpu_usage1->percentage1);
-    if (history[1]->len > 1)
-        g_array_remove_index (history[1], history[1]->len - 1);
-
-    g_array_prepend_val(history[2], cpu_usage1->percentage2);
-    if (history[2]->len > 1)
-        g_array_remove_index (history[2], history[2]->len - 1);
-
-    g_array_prepend_val(history[3], cpu_usage1->percentage3);
-    if (history[3]->len > 1)
-        g_array_remove_index (history[3], history[3]->len - 1);
-*/
-
-
-
-    ////vratiti nazad
-    /*gchar*   cpu1_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 1,  cpu_usage1->percentage1);
-    gchar*   cpu2_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 2,  cpu_usage1->percentage2);
-    gchar*  cpu3_usage_text = g_strdup_printf(("CPU%d: %2.f%%"), 3,  cpu_usage1->percentage3);*/
     gchar*  cpu0_usage_text = g_strdup_printf(("CPU%s: %.4s%% CPU%s: %.4s%%CPU%s: %.4s%%CPU%s: %.4s%%"),
-                                             "0",cpu_usage1->percentage0,
-                                              "1",  cpu_usage1->percentage1,
-                                              "2",  cpu_usage1->percentage2,
-                                              "3",  cpu_usage1->percentage3
+                                             "0",cpu_usage->percentage0,
+                                              "1",  cpu_usage->percentage1,
+                                              "2",  cpu_usage->percentage2,
+                                              "3",  cpu_usage->percentage3
     );
 
     gtk_label_set_text (GTK_LABEL (label_cpu0),cpu0_usage_text);
- /*   gtk_label_set_text (GTK_LABEL (label_cpu1),cpu1_usage_text);
-    gtk_label_set_text (GTK_LABEL (label_cpu2),cpu2_usage_text);
-    gtk_label_set_text (GTK_LABEL (label_cpu3),cpu3_usage_text);*/
 
     g_free(cpu0_usage_text);
-   /* g_free(cpu1_usage_text);
-    g_free(cpu2_usage_text);
-    g_free(cpu3_usage_text);*/
-    ////vratiti nazad
+
+
 
 
 };

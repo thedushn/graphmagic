@@ -102,30 +102,14 @@ static int myCompare(const void *a, const void *b) {
     Interrupts interrupts1 = *(Interrupts *) a;
     Interrupts interrupts2 = *(Interrupts *) b;
 
-    __uint64_t CPU0a = 0;
-    __uint64_t CPU1a = 0;
-    __uint64_t CPU2a = 0;
-    __uint64_t CPU3a = 0;
-    __uint64_t CPU0b = 0;
-    __uint64_t CPU1b = 0;
-    __uint64_t CPU2b = 0;
-    __uint64_t CPU3b = 0;
+
     int CPUa = 0;
     int CPUb = 0;
 
-    CPU0a = interrupts1.CPU0;
-    CPU1a = interrupts1.CPU1;
-    CPU2a = interrupts1.CPU2;
-    CPU3a = interrupts1.CPU3;
-
-    CPU0b = interrupts2.CPU0;
-    CPU1b = interrupts2.CPU1;
-    CPU2b = interrupts2.CPU2;
-    CPU3b = interrupts2.CPU3;
 
 
-    CPUa = (int) (CPU0a + CPU1a + CPU2a + CPU3a);
-    CPUb = (int) (CPU0b + CPU1b + CPU2b + CPU3b);
+    CPUa = (int) (interrupts1.CPU0 + interrupts1.CPU1 + interrupts1.CPU2 + interrupts1.CPU3);
+    CPUb = (int) (interrupts2.CPU0 + interrupts2.CPU1 + interrupts2.CPU2 + interrupts2.CPU3);
 
 
 

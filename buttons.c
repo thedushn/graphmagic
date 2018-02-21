@@ -25,7 +25,7 @@ void process_window(){
     button_process_vm_size=gtk_check_button_new_with_label ("VM_size");
     button_process_user=gtk_check_button_new_with_label ("User");
     button_process_prio=gtk_check_button_new_with_label ("Prio");
-  //  button_process_stime=gtk_check_button_new_with_label ("Stime");
+
     button_process_duration=gtk_check_button_new_with_label ("Duration");
 
     if(process_cpu==TRUE){
@@ -56,9 +56,6 @@ void process_window(){
     if(process_prio==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_prio),TRUE);
     }
-//    if(process_stime==TRUE){
-//        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_stime),TRUE);
-//    }
     if(process_duration==TRUE){
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(button_process_duration),TRUE);
     }
@@ -78,8 +75,9 @@ void process_window(){
     gtk_box_pack_start(GTK_BOX(box2),button_process_rss,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_cpu,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_prio,1,1,0);
-    //gtk_box_pack_start(GTK_BOX(box2),button_process_stime,1,1,0);
     gtk_box_pack_start(GTK_BOX(box2),button_process_duration,1,1,0);
+
+
     g_signal_connect(button_process_user,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_rss,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_task,"toggled", G_CALLBACK(process_clicked), NULL);
@@ -89,7 +87,6 @@ void process_window(){
     g_signal_connect(button_process_pid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_ppid,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_prio,"toggled", G_CALLBACK(process_clicked), NULL);
-  //  g_signal_connect(button_process_stime,"toggled", G_CALLBACK(process_clicked), NULL);
     g_signal_connect(button_process_duration,"toggled", G_CALLBACK(process_clicked), NULL);
 
 
@@ -211,24 +208,9 @@ void dev_button_clicked2(GtkWidget *widget){
 
 
         gtk_widget_show_all(dev_swindow);
-        // g_timeout_add(1000, (GSourceFunc)refresh_dev(),NULL);
+
     } else {
         pokazi_ili_hide(widget, dev_swindow);
-
-        //  GList *children=  gtk_container_get_children(GTK_CONTAINER(dev_swindow));
-
-        // gtk_widget_destroy(progressbar);
-        //  gtk_widget_unparent(children->data);
-        // gtk_container_remove(GTK_CONTAINER(dev_swindow),children->data);
-        //gtk_widget_destroy(swindow2);
-        //    gtk_widget_destroy(dev_swindow);
-        //pokazi_ili_hide(widget);
-        //   gtk_widget_hide(dev_swindow);
-        //    clean_button();
-        //   gtk_container_remove(GTK_CONTAINER(swindow2),view2);
-
-
-
 
     }
 
@@ -267,14 +249,13 @@ void start_stop(int show,char *signal ,char *task_id){
             commands.task_id[i]=task_id[i];
         }
     }
-    printf(" task_id=[%s]  signal=[%s]\n",task_id,signal);
-    printf("sHOW %s\n", commands.show==TRUE ? "TRUE" : "FALSE");
+
         ret=(int) send (newsockfd1,&commands,sizeof(Commands),0);
     if(ret<0){
 
         printf("nije uspelo slanje cond \n");
         gtk_main_quit();
- //       exit(1);
+
 
     }
     if(ret==0){
@@ -282,12 +263,10 @@ void start_stop(int show,char *signal ,char *task_id){
         printf("nije uspelo slanje cond \n");
         printf("socket closed\n");
         gtk_main_quit();
-        //       exit(1);
+
 
     }
-    printf("poslali smo cond\n");
-    printf("start stop ret : %d \n",ret);
-    printf("%d \n",newsockfd1);
+
 }
 void graph_button_clicked(GtkWidget *widget){
 
@@ -361,50 +340,47 @@ void show_all(GtkWidget *widget){
 
 };
 void device_clicked(GtkWidget *widget){
-//void graph_clicked(GtkWidget *widget){
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
     {
         if(widget==button_device_devices){
 
             device_devices= TRUE;
-            //     testiranje=1;
-            change_list_store_view_devices(widget, device_devices);
-          //  device_refresh(widget,CPU0_line );
 
-            //  return CPU0_line;
+            change_list_store_view_devices(widget, device_devices);
+
         }
         else if(widget==button_device_directory){
 
             device_directory= TRUE;
             change_list_store_view_devices(widget, device_directory);
-           // device_refresh(widget,device_directory );
+
         }
         else if(widget==button_device_avail){
 
             device_avail= TRUE;
             change_list_store_view_devices(widget, device_avail);
-           // device_refresh(widget,device_avail );
+
         }
         else if(widget==button_device_total){
             device_total= TRUE;
             change_list_store_view_devices(widget, device_total);
-          //  device_refresh(widget,device_total );
+
         }
         else if(widget==button_device_used){
             device_used= TRUE;
             change_list_store_view_devices(widget, device_used);
-           // device_refresh(widget,device_used );
+
         }
         else if(widget==button_device_type){
             device_type= TRUE;
             change_list_store_view_devices(widget, device_type);
-          //  device_refresh(widget,device_type );
+
         }
-        else /*if(widget==button_device_free)*/{
+        else {
             device_free= TRUE;
             change_list_store_view_devices(widget, device_free);
-         //   device_refresh(widget,device_free );
+
         }
 
     }
@@ -414,42 +390,41 @@ void device_clicked(GtkWidget *widget){
 
             device_devices= FALSE;
 
-            // graph_refresh();
             change_list_store_view_devices(widget, device_devices);
-          //  device_refresh(widget,device_devices );
+
 
         }
         else if(widget==button_device_directory){
 
             device_directory= FALSE;
             change_list_store_view_devices(widget, device_directory);
-          //  device_refresh(widget,device_directory );
+
         }
         else if(widget==button_device_avail){
 
             device_avail= FALSE;
             change_list_store_view_devices(widget, device_avail);
-           // device_refresh(widget,device_avail );
+
         }
         else if(widget==button_device_total){
                 device_total= FALSE;
             change_list_store_view_devices(widget, device_total);
-           // device_refresh(widget,device_total );
+
         }
         else if(widget==button_device_used){
             device_used= FALSE;
             change_list_store_view_devices(widget, device_used);
-           // device_refresh(widget,device_used );
+
         }
         else if(widget==button_device_type){
             device_type= FALSE;
             change_list_store_view_devices(widget, device_type);
-          //  device_refresh(widget,device_type );
+
         }
-        else /*if(widget==button_device_free)*/{
+        else {
             device_free= FALSE;
             change_list_store_view_devices(widget, device_free);
-          //  device_refresh(widget,device_free );
+
         }
 
 
@@ -459,63 +434,57 @@ void device_clicked(GtkWidget *widget){
 };
 
 void process_clicked(GtkWidget *widget){
-//void graph_clicked(GtkWidget *widget){
+
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
     {
         if(widget==button_process_task){
 
             process_task= TRUE;
-            //     testiranje=1;
-            change_list_store_view_process(widget, process_task);
-            //  process_refresh(widget,process_task );
 
-            //  return CPU0_line;
+            change_list_store_view_process(widget, process_task);
+
         }
         else if(widget==button_process_cpu){
 
             process_cpu= TRUE;
+
             change_list_store_view_process(widget, process_cpu);
-          //  process_refresh(widget,process_cpu );
+
         }
         else if(widget==button_process_prio){
 
             process_prio= TRUE;
             change_list_store_view_process(widget, process_prio);
-            //  process_refresh(widget,process_cpu );
+
         }
         else if(widget==button_process_pid){
 
             process_pid= TRUE;
             change_list_store_view_process(widget, process_pid);
-         //   process_refresh(widget,process_pid );
+
         }
         else if(widget==button_process_ppid){
             process_ppid= TRUE;
             change_list_store_view_process(widget, process_ppid);
-          //  process_refresh(widget,process_ppid );
+
         }
         else if(widget==button_process_rss){
             process_rss= TRUE;
             change_list_store_view_process(widget, process_rss);
-        //    process_refresh(widget,process_rss );
+
         }
         else if(widget==button_process_vm_size){
             process_vm_size= TRUE;
             change_list_store_view_process(widget, process_vm_size);
-         //   process_refresh(widget,process_vm_size );
+
         }
         else if(widget==button_process_state){
             process_state= TRUE;
             change_list_store_view_process(widget, process_state);
-          //  process_refresh(widget,process_state );
-        }
-          /*  else if(widget==button_process_stime){
-            process_stime=TRUE;
 
-            change_list_store_view_process(widget, process_stime);
-        }*/
-              else if(widget==button_process_duration){
+        }
+        else if(widget==button_process_duration){
         process_duration=TRUE;
 
         change_list_store_view_process(widget, process_duration);
@@ -524,9 +493,8 @@ void process_clicked(GtkWidget *widget){
 
             process_user= TRUE;
             change_list_store_view_process(widget, process_user);
-          //  process_refresh(widget,process_user );
-        }
 
+        }
 
     }
     else{
@@ -534,65 +502,58 @@ void process_clicked(GtkWidget *widget){
         if(widget==button_process_task){
 
             process_task= FALSE;
-            //     testiranje=1;
-            change_list_store_view_process(widget, process_task);
-          //    process_refresh(widget,process_task );
 
-            //  return CPU0_line;
+            change_list_store_view_process(widget, process_task);
+
         }
         else if(widget==button_process_cpu){
 
             process_cpu= FALSE;
             change_list_store_view_process(widget, process_cpu);
-           // process_refresh(widget,process_cpu );
+
         }
         else if(widget==button_process_prio){
 
             process_prio= FALSE;
             change_list_store_view_process(widget, process_prio);
-            // process_refresh(widget,process_cpu );
+
         }
         else if(widget==button_process_pid){
 
             process_pid= FALSE;
             change_list_store_view_process(widget, process_pid);
-           // process_refresh(widget,process_pid );
+
         }
         else if(widget==button_process_ppid){
             process_ppid= FALSE;
             change_list_store_view_process(widget, process_ppid);
-           // process_refresh(widget,process_ppid );
+
         }
         else if(widget==button_process_rss){
             process_rss= FALSE;
             change_list_store_view_process(widget, process_rss);
-            //process_refresh(widget,process_rss );
+
         }
         else if(widget==button_process_vm_size){
             process_vm_size= FALSE;
             change_list_store_view_process(widget, process_vm_size);
-            //process_refresh(widget,process_vm_size );
+
         }
         else if(widget==button_process_state){
             process_state= FALSE;
             change_list_store_view_process(widget, process_state);
-           // process_refresh(widget,process_state );
-        }
-       /* else if(widget==button_process_stime){
-            process_stime=FALSE;
 
-            change_list_store_view_process(widget, process_stime);
-        }*/
-             else if(widget==button_process_duration){
+        }
+        else if(widget==button_process_duration){
           process_duration=FALSE;
 
           change_list_store_view_process(widget, process_duration);
-      }
+        }
         else{
 
             process_user= FALSE;
             change_list_store_view_process(widget, process_user);
-          //  process_refresh(widget,process_user );
+
         }
 
 
@@ -601,38 +562,37 @@ void process_clicked(GtkWidget *widget){
 
 };
 void graph_clicked(GtkWidget *widget){
-//void graph_clicked(GtkWidget *widget){
+
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
     {
         if(widget==button_graph0){
 
             CPU0_line= TRUE;
-       //     testiranje=1;
+
              graph_refresh(widget,CPU0_line );
 
-          //  return CPU0_line;
+
         }
         if(widget==button_graph1){
 
             CPU1_line= TRUE;
             graph_refresh(widget,CPU1_line );
-            printf("CPU line %d\n",CPU1_line);
+
         }
         if(widget==button_graph2){
 
             CPU2_line= TRUE;
             graph_refresh(widget,CPU2_line );
-            printf("CPU line %d\n",CPU2_line);
+
         }
         if(widget==button_graph3){
 
             CPU3_line= TRUE;
-            printf("CPU line %d\n",CPU3_line);
             graph_refresh(widget,CPU3_line );
-            //  graph_refresh();
+
         }
-      //  graph_refresh();
+
 
     }
     else{
@@ -641,33 +601,31 @@ void graph_clicked(GtkWidget *widget){
 
             CPU0_line= FALSE;
 
-            // graph_refresh();
+
             graph_refresh(widget,CPU0_line );
 
         }
         if(widget==button_graph1){
 
             CPU1_line= FALSE;
-            // graph_refresh();
+
             graph_refresh(widget,CPU1_line );
-            printf("CPU line %d\n",CPU1_line);
+
         }
         if(widget==button_graph2){
 
             CPU2_line= FALSE;
-            // graph_refresh();
+
             graph_refresh(widget,CPU2_line );
-            printf("CPU line %d\n",CPU2_line);
+
         }
         if(widget==button_graph3){
 
             CPU3_line= FALSE;
-            // graph_refresh();
-            graph_refresh(widget,CPU3_line );
-            printf("CPU line %d\n",CPU3_line);
-        }
-       // graph_refresh();
 
+            graph_refresh(widget,CPU3_line );
+
+        }
 
     }
 

@@ -240,7 +240,7 @@ void change_list_store_view_devices(GtkWidget *widget, gboolean visible)
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 5), visible);
     }
 
-    else /*(button_device_free==widget)*/{
+    else {
 
         gtk_tree_view_column_set_visible (gtk_tree_view_get_column(GTK_TREE_VIEW(treeview1), 6), visible);
     }
@@ -357,7 +357,7 @@ void fill_list_item(gint i, GtkTreeIter *iter)
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_CPU, cpu, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_UNAME, uname, -1);
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_PRIO, prio, -1);
-     //   gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_STIME, stime, -1);
+
         gtk_tree_store_set(GTK_TREE_STORE(list_store), iter, COL_DUR, duration, -1);
 
 
@@ -435,17 +435,14 @@ void refresh_list_item_device(gint i)
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 0, &str_data, -1); //COL_DEV
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 1, &str_data1, -1); //COL_DIR
         gtk_tree_model_get(GTK_TREE_MODEL(list_store1), &iter, 2, &str_data2, -1);  //type
-        //printf("type %s\n",str_data2);
+
 
         if(strcmp(device->name , str_data)==0 && strcmp(device->directory , str_data1)==0 /* && strcmp(device->type , str_data2)*/)
         {
             g_free(str_data);
             g_free(str_data1);
             g_free(str_data2);
-//            printf("Refresh times%d\n",g);
-//            printf("NAME OF the device %s\n",str_data);
-//            printf("NAME OF the device %s\n",device->name);
-//            printf("NAME OF the directory %s\n",device->directory);
+
             fill_list_item_device(i, &iter);
             g++;
             break;
@@ -530,67 +527,30 @@ void remove_list_item_device(gchar *directory,gchar *name)
         valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(list_store1), &iter);
     }
 }
+
 gint compare_string_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter *iter2, gpointer column)
 {
-    gchar *s1 ;
-    gchar *s2 ;
-    char temp[1] ;
-    char temp1[1];
+    char *s1 ;
+    char *s2 ;
 
-    memset(temp,0,1*sizeof(char));
-    memset(temp1,0,1*sizeof(char));
-    int i=0;
     gint ret = 0;
+
 
     gtk_tree_model_get(model, iter1, GPOINTER_TO_INT(column), &s1, -1);
     if(s1==NULL){
 
-        return ret;//ako prvog nema drugi je prvi
+        return 1;//ako prvog nema drugi je prvi
     }
     gtk_tree_model_get(model, iter2, GPOINTER_TO_INT(column), &s2, -1);
 
     if(s2==NULL){
         free(s1);
 
-        return ret;//ako drugog nema prvi je prvi
+        return -1;//ako drugog nema prvi je prvi
     }
-    if(s1 != NULL && s2 != NULL) {
-
-        while((s1[i]>0 && s1[i]<65) || (s1[i]>=91 && s1[i]<=96)  || s1[i]>=123){
-
-                temp[0]=s1[i+1];
-
-            i++;
 
 
-        }
-        i=0;
-        while((s2[i]>0 && s2[i]<65) || (s2[i]>=91 && s2[i]<=96)  || s2[i]>=123){
-       // while((*s2>0 && *s2<65) || (*s2>=91 && *s2<=96)  || *s2>=123){
-         //   printf("[%s]\n",s2);
-            temp1[0]=s2[i+1];
-
-           // *s2=*temp1;
-            i++;
-
-        }
-
-
-            if(temp[0]>=65 && temp[0]<=90){
-                temp[0]+=32;
-            }
-            if(temp1[0]>=65 && temp1[0]<=90){
-                temp1[0]+=32;
-            }
-
-            ret = strcmp(temp, temp1);
-
-        }
-    else{
-
-
-        ret = 0;
-    }
+    ret = strcasecmp (s1,s2);
 
 
     if(s1 != NULL){
@@ -610,6 +570,9 @@ gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter 
     gchar *s1 ;
     gchar *s2 ;
 
+    gint i1 = 0;
+    gint i2 = 0;
+
     gint ret = 0;
 
 
@@ -624,8 +587,7 @@ gint compare_int_list_item(GtkTreeModel *model, GtkTreeIter *iter1, GtkTreeIter 
         return ret;//ako drugog nema prvi je prvi
     }
 
-    gint i1 = 0;
-    gint i2 = 0;
+
 
 
 
@@ -790,13 +752,11 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
     gchar *s2 = "";
     gchar *dt;
     gchar *dt1;
-    gchar *dt2;
-    gchar *dt3;
+
 
 
     gint ret = 0;
-    gint ret1 = 0;
-    gint ret2 = 0;
+
 
 
 
@@ -813,43 +773,38 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
         g_free(s1);
         return ret;//ako drugog nema prvi je prvi
     }
-    //minuti postavi pointer na prve : na koje naidje u broju karatktera koje mu postavimo
-   dt= g_strstr_len (s1, strlen(s1), ":");
-    dt1= g_strstr_len (s2, strlen(s2), ":");
 
-    dt=dt+1;//preskacemo 2 tacke
-    dt1=dt1+1;
-    dt2= g_strrstr (dt, ":");//sekunde
-    dt3= g_strrstr (dt1, ":");//sekunde postavi pointer na :
-    dt2=dt2+1;//preskacemo :
-    dt3=dt3+1;
+
 
     gint i1 = 0;
     gint i2 = 0;
-    gint i3 = 0;
-    gint i4 = 0;
 
 
-    if(s1!=NULL){
+
         i1=atoi(s1); //koliko je sati
 
-    }
-    if(s2!=NULL){
+
+
         i2=atoi(s2); //koliko je sati
 
-    }
+
     ret=i1-i2;
     if(ret==0){ //ako je u isto sati
 
-      //  if(dt!=NULL) {
+        //minuti postavi pointer na prve : na koje naidje u broju karatktera koje mu postavimo
+        dt= g_strstr_len (s1, strlen(s1), ":");
+        dt1= g_strstr_len (s2, strlen(s2), ":");
 
-            i3 = atoi(dt);
-       // }
+        dt=dt+1;//preskacemo 2 tacke
+        dt1=dt1+1;
+
+            i1 = atoi(dt);
 
 
-      //  if(dt1!=NULL)
-            i4 = atoi(dt1);
-        ret1= i3-i4;
+
+
+            i2 = atoi(dt1);
+        ret= i1-i2;
     }
     else {
         g_free(s1);
@@ -857,29 +812,27 @@ gint compare_int_list_item_time(GtkTreeModel *model, GtkTreeIter *iter1, GtkTree
         return ret;
     }
 
-    if(ret1==0){ //ako je u isto minuta
+    if(ret==0){ //ako je u isto minuta
 
 
-     /*   dt=dt+1;//preskacemo :
-        dt1=dt1+1;*/
-     //   if(dt2!=NULL) {
+        dt= strrchr (s1, ':');//sekunde
+        dt1= strrchr (s2, ':');//sekunde postavi pointer na :
+        dt=dt+1;//preskacemo :
+        dt1=dt1+1;
 
-            i3 = atoi(dt2);
-      //  }
+        i1 = atoi(dt);
+        i2 = atoi(dt1);
 
-
-     //   if(dt3!=NULL)
-            i4 = atoi(dt3);
-        ret2=i3-i4;
+        ret=i1-i2;
     }
     else {
         g_free(s1);
         g_free(s2);
-        return ret1;
+        return ret;
 
     }
     g_free(s1);
     g_free(s2);
-    return ret2;
+    return ret;
 }
 
